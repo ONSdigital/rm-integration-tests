@@ -1,0 +1,5 @@
+echo This test runs the SDX Gateway endpoints as specified in https://github.com/ONSdigital/rm-sdx-gateway/blob/master/swagger.yml. The test also confirms the casesvc has processed the responses as expected.
+echo Running @sdxGateway ....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @sdxGateway" -Dcuc.env=$1

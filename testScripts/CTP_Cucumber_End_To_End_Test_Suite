@@ -1,0 +1,29 @@
+echo This test runs the test which verifies the end to end process as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875
+echo Running Test Suite .....
+
+echo Create Initial Online Response
+./CTP_Cucumber_Initial_Response_Online $1
+
+echo Create Initial Paper Response
+./CTP_Cucumber_Initial_Response_Paper $1
+
+echo Create Additional Individual Response Online
+./CTP_Cucumber_Additional_Individual_Online $1
+
+echo Create Additional Individual Response Paper
+./CTP_Cucumber_Additional_Individual_Paper $1
+
+echo Create Additional Replacement Response Online
+./CTP_Cucumber_Additional_Replacement_Online $1
+
+echo Create Additional Replacement Response Paper
+./CTP_Cucumber_Additional_Replacement_Paper $1
+
+echo Helpline NO Response Expected
+./CTP_Cucumber_No_Response_Helpline $1
+
+echo Follow Up Tests
+./CTP_Cucumber_Follow_Up $1
+
+echo Helpline Translation Booklets
+./CTP_Cucumber_Other_Fulfilment_Booklets $1

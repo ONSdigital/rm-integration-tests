@@ -1,0 +1,5 @@
+echo This test runs MI report UI.
+echo Running @reportMI .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @reportMI" -Dcuc.env=$1

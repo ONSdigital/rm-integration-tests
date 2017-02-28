@@ -1,0 +1,5 @@
+echo Endpoint tests for the case service - details are in the swagger spec https://github.com/ONSdigital/response-management-service/blob/master/actionsvc-api/swagger.yml
+echo Running @actionsvc ...
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @actionsvc" -Dcuc.env=$1

@@ -1,0 +1,5 @@
+echo This test runs other tests which do not fall under other categories. e.g. defect tests
+echo Running @other .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @other" -Dcuc.env=$1

@@ -1,0 +1,5 @@
+echo This test runs the replacement paper response as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875.
+echo Running @replacePaperResponse .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @replacePaperResponse" -Dcuc.env=$1

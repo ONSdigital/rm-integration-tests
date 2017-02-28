@@ -1,0 +1,5 @@
+echo This test runs the initial paper response as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875.
+echo Running @paperResponse .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @paperResponse" -Dcuc.env=$1

@@ -1,0 +1,9 @@
+echo This test runs other tests which do not fall under other categories. e.g. defect tests
+echo Running Test Suite .....
+
+echo This test runs other tests.
+./CTP_Cucumber_Other_Tests $1
+
+echo This test runs the Jmeter test from Cucumber to confirm system stability
+./CTP_Cucumber_Jmeter_Stability $1
+

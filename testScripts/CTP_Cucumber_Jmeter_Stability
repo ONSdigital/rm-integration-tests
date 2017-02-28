@@ -1,0 +1,5 @@
+echo This test runs a jmeter test plan to confirm system stability.
+echo Running @jmeterStability .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @jmeterStability" -Dcuc.env=$1

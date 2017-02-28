@@ -1,0 +1,17 @@
+echo This test runs the test which verifies the end to end process as found in the swagger specs
+echo Running Test Suite .....
+
+echo Casesvc endpoint tests
+./CTP_Cucumber_Casesvc_Endpoints $1
+
+echo Actionsvc endpoint tests
+./CTP_Cucumber_Actionsvc_Endpoints $1
+
+echo ActionExporter endpoint tests
+./CTP_Cucumber_ActionExporter_Endpoints $1
+
+echo Iacsvc endpoint tests
+./CTP_Cucumber_Iacsvc_Endpoints $1
+
+echo Sdx Gateway endpoint tests
+./CTP_Cucumber_SDX_Gateway_Endpoints $1
