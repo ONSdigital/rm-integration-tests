@@ -5,11 +5,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.util.JmeterResponseAware;
 
@@ -36,6 +38,8 @@ public class JmeterSteps {
   private static final int EVENT_DURATION = 32;
   private static final int EVENT_MIN_DELAY = 38;
   private static final int EVENT_MAX_DELAY = 39;
+
+  private static final String REPORT_SUMMARY = "jmeter.reporters.Summariser";
 
   private final JmeterResponseAware responseAware;
 
@@ -106,6 +110,73 @@ public class JmeterSteps {
    */
   @When("^there are no reported errors in \"(.*?)\"$")
   public void there_are_no_reported_errors_in(String logFile) throws Throwable {
+    List<String> summary = getJmeterReportSummary(logFile, REPORT_SUMMARY);
+
+    for (String line: summary) {
+      assertTrue("Jmeter run includes errors: " + line, line.contains("Err:     0 (0.00%)"));
+    }
+  }
+
+  /**
+   * Check script response that the average time is below specified time
+   *
+   * @param aveTime average time in milliseconds test must be below
+   * @param logFile Jmeter log file where test summary is found
+   * @throws Throwable pass the exception
+   */
+  @Then("^the average time per request is (\\d+) in \"(.*?)\"$")
+  public void the_average_time_per_request_is_in(int aveTime, String logFile) throws Throwable {
+    List<String> summary = getJmeterReportSummary(logFile, REPORT_SUMMARY);
+
+    for (String line: summary) {
+      int average = getMillisecondsFromString(line, "Avg:", "Min:");
+      assertTrue("Average time per request to high: " + average, average < aveTime);
+    }
+  }
+
+  /**
+   * Check script response that the minimum time is below specified time
+   *
+   * @param minTime minimum time in milliseconds test must be below
+   * @param logFile Jmeter log file where test summary is found
+   * @throws Throwable pass the exception
+   */
+  @Then("^the min time per request is (\\d+) in \"(.*?)\"$")
+  public void the_min_time_per_request_is_in(int minTime, String logFile) throws Throwable {
+    List<String> summary = getJmeterReportSummary(logFile, REPORT_SUMMARY);
+
+    for (String line: summary) {
+      int minimum = getMillisecondsFromString(line, "Min:", "Max:");
+      assertTrue("Minimum time per request to high: " + minimum, minimum < minTime);
+    }
+  }
+
+  /**
+   * Check script response that the maximum time is below specified time
+   *
+   * @param maxTime maximum time in milliseconds test must be below
+   * @param logFile Jmeter log file where test summary is found
+   * @throws Throwable pass the exception
+   */
+  @Then("^the max time per request is (\\d+) in \"(.*?)\"$")
+  public void the_max_time_per_request_is_in(int maxTime, String logFile) throws Throwable {
+    List<String> summary = getJmeterReportSummary(logFile, REPORT_SUMMARY);
+
+    for (String line: summary) {
+      int maximum = getMillisecondsFromString(line, "Min:", "Max:");
+      assertTrue("Maximum time per request to high: " + maximum, maximum < maxTime);
+    }
+  }
+
+  /**
+   * Extract summary report from file
+   *
+   * @param logFile Jmeter log file where test summary is found
+   * @param reportSummariser string to identify summary lines from file
+   * @return List of lines in file which make up summary
+   */
+  private List<String> getJmeterReportSummary(String logFile, String reportSummariser) {
+    List<String> reportSummary = new ArrayList<String>();
     BufferedReader br = null;
 
     try {
@@ -114,8 +185,8 @@ public class JmeterSteps {
       br = new BufferedReader(new FileReader(logFile));
 
       while ((lineStr = br.readLine()) != null) {
-        if (lineStr.contains("jmeter.reporters.Summariser")) {
-          assertTrue("Jmeter run includes errors: " + lineStr, lineStr.contains("Err:     0 (0.00%)"));
+        if (lineStr.contains(reportSummariser)) {
+          reportSummary.add(lineStr);
         }
       }
     } catch (IOException ioe) {
@@ -129,5 +200,23 @@ public class JmeterSteps {
         System.out.println(ioex.getMessage());
       }
     }
+
+    return reportSummary;
+  }
+
+  /**
+   * Extract milliseconds from jmeter summary report
+   *
+   * @param line string to extract milliseconds from
+   * @param startStr string which marks the beginning of the milliseconds
+   * @param endStr string which marks the end of the milliseconds
+   * @return milliseconds as an integer
+   */
+  private int getMillisecondsFromString(String line, String startStr, String endStr) {
+    int start = line.indexOf(startStr);
+    int end = line.indexOf(endStr);
+    String subLine = line.substring(start + 4, end);
+
+    return Integer.parseInt(subLine.trim());
   }
 }
