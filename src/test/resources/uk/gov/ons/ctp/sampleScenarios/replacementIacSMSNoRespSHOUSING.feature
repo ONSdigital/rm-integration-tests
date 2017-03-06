@@ -130,8 +130,7 @@ Feature: Request replacement IAC SMS SHOUSING
     Given I make the GET call to the caseservice cases endpoint for case "11"
     And the response status should be 200
     And the response should contain the field "iac"
-    When using the IAC validate the IAC using the checksum
-    Given I make the GET call to the IAC service endpoint
+    When I make the GET call to the IAC service endpoint
     And the response status should be 200
     And the response should contain the field "questionSet" with value "H1"
 
