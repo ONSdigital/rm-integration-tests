@@ -2,8 +2,10 @@ package uk.gov.ons.ctp.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
+
+import javax.naming.AuthenticationException;
 
 import org.apache.jmeter.engine.StandardJMeterEngine;
 import org.apache.jmeter.reporters.ResultCollector;
@@ -11,6 +13,10 @@ import org.apache.jmeter.reporters.Summariser;
 import org.apache.jmeter.save.SaveService;
 import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.collections.HashTree;
+
+import com.jayway.jsonpath.JsonPath;
+
+import net.minidev.json.JSONArray;
 
 /**
  * Created by Stephen Goddard on 27/01/17.
@@ -29,6 +35,10 @@ public class JmeterResponseAware {
   private static final String TEST_SETUP_LOG = TEST_PLAN_LOG_LOC + "/setup.csv";
   private static final String TEST_STAB_LOG = TEST_PLAN_LOG_LOC + "/stability.csv";
 
+  private static final String TEST_PLAN_LOC_MI = TEST_PLAN_LOC + "/MIReports_Download.jmx";
+  private static final String TEST_REPORT_LOG = TEST_PLAN_LOG_LOC + "/MIreports.csv";
+  private HTTPResponseAware responseAware;
+  
   private World world;
 
   /**
@@ -38,6 +48,7 @@ public class JmeterResponseAware {
    */
   public JmeterResponseAware(final World newWorld) {
     this.world = newWorld;
+    this.responseAware = HTTPResponseAware.getInstance();
   }
 
   /**
@@ -53,6 +64,36 @@ public class JmeterResponseAware {
     runJmeter(jmeterProperties, TEST_SETUP_PLAN, TEST_SETUP_LOG);
   }
 
+  /**
+   * Run Jmeter setup test plan to prepare environment
+   *
+   * @param jmeterProperties properties passed into Cucumber
+ * @throws org.apache.http.auth.AuthenticationException 
+   */
+  public String invokeGetReportNumber(String reportType) throws IOException, AuthenticationException, org.apache.http.auth.AuthenticationException {
+	    String url = String.format("/reports/types/%s", reportType);
+	    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+	    JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
+	    String arrayString = jsonArray.toJSONString();
+	    String[] split =  arrayString.split(":");
+	    String reportId = split[5].substring(0, split[5].length() - 14);
+	    url = String.format("/reports/%s", reportId);
+	    
+	    return reportId; 
+	  
+	  }
+  
+  /**
+   * Run Jmeter to download MI report
+   *
+   * @param jmeterProperties properties passed into Cucumber
+   */
+  public void invokeDownloadMIReport(Properties jmeterProperties) {
+    jmeterProperties.setProperty("env", world.getProperty("cuc.ui.server"));
+    System.out.println(jmeterProperties);
+    runJmeter(jmeterProperties, TEST_PLAN_LOC_MI, TEST_REPORT_LOG);
+  }
+  
   /**
    * Run Jmeter stability test plan
    *

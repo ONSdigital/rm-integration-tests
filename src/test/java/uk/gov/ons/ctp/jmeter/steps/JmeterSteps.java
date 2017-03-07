@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.http.auth.AuthenticationException;
+
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -41,6 +43,8 @@ public class JmeterSteps {
 
   private static final String REPORT_SUMMARY = "jmeter.reporters.Summariser";
 
+  private static String MIREPORT_DOWNLOAD_LINK;
+  
   private final JmeterResponseAware responseAware;
 
   /**
@@ -68,6 +72,38 @@ public class JmeterSteps {
     responseAware.invokeEnvironmentSetupTestPlan(jmeterProps);
   }
 
+  /**
+   * Get URL for downloading MI Reports 
+ * @throws IOException 
+ * @throws AuthenticationException 
+ * @throws javax.naming.AuthenticationException 
+   */
+   @Then("^gets MI reports download link for \"(.*?)\"$")
+   public void gets_MI_reports_download_link_for(String reportType) throws AuthenticationException, IOException, javax.naming.AuthenticationException {
+    
+	   String caseNum = responseAware.invokeGetReportNumber(reportType);
+	   MIREPORT_DOWNLOAD_LINK = caseNum;
+   }
+  
+   /**
+    * Invoke Jmeter Download MiReports plan
+    *
+    * @param threads number of threads to run
+    * @param loops number of loops to run
+    * @throws Throwable pass the exception
+    */
+   @Given("^I run MIReport jmeter with (\\d+) threads and looping (\\d+)$")
+   public void i_run_MIReport_test_jmeter_with_threads_and_looping(String threads, String loops) throws Throwable {
+	 
+	 String downloadLink ="reports/download/case/" +  MIREPORT_DOWNLOAD_LINK;
+	   
+	 Properties jmeterProps = new Properties();
+     jmeterProps.setProperty("threads", threads);
+     jmeterProps.setProperty("loops", loops);
+     jmeterProps.setProperty("reportNum", downloadLink);
+     responseAware.invokeDownloadMIReport(jmeterProps);
+   }
+   
   /**
    * Invoke Jmeter stability test plan
    *
