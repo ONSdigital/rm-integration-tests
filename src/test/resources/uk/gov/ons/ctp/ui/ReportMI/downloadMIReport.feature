@@ -20,5 +20,5 @@ Feature: Report view contains correct data
     Given I run MIReport jmeter with 1 threads and looping 1
 	  When there are no reported errors in "./jmeter.log"
     Given get the contents of local file from "/tmp" where the filename begins "MI_Report.html"
-    And the contents of the file should equal "/tmp" where the filename begins "MI_Report_Test.html"
+    And the contents of the file should equal "./JMeter/test_files" where the filename begins "MI_Report_Test.html"
     Then remove file from "/tmp/RM_Report.html"
