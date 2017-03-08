@@ -361,6 +361,7 @@ public class CommonSteps {
   @Given("^get the contents of local file from \"(.*?)\" where the filename begins \"(.*?)\"$")
   public void Get_the_contents_of_local_file_from_where_the_filename_begins (String location, String actionType) throws Throwable {
 	  fileContent = new File (location + "/" + actionType);
+	  assertTrue("file does not exist: ",fileContent.exists());
   }
   
   /**
