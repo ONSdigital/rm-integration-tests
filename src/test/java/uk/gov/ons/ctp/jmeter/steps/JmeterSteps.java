@@ -43,8 +43,6 @@ public class JmeterSteps {
 
   private static final String REPORT_SUMMARY = "jmeter.reporters.Summariser";
 
-  private static String MIREPORT_DOWNLOAD_LINK;
-  
   private final JmeterResponseAware responseAware;
 
   /**
@@ -73,18 +71,17 @@ public class JmeterSteps {
   }
 
   /**
-   * Get URL for downloading MI Reports 
- * @throws IOException 
- * @throws AuthenticationException 
- * @throws javax.naming.AuthenticationException 
+   * Get report number for downloading MI Reports
+   *
+   * @throws IOException 
+   * @throws AuthenticationException 
+   * @throws javax.naming.AuthenticationException 
    */
    @Then("^gets MI reports download link for \"(.*?)\"$")
-   public void gets_MI_reports_download_link_for(String reportType) throws AuthenticationException, IOException, javax.naming.AuthenticationException {
-    
-	   String caseNum = responseAware.invokeGetReportNumber(reportType);
-	   MIREPORT_DOWNLOAD_LINK = caseNum;
+   public void gets_MI_reports_download_link_for(String reportType) throws Throwable {
+     responseAware.invokeGetReportNumber(reportType);
    }
-  
+
    /**
     * Invoke Jmeter Download MiReports plan
     *
@@ -94,16 +91,13 @@ public class JmeterSteps {
     */
    @Given("^I run MIReport jmeter with (\\d+) threads and looping (\\d+)$")
    public void i_run_MIReport_test_jmeter_with_threads_and_looping(String threads, String loops) throws Throwable {
-	 
-	 String downloadLink ="reports/download/case/" +  MIREPORT_DOWNLOAD_LINK;
-	   
-	 Properties jmeterProps = new Properties();
+     Properties jmeterProps = new Properties();
      jmeterProps.setProperty("threads", threads);
      jmeterProps.setProperty("loops", loops);
-     jmeterProps.setProperty("reportNum", downloadLink);
+
      responseAware.invokeDownloadMIReport(jmeterProps);
    }
-   
+
   /**
    * Invoke Jmeter stability test plan
    *

@@ -2,11 +2,11 @@ package uk.gov.ons.ctp.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import javax.naming.AuthenticationException;
-
+import org.apache.http.auth.AuthenticationException;
 import org.apache.jmeter.engine.StandardJMeterEngine;
 import org.apache.jmeter.reporters.ResultCollector;
 import org.apache.jmeter.reporters.Summariser;
@@ -24,22 +24,22 @@ import net.minidev.json.JSONArray;
 public class JmeterResponseAware {
   private static final String JMETER_HOME = "/var/lib/apache-jmeter-3.1";
   private static final String JMETER_PROP_FILE = JMETER_HOME + "/bin/jmeter.properties";
-
+  // Jmeter test plans
   private static final String TEST_PLAN_LOC = "./JMeter";
   private static final String TEST_FILES_LOC = TEST_PLAN_LOC + "/test_files";
   private static final String TEST_SETUP_PLAN = TEST_PLAN_LOC + "/Test_Setup.jmx";
   private static final String TEST_STAB_PLAN = TEST_PLAN_LOC + "/Stability_Load.jmx";
-
+  private static final String TEST_PLAN_LOC_MI = TEST_PLAN_LOC + "/MIReports_Download.jmx";
+  // Jmeter logs
   private static final String TEST_PLAN_LOG_LOC = JMETER_HOME + "/logs";
   private static final String TEST_PAPER_FILE = TEST_PLAN_LOG_LOC + "/paperquestionnairereceipts.csv";
   private static final String TEST_SETUP_LOG = TEST_PLAN_LOG_LOC + "/setup.csv";
   private static final String TEST_STAB_LOG = TEST_PLAN_LOG_LOC + "/stability.csv";
-
-  private static final String TEST_PLAN_LOC_MI = TEST_PLAN_LOC + "/MIReports_Download.jmx";
   private static final String TEST_REPORT_LOG = TEST_PLAN_LOG_LOC + "/MIreports.csv";
+
   private HTTPResponseAware responseAware;
-  
   private World world;
+  private String reportNumber;
 
   /**
    * Constructor
@@ -65,24 +65,25 @@ public class JmeterResponseAware {
   }
 
   /**
-   * Run Jmeter setup test plan to prepare environment
+   * Get the most recent report number and store for other steps to use
    *
-   * @param jmeterProperties properties passed into Cucumber
- * @throws org.apache.http.auth.AuthenticationException 
+   * @param reportType report type to get
    */
-  public String invokeGetReportNumber(String reportType) throws IOException, AuthenticationException, org.apache.http.auth.AuthenticationException {
+  public void invokeGetReportNumber(String reportType) {
+	  try {
 	    String url = String.format("/reports/types/%s", reportType);
-	    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
-	    JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
-	    String arrayString = jsonArray.toJSONString();
-	    String[] split =  arrayString.split(":");
-	    String reportId = split[5].substring(0, split[5].length() - 14);
-	    url = String.format("/reports/%s", reportId);
-	    
-	    return reportId; 
-	  
-	  }
-  
+      responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+    } catch (AuthenticationException ae) {
+      ae.printStackTrace();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+
+	  JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
+	  Map<?, ?> entry = (Map<?, ?>) jsonArray.get(0);
+	  reportNumber = entry.get("reportId").toString();
+	}
+
   /**
    * Run Jmeter to download MI report
    *
@@ -90,10 +91,15 @@ public class JmeterResponseAware {
    */
   public void invokeDownloadMIReport(Properties jmeterProperties) {
     jmeterProperties.setProperty("env", world.getProperty("cuc.ui.server"));
+    jmeterProperties.setProperty("uiPort", world.getProperty("cuc.ui.port"));
+    jmeterProperties.setProperty("reportUser", world.getProperty("integration.test.report.username"));
+    jmeterProperties.setProperty("reportPassword", world.getProperty("integration.test.report.password"));
+    jmeterProperties.setProperty("reportNumber", reportNumber);
     System.out.println(jmeterProperties);
+
     runJmeter(jmeterProperties, TEST_PLAN_LOC_MI, TEST_REPORT_LOG);
   }
-  
+
   /**
    * Run Jmeter stability test plan
    *
