@@ -351,40 +351,43 @@ public class CommonSteps {
     System.out.format("About to wait for %d seconds...", seconds);
     Thread.sleep(seconds * MILLI_TO_SECONDS);
   }
-  
+
   /**
    * Utility which adds file reader
    *
-   * @param file location
+   * @param location file location
+   * @param fileName file name
    * @throws Throwable pass the exception
    */
   @Given("^get the contents of local file from \"(.*?)\" where the filename begins \"(.*?)\"$")
-  public void Get_the_contents_of_local_file_from_where_the_filename_begins (String location, String actionType) throws Throwable {
-	  fileContent = new File (location + "/" + actionType);
-	  assertTrue("file does not exist: ",fileContent.exists());
+  public void Get_the_contents_of_local_file_from_where_the_filename_begins(String location, String fileName)
+      throws Throwable {
+    fileContent = new File(location + "/" + fileName);
+    assertTrue("file does not exist: ", fileContent.exists());
   }
-  
+
   /**
    * Confirm the down loaded file contains corrected details
    *
-   * @param fiel location
+   * @param location file location
+   * @param fileName file name
    * @throws Throwable pass the exception
    */
   @When("^the contents of the file should equal \"(.*?)\" where the filename begins \"(.*?)\"$")
-  public void the_contents_of_the_file_should_equal_where_the_filename_begins(String location, String fileName) throws Throwable {
-
-	  File fileTest = new File(location +"/"+ fileName);  
-	  assertTrue("file does not match downloaded file", FileUtils.contentEquals(fileContent, fileTest));
+  public void the_contents_of_the_file_should_equal_where_the_filename_begins(String location, String fileName)
+      throws Throwable {
+    File fileTest = new File(location + "/" + fileName);
+    assertTrue("file does not match downloaded file", FileUtils.contentEquals(fileContent, fileTest));
   }
-  
+
   /**
    * Utility which remove file from a location
    *
-   * @param file location
+   * @param location file location
    * @throws Throwable pass the exception
-   */  
+   */
   @Then("^remove file from \"(.*?)\"$")
   public void remove_file_from(String location) throws Throwable {
-	  fileContent.delete();
+    fileContent.delete();
   }
 }

@@ -70,9 +70,8 @@ public class JmeterResponseAware {
    * @param reportType report type to get
    */
   public void invokeGetReportNumber(String reportType) {
-	  
-	try {
-	  String url = String.format("/reports/types/%s", reportType);
+    try {
+      String url = String.format("/reports/types/%s", reportType);
       responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
     } catch (AuthenticationException ae) {
       ae.printStackTrace();
@@ -80,10 +79,10 @@ public class JmeterResponseAware {
       ioe.printStackTrace();
     }
 
-	  JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
-	  Map<?, ?> entry = (Map<?, ?>) jsonArray.get(0);
-	  reportNumber = entry.get("reportId").toString();
-	}
+    JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
+    Map<?, ?> entry = (Map<?, ?>) jsonArray.get(0);
+    reportNumber = entry.get("reportId").toString();
+  }
 
   /**
    * Run Jmeter to download MI report

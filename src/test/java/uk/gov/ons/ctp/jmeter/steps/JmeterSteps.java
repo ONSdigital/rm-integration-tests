@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.http.auth.AuthenticationException;
-
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -73,9 +71,8 @@ public class JmeterSteps {
   /**
    * Get report number for downloading MI Reports
    *
-   * @throws IOException 
-   * @throws AuthenticationException 
-   * @throws javax.naming.AuthenticationException 
+   * @param reportType report type to get number for
+   * @throws Throwable pass the exception
    */
    @Then("^gets MI reports download link for \"(.*?)\"$")
    public void gets_MI_reports_download_link_for(String reportType) throws Throwable {
