@@ -27,6 +27,6 @@ Feature: Run Jmeter Tests
 			| Paper  | 2       | 60       | 1000000000000141 | 1000000000000180 |                 |                  | false			| 500       | 5000      |
 			| Event  | 5       | 60       |                  |                  |                 |                  |            | 300       | 3000      |
 		When there are no reported errors in "./jmeter.log"
-		Then the average time per request is 2500 in "./jmeter.log"
+		Then the average time per request is 5000 in "./jmeter.log"
 		And the min time per request is 400 in "./jmeter.log"
 		And the max time per request is 6100 in "./jmeter.log"
