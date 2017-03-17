@@ -62,7 +62,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
 
 
   Scenario: check that the Case appears in the UI with the correct address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 3EE"
     Then selects case for address "11 DEER PARK ROAD"
     And navigates to the cases page for case "1"
@@ -98,7 +98,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
 
 
   Scenario: Request replacement IAC Online
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 3EE"
     And selects case for address "11 DEER PARK ROAD"
     And navigates to the cases page for case "1"
@@ -109,7 +109,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
 
 
   Scenario: check that the Case appears in the UI with the correct address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 3EE"
     Then selects case for address "11 DEER PARK ROAD"
     And navigates to the cases page for case "11"
@@ -138,7 +138,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
 
 
   Scenario: Confirmed the UI reflects the online response receipt
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13EE"
     And selects case for address "11 DEER PARK ROAD"
     And the case state should be "ACTIONABLE"
@@ -163,7 +163,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
 
 
   Scenario: Confirmed the UI reflects the online response receipt
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13EE"
     And selects case for address "11 DEER PARK ROAD"
     And the case state should be "ACTIONABLE"

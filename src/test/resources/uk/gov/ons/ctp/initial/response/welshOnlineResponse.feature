@@ -152,7 +152,7 @@ Feature: Test successfull Welsh online response
 	# CTPA-524
   @onlineActionableUI
   Scenario: Test that the case is in a state of Actionable using UI
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
     And the case state should be "ACTIONABLE"
@@ -185,7 +185,7 @@ Feature: Test successfull Welsh online response
 
   @onlinePrinterUI
   Scenario: This scenario tests that the case event created
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
     And the case state should be "ACTIONABLE"
@@ -214,7 +214,7 @@ Feature: Test successfull Welsh online response
 
 	@onlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
     And the case state should be "ACTIONABLE"
@@ -255,7 +255,7 @@ Feature: Test successfull Welsh online response
 
 	@onlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
     And the case state should be "INACTIONABLE"
@@ -280,7 +280,7 @@ Feature: Test successfull Welsh online response
 
 	@onlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
     And the case state should be "INACTIONABLE"

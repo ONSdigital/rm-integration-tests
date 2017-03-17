@@ -62,7 +62,7 @@ Feature: Testing user requesting Individual form by SMS
 
 
 	Scenario: check that the Case appears in the UI with the correct address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF2 6HS"
     Then selects case for address "11 ABBOTS CLOSE"
     And navigates to the cases page for case "5"
@@ -98,7 +98,7 @@ Feature: Testing user requesting Individual form by SMS
 
 
 	Scenario: Ui request for individual online request
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF26HS"
     And selects case for address "11 ABBOTS CLOSE"
     And the case state should be "ACTIONABLE"
@@ -110,7 +110,7 @@ Feature: Testing user requesting Individual form by SMS
 
 
 	Scenario: check that the Case appears in the UI with the correct address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF2 6HS"
     Then selects case for address "11 ABBOTS CLOSE"
     And navigates to the cases page for case "11"
@@ -139,7 +139,7 @@ Feature: Testing user requesting Individual form by SMS
 
   Scenario: This scenario tests that the case event created
     Given after a delay of 150 seconds
-    When the user has logged in using "Chrome"
+    When the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF2 6HS"
     And selects case for address "11 ABBOTS CLOSE"
     And the case state should be "ACTIONABLE"

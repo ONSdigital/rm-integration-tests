@@ -57,7 +57,7 @@ Feature: Review Cases and Case Groups
   # Run UI Case and Casegroup Tests -----
   @viewAllCasesForAddress
   Scenario: See all cases related to an address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     Then check if any cases associated with address
@@ -65,7 +65,7 @@ Feature: Review Cases and Case Groups
 
   @viewContactNameAssociatedToIndividualCase
   Scenario: Ui request for individual online request
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -76,7 +76,7 @@ Feature: Review Cases and Case Groups
 
   @viewContactNameAssociatedToIndividualCase
   Scenario: See contact name associated to individual case
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
@@ -85,7 +85,7 @@ Feature: Review Cases and Case Groups
 
   @viewContactNameAssociatedToReplacementCase
   Scenario: Ui request for HH replacement IAC
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"
@@ -96,7 +96,7 @@ Feature: Review Cases and Case Groups
 
   @identifyThatPostcodeHasNoCasesAssociated
   Scenario: Test if no cases for address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF11PX"
     And selects case for address "10 HEATHER DRIVE"
     Then check if any cases associated with address

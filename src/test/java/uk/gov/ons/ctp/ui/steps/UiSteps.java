@@ -34,24 +34,13 @@ public class UiSteps {
   /**
    * Login to UI
    *
-   * @param browser string representation of the browser to be used
+   * @param user string representation of the user
+   * @param browser string representation of the browser
    * @throws Throwable pass the exception
    */
-  @Given("^the user has logged in using \"(.*?)\"$")
-  public void the_user_has_logged_in_using(String browser) throws Throwable {
-    responseAware.invokeUILogin(browser);
-  }
-
-  /**
-   * Escalation manager login to UI
-   *
-   * @param user type of user logging in
-   * @param browser string representation of the browser to be used
-   * @throws Throwable pass the exception
-   */
-  @When("^the user login as \"(.*?)\" using \"(.*?)\"$")
-  public void the_user_login_as_using(String user, String browser) throws Throwable {
-    responseAware.invokeUIOtherLogin(browser, user);
+  @Given("^the \"(.*?)\" user has logged in using \"(.*?)\"$")
+  public void the_user_has_logged_in_using(String user, String browser) throws Throwable {
+    responseAware.invokeUILogin(user, browser);
   }
 
   /**

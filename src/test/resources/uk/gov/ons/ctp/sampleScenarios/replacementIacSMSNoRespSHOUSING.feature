@@ -99,7 +99,7 @@ Feature: Request replacement IAC SMS SHOUSING
 
   @requestReplacementIACOnline
   Scenario: Request replacement IAC Online
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 12 PARK LODGE"
     And navigates to the cases page for case "4"
@@ -146,7 +146,7 @@ Feature: Request replacement IAC SMS SHOUSING
 
   @replaceOnlineRespondedUI
   Scenario: Confirmed the UI reflects the online response receipt
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 12 PARK LODGE"
     And the case state should be "ACTIONABLE"
@@ -165,7 +165,7 @@ Feature: Request replacement IAC SMS SHOUSING
 
   @replaceOnlineRespondedUI
   Scenario: Confirmed the UI reflects the online response receipt
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 12 PARK LODGE"
     And the case state should be "ACTIONABLE"

@@ -168,7 +168,7 @@ Feature: Validating SDX Gateway requests
 
 	@onlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "INACTIONABLE"
@@ -178,7 +178,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -188,7 +188,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "12 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -198,7 +198,7 @@ Feature: Validating SDX Gateway requests
 		
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "13 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -208,7 +208,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects no paper response received
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "14 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -218,7 +218,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "15 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -228,7 +228,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "16 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -238,7 +238,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "17 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -248,7 +248,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "18 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -258,7 +258,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "19 EMRAL RISE"
     And the case state should be "INACTIONABLE"
@@ -268,7 +268,7 @@ Feature: Validating SDX Gateway requests
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state should be "INACTIONABLE"

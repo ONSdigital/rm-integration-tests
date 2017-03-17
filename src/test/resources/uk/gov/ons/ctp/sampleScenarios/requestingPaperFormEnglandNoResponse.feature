@@ -61,7 +61,7 @@ Feature: Test successful follow up reminder letters with no response
 
   Scenario: Request a paper form
   	Given after a delay of 30 seconds
-    When the user login as "CSO" using "Chrome"
+    When the "CSO" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF1 1LZ"
     And selects case for address "6 LOWE COURT"
     And navigates to the cases page for case "6"
@@ -77,7 +77,7 @@ Feature: Test successful follow up reminder letters with no response
 
 
   Scenario: Checks new case
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 1LZ"
     And selects case for address "6 LOWE COURT"
     And navigates to the cases page for case "11"
@@ -112,7 +112,7 @@ Feature: Test successful follow up reminder letters with no response
 
 
   Scenario: Check Field visit is created
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 1LZ"
     And selects case for address "6 LOWE COURT"
     And navigates to the cases page for case "11"

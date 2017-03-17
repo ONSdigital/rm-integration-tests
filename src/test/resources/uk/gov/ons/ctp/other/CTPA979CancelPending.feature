@@ -89,7 +89,7 @@ Feature: Test that responded cases does not leave action in cancel_pending state
 
 	@fieldInitialUI
 	Scenario: Confirmed the UI reflects the print file generation
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF15LB"
     And selects case for address "1 FOLDSTON TERRACE"
     And the case state should be "ACTIONABLE"

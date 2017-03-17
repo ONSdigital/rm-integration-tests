@@ -119,7 +119,7 @@ Feature: Test successfull replacements for HH and individual paper response
 
 	@requestIndividualUI
 	Scenario: Ui request for individual paper request
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -163,7 +163,7 @@ Feature: Test successfull replacements for HH and individual paper response
 	# CTPA-756
 	@requestHHReplaceUI
 	Scenario: Ui request for HH replacement IAC
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -174,7 +174,7 @@ Feature: Test successfull replacements for HH and individual paper response
 
   @requestIndividualReplaceUI
 	Scenario: Ui request for individual replacement IAC
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -328,7 +328,7 @@ Feature: Test successfull replacements for HH and individual paper response
 
 	@replacePaperRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state for "12" and "ACTIONABLE"
@@ -338,7 +338,7 @@ Feature: Test successfull replacements for HH and individual paper response
 		
 	@replacePaperRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state for "13" and "ACTIONABLE"
@@ -418,7 +418,7 @@ Feature: Test successfull replacements for HH and individual paper response
 
 	@replacePaperRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state for "12" and "INACTIONABLE"
@@ -428,7 +428,7 @@ Feature: Test successfull replacements for HH and individual paper response
 		
 	@replacePaperRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state for "13" and "INACTIONABLE"
@@ -466,7 +466,7 @@ Feature: Test successfull replacements for HH and individual paper response
 
 	@replacePaperRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state for "12" and "INACTIONABLE"
@@ -476,7 +476,7 @@ Feature: Test successfull replacements for HH and individual paper response
 		
 	@replacePaperRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state for "13" and "INACTIONABLE"

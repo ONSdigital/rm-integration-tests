@@ -12,7 +12,7 @@ Scenario: Clean DB to pre test condition
     And call the "actionexporter.generate_print_volumes_mi()" function
     
 Scenario: Check that the report table contains the correct values
-Given the user login as "Report" using "Chrome"
+Given the "Report" user has logged in using "Chrome"
 	 Then navigates to the "Reports" page
 	 And navigates to the "HL Metrics" page
 	 And there is no error message
@@ -25,7 +25,7 @@ Given the user login as "Report" using "Chrome"
 	 And the user logs out
 
 Scenario: Check that the report table contains the correct values
-Given the user login as "Report" using "Chrome"
+Given the "Report" user has logged in using "Chrome"
 	 Then navigates to the "Reports" page
 	 And navigates to the "Print Volumes" page
 	 And there is no error message

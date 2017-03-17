@@ -132,7 +132,7 @@ Feature: Test successful individual online response
 	# CTPA-760
 	@requestIndSMSUI
 	Scenario: Ui request for individual online request
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -173,7 +173,7 @@ Feature: Test successful individual online response
 	# CTPA-524
 	@indActionableUI
 	Scenario: Tests that the case is in a state of ACTIONABLE
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -194,7 +194,7 @@ Feature: Test successful individual online response
 
 	@indPrinterUI
   Scenario: This scenario tests that the case event created
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -223,7 +223,7 @@ Feature: Test successful individual online response
 
 	@onlineRespondedUI
 	Scenario: Create event to show the IAC has been accessed
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -264,7 +264,7 @@ Feature: Test successful individual online response
 
 	@indOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state for "11" and "INACTIONABLE"
@@ -302,7 +302,7 @@ Feature: Test successful individual online response
 		
 	@onlineRespondedUI
 	Scenario: Create event to show the IAC has been accessed
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "INACTIONABLE"

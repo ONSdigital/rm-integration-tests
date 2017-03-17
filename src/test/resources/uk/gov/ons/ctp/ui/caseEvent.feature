@@ -74,7 +74,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create an Accessibility case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
@@ -88,7 +88,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create an address details incorrect case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 2"
     And navigates to the cases page for case "2"
@@ -102,7 +102,7 @@ Feature: Test UI create events scenarios
 
 	@createEvent
   Scenario: Create a Classification Incorrect case event - full testing found in helpline.feature
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
     And navigates to the cases page for case "3"
@@ -117,7 +117,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create a Field Complaint Escalated case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 4"
     And navigates to the cases page for case "4"
@@ -131,7 +131,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create a Field Emergency Escalated case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 5"
     And navigates to the cases page for case "5"
@@ -145,7 +145,7 @@ Feature: Test UI create events scenarios
 
 	@createEvent
   Scenario: Create a General Complaint case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 6"
     And navigates to the cases page for case "6"
@@ -159,7 +159,7 @@ Feature: Test UI create events scenarios
 
 	@createEvent
   Scenario: Create a General Complaint - Escalated case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 7"
     And navigates to the cases page for case "7"
@@ -173,7 +173,7 @@ Feature: Test UI create events scenarios
 
 	@createEvent
   Scenario: Create a General Enquiry case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 8"
     And navigates to the cases page for case "8"
@@ -187,7 +187,7 @@ Feature: Test UI create events scenarios
 
 	@createEvent
   Scenario: Create a General Enquiry – Escalated case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 9"
     And navigates to the cases page for case "9"
@@ -201,7 +201,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create a Miscellaneous case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"
@@ -215,7 +215,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create a refusal case event - full testing found in helpline.feature
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "THE FLAT"
     And navigates to the cases page for case "11"
@@ -231,7 +231,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create a Technical Query case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "1 BEAUMARIS ROAD"
     And navigates to the cases page for case "12"
@@ -245,7 +245,7 @@ Feature: Test UI create events scenarios
 
 	@createEvent
   Scenario: Create an Undeliverable case event - full testing found in helpline.feature
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "2 BEAUMARIS ROAD"
     And navigates to the cases page for case "13"
@@ -260,7 +260,7 @@ Feature: Test UI create events scenarios
 
   @createEvent
   Scenario: Create a case event with 250 characters
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "3 BEAUMARIS ROAD"
     And navigates to the cases page for case "14"

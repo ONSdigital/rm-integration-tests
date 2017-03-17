@@ -87,7 +87,7 @@ Feature: Test helpline no response expected
 	# CTPA-765
   @refusalRequest
   Scenario: Create an refusal case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -98,7 +98,7 @@ Feature: Test helpline no response expected
     
   @classificationIncorrectRequest
   Scenario: Create an Classification Incorrect case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
     And the case state should be "ACTIONABLE"
@@ -109,7 +109,7 @@ Feature: Test helpline no response expected
     
   @undeliverableRequest
   Scenario: Create an Undeliverable case event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state should be "ACTIONABLE"
@@ -124,7 +124,7 @@ Feature: Test helpline no response expected
 	# CTPA-753
   @caseStateRefusalCheck
   Scenario: Test successful notification for a refusal event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "INACTIONABLE"
@@ -134,7 +134,7 @@ Feature: Test helpline no response expected
 
   @caseStateClassificationIncorrectCheck
   Scenario: Test successful notification for a classification incorrect event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
     And the case state should be "INACTIONABLE"
@@ -144,7 +144,7 @@ Feature: Test helpline no response expected
 
   @caseStateUndeliverableCheck
   Scenario: Test successful notification for a undeliverable event
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state should be "INACTIONABLE"

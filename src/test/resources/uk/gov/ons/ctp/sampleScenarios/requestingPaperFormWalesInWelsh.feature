@@ -58,7 +58,7 @@ Feature: Test successfull follow up reminder letters - Wales in Welsh
 
   Scenario: Request a paper form
   	Given after a delay of 30 seconds
-    When the user login as "CSO" using "Chrome"
+    When the "CSO" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF1 5LT"
     And selects case for address "57 CALDERA ROAD"
     And navigates to the cases page for case "8"
@@ -74,7 +74,7 @@ Feature: Test successfull follow up reminder letters - Wales in Welsh
 
 
   Scenario: Request a paper form
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 5LT"
     And selects case for address "57 CALDERA ROAD"
     And navigates to the cases page for case "8"

@@ -55,7 +55,7 @@ Feature: Review Event History of Case
 
   @viewAllEventsForCase
   Scenario: View all events associated to a case
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"
@@ -63,7 +63,7 @@ Feature: Review Event History of Case
 
   @viewCaseResponse
   Scenario: Identify if a response has been submitted to a case
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"

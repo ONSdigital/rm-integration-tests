@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -35,64 +36,46 @@ public class UiResponseAware extends SeleniumAware {
   }
 
   /**
-   * Initialise browser and login to UI
+   * Initialise browser and login to UI using the user
    *
+   * @param user string representation of the user
    * @param browser string representation of the browser to be used
    */
-  public void invokeUILogin(String browser) {
-    initialiseWebDriver(browser);
-
-    invokeNavigateToPage(getWorld().getUiUrl("/signin"));
-
-    WebElement inputUsername = getWebDriver().findElement(By.id("username"));
-    inputUsername.sendKeys(getWorld().getProperty("integration.test.username"));
-    WebElement inputPassword = getWebDriver().findElement(By.xpath("//input[@placeholder='Password']"));
-    inputPassword.sendKeys(getWorld().getProperty("integration.test.password"));
-
-    getWebDriver().findElement(By.xpath("//input[@type='submit']")).click();
-  }
-
-  /**
-   * Initialise browser and login to UI as other users
-   * General
-   * Field
-   * Error
-   *
-   * @param browser string representation of the browser to be used
-   * @param userType type of user to login
-   */
-  public void invokeUIOtherLogin(String browser, String userType) {
-    initialiseWebDriver(browser);
-
-    invokeNavigateToPage(getWorld().getUiUrl("/signin"));
-
+  public void invokeUILogin(String user, String browser) {
     String username = "";
     String password = "";
-    if (userType.equals("CSO")) {
-      username = getWorld().getProperty("integration.test.cso.username");
-      password = getWorld().getProperty("integration.test.cso.password");
-    } else if (userType.equals("General")) {
-      username = getWorld().getProperty("integration.test.general.username");
-      password = getWorld().getProperty("integration.test.general.password");
-    } else if (userType.equals("Field")) {
-     username = getWorld().getProperty("integration.test.field.username");
-     password = getWorld().getProperty("integration.test.field.password");
-    } else if (userType.equals("Report")) {
-      username = getWorld().getProperty("integration.test.report.username");
-      password = getWorld().getProperty("integration.test.report.password");
-    } else if (userType.equals("Error")) {
-      username = getWorld().getProperty("integration.test.error.username");
-      password = getWorld().getProperty("integration.test.error.password");
+
+    switch (user.toLowerCase()) {
+      case "test":
+        username = getWorld().getProperty("integration.test.username");
+        password = getWorld().getProperty("integration.test.password");
+      case "cso":
+        username = getWorld().getProperty("integration.test.cso.username");
+        password = getWorld().getProperty("integration.test.cso.password");
+      case "general":
+        username = getWorld().getProperty("integration.test.general.username");
+        password = getWorld().getProperty("integration.test.general.password");
+      case "field":
+        username = getWorld().getProperty("integration.test.report.username");
+        password = getWorld().getProperty("integration.test.report.password");
+      case "report":
+        username = getWorld().getProperty("integration.test.report.username");
+        password = getWorld().getProperty("integration.test.report.password");
+      case "error":
+        username = getWorld().getProperty("integration.test.error.username");
+        password = getWorld().getProperty("integration.test.error.password");
+      default:
+        username = getWorld().getProperty("integration.test.username");
+        password = getWorld().getProperty("integration.test.password");
     }
 
-    WebElement inputUsername = getWebDriver().findElement(By.id("username"));
-    inputUsername.sendKeys(username);
-    WebElement inputPassword = getWebDriver().findElement(By.xpath("//input[@placeholder='Password']"));
-    inputPassword.sendKeys(password);
+    initialiseWebDriver(browser);
 
-    getWebDriver().findElement(By.xpath("//input[@type='submit']")).click();
+    invokeNavigateToPage(getWorld().getUiUrl("/signin"));
+
+    SignInResponseOperation signIn = new SignInResponseOperation(webDriver);
+    signIn.login(username, password);
   }
-
 
   /**
    * Checks the permission of user that has logged in are correct
@@ -127,12 +110,15 @@ public class UiResponseAware extends SeleniumAware {
     System.out.println("Error: unexpected result");
     return false;
   }
+
   /**
    * Enter a postcode to page and enter
    *
    * @param postcode string representation of postcode
    */
   public void invokeUIPostcodeSelect(String postcode) {
+    // Note postcode field not part of form HtmlUnit will not recognise element.
+    // Skip entering postcode and go direct using URL.
     final String url = String.format("/postcodes/%s", postcode);
     invokeGoToPage(url);
   }

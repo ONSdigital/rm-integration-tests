@@ -121,7 +121,7 @@ Feature: Initial set up SHOUSING
 
 	@initialSetUpInitialUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 1 PARK LODGE"
     And the case state should be "ACTIONABLE"
@@ -140,7 +140,7 @@ Feature: Initial set up SHOUSING
 
 	@initialSetUpLettersUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 1 PARK LODGE"
     And the case state should be "ACTIONABLE"

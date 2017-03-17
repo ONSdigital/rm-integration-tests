@@ -89,7 +89,7 @@ Feature: Request replacement IAC SMS UNIVERSITY
 
   @requestReplacementIACOnline
   Scenario: Request replacement IAC Online
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "S14GJ"
     And selects case for address "FLAT D1"
     And navigates to the cases page for case "1"
@@ -136,7 +136,7 @@ Feature: Request replacement IAC SMS UNIVERSITY
 
   @replaceOnlineRespondedUI
   Scenario: Confirmed the UI reflects the online response receipt
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "S14GJ"
     And selects case for address "FLAT D1"
     And the case state should be "ACTIONABLE"

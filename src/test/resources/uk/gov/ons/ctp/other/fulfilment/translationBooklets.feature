@@ -110,7 +110,7 @@ Feature: Test other fulfilment translation booklets
 	# CTPA-558
 	@arabicRequest
   Scenario: Request Arabic translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -120,7 +120,7 @@ Feature: Test other fulfilment translation booklets
 
   @bengaliRequest
   Scenario: Request Bengali translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 2"
     And the case state should be "ACTIONABLE"
@@ -130,7 +130,7 @@ Feature: Test other fulfilment translation booklets
 
   @cantoneseRequest
   Scenario: Request Cantonese translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
     And the case state should be "ACTIONABLE"
@@ -140,7 +140,7 @@ Feature: Test other fulfilment translation booklets
 
   @gujaratiRequest
   Scenario: Request Gujarati translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 4"
     And the case state should be "ACTIONABLE"
@@ -150,7 +150,7 @@ Feature: Test other fulfilment translation booklets
 
   @lithuanianRequest
   Scenario: Request Lithuanian translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 5"
     And the case state should be "ACTIONABLE"
@@ -160,7 +160,7 @@ Feature: Test other fulfilment translation booklets
 
   @mandarinRequest
   Scenario: Request Mandarin translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 6"
     And the case state should be "ACTIONABLE"
@@ -170,7 +170,7 @@ Feature: Test other fulfilment translation booklets
 
   @polishRequest
   Scenario: Request Polish translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 7"
     And the case state should be "ACTIONABLE"
@@ -180,7 +180,7 @@ Feature: Test other fulfilment translation booklets
 
   @portugueseRequest
   Scenario: Request Portuguese translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 8"
     And the case state should be "ACTIONABLE"
@@ -190,7 +190,7 @@ Feature: Test other fulfilment translation booklets
 
   @gurmukhiRequest
   Scenario: Request Punjabi - Gurmukhi translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 9"
     And the case state should be "ACTIONABLE"
@@ -200,7 +200,7 @@ Feature: Test other fulfilment translation booklets
 
   @shalmukiRequest
   Scenario: Request Punjabi - Shalmuki translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state should be "ACTIONABLE"
@@ -210,7 +210,7 @@ Feature: Test other fulfilment translation booklets
 
   @somaliRequest
   Scenario: Request Somali translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "THE FLAT"
     And the case state should be "ACTIONABLE"
@@ -220,7 +220,7 @@ Feature: Test other fulfilment translation booklets
 
   @spanishRequest
   Scenario: Request Spanish translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "1 BEAUMARIS ROAD"
     And the case state should be "ACTIONABLE"
@@ -230,7 +230,7 @@ Feature: Test other fulfilment translation booklets
 
   @turkishRequest
   Scenario: Request Turkish translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "2 BEAUMARIS ROAD"
     And the case state should be "ACTIONABLE"
@@ -240,7 +240,7 @@ Feature: Test other fulfilment translation booklets
 
   @urduRequest
   Scenario: Request Urdu translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "3 BEAUMARIS ROAD"
     And the case state should be "ACTIONABLE"
@@ -290,7 +290,7 @@ Feature: Test other fulfilment translation booklets
 
   @arabicRequest @request
   Scenario: Tests that the case event created for Arabic translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -301,7 +301,7 @@ Feature: Test other fulfilment translation booklets
 
   @bengaliRequest
   Scenario: Tests that the case event created for Bengali translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 2"
     And the case state should be "ACTIONABLE"
@@ -312,7 +312,7 @@ Feature: Test other fulfilment translation booklets
 
   @cantoneseRequest
   Scenario: Tests that the case event created for Cantonese translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
     And the case state should be "ACTIONABLE"
@@ -323,7 +323,7 @@ Feature: Test other fulfilment translation booklets
 
   @gujaratiRequest
   Scenario: Tests that the case event created for Gujarati translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 4"
     And the case state should be "ACTIONABLE"
@@ -334,7 +334,7 @@ Feature: Test other fulfilment translation booklets
 
   @lithuanianRequest
   Scenario: Tests that the case event created for Lithuanian translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 5"
     And the case state should be "ACTIONABLE"
@@ -345,7 +345,7 @@ Feature: Test other fulfilment translation booklets
 
   @mandarinRequest
   Scenario: Tests that the case event created for Mandarin translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 6"
     And the case state should be "ACTIONABLE"
@@ -356,7 +356,7 @@ Feature: Test other fulfilment translation booklets
 
   @polishRequest
   Scenario: Tests that the case event created for Polish translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 7"
     And the case state should be "ACTIONABLE"
@@ -367,7 +367,7 @@ Feature: Test other fulfilment translation booklets
 
   @portugueseRequest
   Scenario: Tests that the case event created for Portuguese translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 8"
     And the case state should be "ACTIONABLE"
@@ -378,7 +378,7 @@ Feature: Test other fulfilment translation booklets
 
   @gurmukhiRequest
   Scenario: Tests that the case event created for Punjabi - Gurmukhi translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 9"
     And the case state should be "ACTIONABLE"
@@ -389,7 +389,7 @@ Feature: Test other fulfilment translation booklets
 
 	@shalmukiRequest
   Scenario: Tests that the case event created for Punjabi - Shalmuki translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state should be "ACTIONABLE"
@@ -400,7 +400,7 @@ Feature: Test other fulfilment translation booklets
 
   @somaliRequest
   Scenario: Tests that the case event created for Somali translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "THE FLAT"
     And the case state should be "ACTIONABLE"
@@ -411,7 +411,7 @@ Feature: Test other fulfilment translation booklets
 
   @spanishRequest
   Scenario: Tests that the case event created for Spanish translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "1 BEAUMARIS ROAD"
     And the case state should be "ACTIONABLE"
@@ -422,7 +422,7 @@ Feature: Test other fulfilment translation booklets
 
   @turkishRequest
   Scenario: Tests that the case event created for Turkish translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "2 BEAUMARIS ROAD"
     And the case state should be "ACTIONABLE"
@@ -433,7 +433,7 @@ Feature: Test other fulfilment translation booklets
 
   @urduRequest
   Scenario: Tests that the case event created for Urdu translation booklet
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "3 BEAUMARIS ROAD"
     And the case state should be "ACTIONABLE"

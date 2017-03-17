@@ -60,7 +60,7 @@ Feature: Test successfull follow up reminder letters - Wales in English
 
   Scenario: Request a paper form
   	Given after a delay of 30 seconds
-    When the user login as "CSO" using "Chrome"
+    When the "CSO" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF1 5TB"
     And selects case for address "42 HOOP MILL"
     And navigates to the cases page for case "9"
@@ -76,7 +76,7 @@ Feature: Test successfull follow up reminder letters - Wales in English
 
 
   Scenario: Checks new case
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     Given after a delay of 30 seconds
     When the user gets the addresses for postcode "TF1 5TB"
     And selects case for address "42 HOOP MILL"

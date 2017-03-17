@@ -71,7 +71,7 @@ Feature: Request individual form letter - England C1S0331D10E
   @requestIndividualPaperForm
   Scenario: Request a paper form
   	Given after a delay of 30 seconds
-    When the user login as "CSO" using "Chrome"
+    When the "CSO" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF1 1LZ"
     And selects case for address "5 LOWE COURT"
     And navigates to the cases page for case "5"
@@ -89,7 +89,7 @@ Feature: Request individual form letter - England C1S0331D10E
 
   @checkCaseActionableInUi
   Scenario: Checks new case in Ui
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 1LZ"
     And selects case for address "5 LOWE COURT"
     And navigates to the cases page for case "11"

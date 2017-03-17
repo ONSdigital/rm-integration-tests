@@ -128,7 +128,7 @@ Feature: Test successfull follow up paper forms
 
 	@paperformInitialUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -227,7 +227,7 @@ Feature: Test successfull follow up paper forms
 
 	@paperFormUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"

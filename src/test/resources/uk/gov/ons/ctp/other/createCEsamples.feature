@@ -74,7 +74,7 @@ Feature: Create communal establishment Samples
   # checks the cases can be reviewed within the UI
   @caseCECheck
   Scenario: check that the CE appear within the UI with the corresponding question set.
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "BA20 1DG"
     And selects case for address "FLAT 1 PARK LODGE"
     And navigates to the cases page for case "1"
@@ -83,7 +83,7 @@ Feature: Create communal establishment Samples
 
   @caseCECheck
   Scenario: check that the CE appear within the UI with the corresponding question set.
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "FY4 1AY"
     And selects case for address "469-477"
     And navigates to the cases page for case "17"
@@ -92,7 +92,7 @@ Feature: Create communal establishment Samples
 
   @caseCECheck
   Scenario: check that the CE appear within the UI with the corresponding question set.
-    Given the user login as "CSO" using "Chrome"
+    Given the "CSO" user has logged in using "Chrome"
     When the user gets the addresses for postcode "S1 4GU"
     And selects case for address "FLAT B1"
     And navigates to the cases page for case "54"

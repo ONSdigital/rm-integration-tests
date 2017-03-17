@@ -128,7 +128,7 @@ Feature: Test successfull follow up field visit
 
 	@fieldInitialUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF11HB"
     And selects case for address "11 VINEYARD ROAD"
     And the case state should be "ACTIONABLE"
@@ -240,7 +240,7 @@ Feature: Test successfull follow up field visit
 
 	@fieldLetterUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF11HB"
     And selects case for address "11 VINEYARD ROAD"
     And the case state should be "ACTIONABLE"

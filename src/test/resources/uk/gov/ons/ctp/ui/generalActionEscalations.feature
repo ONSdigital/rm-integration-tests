@@ -209,7 +209,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Close Escalation
   Scenario: Escalation manager creates a close escalation case event on General Complaint - Escalated and checks that the case was removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "1"
     And the user creates a new event for
@@ -221,7 +221,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that the case is still Actionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -230,7 +230,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Pending Escalation
   Scenario: Escalation manager creates a pending escalation case event on General Complaint - Escalated and checks that the case was not removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "2"
     And the user creates a new event for
@@ -242,7 +242,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that a closed case is still Actionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 2"
     And the case state should be "ACTIONABLE"
@@ -251,7 +251,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Incorrect Escalation
   Scenario: Escalation manager creates an incorrect escalation case event on General Complaint - Escalated and checks that the case was removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "3"
     And the user creates a new event for
@@ -263,7 +263,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that the  case is still Actionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
     And the case state should be "ACTIONABLE"
@@ -272,7 +272,7 @@ Feature: Test general user can view and perform actions upon escalation action.
    
   # Complaint Escalated - Escalated Refusal
   Scenario: Escalation manager creates an escalated refusal case event on General Complaint - Escalated and checks that the case was not removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "4"
     And the user creates a new event for
@@ -284,7 +284,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that the  case is Inactionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 4"
     And the case state should be "INACTIONABLE"
@@ -293,7 +293,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Close Escalation
   Scenario: Escalation manager creates a close escalation case event on General Complaint - Escalated and checks that the case was removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "5"
     And the user creates a new event for
@@ -305,7 +305,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that the case is still Actionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 5"
     And the case state should be "ACTIONABLE"
@@ -314,7 +314,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Pending Escalation
   Scenario: Escalation manager creates a pending escalation case event on General Complaint - Escalated and checks that the case was not removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "6"
     And the user creates a new event for
@@ -326,7 +326,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that a closed case is still Actionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 6"
     And the case state should be "ACTIONABLE"
@@ -335,7 +335,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Incorrect Escalation
   Scenario: Escalation manager creates an incorrect escalation case event on General Complaint - Escalated and checks that the case was removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "7"
     And the user creates a new event for
@@ -347,7 +347,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that the  case is still Actionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 7"
     And the case state should be "ACTIONABLE"
@@ -356,7 +356,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     
   # Complaint Escalated - Escalated Refusal
   Scenario: Escalation manager creates an escalated refusal case event on General Complaint - Escalated and checks that the case was not removed.
-    Given the user login as "General" using "Chrome"
+    Given the "General" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "8"
     And the user creates a new event for
@@ -368,7 +368,7 @@ Feature: Test general user can view and perform actions upon escalation action.
     And the user logs out
     
   Scenario: Helpline Operator checks that the  case is Inactionable.
-  	Given the user has logged in using "Chrome"
+  	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 8"
     And the case state should be "INACTIONABLE"

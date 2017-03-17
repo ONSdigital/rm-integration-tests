@@ -113,7 +113,7 @@ Feature: Test successfull replacements for HH and individual online response
 
 	@requestIndividualUI
 	Scenario: Ui request for individual online request
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -157,7 +157,7 @@ Feature: Test successfull replacements for HH and individual online response
 	# CTPA-756
 	@requestHHReplaceUI
 	Scenario: Ui request for HH replacement IAC
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state should be "ACTIONABLE"
@@ -168,7 +168,7 @@ Feature: Test successfull replacements for HH and individual online response
 
   @requestIndividualReplaceUI
 	Scenario: Ui request for individual replacement IAC
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state should be "ACTIONABLE"
@@ -324,7 +324,7 @@ Feature: Test successfull replacements for HH and individual online response
 
 	@replaceOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state for "12" and "ACTIONABLE"
@@ -334,7 +334,7 @@ Feature: Test successfull replacements for HH and individual online response
 		
 	@replaceOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state for "13" and "ACTIONABLE"
@@ -394,7 +394,7 @@ Feature: Test successfull replacements for HH and individual online response
 
 	@replaceOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state for "12" and "INACTIONABLE"
@@ -404,7 +404,7 @@ Feature: Test successfull replacements for HH and individual online response
 		
 	@replaceOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state for "13" and "INACTIONABLE"
@@ -440,7 +440,7 @@ Feature: Test successfull replacements for HH and individual online response
 
 	@replaceOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And the case state for "12" and "INACTIONABLE"
@@ -450,7 +450,7 @@ Feature: Test successfull replacements for HH and individual online response
 		
 	@replaceOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state for "13" and "INACTIONABLE"

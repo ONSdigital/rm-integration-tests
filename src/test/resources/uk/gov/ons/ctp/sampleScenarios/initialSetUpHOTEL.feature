@@ -119,7 +119,7 @@ Feature: Initial set up HOTEL
 
 	@initialSetUpInitialUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "FY41AY"
     And selects case for address "469-477"
     And the case state should be "ACTIONABLE"

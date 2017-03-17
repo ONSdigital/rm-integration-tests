@@ -60,7 +60,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
  
  
 	Scenario: check that the Case appears in the UI with the correct address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15LT"
     Then selects case for address "50 CALDERA ROAD"
     And navigates to the cases page for case "1"
@@ -96,7 +96,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
 
 
 	Scenario: Ui request for individual online request
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15LT"
     And selects case for address "50 CALDERA ROAD"
     And the case state should be "ACTIONABLE"
@@ -108,7 +108,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
 
 
   Scenario: This scenario tests that the case event created
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15LT"
     And selects case for address "50 CALDERA ROAD"
     And the case state should be "ACTIONABLE"
@@ -119,7 +119,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
 
 
 	Scenario: check that the Case appears in the UI with the correct address
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15LT"
     Then selects case for address "50 CALDERA ROAD"
     And navigates to the cases page for case "11"

@@ -55,7 +55,7 @@ Feature: Review Case Information
   # Run UI Case and Casegroup Tests -----
   @caseInformation
   Scenario: Enable user to see question set
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
@@ -64,7 +64,7 @@ Feature: Review Case Information
 
   @caseInformation
   Scenario: Enable user to see address type HH or CE and the type of CE
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
@@ -73,7 +73,7 @@ Feature: Review Case Information
 
   @caseInformation
   Scenario: Enable user to see current case state
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"

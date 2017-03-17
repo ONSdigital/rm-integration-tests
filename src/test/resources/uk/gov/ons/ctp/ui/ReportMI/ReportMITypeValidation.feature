@@ -11,6 +11,6 @@
 Feature: Validate report type within the UI
         
         Scenario: validate the report types
-        Given the user login as "Report" using "Chrome"
+        Given the "Report" user has logged in using "Chrome"
         And navigates to the "Reports" page
         Then validates the report types shown to the user

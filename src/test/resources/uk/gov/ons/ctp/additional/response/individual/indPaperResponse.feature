@@ -131,7 +131,7 @@ Feature: Test successfull individual paper response
 	# CTPA-760
 	@requestPaperIndividualUI
 	Scenario: Ui request for individual paper request
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -172,7 +172,7 @@ Feature: Test successfull individual paper response
 	# CTPA-524
 	@indActionableUI
 	Scenario: Tests that the case is in a state of ACTIONABLE
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -196,7 +196,7 @@ Feature: Test successfull individual paper response
 
 	@indPrinterUI
   Scenario: This scenario tests that the case event created
-    Given the user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state should be "ACTIONABLE"
@@ -240,7 +240,7 @@ Feature: Test successfull individual paper response
 
 	@paperRespondedUI
 	Scenario: Confirmed the UI reflects the paper response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
     And the case state for "11" and "INACTIONABLE"

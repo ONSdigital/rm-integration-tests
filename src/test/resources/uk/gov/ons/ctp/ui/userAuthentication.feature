@@ -20,25 +20,25 @@ Feature: User Authentication
 	# UI Test Case Events -----
 	@UserAuthentication
 	Scenario: Login as a Helpline Operator
-	 Given the user login as "CSO" using "Chrome"
+	 Given the "CSO" user has logged in using "Chrome"
 	 Then collect cso permissions should be verified
 
 	@UserAuthentication
 	Scenario: Login as a Manager Operator
-	 Given the user login as "General" using "Chrome"
+	 Given the "General" user has logged in using "Chrome"
 	 Then general escalate permissions should be verified
 	 
 	@UserAuthentication
 	Scenario: Login as a Field Operator
-	 Given the user login as "Field" using "Chrome"
+	 Given the "Field" user has logged in using "Chrome"
 	 Then field escalate permissions should be verified
 	 
 	@UserAuthentication
 	Scenario: Login as a Report Operator
-	 Given the user login as "Report" using "Chrome"
+	 Given the "Report" user has logged in using "Chrome"
 	 Then report permissions should be verified
 	 
 	@UserAuthentication
 	Scenario: Login using incorrect details
-	 Given the user login as "Error" using "Chrome"
+	 Given the "Error" user has logged in using "Chrome"
 	 Then error should be denied permission

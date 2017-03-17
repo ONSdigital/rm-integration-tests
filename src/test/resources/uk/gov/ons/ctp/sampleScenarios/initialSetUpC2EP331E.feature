@@ -127,7 +127,7 @@ Feature: Initial set up C2EP331E
 
 	@initialSetUpInitialUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF15LN"
     And selects case for address "1 MARLBOROUGH ROAD"
     And the case state should be "ACTIONABLE"
@@ -219,7 +219,7 @@ Feature: Initial set up C2EP331E
 
 	@initialSetUpLettersUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF15LN"
     And selects case for address "1 MARLBOROUGH ROAD"
     And the case state should be "ACTIONABLE"

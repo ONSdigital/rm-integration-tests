@@ -16,7 +16,7 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 public abstract class SeleniumAware {
   private static final long DELAY_IN_SECONDS = 120;
   private World world;
-  private static WebDriver webDriver;
+  protected static WebDriver webDriver;
 
   /**
    * Constructor
@@ -75,9 +75,9 @@ public abstract class SeleniumAware {
   }
 
   /**
-   * Tidy the WebDriver
+   * Tidy the WebDriver and close all open browser open windows
    */
   public void closeWebDriver() {
-    webDriver.close();
+    webDriver.quit();
   }
 }
