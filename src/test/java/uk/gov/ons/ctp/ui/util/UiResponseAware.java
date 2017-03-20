@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
+import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
@@ -207,11 +208,8 @@ public class UiResponseAware extends SeleniumAware {
    * @param caseId string representation of case id to select
    */
   public void invokeUICasesPage(String caseId) {
-    if (!getWebDriver().findElement(By.linkText(caseId)).equals(null)) {
-      getWebDriver().findElement(By.linkText(caseId)).click();
-    } else {
-      System.out.println("Address has no cases.");
-    }
+    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
+    casespage.clickOnCaseLink(caseId);
   }
 
   /**
@@ -451,7 +449,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case state on page
    */
   public String invokeCaseStateCheck() {
-    return extractValueFromTable(2, 1, 2);
+    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
+    return casespage.getCaseState();
   }
 
   /**
@@ -561,12 +560,12 @@ public class UiResponseAware extends SeleniumAware {
     return getWebDriver().findElements(By.linkText(caseId)).isEmpty();
   }
 
-  /**
-   * Log out of UI
-   */
-  public void invokeLogout() {
-    getWebDriver().findElement(By.id("signoutlink"));
-  }
+//  /**
+//   * Log out of UI
+//   */
+//  public void invokeLogout() {
+//    getWebDriver().findElement(By.id("signoutlink"));
+//  }
 
   /**
    * Extract a value from a table

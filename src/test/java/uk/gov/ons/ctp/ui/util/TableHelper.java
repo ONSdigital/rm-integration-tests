@@ -39,4 +39,22 @@ public class TableHelper {
     }
     return element;
   }
+
+  /**
+   * Extract a value from first data row of a table
+   *
+   * @param table to be interrogated
+   * @param rowNumber Integer row number in the table, excluding the header
+   * @param columnNumber Integer column number in the row
+   * @return String cell value
+   */
+  public String extractValueFromTable(WebElement table, int rowNumber, int columnNumber) {
+    WebElement tableBody = table.findElement(By.tagName("tbody"));
+
+    List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
+    WebElement row = rows.get(rowNumber - 1);
+    List<WebElement> values = row.findElements(By.tagName("td"));
+
+    return values.get(columnNumber - 1).getText();
+  }
 }

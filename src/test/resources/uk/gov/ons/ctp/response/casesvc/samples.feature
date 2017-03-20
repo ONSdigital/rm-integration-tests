@@ -17,7 +17,7 @@
 # Scenario Tags: @samplesCleanEnvironment
 #								 @samples
 #								 @generateIAC
-@casesvc @case
+@casesvc @case @pomtestsample
 Feature: Validating samples requests
 
   # Clean Environment -----

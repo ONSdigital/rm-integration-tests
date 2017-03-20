@@ -3,6 +3,7 @@ package uk.gov.ons.ctp.util;
 //import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -77,6 +78,13 @@ public abstract class SeleniumAware {
    */
   public void invokeNavigateToPage(String url) {
     webDriver.get(url);
+  }
+
+  /**
+   * Log out of UI
+   */
+  public void invokeLogout() {
+    webDriver.findElement(By.id("signoutlink")).click();
   }
 
   /**
