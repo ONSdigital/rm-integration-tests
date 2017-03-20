@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
@@ -154,19 +155,8 @@ public class UiResponseAware extends SeleniumAware {
    * @param address string representation of address to find in table
    */
   public void invokeUIAddressSelect(String address) {
-    WebElement row = this.extractRowFromTableBySearch(0, address);
-
-    // Handle when there are more entries than displayed on the table - go to next table
-    if (row == null) {
-      while (getWebDriver().findElement(By.className("next_page")) != null) {
-        getWebDriver().findElement(By.className("next_page")).click();
-        row = this.extractRowFromTableBySearch(0, address);
-        if (row != null) {
-          break;
-        }
-      }
-    }
-    row.findElement(By.linkText("View Cases")).click();
+    AddressesResponseOperation addresses = new AddressesResponseOperation(webDriver);
+    addresses.selectAddress(address);
   }
 
   /**
