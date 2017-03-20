@@ -49,21 +49,27 @@ public class UiResponseAware extends SeleniumAware {
       case "test":
         username = getWorld().getProperty("integration.test.username");
         password = getWorld().getProperty("integration.test.password");
+        break;
       case "cso":
         username = getWorld().getProperty("integration.test.cso.username");
         password = getWorld().getProperty("integration.test.cso.password");
+        break;
       case "general":
         username = getWorld().getProperty("integration.test.general.username");
         password = getWorld().getProperty("integration.test.general.password");
+        break;
       case "field":
         username = getWorld().getProperty("integration.test.report.username");
         password = getWorld().getProperty("integration.test.report.password");
+        break;
       case "report":
         username = getWorld().getProperty("integration.test.report.username");
         password = getWorld().getProperty("integration.test.report.password");
+        break;
       case "error":
         username = getWorld().getProperty("integration.test.error.username");
         password = getWorld().getProperty("integration.test.error.password");
+        break;
       default:
         username = getWorld().getProperty("integration.test.username");
         password = getWorld().getProperty("integration.test.password");
