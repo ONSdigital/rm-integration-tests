@@ -149,7 +149,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 3JD"
     And selects case for address "2 THE SAVANNAHS"
-    And the case state should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
     And the case event description should contain "Send Internet Access Code (Bilingual)"
     And the user logs out
@@ -166,7 +166,7 @@ Feature: Testing user requesting replacement IAC by SMS in Welsh with no respons
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF1 3JD"
     And selects case for address "2 THE SAVANNAHS"
-    And the case state should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
     And the case event description should contain "Create Household Visit"
     And the user logs out

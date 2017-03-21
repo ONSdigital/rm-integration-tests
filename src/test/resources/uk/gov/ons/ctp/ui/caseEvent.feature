@@ -83,7 +83,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "Accessibility Materials"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -97,7 +97,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "Address Details Incorrect"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "2" should be "ACTIONABLE"
     And the user logs out
 
 	@createEvent
@@ -112,7 +112,7 @@ Feature: Test UI create events scenarios
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And after a delay of 20 seconds
     And the user goes back to the cases page
-    And the case state should be "INACTIONABLE"
+    And the case state for "3" should be "INACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -126,7 +126,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "Field Complaint - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "4" should be "ACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -140,7 +140,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "Field Emergency - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "5" should be "ACTIONABLE"
     And the user logs out
 
 	@createEvent
@@ -154,7 +154,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "General Complaint"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "6" should be "ACTIONABLE"
     And the user logs out
 
 	@createEvent
@@ -168,7 +168,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "General Complaint - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "7" should be "ACTIONABLE"
     And the user logs out
 
 	@createEvent
@@ -182,7 +182,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "General Enquiry"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "8" should be "ACTIONABLE"
     And the user logs out
 
 	@createEvent
@@ -196,7 +196,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "General Enquiry - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "9" should be "ACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -210,7 +210,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "Miscellaneous"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "10" should be "ACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -226,7 +226,7 @@ Feature: Test UI create events scenarios
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And after a delay of 20 seconds
     And the user goes back to the cases page
-    And the case state should be "INACTIONABLE"
+    And the case state for "11" should be "INACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -240,7 +240,7 @@ Feature: Test UI create events scenarios
     Then the case event should be "Technical Query"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "12" should be "ACTIONABLE"
     And the user logs out
 
 	@createEvent
@@ -255,7 +255,7 @@ Feature: Test UI create events scenarios
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And after a delay of 20 seconds
     And the user goes back to the cases page
-    And the case state should be "INACTIONABLE"
+    And the case state for "13" should be "INACTIONABLE"
     And the user logs out
 
   @createEvent
@@ -269,5 +269,5 @@ Feature: Test UI create events scenarios
     Then the case event should be "Technical Query"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."
     And the user goes back to the cases page
-    And the case state should be "ACTIONABLE"
+    And the case state for "14" should be "ACTIONABLE"
     And the user logs out

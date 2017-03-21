@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
+import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
@@ -460,8 +461,11 @@ public class UiResponseAware extends SeleniumAware {
    * @return case state for case id
    */
   public String invokeCaseStateCheck(String caseId) {
-    WebElement row = this.extractRowFromTableBySearch(1, caseId);
-    return row.findElements(By.tagName("td")).get(1).getText();
+    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
+    return casespage.getCaseStateForCase(caseId);
+    
+//    WebElement row = this.extractRowFromTableBySearch(1, caseId);
+//    return row.findElements(By.tagName("td")).get(1).getText();
   }
 
   /**
@@ -515,7 +519,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case event category on page
    */
   public String invokeCaseEventDescription() {
-    return extractValueFromTable(3, 1, 5);
+    EventsResponseOperation events = new EventsResponseOperation(webDriver);
+    return events.getMostRecentEventDescription();
   }
 
   /**
@@ -559,13 +564,6 @@ public class UiResponseAware extends SeleniumAware {
   public boolean checkCaseIdRemoved(String caseId) {
     return getWebDriver().findElements(By.linkText(caseId)).isEmpty();
   }
-
-//  /**
-//   * Log out of UI
-//   */
-//  public void invokeLogout() {
-//    getWebDriver().findElement(By.id("signoutlink"));
-//  }
 
   /**
    * Extract a value from a table

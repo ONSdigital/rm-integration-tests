@@ -68,7 +68,7 @@ Feature: Review Cases and Case Groups
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     And the user requests an individual request for
       | Online | Mr | Integration | Tester |  |07777123456 | |

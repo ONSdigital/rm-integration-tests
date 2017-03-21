@@ -124,7 +124,7 @@ Feature: Initial set up SHOUSING
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 1 PARK LODGE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should be "Print initial contact letter (English)"
 		And the user logs out
@@ -143,7 +143,7 @@ Feature: Initial set up SHOUSING
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 1 PARK LODGE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should contain "Create Sheltered Housing Visit"
 		And the user logs out

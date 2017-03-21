@@ -147,7 +147,7 @@ Feature: Test successfull creation of events against an inactionable case
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "INACTIONABLE"
+    And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
     Then the case event should be "Online Questionnaire Response"
 		And the user logs out
@@ -180,5 +180,5 @@ Feature: Test successfull creation of events against an inactionable case
     Then the case event should be "General Complaint"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
-    And the case state should be "INACTIONABLE"
+    And the case state for "10" should be "INACTIONABLE"
     And the user logs out

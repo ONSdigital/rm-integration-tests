@@ -122,7 +122,7 @@ Feature: Test successfull follow up reminder letters
     Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should be "Print household paper questionnaire (English with sexual ID)"
     And the user logs out
@@ -211,7 +211,7 @@ Feature: Test successfull follow up reminder letters
     Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should contain "Print reminder letter 1 (English)"
     And the case event description should contain "Print reminder letter 2 (English)"

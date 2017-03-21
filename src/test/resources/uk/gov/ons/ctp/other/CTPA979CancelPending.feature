@@ -92,7 +92,7 @@ Feature: Test that responded cases does not leave action in cancel_pending state
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF15LB"
     And selects case for address "1 FOLDSTON TERRACE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should be "Print household paper questionnaire (English without sexual ID)"
 		And the user logs out

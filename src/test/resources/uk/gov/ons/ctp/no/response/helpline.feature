@@ -90,7 +90,7 @@ Feature: Test helpline no response expected
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     And the user creates a new event for
       | Refusal | Test description. | integration.tester | 01234 567890 |
@@ -101,7 +101,7 @@ Feature: Test helpline no response expected
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
-    And the case state should be "ACTIONABLE"
+    And the case state for "3" should be "ACTIONABLE"
     And navigates to the cases page for case "3"
     And the user creates a new event for
       | Classification Incorrect | Test description. | integration.tester | 01234 567890 |
@@ -112,7 +112,7 @@ Feature: Test helpline no response expected
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "ACTIONABLE"
+    And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
     And the user creates a new event for
       | Undeliverable | Test description. | integration.tester | 01234 567890 |
@@ -127,7 +127,7 @@ Feature: Test helpline no response expected
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "INACTIONABLE"
+    And the case state for "1" should be "INACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event should be "Refusal"
     And the user logs out
@@ -137,7 +137,7 @@ Feature: Test helpline no response expected
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
-    And the case state should be "INACTIONABLE"
+    And the case state for "3" should be "INACTIONABLE"
     And navigates to the cases page for case "3"
     Then the case event should be "Classification Incorrect"
     And the user logs out
@@ -147,7 +147,7 @@ Feature: Test helpline no response expected
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "INACTIONABLE"
+    And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
     Then the case event should be "Undeliverable"
     And the user logs out 

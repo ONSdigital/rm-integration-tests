@@ -171,7 +171,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "INACTIONABLE"
+    And the case state for "1" should be "INACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event should be "Online Questionnaire Response"
 		And the user logs out
@@ -181,7 +181,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "11" should be "INACTIONABLE"
     And navigates to the cases page for case "11"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -191,7 +191,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "12 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -201,7 +201,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "13 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -211,7 +211,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "14 EMRAL RISE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "14" should be "ACTIONABLE"
     And navigates to the cases page for case "14"
     Then the case event should be "Action Created"
 		And the user logs out
@@ -221,7 +221,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "15 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "15" should be "INACTIONABLE"
     And navigates to the cases page for case "15"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -231,7 +231,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "16 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "16" should be "INACTIONABLE"
     And navigates to the cases page for case "16"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -241,7 +241,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "17 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "17" should be "INACTIONABLE"
     And navigates to the cases page for case "17"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -251,7 +251,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "18 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "18" should be "INACTIONABLE"
     And navigates to the cases page for case "18"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -261,7 +261,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "19 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "19" should be "INACTIONABLE"
     And navigates to the cases page for case "19"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out
@@ -271,7 +271,7 @@ Feature: Validating SDX Gateway requests
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "20" should be "INACTIONABLE"
     And navigates to the cases page for case "20"
     Then the case event should be "Paper Questionnaire Response"
 		And the user logs out

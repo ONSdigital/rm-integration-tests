@@ -116,7 +116,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     And the user requests an individual request for
       | Online | Mr | Integration | Tester |  | 07777123456 | |
@@ -160,7 +160,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "ACTIONABLE"
+    And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
     And the user requests a replacement IAC
       | Online | Rev. | Integration | Tester |  | 07777123456 | |
@@ -171,7 +171,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
 		And the user requests a replacement IAC
       | Online | Prof. | Integration | Tester |  | 07777123456 | |
@@ -327,7 +327,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state for "12" and "ACTIONABLE"
+    And the case state for "12" should be "ACTIONABLE"
     And navigates to the cases page for case "12"
     Then the case event should contain "Access Code Authenticated By Respondent"
 		And the user logs out
@@ -337,7 +337,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state for "13" and "ACTIONABLE"
+    And the case state for "12" should be "ACTIONABLE"
     And navigates to the cases page for case "13"
     Then the case event should contain "Access Code Authenticated By Respondent"
 		And the user logs out
@@ -397,7 +397,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state for "12" and "INACTIONABLE"
+    And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
     Then the case event should contain "Online Questionnaire Response"
 		And the user logs out
@@ -407,7 +407,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state for "13" and "INACTIONABLE"
+    And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
     Then the case event should contain "Online Questionnaire Response"
 		And the user logs out
@@ -443,7 +443,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state for "12" and "INACTIONABLE"
+    And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
     Then the case event should contain "Access Code Authenticated By Respondent"
 		And the user logs out
@@ -453,7 +453,7 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state for "13" and "INACTIONABLE"
+    And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
     Then the case event should contain "Access Code Authenticated By Respondent"
 		And the user logs out

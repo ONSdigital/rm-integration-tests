@@ -155,7 +155,7 @@ Feature: Test successfull Welsh online response
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     And the user logs out
 
@@ -188,7 +188,7 @@ Feature: Test successfull Welsh online response
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event should be "Action Created"
     And the case event description should be "Print initial contact letter (Welsh)"
@@ -217,7 +217,7 @@ Feature: Test successfull Welsh online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event should be "Access Code Authenticated By Respondent"
 		And the user logs out
@@ -258,7 +258,7 @@ Feature: Test successfull Welsh online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "1" should be "INACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event should be "Online Questionnaire Response"
 		And the user logs out
@@ -283,7 +283,7 @@ Feature: Test successfull Welsh online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13JH"
     And selects case for address "9 DEE CLOSE"
-    And the case state should be "INACTIONABLE"
+    And the case state for "1" should be "INACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event should be "Access Code Authenticated By Respondent"
 		And the user logs out

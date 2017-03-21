@@ -365,8 +365,10 @@ public class UiSteps {
    * @param state to be tested
    * @throws Throwable pass the exception
    */
-  @Then("^the case state for \"(.*?)\" and \"(.*?)\"$")
-  public void the_case_state_for_and(String caseId, String state) throws Throwable {
+//  @Then("^the case state for \"(.*?)\" and \"(.*?)\"$")
+//  public void the_case_state_for_and(String caseId, String state) throws Throwable {
+  @Then("^the case state for \"(.*?)\" should be \"(.*?)\"$")
+  public void the_case_state_for_should_be(String caseId, String state) throws Throwable {
     String caseState = responseAware.invokeCaseStateCheck(caseId);
     assertEquals("Status not as expected", state, caseState);
   }

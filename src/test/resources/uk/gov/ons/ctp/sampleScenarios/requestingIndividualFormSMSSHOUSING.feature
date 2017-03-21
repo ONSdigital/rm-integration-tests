@@ -104,7 +104,7 @@ Feature: Testing user requesting Individual form by SMS in Sheltered Housing
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 17 PARK LODGE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "9" should be "ACTIONABLE"
     And navigates to the cases page for case "9"
     And the user requests an individual request for
       | Online | Dr | Integration | Tester |  | 07777123456 | |
@@ -145,7 +145,7 @@ Feature: Testing user requesting Individual form by SMS in Sheltered Housing
     When the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "BA201DG"
     And selects case for address "FLAT 17 PARK LODGE"
-    And the case state should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
     And the case event should be "Action Created"
     And the case event description should be "Send Internet Access Code (English)"

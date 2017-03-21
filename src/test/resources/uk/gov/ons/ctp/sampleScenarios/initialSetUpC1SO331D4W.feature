@@ -130,7 +130,7 @@ Feature: Initial set up C1SO331D4W
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13BP"
     And selects case for address "19 LEEGOMERY ROAD"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should be "Print initial contact letter (Welsh)"
 		And the user logs out
@@ -232,7 +232,7 @@ Feature: Initial set up C1SO331D4W
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13BP"
     And selects case for address "19 LEEGOMERY ROAD"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     Then the case event description should contain "Print reminder letter 1 (Welsh)"
     And the case event description should contain "Create Household Visit"

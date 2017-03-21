@@ -139,7 +139,7 @@ Feature: Request replacement IAC SMS CS2S0331E
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15RJ"
     And selects case for address "1 POOL MEADOW"
-    And the case state should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
     And the case event description should contain "Send Internet Access Code (English)"
     And the user logs out

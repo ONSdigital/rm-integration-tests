@@ -123,7 +123,7 @@ Feature: Initial set up UNIVERSITY
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "S14HQ"
     And selects case for address "ROOM A FLAT A1"
-    And the case state should be "ACTIONABLE"
+    And the case state for "139" should be "ACTIONABLE"
     And navigates to the cases page for case "139"
     Then the case event description should be "Print Initial Contact Letter (University)"
 		And the user logs out

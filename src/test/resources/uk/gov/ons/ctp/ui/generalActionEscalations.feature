@@ -224,7 +224,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And the user logs out
     
     
@@ -245,7 +245,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 2"
-    And the case state should be "ACTIONABLE"
+    And the case state for "2" should be "ACTIONABLE"
     And the user logs out
     
     
@@ -266,7 +266,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 3"
-    And the case state should be "ACTIONABLE"
+    And the case state for "3" should be "ACTIONABLE"
     And the user logs out
     
    
@@ -287,7 +287,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 4"
-    And the case state should be "INACTIONABLE"
+    And the case state for "4" should be "INACTIONABLE"
     And the user logs out
     
     
@@ -308,7 +308,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 5"
-    And the case state should be "ACTIONABLE"
+    And the case state for "5" should be "ACTIONABLE"
     And the user logs out
     
     
@@ -329,7 +329,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 6"
-    And the case state should be "ACTIONABLE"
+    And the case state for "6" should be "ACTIONABLE"
     And the user logs out
     
     
@@ -350,7 +350,7 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 7"
-    And the case state should be "ACTIONABLE"
+    And the case state for "7" should be "ACTIONABLE"
     And the user logs out
     
     
@@ -371,6 +371,6 @@ Feature: Test general user can view and perform actions upon escalation action.
   	Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 8"
-    And the case state should be "INACTIONABLE"
+    And the case state for "8" should be "INACTIONABLE"
     And the user logs out
     

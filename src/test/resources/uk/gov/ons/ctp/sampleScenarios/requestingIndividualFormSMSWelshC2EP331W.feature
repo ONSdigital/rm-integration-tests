@@ -99,7 +99,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15LT"
     And selects case for address "50 CALDERA ROAD"
-    And the case state should be "ACTIONABLE"
+    And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     And the user requests an individual request for 
       | Online | Dr | Integration | Tester |  | 07777123456 | |
@@ -111,7 +111,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF15LT"
     And selects case for address "50 CALDERA ROAD"
-    And the case state should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
     Then the case event should be "Action Created"
     And the case event description should be "Send Internet Access Code (Bilingual)"

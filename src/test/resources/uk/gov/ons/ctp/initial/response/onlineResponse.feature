@@ -156,10 +156,10 @@ Feature: Test successfull online response
 	# CTPA-524
   @onlineActionableUI
   Scenario: Test that the case is in a state of Actionable using UI
-    Given the "Test" user has logged in using "Chrome"
+    Given the "Test" user has logged in using "test"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "ACTIONABLE"
+    And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
     And the user logs out
 
@@ -192,7 +192,7 @@ Feature: Test successfull online response
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "ACTIONABLE"
+    And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
     Then the case event should be "Action Created"
     And the case event description should be "Print initial contact letter (English)"
@@ -221,7 +221,7 @@ Feature: Test successfull online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "ACTIONABLE"
+    And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
     Then the case event should be "Access Code Authenticated By Respondent"
 		And the user logs out
@@ -262,7 +262,7 @@ Feature: Test successfull online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "INACTIONABLE"
+    And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
     Then the case event should be "Online Questionnaire Response"
 		And the user logs out
@@ -287,7 +287,7 @@ Feature: Test successfull online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
-    And the case state should be "INACTIONABLE"
+    And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
     Then the case event should be "Access Code Authenticated By Respondent"
 		And the user logs out

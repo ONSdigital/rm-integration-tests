@@ -122,7 +122,7 @@ Feature: Initial set up HOTEL
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "FY41AY"
     And selects case for address "469-477"
-    And the case state should be "ACTIONABLE"
+    And the case state for "7" should be "ACTIONABLE"
     And navigates to the cases page for case "7"
     Then the case event description should be "Print Initial Contact Letter (Hotel)"
 		And the user logs out
