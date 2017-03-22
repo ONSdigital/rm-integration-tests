@@ -44,59 +44,30 @@ public class UiSteps {
   }
 
   /**
-   * Gets details of welcome page after login to check correct permissions
+   * Gets message from the welcome page after login to check correct permissions
    *
-   * @param
-   * @throws InterruptedException pass the exception
+   * @param user type of user
+   * @throws Throwable pass the exception
    */
-  @Then("^collect cso permissions should be verified$")
-  public void collect_cso_permissions_verified() throws InterruptedException {
-    assertTrue(responseAware.userPermissionsCheck("cso"));
-  }
+  @Then("^permissions should be verified for user \"(.*?)\"$")
+  public void permissions_should_be_verified_for_user(String user) throws Throwable {
+    boolean result = false;
+    String msg = responseAware.invokeGetUserLoginMessage();
 
-  /**
-   * Gets details of welcome page after login to check correct permissions
-   *
-   * @param
-   * @throws InterruptedException pass the exception
-   */
-  @Then("^general escalate permissions should be verified$")
-  public void general_escalte_permissions_verified() throws InterruptedException {
-    assertTrue(responseAware.userPermissionsCheck("general"));
-  }
+    if (msg.equals("Welcome back Collect CSO User.") && user.equals("cso")) {
+      result = true;
+    } else if (msg.equals("Welcome back General Escalate.") && user.equals("general")) {
+      result = true;
+    } else if (msg.equals("Welcome back Field Escalate.") && user.equals("field")) {
+      result = true;
+    } else if (msg.equals("Welcome back Collect Reports user.") && user.equals("report")) {
+      result = true;
+    } else if (msg.equals("You could not be signed in. Did you enter the correct credentials?")
+        && user.equals("error")) {
+      result = true;
+    }
 
-
-  /**
-   * Gets details of welcome page after login to check correct permissions
-   *
-   * @param
-   * @throws InterruptedException pass the exception
-   */
-  @Then("^field escalate permissions should be verified$")
-  public void field_permissions_verified() throws InterruptedException {
-    assertTrue(responseAware.userPermissionsCheck("field"));
-  }
-
-  /**
-   * Gets details of welcome page after login to check correct permissions
-   *
-   * @param
-   * @throws InterruptedException pass the exception
-   */
-  @Then("^report permissions should be verified$")
-  public void report_permissions_verified() throws InterruptedException {
-    assertTrue(responseAware.userPermissionsCheck("report"));
-  }
-
-  /**
-   * Gets details of welcome page after login to check correct permissions
-   *
-   * @param
-   * @throws InterruptedException pass the exception
-   */
-  @Then("^error should be denied permission$")
-  public void error_permissions_verified() throws InterruptedException {
-    assertTrue(responseAware.userPermissionsCheck("error"));
+    assertTrue("Login message '" + msg + "' does not match user: " + user, result);
   }
 
   /**
@@ -122,14 +93,24 @@ public class UiSteps {
   }
 
   /**
-   * Get addresses for postcode
+   * Get addresses message from addresses page
    *
-   * @param postcode to be used
+   * @param found string for expected result
    * @throws Throwable pass the exception
    */
-  @Then("^the user gets the verification for addresses for postcode \"(.*?)\"")
-  public void the_user_gets_the_verification_addresses_for_postcode(String postcode) {
-    assertTrue(responseAware.invokeUIPostcodeVerification(postcode));
+  @Then("^the user gets the verification for found addresses \"(.*?)\"")
+  public void the_user_gets_the_verification_for_found_addresses(String found) throws Throwable {
+    boolean result = false;
+
+    if (Boolean.parseBoolean(found)) {
+      System.out.println(responseAware.invokeGetAddressesFoundMessage());
+      result = responseAware.invokeGetAddressesFoundMessage().equals("Click to view cases for an address.");
+    } else {
+      System.out.println(responseAware.invokeGetNoAddressesFoundMessage());
+      result = responseAware.invokeGetNoAddressesFoundMessage().equals("There are no addresses for this postcode.");
+    }
+
+    assertTrue("Address message does not match expected result", result);
   }
 
 

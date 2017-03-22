@@ -12,6 +12,7 @@ import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CreateEventResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
+import uk.gov.ons.ctp.ui.util.ro.pom.PostcodeResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
@@ -63,8 +64,8 @@ public class UiResponseAware extends SeleniumAware {
         password = getWorld().getProperty("integration.test.general.password");
         break;
       case "field":
-        username = getWorld().getProperty("integration.test.report.username");
-        password = getWorld().getProperty("integration.test.report.password");
+        username = getWorld().getProperty("integration.test.field.username");
+        password = getWorld().getProperty("integration.test.field.password");
         break;
       case "report":
         username = getWorld().getProperty("integration.test.report.username");
@@ -88,37 +89,13 @@ public class UiResponseAware extends SeleniumAware {
   }
 
   /**
-   * Checks the permission of user that has logged in are correct
-   * @param user string representation of users
-   * @return boolean whether or not user has permissions
+   * Gets the user login message
+   *
+   * @return string login message
    */
-  public boolean userPermissionsCheck(String user) {
-    if (!user.equals("error")) {
-      String userCheck = getWebDriver().findElement(By.xpath("//p[@class='message']")).getText();
-      System.out.println(userCheck + ", " + user);
-      if (userCheck.equals("Welcome back Collect CSO User.") && user.equals("cso")) {
-        System.out.println("CSO User successful");
-        return  true;
-      } else if (userCheck.equals("Welcome back General Escalate.") && user.equals("general")) {
-        System.out.println("General Escalate User successful.");
-        return  true;
-      } else if (userCheck.equals("Welcome back Field Escalate.") && user.equals("field")) {
-        System.out.println("Field Escalate User successful");
-        return  true;
-      } else if (userCheck.equals("Welcome back Collect Reports user.") && user.equals("report")) {
-        System.out.println("Report User successful");
-        return  true;
-      }
-    } else if (user.equals("error")) {
-      String errorCheck = getWebDriver().findElement(By.xpath("//p[@class='message']")).getText();
-      if (errorCheck.equals("You could not be signed in. Did you enter the correct credentials?")) {
-        System.out.println("Error denied permission successful");
-        return  true;
-      }
-    }
-
-    System.out.println("Error: unexpected result");
-    return false;
+  public String invokeGetUserLoginMessage() {
+    PostcodeResponseOperation postcodeRO = new PostcodeResponseOperation(webDriver);
+    return postcodeRO.getLoginMsg();
   }
 
   /**
@@ -134,22 +111,23 @@ public class UiResponseAware extends SeleniumAware {
   }
 
   /**
-   * check results of postCode search
-   * @param postcode to check for addresses
-   * @return boolean whether postcode is correct
+   * Get addresses found message
    *
+   * @return String message
    */
-  public boolean invokeUIPostcodeVerification(String postcode) {
-    Boolean postCodeTitle = getWebDriver().findElements(By.id("information")).size() > 0;
-    System.out.println(postCodeTitle + "   " + postcode);
-    if (postCodeTitle && postcode.equals("incorrect")) {
-      System.out.println("no addresses");
-      return true;
-    } else if (!postCodeTitle && postcode.equals("correct")) {
-      System.out.println("addresses");
-      return true;
-    }
-    return false;
+  public String invokeGetAddressesFoundMessage() {
+    AddressesResponseOperation addresses = new AddressesResponseOperation(webDriver);
+    return addresses.getAddressMsg();
+  }
+
+  /**
+   * Get no addresses found message
+   *
+   * @return String message
+   */
+  public String invokeGetNoAddressesFoundMessage() {
+    AddressesResponseOperation addresses = new AddressesResponseOperation(webDriver);
+    return addresses.getNoAddressMsg();
   }
 
   /**

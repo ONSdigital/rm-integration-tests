@@ -20,6 +20,12 @@ public class AddressesResponseOperation {
   @FindBy(className = "next_page")
   private WebElement nextPage;
 
+  @FindBy(className = "subhead")
+  private WebElement addressMsg;
+
+  @FindBy(id = "information")
+  private WebElement noAddressMsg;
+
   private WebElement row;
 
   /**
@@ -45,6 +51,24 @@ public class AddressesResponseOperation {
    */
   public void clickNextPage() {
     nextPage.click();
+  }
+
+  /**
+   * Get address message
+   *
+   * @return String message
+   */
+  public String getAddressMsg() {
+    return addressMsg.getText();
+  }
+
+  /**
+   * Get no address message
+   *
+   * @return String message
+   */
+  public String getNoAddressMsg() {
+    return noAddressMsg.getText();
   }
 
   /**
