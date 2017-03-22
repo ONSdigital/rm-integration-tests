@@ -199,7 +199,7 @@ Feature: Test successful individual online response
     And selects case for address "BEDSIT 1"
     And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should contain "Action Created"
+    Then the case event category should contain "Action Created"
     And the case event description should be "Send Internet Access Code (English)"
     And the user logs out
 
@@ -228,7 +228,7 @@ Feature: Test successful individual online response
     And selects case for address "BEDSIT 1"
     And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 
 
@@ -264,12 +264,12 @@ Feature: Test successful individual online response
 
 	@indOnlineRespondedUI
 	Scenario: Confirmed the UI reflects the online response receipt
-		Given the "Test" user has logged in using "test"
+		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And the case state for "11" should be "INACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should contain "Online Questionnaire Response"
+    Then the case event category should contain "Online Questionnaire Response"
 		And the user logs out
 
 
@@ -307,5 +307,5 @@ Feature: Test successful individual online response
     And selects case for address "BEDSIT 1"
     And the case state for "11" should be "INACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out

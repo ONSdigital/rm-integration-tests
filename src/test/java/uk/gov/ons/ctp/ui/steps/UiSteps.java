@@ -346,17 +346,17 @@ public class UiSteps {
     responseAware.invokeUIManagerCasePage(caseId);
   }
 
-  /**
-   * Test state of case
-   *
-   * @param state to be tested
-   * @throws Throwable pass the exception
-   */
-  @Then("^the case state should be \"(.*?)\"$")
-  public void the_case_state_should_be(String state) throws Throwable {
-    String caseState = responseAware.invokeCaseStateCheck();
-    assertEquals("Status not as expected", state, caseState);
-  }
+//  /**
+//   * Test state of case
+//   *
+//   * @param state to be tested
+//   * @throws Throwable pass the exception
+//   */
+//  @Then("^the case state should be \"(.*?)\"$")
+//  public void the_case_state_should_be(String state) throws Throwable {
+//    String caseState = responseAware.invokeCaseStateCheck();
+//    assertEquals("Status not as expected", state, caseState);
+//  }
 
   /**
    * Test state of case for a specific case
@@ -391,8 +391,8 @@ public class UiSteps {
    * @param category value to be tested against
    * @throws Throwable pass the exception
    */
-  @Then("^the case event should be \"(.*?)\"$")
-  public void the_case_event_should_be(String category) throws Throwable {
+  @Then("^the case event category should be \"(.*?)\"$")
+  public void the_case_event_category_should_be(String category) throws Throwable {
     String caseEventCat = responseAware.invokeCaseEventCategory();
     assertEquals("Event category not as expected: " + caseEventCat, category, caseEventCat);
   }
@@ -403,25 +403,10 @@ public class UiSteps {
    * @param category value to be tested against
    * @throws Throwable pass the exception
    */
-  @Then("^the case event should contain \"(.*?)\"$")
-  public void the_case_event_should_contain(String category) throws Throwable {
-    List<String> caseEventList = responseAware.invokeCaseEventList();
-    assertTrue("Event description not found: " + caseEventList, caseEventList.contains(category));
-  }
-
-  /**
-   * Test case event categories are as expected
-   *
-   * @param secondCat second value in column to be tested against
-   * @param firstCat first value in column to be tested against
-   * @throws Throwable pass the exception
-   */
-  @Then("^the case events should be \"(.*?)\" and \"(.*?)\"$")
-  public void the_case_events_should_be_and(String secondCat, String firstCat) throws Throwable {
-    List<String> caseEvents = responseAware.invokeCaseEventsCategories();
-
-    assertEquals("Event category not as expected: " + caseEvents.get(1), secondCat, caseEvents.get(1));
-    assertEquals("Event category not as expected: " + caseEvents.get(0), firstCat, caseEvents.get(0));
+  @Then("^the case event category should contain \"(.*?)\"$")
+  public void the_case_event_category_should_contain(String category) throws Throwable {
+    List<String> caseEvents = responseAware.invokeCaseEventCategoryList();
+    assertTrue("Event category not found: " + caseEvents, caseEvents.contains(category));
   }
 
   /**

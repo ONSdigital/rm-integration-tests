@@ -243,7 +243,7 @@ Feature: Test other fulfilment translation booklets
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BN"
     And selects case for address "3 BEAUMARIS ROAD"
-    And the case state for "11" should be "ACTIONABLE"
+    And the case state for "14" should be "ACTIONABLE"
     And navigates to the cases page for case "14"
     And the user requests a translation booklet for "Urdu"
     And the user logs out
@@ -295,7 +295,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 1"
     And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
-    Then the case events should be "Arabic Translation" and "Action Created"
+    Then the case event category should contain "Arabic Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -306,7 +307,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 2"
     And the case state for "2" should be "ACTIONABLE"
     And navigates to the cases page for case "2"
-    Then the case events should be "Bengali Translation" and "Action Created"
+    Then the case event category should contain "Bengali Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -317,7 +319,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 3"
     And the case state for "3" should be "ACTIONABLE"
     And navigates to the cases page for case "3"
-    Then the case events should be "Cantonese Translation" and "Action Created"
+    Then the case event category should contain "Cantonese Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -328,7 +331,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 4"
     And the case state for "4" should be "ACTIONABLE"
     And navigates to the cases page for case "4"
-    Then the case events should be "Gujarati Translation" and "Action Created"
+    Then the case event category should contain "Gujarati Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -339,7 +343,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 5"
     And the case state for "5" should be "ACTIONABLE"
     And navigates to the cases page for case "5"
-    Then the case events should be "Lithuanian Translation" and "Action Created"
+    Then the case event category should contain "Lithuanian Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -350,7 +355,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 6"
     And the case state for "6" should be "ACTIONABLE"
     And navigates to the cases page for case "6"
-    Then the case events should be "Mandarin Translation" and "Action Created"
+    Then the case event category should contain "Mandarin Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -361,7 +367,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 7"
     And the case state for "7" should be "ACTIONABLE"
     And navigates to the cases page for case "7"
-     Then the case events should be "Polish Translation" and "Action Created"
+    Then the case event category should contain "Polish Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -372,7 +379,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 8"
     And the case state for "8" should be "ACTIONABLE"
     And navigates to the cases page for case "8"
-    Then the case events should be "Portuguese Translation" and "Action Created"
+    Then the case event category should contain "Portuguese Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -383,7 +391,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 9"
     And the case state for "9" should be "ACTIONABLE"
     And navigates to the cases page for case "9"
-    Then the case events should be "Punjabi (Gurmukhi) Translation" and "Action Created"
+    Then the case event category should contain "Punjabi (Gurmukhi) Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -394,7 +403,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "BEDSIT 10"
     And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
-    Then the case events should be "Punjabi (Shahmuki) Translation" and "Action Created"
+    Then the case event category should contain "Punjabi (Shahmuki) Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -405,7 +415,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "THE FLAT"
     And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case events should be "Somali Translation" and "Action Created"
+    Then the case event category should contain "Somali Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -416,7 +427,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "1 BEAUMARIS ROAD"
     And the case state for "12" should be "ACTIONABLE"
     And navigates to the cases page for case "12"
-     Then the case events should be "Spanish Translation" and "Action Created"
+    Then the case event category should contain "Spanish Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -427,7 +439,8 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "2 BEAUMARIS ROAD"
     And the case state for "13" should be "ACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case events should be "Turkish Translation" and "Action Created"
+    Then the case event category should contain "Turkish Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out
 
@@ -438,6 +451,7 @@ Feature: Test other fulfilment translation booklets
     And selects case for address "3 BEAUMARIS ROAD"
     And the case state for "14" should be "ACTIONABLE"
     And navigates to the cases page for case "14"
-    Then the case events should be "Urdu Translation" and "Action Created"
+    Then the case event category should contain "Urdu Translation"
+    And the case event category should contain "Action Created"
     And the case action should be "Completed"
     And the user logs out

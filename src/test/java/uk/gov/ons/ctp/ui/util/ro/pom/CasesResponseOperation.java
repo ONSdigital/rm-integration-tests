@@ -59,16 +59,11 @@ public class CasesResponseOperation {
   /**
    * Get case state from cases table
    *
-   * @return string case state
+   * @param caseId string case id
+   * @return case state
    */
-  public String getCaseState() {
-    return helper.extractValueFromTable(getCasesTable(), 1, 2);
-  }
-  
   public String getCaseStateForCase(String caseId) {
     WebElement row = helper.navigateToTableRowBySearch(getCasesTable(), caseId);
     return row.findElements(By.tagName("td")).get(1).getText();
-//  WebElement row = this.extractRowFromTableBySearch(1, caseId);
-//  return row.findElements(By.tagName("td")).get(1).getText();
   }
 }

@@ -113,7 +113,7 @@ Feature: Testing user requesting individual form via SMS in Welsh
     And selects case for address "50 CALDERA ROAD"
     And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should be "Action Created"
+    Then the case event category should be "Action Created"
     And the case event description should be "Send Internet Access Code (Bilingual)"
     And the user logs out
 

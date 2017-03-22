@@ -147,7 +147,7 @@ Feature: Testing user requesting Individual form by SMS in Sheltered Housing
     And selects case for address "FLAT 17 PARK LODGE"
     And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
-    And the case event should be "Action Created"
+    And the case event category should be "Action Created"
     And the case event description should be "Send Internet Access Code (English)"
     And the user logs out
 

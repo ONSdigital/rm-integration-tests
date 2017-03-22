@@ -186,7 +186,7 @@ Feature: Test successfull Welsh paper response
     And selects case for address "15 GLEN COTTAGES"
     And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
-    Then the case event should be "Action Created"
+    Then the case event category should be "Action Created"
     And the case event description should be "Print household paper questionnaire (Welsh with sexual ID)"
     And the user logs out
 
@@ -230,5 +230,5 @@ Feature: Test successfull Welsh paper response
     And selects case for address "15 GLEN COTTAGES"
     And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
-    Then the case event should be "Paper Questionnaire Response"
+    Then the case event category should be "Paper Questionnaire Response"
 		And the user logs out

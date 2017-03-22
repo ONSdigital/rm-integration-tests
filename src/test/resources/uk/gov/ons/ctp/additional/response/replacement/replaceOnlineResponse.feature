@@ -329,7 +329,7 @@ Feature: Test successfull replacements for HH and individual online response
     And selects case for address "BEDSIT 10"
     And the case state for "12" should be "ACTIONABLE"
     And navigates to the cases page for case "12"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 		
 	@replaceOnlineRespondedUI
@@ -337,9 +337,9 @@ Feature: Test successfull replacements for HH and individual online response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And the case state for "12" should be "ACTIONABLE"
+    And the case state for "13" should be "ACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 
 
@@ -399,7 +399,7 @@ Feature: Test successfull replacements for HH and individual online response
     And selects case for address "BEDSIT 10"
     And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
-    Then the case event should contain "Online Questionnaire Response"
+    Then the case event category should contain "Online Questionnaire Response"
 		And the user logs out
 		
 	@replaceOnlineRespondedUI
@@ -409,7 +409,7 @@ Feature: Test successfull replacements for HH and individual online response
     And selects case for address "BEDSIT 1"
     And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case event should contain "Online Questionnaire Response"
+    Then the case event category should contain "Online Questionnaire Response"
 		And the user logs out
 
   @replaceValidateIAC
@@ -445,7 +445,7 @@ Feature: Test successfull replacements for HH and individual online response
     And selects case for address "BEDSIT 10"
     And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 		
 	@replaceOnlineRespondedUI
@@ -455,5 +455,5 @@ Feature: Test successfull replacements for HH and individual online response
     And selects case for address "BEDSIT 1"
     And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out

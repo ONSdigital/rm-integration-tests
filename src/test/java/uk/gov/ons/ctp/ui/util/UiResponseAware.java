@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
+import uk.gov.ons.ctp.ui.util.ro.pom.CreateEventResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
@@ -311,25 +312,11 @@ public class UiResponseAware extends SeleniumAware {
    * @param formContent List of content to fill in form
    */
   public void invokeUICreateCaseEvent(List<String> formContent) {
-    getWebDriver().findElement(By.xpath("//input[@value='Create Event…']")).click();
+    EventsResponseOperation events = new EventsResponseOperation(webDriver);
+    events.clickCreateEventButton();
 
-    // enter details and save
-    getWebDriver().findElement(By.id("eventtext")).sendKeys(formContent.get(1));
-
-    final Select titleBox = new Select(getWebDriver().findElement(By.id("customertitle")));
-    titleBox.selectByVisibleText("Lord");
-
-    getWebDriver().findElement(By.id("customerforename")).sendKeys(formContent.get(2));
-    getWebDriver().findElement(By.id("customersurname")).sendKeys(formContent.get(2));
-    getWebDriver().findElement(By.id("customercontact")).sendKeys(formContent.get(3));
-    String category = formContent.get(0);
-
-    if (category != null && category.length() > 0) {
-      final Select selectBox = new Select(getWebDriver().findElement(By.id("eventcategory")));
-      selectBox.selectByVisibleText(category);
-    }
-
-    getWebDriver().findElement(By.xpath("//input[@type='submit']")).click();
+    CreateEventResponseOperation createEvent = new CreateEventResponseOperation(webDriver);
+    createEvent.completeAndSubmitCreateEventForm(formContent);
   }
 
   /**
@@ -445,16 +432,6 @@ public class UiResponseAware extends SeleniumAware {
   }
 
   /**
-   * Extract case state from UI and return value
-   *
-   * @return case state on page
-   */
-  public String invokeCaseStateCheck() {
-    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
-    return casespage.getCaseState();
-  }
-
-  /**
    * Extract case state from UI  for specific case and return value
    *
    * @param caseId to search for
@@ -463,9 +440,6 @@ public class UiResponseAware extends SeleniumAware {
   public String invokeCaseStateCheck(String caseId) {
     CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
     return casespage.getCaseStateForCase(caseId);
-    
-//    WebElement row = this.extractRowFromTableBySearch(1, caseId);
-//    return row.findElements(By.tagName("td")).get(1).getText();
   }
 
   /**
@@ -483,7 +457,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case event category on page
    */
   public String invokeCaseEventCategory() {
-    return extractValueFromTable(3, 1, 4);
+    EventsResponseOperation events = new EventsResponseOperation(webDriver);
+    return events.getMostRecentEventCategory();
   }
 
   /**
@@ -491,17 +466,9 @@ public class UiResponseAware extends SeleniumAware {
    *
    * @return case event list
    */
-  public List<String> invokeCaseEventList() {
-    return extractColumnValuesFromTable(3, 4);
-  }
-
-  /**
-   * Extract case event categories from UI and return values
-   *
-   * @return case event categories from table column
-   */
-  public List<String> invokeCaseEventsCategories() {
-    return extractColumnValuesFromTable(3, 4);
+  public List<String> invokeCaseEventCategoryList() {
+    EventsResponseOperation events = new EventsResponseOperation(webDriver);
+    return events.getListEventCategory();
   }
 
   /**

@@ -201,7 +201,7 @@ Feature: Test successfull individual paper response
     And selects case for address "20 EMRAL RISE"
     And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should be "Action Created"
+    Then the case event category should be "Action Created"
     And the case event description should be "Print Individual paper questionnaire (English with sexual ID)"
     And the user logs out
 
@@ -243,7 +243,7 @@ Feature: Test successfull individual paper response
 		Given the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF13LG"
     And selects case for address "20 EMRAL RISE"
-    And the case state for "11" should be "ACTIONABLE"
+    And the case state for "11" should be "INACTIONABLE"
     And navigates to the cases page for case "11"
-    Then the case event should be "Paper Questionnaire Response"
+    Then the case event category should be "Paper Questionnaire Response"
 		And the user logs out

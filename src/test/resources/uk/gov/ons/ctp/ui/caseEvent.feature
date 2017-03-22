@@ -79,8 +79,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
     And the user creates a new event for
-      | Accessibility Materials | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Accessibility Materials"
+      | Accessibility Materials | Test description. | Mr | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Accessibility Materials"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "1" should be "ACTIONABLE"
@@ -93,8 +93,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 2"
     And navigates to the cases page for case "2"
     And the user creates a new event for
-      | Address Details Incorrect | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Address Details Incorrect"
+      | Address Details Incorrect | Test description. | Mrs | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Address Details Incorrect"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "2" should be "ACTIONABLE"
@@ -107,8 +107,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 3"
     And navigates to the cases page for case "3"
     And the user creates a new event for
-      | Classification Incorrect | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Classification Incorrect"
+      | Classification Incorrect | Test description. | Miss | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Classification Incorrect"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And after a delay of 20 seconds
     And the user goes back to the cases page
@@ -122,8 +122,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 4"
     And navigates to the cases page for case "4"
     And the user creates a new event for
-      | Field Complaint - Escalated | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Field Complaint - Escalated"
+      | Field Complaint - Escalated | Test description. | Ms | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Field Complaint - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "4" should be "ACTIONABLE"
@@ -136,8 +136,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 5"
     And navigates to the cases page for case "5"
     And the user creates a new event for
-      | Field Emergency - Escalated | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Field Emergency - Escalated"
+      | Field Emergency - Escalated | Test description. | Dr | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Field Emergency - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "5" should be "ACTIONABLE"
@@ -150,8 +150,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 6"
     And navigates to the cases page for case "6"
     And the user creates a new event for
-      | General Complaint | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "General Complaint"
+      | General Complaint | Test description. | Prof. | Integration | Tester | 01234 567890 |
+    Then the case event category should be "General Complaint"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "6" should be "ACTIONABLE"
@@ -164,8 +164,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 7"
     And navigates to the cases page for case "7"
     And the user creates a new event for
-      | General Complaint - Escalated | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "General Complaint - Escalated"
+      | General Complaint - Escalated | Test description. | Rev. | Integration | Tester | 01234 567890 |
+    Then the case event category should be "General Complaint - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "7" should be "ACTIONABLE"
@@ -178,8 +178,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 8"
     And navigates to the cases page for case "8"
     And the user creates a new event for
-      | General Enquiry | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "General Enquiry"
+      | General Enquiry | Test description. | Sir | Integration | Tester | 01234 567890 |
+    Then the case event category should be "General Enquiry"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "8" should be "ACTIONABLE"
@@ -192,8 +192,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 9"
     And navigates to the cases page for case "9"
     And the user creates a new event for
-      | General Enquiry - Escalated | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "General Enquiry - Escalated"
+      | General Enquiry - Escalated | Test description. | Capt. | Integration | Tester | 01234 567890 |
+    Then the case event category should be "General Enquiry - Escalated"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "9" should be "ACTIONABLE"
@@ -206,8 +206,8 @@ Feature: Test UI create events scenarios
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"
     And the user creates a new event for
-      | Miscellaneous | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Miscellaneous"
+      | Miscellaneous | Test description. | Lady | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Miscellaneous"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "10" should be "ACTIONABLE"
@@ -220,9 +220,9 @@ Feature: Test UI create events scenarios
     And selects case for address "THE FLAT"
     And navigates to the cases page for case "11"
     And the user creates a new event for
-      | Refusal | Test description. | integration.tester | 01234 567890 |
+      | Refusal | Test description. | Lord | Integration | Tester | 01234 567890 |
     #And after a delay of 10 seconds
-    Then the case event should be "Refusal"
+    Then the case event category should be "Refusal"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And after a delay of 20 seconds
     And the user goes back to the cases page
@@ -236,8 +236,8 @@ Feature: Test UI create events scenarios
     And selects case for address "1 BEAUMARIS ROAD"
     And navigates to the cases page for case "12"
     And the user creates a new event for
-      | Technical Query | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Technical Query"
+      | Technical Query | Test description. | Mr | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Technical Query"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "12" should be "ACTIONABLE"
@@ -250,8 +250,8 @@ Feature: Test UI create events scenarios
     And selects case for address "2 BEAUMARIS ROAD"
     And navigates to the cases page for case "13"
     And the user creates a new event for
-      | Undeliverable | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "Undeliverable"
+      | Undeliverable | Test description. | Mrs | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Undeliverable"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And after a delay of 20 seconds
     And the user goes back to the cases page
@@ -265,8 +265,8 @@ Feature: Test UI create events scenarios
     And selects case for address "3 BEAUMARIS ROAD"
     And navigates to the cases page for case "14"
     And the user creates a new event for
-      | Technical Query | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium. | integration.tester | 01234 567890 |
-    Then the case event should be "Technical Query"
+      | Technical Query | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium. | Lady | Integration | Tester | 01234 567890 |
+    Then the case event category should be "Technical Query"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium."
     And the user goes back to the cases page
     And the case state for "14" should be "ACTIONABLE"

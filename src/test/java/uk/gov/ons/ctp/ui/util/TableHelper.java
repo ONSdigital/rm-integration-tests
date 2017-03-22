@@ -1,5 +1,6 @@
 package uk.gov.ons.ctp.ui.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -56,5 +57,25 @@ public class TableHelper {
     List<WebElement> values = row.findElements(By.tagName("td"));
 
     return values.get(columnNumber - 1).getText();
+  }
+
+  /**
+   * Extract a values from a table column
+   *
+   * @param table to be interrogated
+   * @param columnNumber to extract values from
+   * @return List of values
+   */
+  public List<String> extractColumnValuesFromTable(WebElement table, int columnNumber) {
+    List<String> columnValues = new ArrayList<String>();
+
+    WebElement tableBody = table.findElement(By.tagName("tbody"));
+    List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
+
+    for (WebElement row: rows) {
+      List<WebElement> values = row.findElements(By.tagName("td"));
+      columnValues.add(values.get(columnNumber - 1).getText());
+    }
+    return columnValues;
   }
 }

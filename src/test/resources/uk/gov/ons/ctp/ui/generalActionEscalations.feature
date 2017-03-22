@@ -14,7 +14,6 @@
 # Scenario Tags: @complaintCreateEventExistCheck
 #                
 
-#Sample Feature Definition Template
 @helplineUI @generalActionEscalation
 Feature: Test general user can view and perform actions upon escalation action.
 
@@ -213,9 +212,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "1"
     And the user creates a new event for
-      | Close Escalation | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Close Escalation"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Close Escalation | Manager test description. | Mr | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Close Escalation"
+    And the case event description should be "name: Mr general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general complaint cases" 
     And the case page for "1" is no longer present
     And the user logs out
@@ -234,9 +233,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "2"
     And the user creates a new event for
-      | Pending | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Pending"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Pending | Manager test description. | Mrs | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Pending"
+    And the case event description should be "name: Mrs general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general complaint cases" 
     And the case page for "2" is present
     And the user logs out
@@ -255,9 +254,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "3"
     And the user creates a new event for
-      | Incorrect Escalation | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Incorrect Escalation"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Incorrect Escalation | Manager test description. | Miss | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Incorrect Escalation"
+    And the case event description should be "name: Miss general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general complaint cases" 
     And the case page for "3" is no longer present
     And the user logs out
@@ -276,9 +275,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general complaint cases" 
     And selects case page for "4"
     And the user creates a new event for
-      | Escalated Refusal | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Escalated Refusal"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Escalated Refusal | Manager test description. | Ms | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Escalated Refusal"
+    And the case event description should be "name: Ms general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general complaint cases" 
     And the case page for "4" is no longer present
     And the user logs out
@@ -297,9 +296,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "5"
     And the user creates a new event for
-      | Close Escalation | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Close Escalation"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Close Escalation | Manager test description. | Dr | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Close Escalation"
+    And the case event description should be "name: Dr general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general enquiry cases" 
     And the case page for "5" is no longer present
     And the user logs out
@@ -318,9 +317,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "6"
     And the user creates a new event for
-      | Pending | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Pending"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Pending | Manager test description. | Prof. | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Pending"
+    And the case event description should be "name: Prof general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general enquiry cases" 
     And the case page for "6" is present
     And the user logs out
@@ -339,9 +338,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "7"
     And the user creates a new event for
-      | Incorrect Escalation | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Incorrect Escalation"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Incorrect Escalation | Manager test description. | Rev. | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Incorrect Escalation"
+    And the case event description should be "name: Rev general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general enquiry cases" 
     And the case page for "7" is no longer present
     And the user logs out
@@ -360,9 +359,9 @@ Feature: Test general user can view and perform actions upon escalation action.
     And navigates to the escalated page "View escalated general enquiry cases" 
     And selects case page for "8"
     And the user creates a new event for
-      | Escalated Refusal | Manager test description. | integration.general.tester | 07777123456 |
-    Then the case event should be "Escalated Refusal"
-    And the case event description should be "name: Lord integration.general.tester integration.general.tester phone: 07777123456 Manager test description."
+      | Escalated Refusal | Manager test description. | Sir | General Integration | Tester | 07777123456 |
+    Then the case event category should be "Escalated Refusal"
+    And the case event description should be "name: Sir general integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated general enquiry cases" 
     And the case page for "8" is no longer present
     And the user logs out

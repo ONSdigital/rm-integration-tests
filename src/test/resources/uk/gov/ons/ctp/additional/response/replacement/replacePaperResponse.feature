@@ -333,7 +333,7 @@ Feature: Test successfull replacements for HH and individual paper response
     And selects case for address "20 EMRAL RISE"
     And the case state for "12" should be "ACTIONABLE"
     And navigates to the cases page for case "12"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 		
 	@replacePaperRespondedUI
@@ -343,7 +343,7 @@ Feature: Test successfull replacements for HH and individual paper response
     And selects case for address "11 EMRAL RISE"
     And the case state for "13" should be "ACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 
 
@@ -423,7 +423,7 @@ Feature: Test successfull replacements for HH and individual paper response
     And selects case for address "20 EMRAL RISE"
     And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
-    Then the case event should contain "Paper Questionnaire Response"
+    Then the case event category should contain "Paper Questionnaire Response"
 		And the user logs out
 		
 	@replacePaperRespondedUI
@@ -433,7 +433,7 @@ Feature: Test successfull replacements for HH and individual paper response
     And selects case for address "11 EMRAL RISE"
     And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case event should contain "Paper Questionnaire Response"
+    Then the case event category should contain "Paper Questionnaire Response"
 		And the user logs out
 
 
@@ -471,7 +471,7 @@ Feature: Test successfull replacements for HH and individual paper response
     And selects case for address "20 EMRAL RISE"
     And the case state for "12" should be "INACTIONABLE"
     And navigates to the cases page for case "12"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out
 		
 	@replacePaperRespondedUI
@@ -481,5 +481,5 @@ Feature: Test successfull replacements for HH and individual paper response
     And selects case for address "11 EMRAL RISE"
     And the case state for "13" should be "INACTIONABLE"
     And navigates to the cases page for case "13"
-    Then the case event should contain "Access Code Authenticated By Respondent"
+    Then the case event category should contain "Access Code Authenticated By Respondent"
 		And the user logs out

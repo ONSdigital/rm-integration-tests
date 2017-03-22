@@ -85,7 +85,7 @@ Feature: Test helpline no response expected
 
 
 	# CTPA-765
-  @refusalRequest
+  @refusalRequest @pomtest
   Scenario: Create an refusal case event
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
@@ -93,7 +93,7 @@ Feature: Test helpline no response expected
     And the case state for "1" should be "ACTIONABLE"
     And navigates to the cases page for case "1"
     And the user creates a new event for
-      | Refusal | Test description. | integration.tester | 01234 567890 |
+      | Refusal | Test description. | Lord | Integration | Tester | 01234 567890 |
     And the user logs out
     
   @classificationIncorrectRequest
@@ -104,7 +104,7 @@ Feature: Test helpline no response expected
     And the case state for "3" should be "ACTIONABLE"
     And navigates to the cases page for case "3"
     And the user creates a new event for
-      | Classification Incorrect | Test description. | integration.tester | 01234 567890 |
+      | Classification Incorrect | Test description. | Lady | Integration | Tester | 01234 567890 |
     And the user logs out
     
   @undeliverableRequest
@@ -115,7 +115,7 @@ Feature: Test helpline no response expected
     And the case state for "10" should be "ACTIONABLE"
     And navigates to the cases page for case "10"
     And the user creates a new event for
-      | Undeliverable | Test description. | integration.tester | 01234 567890 |
+      | Undeliverable | Test description. | Rev. | Integration | Tester | 01234 567890 |
     And the user logs out
 
 
@@ -129,7 +129,7 @@ Feature: Test helpline no response expected
     And selects case for address "BEDSIT 1"
     And the case state for "1" should be "INACTIONABLE"
     And navigates to the cases page for case "1"
-    Then the case event should be "Refusal"
+    Then the case event category should be "Refusal"
     And the user logs out
 
   @caseStateClassificationIncorrectCheck
@@ -139,7 +139,7 @@ Feature: Test helpline no response expected
     And selects case for address "BEDSIT 3"
     And the case state for "3" should be "INACTIONABLE"
     And navigates to the cases page for case "3"
-    Then the case event should be "Classification Incorrect"
+    Then the case event category should be "Classification Incorrect"
     And the user logs out
 
   @caseStateUndeliverableCheck
@@ -149,7 +149,7 @@ Feature: Test helpline no response expected
     And selects case for address "BEDSIT 10"
     And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
-    Then the case event should be "Undeliverable"
+    Then the case event category should be "Undeliverable"
     And the user logs out 
 
 

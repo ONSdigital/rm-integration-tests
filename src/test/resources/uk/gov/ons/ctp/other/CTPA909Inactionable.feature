@@ -149,7 +149,7 @@ Feature: Test successfull creation of events against an inactionable case
     And selects case for address "BEDSIT 10"
     And the case state for "10" should be "INACTIONABLE"
     And navigates to the cases page for case "10"
-    Then the case event should be "Online Questionnaire Response"
+    Then the case event category should be "Online Questionnaire Response"
 		And the user logs out
 
 
@@ -176,8 +176,8 @@ Feature: Test successfull creation of events against an inactionable case
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"
     And the user creates a new event for
-      | General Complaint | Test description. | integration.tester | 01234 567890 |
-    Then the case event should be "General Complaint"
+      | General Complaint | Test description. | Mr | Integration | Tester | 01234 567890 |
+    Then the case event category should be "General Complaint"
     And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
     And the user goes back to the cases page
     And the case state for "10" should be "INACTIONABLE"

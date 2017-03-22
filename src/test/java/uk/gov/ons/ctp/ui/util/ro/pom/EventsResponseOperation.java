@@ -1,5 +1,7 @@
 package uk.gov.ons.ctp.ui.util.ro.pom;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +26,9 @@ public class EventsResponseOperation {
 
   @FindBy(css = "#ft > table:nth-child(5)")
   private WebElement actionsTable;
+
+  @FindBy(css = "#events > form > input")
+  private WebElement createEventButton;
 
   /**
    * Constructor
@@ -77,5 +82,30 @@ public class EventsResponseOperation {
    */
   public String getMostRecentEventDescription() {
     return helper.extractValueFromTable(getEventsTable(), 1, 5);
+  }
+
+  /**
+   * Get the most recent event category from event table
+   *
+   * @return Event category
+   */
+  public String getMostRecentEventCategory() {
+    return helper.extractValueFromTable(getEventsTable(), 1, 4);
+  }
+
+  /**
+   * Get list of event category from event table
+   *
+   * @return Event category list
+   */
+  public List<String> getListEventCategory() {
+    return helper.extractColumnValuesFromTable(getEventsTable(), 4);
+  }
+
+  /**
+   * Click create event to take the user to the create event form
+   */
+  public void clickCreateEventButton() {
+    createEventButton.click();
   }
 }
