@@ -60,7 +60,7 @@ Feature: Review Cases and Case Groups
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    Then check if any cases associated with address
+    Then check cases are associated with address
     And the user logs out
 
   @viewContactNameAssociatedToIndividualCase
@@ -99,5 +99,5 @@ Feature: Review Cases and Case Groups
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF11PX"
     And selects case for address "10 HEATHER DRIVE"
-    Then check if any cases associated with address
+    Then check no cases are associated with address
     And the user logs out

@@ -171,14 +171,14 @@ Feature: Test successfull creation of events against an inactionable case
 
 	@createEvent
   Scenario: Create a General Complaint case event
-    Given the "Test" user has logged in using "Chrome"
+    Given the "Test" user has logged in using "Test"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"
     And the user creates a new event for
       | General Complaint | Test description. | Mr | Integration | Tester | 01234 567890 |
     Then the case event category should be "General Complaint"
-    And the case event description should be "name: Lord integration.tester integration.tester phone: 01234 567890 Test description."
-    And the user goes back to the cases page
+    And the case event description should be "name: Mr integration tester phone: 01234 567890 Test description."
+    And the user navigates back to the cases page
     And the case state for "10" should be "INACTIONABLE"
-    And the user logs out
+    #And the user logs out

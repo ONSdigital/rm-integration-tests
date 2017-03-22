@@ -85,7 +85,7 @@ Feature: Test helpline no response expected
 
 
 	# CTPA-765
-  @refusalRequest @pomtest
+  @refusalRequest
   Scenario: Create an refusal case event
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"

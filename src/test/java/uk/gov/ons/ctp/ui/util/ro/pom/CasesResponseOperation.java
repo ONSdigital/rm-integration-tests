@@ -13,6 +13,7 @@ import uk.gov.ons.ctp.ui.util.TableHelper;
  */
 public class CasesResponseOperation {
   private TableHelper helper = new TableHelper();
+  private WebDriver driver;
 
   @FindBy(className = "primary")
   private WebElement addressTable;
@@ -26,6 +27,7 @@ public class CasesResponseOperation {
    * @param webDriver Selenium web driver
    */
   public CasesResponseOperation(WebDriver webDriver) {
+    driver = webDriver;
     PageFactory.initElements(webDriver, this);
   }
 
@@ -65,5 +67,14 @@ public class CasesResponseOperation {
   public String getCaseStateForCase(String caseId) {
     WebElement row = helper.navigateToTableRowBySearch(getCasesTable(), caseId);
     return row.findElements(By.tagName("td")).get(1).getText();
+  }
+
+  /**
+   * Get the number of tables on page
+   *
+   * @return number of tables
+   */
+  public int getNumberTablesOnPage() {
+    return driver.findElements(By.tagName("table")).size();
   }
 }

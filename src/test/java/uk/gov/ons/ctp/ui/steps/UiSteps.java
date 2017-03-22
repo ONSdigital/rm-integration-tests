@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -119,10 +122,10 @@ public class UiSteps {
    *
    * @param data to validate and search for
    */
-  @Then("^reviews and validates information \"(.*?)\"")
-  public void reviews_and_validates_information(String data) {
-    assertTrue(responseAware.invokeUICaseInformationVerification(data));
-  }
+//  @Then("^reviews and validates information \"(.*?)\"")
+//  public void reviews_and_validates_information(String data) {
+//    assertTrue(responseAware.invokeUICaseInformationVerification(data));
+//  }
 
   /**
    * Navigate to cases page for case id
@@ -141,10 +144,10 @@ public class UiSteps {
    * @param page to be navigated to
    * @throws Throwable pass the exception
    */
-  @When("^navigates to the \"(.*?)\" page")
-  public void navigates_to_the_page(String page) throws Throwable {
-    responseAware.invokeUIReportsPage(page);
-  }
+//  @When("^navigates to the \"(.*?)\" page")
+//  public void navigates_to_the_page(String page) throws Throwable {
+//    responseAware.invokeUIReportsPage(page);
+//  }
 
   /**
    * The table contains the elements
@@ -155,12 +158,12 @@ public class UiSteps {
    * @param columnTwo the second column to check for in the table
    * @throws Throwable pass the exception
    */
-  @When("^the first row of the table should contain the values \"(.*?)\" and \"(.*?)\" in columns (\\d+) and (\\d+)$")
-  public void the_first_row_of_the_table_should_contain_the_values_and(
-      String firstElement, String secondElement, int columnOne, int  columnTwo) throws Throwable {
-    assertEquals(responseAware.invokeCheckReportContents(columnOne), firstElement);
-    assertEquals(responseAware.invokeCheckReportContents(columnTwo), secondElement);
-  }
+//  @When("^the first row of the table should contain the values \"(.*?)\" and \"(.*?)\" in columns (\\d+) and (\\d+)$")
+//  public void the_first_row_of_the_table_should_contain_the_values_and(
+//      String firstElement, String secondElement, int columnOne, int  columnTwo) throws Throwable {
+//    assertEquals(responseAware.invokeCheckReportContents(columnOne), firstElement);
+//    assertEquals(responseAware.invokeCheckReportContents(columnTwo), secondElement);
+//  }
 
   /**
    * The table headings contain the text
@@ -169,30 +172,30 @@ public class UiSteps {
    * @param secondHeading the second heading in the table
    * @throws Throwable pass the exception
    */
-  @When("^the table should contain the headings \"(.*?)\" and \"(.*?)\"")
-  public void the_table_should_contain_the_headings_and(String firstHeading, String secondHeading) throws Throwable {
-    assertTrue(responseAware.invokeCheckReportHeadings(firstHeading, secondHeading));
-  }
+//  @When("^the table should contain the headings \"(.*?)\" and \"(.*?)\"")
+//  public void the_table_should_contain_the_headings_and(String firstHeading, String secondHeading) throws Throwable {
+//    assertTrue(responseAware.invokeCheckReportHeadings(firstHeading, secondHeading));
+//  }
 
   /**
    * Check that an error message is displayed
    *
    * @throws Throwable pass the exception
    */
-  @When("^an error message appears on screen")
-  public void an_error_message_appears_on_screen() throws Throwable {
-    assertFalse(responseAware.invokeUIReportsCheckError("information"));
-  }
+//  @When("^an error message appears on screen")
+//  public void an_error_message_appears_on_screen() throws Throwable {
+//    assertFalse(responseAware.invokeUIReportsCheckError("information"));
+//  }
 
   /**
    * Check that an error message is not displayed
    *
    * @throws Throwable pass the exception
    */
-  @When("^there is no error message")
-  public void there_is_no_error_message() throws Throwable {
-    assertTrue(responseAware.invokeUIReportsCheckError("information"));
-  }
+//  @When("^there is no error message")
+//  public void there_is_no_error_message() throws Throwable {
+//    assertTrue(responseAware.invokeUIReportsCheckError("information"));
+//  }
 
   /**
    * Check that the error message is correct
@@ -200,40 +203,52 @@ public class UiSteps {
    * @param expectedError the error message expected
    * @throws Throwable pass the exception
    */
-  @When("^the error message is \"(.*?)\"$")
-  public void the_error_message_is(String expectedError) throws Throwable {
-    assertTrue(responseAware.invokeReportErrorCheck(expectedError));
-  }
+//  @When("^the error message is \"(.*?)\"$")
+//  public void the_error_message_is(String expectedError) throws Throwable {
+//    assertTrue(responseAware.invokeReportErrorCheck(expectedError));
+//  }
 
   /**
    * Check that report for specified date exists
    *
    * @throws Throwable pass the exception
    */
-  @When("^the report for todays date should be present$")
-  public void the_report_for_todays_date_should_be_present() throws Throwable {
-    String date = responseAware.invokeReportDateCheck();
-    Date today = Calendar.getInstance().getTime();
-    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMM yyyy");
-    assertTrue("Report date doesn't match", date.startsWith(sdf.format(today)));
-  }
+//  @When("^the report for todays date should be present$")
+//  public void the_report_for_todays_date_should_be_present() throws Throwable {
+//    String date = responseAware.invokeReportDateCheck();
+//    Date today = Calendar.getInstance().getTime();
+//    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMM yyyy");
+//    assertTrue("Report date doesn't match", date.startsWith(sdf.format(today)));
+//  }
 
   /**
    * Validates the report types
    *
    * @throws Throwable pass the exception
    */
-  @Then("validates the report types shown to the user$")
-  public void validates_the_report_types_shown_to_the_user() throws Throwable {
-    assertTrue(responseAware.invokeValidateOnReportTypes());
+//  @Then("validates the report types shown to the user$")
+//  public void validates_the_report_types_shown_to_the_user() throws Throwable {
+//    assertTrue(responseAware.invokeValidateOnReportTypes());
+//  }
+
+  /**
+   * Confirm cases are associated with an address
+   */
+  @When("^check cases are associated with address$")
+  public void check_cases_are_associated_with_address() {
+    int result = responseAware.checkCasesCount();
+    
+    assertTrue("No cases found for address", result == 2);
   }
 
   /**
-   * Navigate to cases page for case id
+   * Confirm no cases are associated with an address
    */
-  @When("^check if any cases associated with address$")
-  public void check_if_an_cases_associated_with_address() {
-    responseAware.checkCasesCount();
+  @When("^check no cases are associated with address$")
+  public void check_no_cases_are_associated_with_address() {
+    int result = responseAware.checkCasesCount();
+    
+    assertTrue("Cases found for address", result == 1);
   }
 
   /**
@@ -249,12 +264,12 @@ public class UiSteps {
   }
 
   /**
-   * Navigate back to the case screen for the current case
+   * Navigate back to the cases page from events page
    *
    * @throws Throwable pass the exception
    */
-  @When("^the user goes back to the cases page$")
-  public void the_user_goes_back_to_the_cases_page() throws Throwable {
+  @When("^the user navigates back to the cases page$")
+  public void the_user_navigates_back_to_the_cases_page() throws Throwable {
     responseAware.invokeUINavigateBackToCase();
   }
 
@@ -327,18 +342,6 @@ public class UiSteps {
     responseAware.invokeUIManagerCasePage(caseId);
   }
 
-//  /**
-//   * Test state of case
-//   *
-//   * @param state to be tested
-//   * @throws Throwable pass the exception
-//   */
-//  @Then("^the case state should be \"(.*?)\"$")
-//  public void the_case_state_should_be(String state) throws Throwable {
-//    String caseState = responseAware.invokeCaseStateCheck();
-//    assertEquals("Status not as expected", state, caseState);
-//  }
-
   /**
    * Test state of case for a specific case
    *
@@ -346,8 +349,6 @@ public class UiSteps {
    * @param state to be tested
    * @throws Throwable pass the exception
    */
-//  @Then("^the case state for \"(.*?)\" and \"(.*?)\"$")
-//  public void the_case_state_for_and(String caseId, String state) throws Throwable {
   @Then("^the case state for \"(.*?)\" should be \"(.*?)\"$")
   public void the_case_state_for_should_be(String caseId, String state) throws Throwable {
     String caseState = responseAware.invokeCaseStateCheck(caseId);

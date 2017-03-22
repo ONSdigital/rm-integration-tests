@@ -15,6 +15,9 @@ import uk.gov.ons.ctp.ui.util.TableHelper;
 public class EventsResponseOperation {
   private TableHelper helper = new TableHelper();
 
+  @FindBy(xpath = "//*[@id=\"breadcrumbs\"]/a[3]")
+  private WebElement casesBreadcrumb;
+
   @FindBy(className = "primary")
   private WebElement addressTable;
 
@@ -39,6 +42,12 @@ public class EventsResponseOperation {
     PageFactory.initElements(webDriver, this);
   }
 
+  /**
+   * Click on breadcrumb to return to cases page
+   */
+  public void clickCasesBreadcrumb() {
+    casesBreadcrumb.click();
+  }
   /**
    * Get address table from page
    *

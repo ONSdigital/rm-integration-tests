@@ -12,6 +12,7 @@ import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CreateEventResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
+import uk.gov.ons.ctp.ui.util.ro.pom.ManageResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.PostcodeResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
@@ -193,17 +194,13 @@ public class UiResponseAware extends SeleniumAware {
   }
 
   /**
-   * Select case id to load case page
+   * Returns the number of tables on cases page
+   *
+   * @return number of tables
    */
-  public void checkCasesCount() {
-    List<WebElement> tables = getWebDriver().findElements(By.tagName("table"));
-    int rowsCount = tables.size();
-
-    System.out.println("Case Count: " + rowsCount);
-
-    if (rowsCount == 0) {
-      System.out.println("No cases are associated to this address. There should always be at least one.");
-    }
+  public int checkCasesCount() {
+    CasesResponseOperation casesRO = new CasesResponseOperation(webDriver);
+    return casesRO.getNumberTablesOnPage();
   }
 
   /**
@@ -301,7 +298,8 @@ public class UiResponseAware extends SeleniumAware {
    * Navigate back to the case screen for the current case
    */
   public void invokeUINavigateBackToCase() {
-    getWebDriver().findElement(By.xpath("//*[@id=\"breadcrumbs\"]/a[3]")).click();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    eventsRO.clickCasesBreadcrumb();
   }
 
   /**
@@ -310,8 +308,11 @@ public class UiResponseAware extends SeleniumAware {
    * @param type of escalation to navigate to
    */
   public void invokeUIEscalation(String type) {
-    getWebDriver().findElement(By.linkText("Manage")).click();
-    getWebDriver().findElement(By.linkText(type)).click();
+    PostcodeResponseOperation postcodeRO = new PostcodeResponseOperation(webDriver);
+    postcodeRO.clickManageEscalation();
+
+    ManageResponseOperation manageRO = new ManageResponseOperation(webDriver);
+    manageRO.clickEscalationLink(type);
   }
 
   /**

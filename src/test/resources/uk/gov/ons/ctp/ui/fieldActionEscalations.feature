@@ -212,13 +212,13 @@ Feature: Test user can view and perform actions upon escalation action.
 
   # Complaint Escalated - Close Escalation
   Scenario: Escalation manager creates a close escalation case event on Field Complaint - Escalated and checks that the case was removed.
-    Given the "Field" user has logged in using "Chrome"
+    Given the "Field" user has logged in using "Test"
     And navigates to the escalated page "View escalated field complaint cases" 
     And selects case page for "1"
     And the user creates a new event for
       | Close Escalation | Manager test description. | Mr | Integration | Tester | 07777123456 |
     Then the case event category should be "Close Escalation"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Mr integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field complaint cases" 
     And the case page for "1" is no longer present
     And the user logs out
@@ -239,7 +239,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Pending | Manager test description. | Mrs | Integration | Tester | 07777123456 |
     Then the case event category should be "Pending"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Mrs integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field complaint cases"
     And the case page for "2" is present
     And the user logs out
@@ -260,7 +260,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Incorrect Escalation | Manager test description. | Miss | Integration | Tester | 07777123456 |
     Then the case event category should be "Incorrect Escalation"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Miss integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field complaint cases" 
     And the case page for "3" is no longer present
     And the user logs out
@@ -281,7 +281,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Escalated Refusal | Manager test description. | Ms | Integration | Tester | 07777123456 |
     Then the case event category should be "Escalated Refusal"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Ms integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field complaint cases" 
     And the case page for "4" is no longer present
     And the user logs out
@@ -302,7 +302,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Close Escalation | Manager test description. | Dr | Integration | Tester | 07777123456 |
     Then the case event category should be "Close Escalation"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Dr integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field emergency cases" 
     And the case page for "5" is no longer present
     And the user logs out
@@ -323,7 +323,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Pending | Manager test description. | Prof. | Integration | Tester | 07777123456 |
     Then the case event category should be "Pending"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Prof integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field emergency cases"
     And the case page for "6" is present
     And the user logs out
@@ -344,7 +344,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Incorrect Escalation | Manager test description. | Rev. | Integration | Tester | 07777123456 |
     Then the case event category should be "Incorrect Escalation"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Rev integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field emergency cases" 
     And the case page for "7" is no longer present
     And the user logs out
@@ -365,7 +365,7 @@ Feature: Test user can view and perform actions upon escalation action.
     And the user creates a new event for
       | Escalated Refusal | Manager test description. | Sir | Integration | Tester | 07777123456 |
     Then the case event category should be "Escalated Refusal"
-    And the case event description should be "name: Lord integration.field.tester integration.field.tester phone: 07777123456 Manager test description."
+    And the case event description should be "name: Sir integration tester phone: 07777123456 Manager test description."
     And navigates to the escalated page "View escalated field emergency cases" 
     And the case page for "8" is no longer present
     And the user logs out

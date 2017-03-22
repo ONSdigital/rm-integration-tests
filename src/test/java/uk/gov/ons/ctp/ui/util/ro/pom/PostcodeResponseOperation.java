@@ -12,6 +12,18 @@ public class PostcodeResponseOperation {
   @FindBy(className = "message")
   private WebElement loginMsg;
 
+  @FindBy(xpath = "//*[@id=\"menu\"]/li[2]/a")
+  private WebElement escalationManage;
+
+  /**
+   * Constructor
+   *
+   * @param webDriver Selenium web driver
+   */
+  public PostcodeResponseOperation(WebDriver webDriver) {
+    PageFactory.initElements(webDriver, this);
+  }
+
   /**
    * Get login message
    *
@@ -22,11 +34,9 @@ public class PostcodeResponseOperation {
   }
 
   /**
-   * Constructor
-   *
-   * @param webDriver Selenium web driver
+   * click on manage escalation link
    */
-  public PostcodeResponseOperation(WebDriver webDriver) {
-    PageFactory.initElements(webDriver, this);
+  public void clickManageEscalation() {
+    escalationManage.click();
   }
 }
