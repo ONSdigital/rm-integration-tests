@@ -101,7 +101,7 @@ Feature: Testing user requesting Individual form by SMS
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF26HS"
     And selects case for address "11 ABBOTS CLOSE"
-    And the case state for "1" should be "ACTIONABLE"
+    And the case state for "5" should be "ACTIONABLE"
     And navigates to the cases page for case "5"
     And the user requests an individual request for
       | Online | Dr | Integration | Tester |  | 07777123456 | |
@@ -142,7 +142,7 @@ Feature: Testing user requesting Individual form by SMS
     When the "Test" user has logged in using "Chrome"
     Then the user gets the addresses for postcode "TF2 6HS"
     And selects case for address "11 ABBOTS CLOSE"
-    And the case state for "1" should be "ACTIONABLE"
+    And the case state for "11" should be "ACTIONABLE"
     And navigates to the cases page for case "11"
     And the case event category should be "Action Created"
     And the case event description should be "Send Internet Access Code (English)"

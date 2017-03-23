@@ -117,16 +117,29 @@ public class UiSteps {
     assertTrue("Expected address message does not match result: " + msg, result);
   }
 
+  /**
+   * Get question set from case table on case page
+   *
+   * @param qSet question set to be validated against
+   * @throws Throwable pass the exception
+   */
+  @Then("^the case questionset should be \"(.*?)\"$")
+  public void the_case_questionset_should_be(String qSet) throws Throwable {
+    String result = responseAware.invokeGetCaseQuestionSet();
+    assertTrue("Invalid question set found: " + result, result.equals(qSet));
+  }
 
   /**
-   * Get addresses for postcode
+   * Get address type from address table on case page
    *
-   * @param data to validate and search for
+   * @param addressType to be validated against
+   * @throws Throwable pass the exception
    */
-//  @Then("^reviews and validates information \"(.*?)\"")
-//  public void reviews_and_validates_information(String data) {
-//    assertTrue(responseAware.invokeUICaseInformationVerification(data));
-//  }
+  @Then("^the case address type should be \"(.*?)\"$")
+  public void the_case_address_type_should_be(String addressType) throws Throwable {
+    String result = responseAware.invokeGetAddressType();
+    assertTrue("Invalid address type found: " + result, result.equals(addressType));
+  }
 
   /**
    * Navigate to cases page for case id
@@ -238,7 +251,6 @@ public class UiSteps {
   @When("^check cases are associated with address$")
   public void check_cases_are_associated_with_address() {
     int result = responseAware.checkCasesCount();
-    
     assertTrue("No cases found for address", result == 2);
   }
 
@@ -248,7 +260,6 @@ public class UiSteps {
   @When("^check no cases are associated with address$")
   public void check_no_cases_are_associated_with_address() {
     int result = responseAware.checkCasesCount();
-    
     assertTrue("Cases found for address", result == 1);
   }
 

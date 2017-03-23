@@ -53,13 +53,14 @@ Feature: Review Case Information
     Given after a delay of 20 seconds
 
   # Run UI Case and Casegroup Tests -----
+
   @caseInformation
   Scenario: Enable user to see question set
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
-    Then reviews and validates information "QuestionSet"
+    Then the case questionset should be "H1"
     And the user logs out 
 
   @caseInformation
@@ -68,7 +69,7 @@ Feature: Review Case Information
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
     And navigates to the cases page for case "1"
-    Then reviews and validates information "AddressType"
+    Then the case address type should be "Household"
     And the user logs out
 
   @caseInformation
@@ -76,7 +77,6 @@ Feature: Review Case Information
     Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 1"
-    And navigates to the cases page for case "1"
-    Then reviews and validates information "CaseState"
+    Then the case state for "1" should be "ACTIONABLE"
     And the user logs out
  

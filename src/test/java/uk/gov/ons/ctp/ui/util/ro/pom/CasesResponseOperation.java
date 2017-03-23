@@ -77,4 +77,22 @@ public class CasesResponseOperation {
   public int getNumberTablesOnPage() {
     return driver.findElements(By.tagName("table")).size();
   }
+
+  /**
+   * get question set from case table
+   *
+   * @return question set
+   */
+  public String getCaseQuestionSet() {
+    return helper.extractValueFromTable(getCasesTable(), 1, 4);
+  }
+
+  /**
+   * get address type from address table
+   *
+   * @return address type
+   */
+  public String getAddressType() {
+    return helper.extractValueFromTable(getAddressTable(), 1, 9);
+  }
 }

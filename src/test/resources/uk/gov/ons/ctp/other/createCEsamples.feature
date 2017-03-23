@@ -78,7 +78,7 @@ Feature: Create communal establishment Samples
     When the user gets the addresses for postcode "BA20 1DG"
     And selects case for address "FLAT 1 PARK LODGE"
     And navigates to the cases page for case "1"
-    Then reviews and validates information "QuestionSet"
+    Then the case questionset should be "H1"
     And the user logs out
 
   @caseCECheck
@@ -87,7 +87,7 @@ Feature: Create communal establishment Samples
     When the user gets the addresses for postcode "FY4 1AY"
     And selects case for address "469-477"
     And navigates to the cases page for case "17"
-    Then reviews and validates information "QuestionSet"
+    Then the case questionset should be "HOTEL"
     And the user logs out
 
   @caseCECheck
@@ -96,5 +96,5 @@ Feature: Create communal establishment Samples
     When the user gets the addresses for postcode "S1 4GU"
     And selects case for address "FLAT B1"
     And navigates to the cases page for case "54"
-    Then reviews and validates information "QuestionSet"
+    Then the case questionset should be "I1"
     And the user logs out

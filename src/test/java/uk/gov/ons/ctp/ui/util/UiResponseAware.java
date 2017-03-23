@@ -24,10 +24,10 @@ import uk.gov.ons.ctp.util.World;
  *
  */
 public class UiResponseAware extends SeleniumAware {
-  private static final String[] QUESTION_SETS = new String[]{"H1", "H1S", "H2", "H2S", "I1", "I1S", "HOTEL"};
-  private static final String[] ADDRESS_TYPES = new String[]{"Household"};
-  private static final String[] CASE_STATES = new String[]{"ACTIONABLE", "INACTIONABLE", "REPLACEMENT_INIT",
-      "SAMPLED_INIT"};
+//  private static final String[] QUESTION_SETS = new String[]{"H1", "H1S", "H2", "H2S", "I1", "I1S", "HOTEL"};
+//  private static final String[] ADDRESS_TYPES = new String[]{"Household"};
+//  private static final String[] CASE_STATES = new String[]{"ACTIONABLE", "INACTIONABLE", "REPLACEMENT_INIT",
+//      "SAMPLED_INIT"};
   private static final List<String> REPORT_TYPES = new ArrayList<>(Arrays.asList("HH Returnrate", "HH Noreturns",
     "HH Returnrate Sample", "HH Returnrate LA", "CE Returnrate Uni", "CE ReturnRate SHousing", "CE Returnrate Hotel",
     "HL Metrics", "HH Outstanding Cases", "SH Outstanding Cases", "CE Outstanding Cases", "Print Volumes"));
@@ -142,45 +142,23 @@ public class UiResponseAware extends SeleniumAware {
   }
 
   /**
-   * check results of postCode search
+   * get question set from case table on case page
    *
-   * @param type string representation of postcode
-   * @return boolean if verified
-   *
+   * @return question set
    */
-  public boolean invokeUICaseInformationVerification(String type) {
-    int i = 0;
-    if (type.equals("QuestionSet")) {
-      String questionSet = extractValueFromTable(2, 1, 4);
-      System.out.println(questionSet);
-      while (i < QUESTION_SETS.length) {
-        if (questionSet.equals(QUESTION_SETS[i])) {
-            System.out.println("This Case has a correct question set and its prensent");
-            return true;
-        }
-        i++;
-      }
-    } else if (type.equals("AddressType")) {
-      String addressType = extractValueFromTable(1, 1, 9);
-      while (i < ADDRESS_TYPES.length) {
-        if (addressType.equals(ADDRESS_TYPES[i])) {
-            System.out.println("This Case has a correct address type and its prensent");
-            return true;
-        }
-        i++;
-      }
-    } else if (type.equals("CaseState")) {
-      String caseState = extractValueFromTable(1, 1, 1);
-      while (i < CASE_STATES.length) {
-        if (caseState.equals(CASE_STATES[i])) {
-            System.out.println("This Case has a correct case state and its prensent");
-            return true;
-        }
-        i++;
-      }
-    }
+  public String invokeGetCaseQuestionSet() {
+    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
+    return casespage.getCaseQuestionSet();
+  }
 
-    return false;
+  /**
+   * get address type from address table on case page
+   *
+   * @return address type
+   */
+  public String invokeGetAddressType() {
+    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
+    return casespage.getAddressType();
   }
 
   /**
