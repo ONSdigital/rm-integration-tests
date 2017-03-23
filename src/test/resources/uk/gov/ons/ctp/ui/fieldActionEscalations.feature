@@ -212,7 +212,7 @@ Feature: Test user can view and perform actions upon escalation action.
 
   # Complaint Escalated - Close Escalation
   Scenario: Escalation manager creates a close escalation case event on Field Complaint - Escalated and checks that the case was removed.
-    Given the "Field" user has logged in using "Test"
+    Given the "Field" user has logged in using "Chrome"
     And navigates to the escalated page "View escalated field complaint cases" 
     And selects case page for "1"
     And the user creates a new event for

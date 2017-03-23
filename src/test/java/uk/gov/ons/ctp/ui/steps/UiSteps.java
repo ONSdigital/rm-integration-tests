@@ -104,16 +104,17 @@ public class UiSteps {
   @Then("^the user gets the verification for found addresses \"(.*?)\"")
   public void the_user_gets_the_verification_for_found_addresses(String found) throws Throwable {
     boolean result = false;
+    String msg = "";
 
     if (Boolean.parseBoolean(found)) {
-      System.out.println(responseAware.invokeGetAddressesFoundMessage());
-      result = responseAware.invokeGetAddressesFoundMessage().equals("Click to view cases for an address.");
+      msg = responseAware.invokeGetAddressesFoundMessage();
+      result = msg.equals("Click to view cases for an address.");
     } else {
-      System.out.println(responseAware.invokeGetNoAddressesFoundMessage());
-      result = responseAware.invokeGetNoAddressesFoundMessage().equals("There are no addresses for this postcode.");
+      msg = responseAware.invokeGetNoAddressesFoundMessage();
+      result = msg.equals("There are no addresses for this postcode.");
     }
 
-    assertTrue("Address message does not match expected result", result);
+    assertTrue("Expected address message does not match result: " + msg, result);
   }
 
 
