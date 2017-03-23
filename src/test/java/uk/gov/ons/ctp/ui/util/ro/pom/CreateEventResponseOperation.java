@@ -2,16 +2,24 @@ package uk.gov.ons.ctp.ui.util.ro.pom;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import uk.gov.ons.ctp.ui.util.TableHelper;
+
 /**
  * Created by Stephen Goddard on 21/03/17.
  */
 public class CreateEventResponseOperation {
+  private TableHelper helper = new TableHelper();
+
+  @FindBy(className = "secondary")
+  private WebElement responseModeTable;
+  
   @FindBy(id = "eventtext")
   private WebElement eventDesc;
 
@@ -27,6 +35,9 @@ public class CreateEventResponseOperation {
   @FindBy(id = "customercontact")
   private WebElement customerContact;
 
+  @FindBy(id = "phonenumber")
+  private WebElement phoneNumber;
+
   @FindBy(id = "eventcategory")
   private WebElement categoryDropdown;
 
@@ -40,6 +51,23 @@ public class CreateEventResponseOperation {
    */
   public CreateEventResponseOperation(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
+  }
+  
+  public WebElement getResponseModeTable() {
+    return responseModeTable;
+  }
+
+  public void setResponseMode(String mode, String langauge) {
+    if (langauge.equals("English")) {
+      WebElement row = helper.navigateToTableRowBySearch(getResponseModeTable(), langauge);
+      row.findElement(By.id("regular")).click();
+    } else if (langauge.equals("Welsh")) {
+      WebElement row = helper.navigateToTableRowBySearch(getResponseModeTable(), langauge);
+      row.findElement(By.id("regular")).click();
+    } else {
+      WebElement row = helper.navigateToTableRowBySearch(getResponseModeTable(), mode);
+      row.findElement(By.id("regular")).click();
+    }
   }
 
   /**
@@ -89,6 +117,15 @@ public class CreateEventResponseOperation {
   }
 
   /**
+   * Add customer contact to contact text box
+   *
+   * @param contact text
+   */
+  public void setPhoneNumber(String number) {
+    phoneNumber.sendKeys(number);
+  }
+
+  /**
    * Select item from category drop down
    *
    * @param category text
@@ -117,6 +154,24 @@ public class CreateEventResponseOperation {
     setSurname(formContent.get(4));
     setCustomerContact(formContent.get(5));
     setCategory(formContent.get(0));
+
+    clickCreateEventButton();
+  }
+
+  /**
+   * Complete form and submit
+   * Used for: Individual Form Request
+   *           Replacement Access Code Request
+   *           Paper Form Request
+   *
+   * @param formContent data to complete form
+   */
+  public void completeAndSubmitIndiviualForm(List<String> formContent) {
+    setResponseMode(formContent.get(0), formContent.get(0));
+    setTitleDropdown(formContent.get(1));
+    setForename(formContent.get(2));
+    setSurname(formContent.get(3));
+    setPhoneNumber(formContent.get(5));
 
     clickCreateEventButton();
   }

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
+//import org.openqa.selenium.support.ui.Select;
 
 import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
@@ -14,9 +14,9 @@ import uk.gov.ons.ctp.ui.util.ro.pom.CreateEventResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.ManageResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.PostcodeResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
+//import uk.gov.ons.ctp.ui.util.ro.pom.RequestFormResponseOperation;
+//import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.TranslationResponseOperation;
-import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -24,11 +24,7 @@ import uk.gov.ons.ctp.util.World;
  * Edited by Chris Hardman on 17/11/16
  *
  */
-public class UiResponseAware extends SeleniumAware {
-//  private static final String[] QUESTION_SETS = new String[]{"H1", "H1S", "H2", "H2S", "I1", "I1S", "HOTEL"};
-//  private static final String[] ADDRESS_TYPES = new String[]{"Household"};
-//  private static final String[] CASE_STATES = new String[]{"ACTIONABLE", "INACTIONABLE", "REPLACEMENT_INIT",
-//      "SAMPLED_INIT"};
+public class ResponseOperationUIResponseAware extends SeleniumAware {
   private static final List<String> REPORT_TYPES = new ArrayList<>(Arrays.asList("HH Returnrate", "HH Noreturns",
     "HH Returnrate Sample", "HH Returnrate LA", "CE Returnrate Uni", "CE ReturnRate SHousing", "CE Returnrate Hotel",
     "HL Metrics", "HH Outstanding Cases", "SH Outstanding Cases", "CE Outstanding Cases", "Print Volumes"));
@@ -38,57 +34,57 @@ public class UiResponseAware extends SeleniumAware {
    *
    * @param newWorld class with application and environment properties
    */
-  public UiResponseAware(final World newWorld) {
+  public ResponseOperationUIResponseAware(final World newWorld) {
     super(newWorld);
   }
 
-  /**
-   * Initialise browser and login to UI using the user
-   *
-   * @param user string representation of the user
-   * @param browser string representation of the browser to be used
-   */
-  public void invokeUILogin(String user, String browser) {
-    String username = "";
-    String password = "";
-
-    switch (user.toLowerCase()) {
-      case "test":
-        username = getWorld().getProperty("integration.test.username");
-        password = getWorld().getProperty("integration.test.password");
-        break;
-      case "cso":
-        username = getWorld().getProperty("integration.test.cso.username");
-        password = getWorld().getProperty("integration.test.cso.password");
-        break;
-      case "general":
-        username = getWorld().getProperty("integration.test.general.username");
-        password = getWorld().getProperty("integration.test.general.password");
-        break;
-      case "field":
-        username = getWorld().getProperty("integration.test.field.username");
-        password = getWorld().getProperty("integration.test.field.password");
-        break;
-      case "report":
-        username = getWorld().getProperty("integration.test.report.username");
-        password = getWorld().getProperty("integration.test.report.password");
-        break;
-      case "error":
-        username = getWorld().getProperty("integration.test.error.username");
-        password = getWorld().getProperty("integration.test.error.password");
-        break;
-      default:
-        username = getWorld().getProperty("integration.test.username");
-        password = getWorld().getProperty("integration.test.password");
-    }
-
-    initialiseWebDriver(browser);
-
-    invokeNavigateToPage(getWorld().getUiUrl("/signin"));
-
-    SignInResponseOperation signIn = new SignInResponseOperation(webDriver);
-    signIn.login(username, password);
-  }
+//  /**
+//   * Initialise browser and login to UI using the user
+//   *
+//   * @param user string representation of the user
+//   * @param browser string representation of the browser to be used
+//   */
+//  public void invokeUILogin(String user, String browser) {
+//    String username = "";
+//    String password = "";
+//
+//    switch (user.toLowerCase()) {
+//      case "test":
+//        username = getWorld().getProperty("integration.test.username");
+//        password = getWorld().getProperty("integration.test.password");
+//        break;
+//      case "cso":
+//        username = getWorld().getProperty("integration.test.cso.username");
+//        password = getWorld().getProperty("integration.test.cso.password");
+//        break;
+//      case "general":
+//        username = getWorld().getProperty("integration.test.general.username");
+//        password = getWorld().getProperty("integration.test.general.password");
+//        break;
+//      case "field":
+//        username = getWorld().getProperty("integration.test.field.username");
+//        password = getWorld().getProperty("integration.test.field.password");
+//        break;
+//      case "report":
+//        username = getWorld().getProperty("integration.test.report.username");
+//        password = getWorld().getProperty("integration.test.report.password");
+//        break;
+//      case "error":
+//        username = getWorld().getProperty("integration.test.error.username");
+//        password = getWorld().getProperty("integration.test.error.password");
+//        break;
+//      default:
+//        username = getWorld().getProperty("integration.test.username");
+//        password = getWorld().getProperty("integration.test.password");
+//    }
+//
+//    initialiseWebDriver(browser);
+//
+//    invokeNavigateToPage(getWorld().getUiUrl("/signin"));
+//
+//    SignInResponseOperation signIn = new SignInResponseOperation(webDriver);
+//    signIn.login(username, password);
+//  }
 
   /**
    * Gets the user login message
@@ -118,8 +114,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return String message
    */
   public String invokeGetAddressesFoundMessage() {
-    AddressesResponseOperation addresses = new AddressesResponseOperation(webDriver);
-    return addresses.getAddressMsg();
+    AddressesResponseOperation addressesRO = new AddressesResponseOperation(webDriver);
+    return addressesRO.getAddressMsg();
   }
 
   /**
@@ -128,8 +124,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return String message
    */
   public String invokeGetNoAddressesFoundMessage() {
-    AddressesResponseOperation addresses = new AddressesResponseOperation(webDriver);
-    return addresses.getNoAddressMsg();
+    AddressesResponseOperation addressesRO = new AddressesResponseOperation(webDriver);
+    return addressesRO.getNoAddressMsg();
   }
 
   /**
@@ -138,8 +134,8 @@ public class UiResponseAware extends SeleniumAware {
    * @param address string representation of address to find in table
    */
   public void invokeUIAddressSelect(String address) {
-    AddressesResponseOperation addresses = new AddressesResponseOperation(webDriver);
-    addresses.selectAddress(address);
+    AddressesResponseOperation addressesRO = new AddressesResponseOperation(webDriver);
+    addressesRO.selectAddress(address);
   }
 
   /**
@@ -148,8 +144,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return question set
    */
   public String invokeGetCaseQuestionSet() {
-    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
-    return casespage.getCaseQuestionSet();
+    CasesResponseOperation casesRO = new CasesResponseOperation(webDriver);
+    return casesRO.getCaseQuestionSet();
   }
 
   /**
@@ -158,8 +154,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return address type
    */
   public String invokeGetAddressType() {
-    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
-    return casespage.getAddressType();
+    CasesResponseOperation casesRO = new CasesResponseOperation(webDriver);
+    return casesRO.getAddressType();
   }
 
   /**
@@ -168,8 +164,8 @@ public class UiResponseAware extends SeleniumAware {
    * @param caseId string representation of case id to select
    */
   public void invokeUICasesPage(String caseId) {
-    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
-    casespage.clickOnCaseLink(caseId);
+    CasesResponseOperation casesRO = new CasesResponseOperation(webDriver);
+    casesRO.clickOnCaseLink(caseId);
   }
 
   /**
@@ -191,6 +187,10 @@ public class UiResponseAware extends SeleniumAware {
     EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
     eventsRO.clickIndividualForm();
 //    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Individual Form…']")).click();
+//    CreateEventResponseOperation createEvent = new CreateEventResponseOperation(webDriver);
+//    createEvent.completeAndSubmitIndiviualForm(formContent);//;.completeAndSubmitCreateEventForm(formContent);
+//    RequestFormResponseOperation requestRO = new RequestFormResponseOperation(webDriver);
+//    requestRO.
     invokeUICompleteForm(formContent);
   }
 
@@ -225,30 +225,32 @@ public class UiResponseAware extends SeleniumAware {
    * @param formContent List of content to fill in form
    */
   private void invokeUICompleteForm(List<String> formContent) {
-    if (formContent.get(6).equals("English")) {
-      WebElement row = this.extractRowFromTableBySearch(0, formContent.get(6));
-      row.findElement(By.id("regular")).click();
-    } else if (formContent.get(6).equals("Welsh")) {
-      WebElement row = this.extractRowFromTableBySearch(0, formContent.get(6));
-      row.findElement(By.id("regular")).click();
-    } else {
-      WebElement row = this.extractRowFromTableBySearch(0, formContent.get(0));
-      row.findElement(By.id("regular")).click();
-    }
-    String title = formContent.get(1);
-    if (title != null && title.length() > 0) {
-      final Select selectBox = new Select(getWebDriver().findElement(By.id("customertitle")));
-      selectBox.selectByVisibleText(title);
-    }
-    getWebDriver().findElement(By.id("customerforename")).sendKeys(formContent.get(2));
-    getWebDriver().findElement(By.id("customersurname")).sendKeys(formContent.get(3));
-    String email = formContent.get(4);
-    if (email != null && email.length() > 0) {
-      getWebDriver().findElement(By.id("emailaddress")).sendKeys(formContent.get(4));
-    }
-    getWebDriver().findElement(By.id("phonenumber")).sendKeys(formContent.get(5));
-
-    getWebDriver().findElement(By.xpath("//input[@type='submit']")).click();
+    CreateEventResponseOperation createEventRO = new CreateEventResponseOperation(webDriver);
+    createEventRO.completeAndSubmitIndiviualForm(formContent);
+//    if (formContent.get(6).equals("English")) {
+//      WebElement row = this.extractRowFromTableBySearch(0, formContent.get(6));
+//      row.findElement(By.id("regular")).click();
+//    } else if (formContent.get(6).equals("Welsh")) {
+//      WebElement row = this.extractRowFromTableBySearch(0, formContent.get(6));
+//      row.findElement(By.id("regular")).click();
+//    } else {
+//      WebElement row = this.extractRowFromTableBySearch(0, formContent.get(0));
+//      row.findElement(By.id("regular")).click();
+//    }
+//    String title = formContent.get(1);
+//    if (title != null && title.length() > 0) {
+//      final Select selectBox = new Select(getWebDriver().findElement(By.id("customertitle")));
+//      selectBox.selectByVisibleText(title);
+//    }
+//    getWebDriver().findElement(By.id("customerforename")).sendKeys(formContent.get(2));
+//    getWebDriver().findElement(By.id("customersurname")).sendKeys(formContent.get(3));
+//    String email = formContent.get(4);
+//    if (email != null && email.length() > 0) {
+//      getWebDriver().findElement(By.id("emailaddress")).sendKeys(formContent.get(4));
+//    }
+//    getWebDriver().findElement(By.id("phonenumber")).sendKeys(formContent.get(5));
+//
+//    getWebDriver().findElement(By.xpath("//input[@type='submit']")).click();
   }
 
   /**
@@ -270,11 +272,11 @@ public class UiResponseAware extends SeleniumAware {
    * @param formContent List of content to fill in form
    */
   public void invokeUICreateCaseEvent(List<String> formContent) {
-    EventsResponseOperation events = new EventsResponseOperation(webDriver);
-    events.clickCreateEventButton();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    eventsRO.clickCreateEventButton();
 
-    CreateEventResponseOperation createEvent = new CreateEventResponseOperation(webDriver);
-    createEvent.completeAndSubmitCreateEventForm(formContent);
+    CreateEventResponseOperation createEventRO = new CreateEventResponseOperation(webDriver);
+    createEventRO.completeAndSubmitCreateEventForm(formContent);
   }
 
   /**
@@ -400,8 +402,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case state for case id
    */
   public String invokeCaseStateCheck(String caseId) {
-    CasesResponseOperation casespage = new CasesResponseOperation(webDriver);
-    return casespage.getCaseStateForCase(caseId);
+    CasesResponseOperation casesRO = new CasesResponseOperation(webDriver);
+    return casesRO.getCaseStateForCase(caseId);
   }
 
   /**
@@ -419,8 +421,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case event category on page
    */
   public String invokeCaseEventCategory() {
-    EventsResponseOperation events = new EventsResponseOperation(webDriver);
-    return events.getMostRecentEventCategory();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    return eventsRO.getMostRecentEventCategory();
   }
 
   /**
@@ -429,8 +431,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case event list
    */
   public List<String> invokeCaseEventCategoryList() {
-    EventsResponseOperation events = new EventsResponseOperation(webDriver);
-    return events.getListEventCategory();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    return eventsRO.getListEventCategory();
   }
 
   /**
@@ -448,8 +450,8 @@ public class UiResponseAware extends SeleniumAware {
    * @return case event category on page
    */
   public String invokeCaseEventDescription() {
-    EventsResponseOperation events = new EventsResponseOperation(webDriver);
-    return events.getMostRecentEventDescription();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    return eventsRO.getMostRecentEventDescription();
   }
 
   /**
@@ -458,8 +460,11 @@ public class UiResponseAware extends SeleniumAware {
    * @return case event category on page
    */
   public List<String> invokeCaseEventDescriptionList() {
-    return extractColumnValuesFromTable(3, 5);
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    return eventsRO.getListEventDescription();
+//    return extractColumnValuesFromTable(3, 5);
   }
+
   /**
    * Check if case event history is visible
    */
@@ -538,35 +543,35 @@ public class UiResponseAware extends SeleniumAware {
     return columnValues;
   }
 
-  /**
-   * Extract row from a table
-   *
-   * @param tableNumber Integer table number, table at the top of the table is number 1
-   * @param search String to identify row in table
-   * @return WebElement holding row
-   */
-  private WebElement extractRowFromTableBySearch(int tableNumber, String search) {
-    WebElement element = null;
-    boolean found = false;
-
-    List<WebElement> tables = getWebDriver().findElements(By.tagName("table"));
-    WebElement table = tables.get(tableNumber);
-    List<WebElement> trCollection = table.findElements(By.xpath("//table/tbody/tr"));
-
-    for (WebElement trElement : trCollection) {
-      List<WebElement> tdCollection = trElement.findElements(By.xpath("td"));
-      for (WebElement tdElement : tdCollection) {
-
-        found = tdElement.getText().equalsIgnoreCase(search);
-        if (found) {
-          element = trElement;
-          break;
-        }
-      }
-      if (found) {
-        break;
-      }
-    }
-    return element;
-  }
+//  /**
+//   * Extract row from a table
+//   *
+//   * @param tableNumber Integer table number, table at the top of the table is number 1
+//   * @param search String to identify row in table
+//   * @return WebElement holding row
+//   */
+//  private WebElement extractRowFromTableBySearch(int tableNumber, String search) {
+//    WebElement element = null;
+//    boolean found = false;
+//
+//    List<WebElement> tables = getWebDriver().findElements(By.tagName("table"));
+//    WebElement table = tables.get(tableNumber);
+//    List<WebElement> trCollection = table.findElements(By.xpath("//table/tbody/tr"));
+//
+//    for (WebElement trElement : trCollection) {
+//      List<WebElement> tdCollection = trElement.findElements(By.xpath("td"));
+//      for (WebElement tdElement : tdCollection) {
+//
+//        found = tdElement.getText().equalsIgnoreCase(search);
+//        if (found) {
+//          element = trElement;
+//          break;
+//        }
+//      }
+//      if (found) {
+//        break;
+//      }
+//    }
+//    return element;
+//  }
 }

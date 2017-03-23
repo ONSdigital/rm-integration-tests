@@ -8,7 +8,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-import uk.gov.ons.ctp.util.SeleniumAware;
+
+import uk.gov.ons.ctp.ui.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
 
 /**

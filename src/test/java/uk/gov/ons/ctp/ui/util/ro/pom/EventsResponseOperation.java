@@ -152,6 +152,15 @@ public class EventsResponseOperation {
   }
 
   /**
+   * Get list of event description from event table
+   *
+   * @return Event description list
+   */
+  public List<String> getListEventDescription() {
+    return helper.extractColumnValuesFromTable(getEventsTable(), 5);
+  }
+
+  /**
    * Click create event to take the user to the create event form
    */
   public void clickCreateEventButton() {
