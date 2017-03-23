@@ -15,6 +15,7 @@ import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.ManageResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.PostcodeResponseOperation;
 import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
+import uk.gov.ons.ctp.ui.util.ro.pom.TranslationResponseOperation;
 import uk.gov.ons.ctp.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -187,7 +188,9 @@ public class UiResponseAware extends SeleniumAware {
    * @param formContent List of content to fill in form
    */
   public void invokeUICreateIndividualRequest(List<String> formContent) {
-    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Individual Form…']")).click();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    eventsRO.clickIndividualForm();
+//    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Individual Form…']")).click();
     invokeUICompleteForm(formContent);
   }
 
@@ -197,8 +200,10 @@ public class UiResponseAware extends SeleniumAware {
    * @param formContent List of content to fill in form
    */
   public void invokeUICreateReplacementIACRequest(List<String> formContent) {
-    getWebDriver().findElement(By.cssSelector(
-    "input[type='submit'][value='Request Replacement Access Code…']")).click();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    eventsRO.clickReplacementCodeForm();
+//    getWebDriver().findElement(By.cssSelector(
+//    "input[type='submit'][value='Request Replacement Access Code…']")).click();
     invokeUICompleteForm(formContent);
   }
 
@@ -208,7 +213,9 @@ public class UiResponseAware extends SeleniumAware {
    * @param formContent List of content to fill in form
    */
   public void invokeUICreateReplacementPaperRequest(List<String> formContent) {
-    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Paper Form…']")).click();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    eventsRO.clickReplacementCodeForm();
+//    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Paper Form…']")).click();
     invokeUICompleteForm(formContent);
   }
 
@@ -250,13 +257,11 @@ public class UiResponseAware extends SeleniumAware {
    * @param translation to request
    */
   public void invokeUICreateTranslationRequest(String translation) {
-    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Translation Booklet…']")).click();
+    EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
+    eventsRO.clickTranslationBooklet();
 
-    if (translation != null && translation.length() > 0) {
-      final Select selectBox = new Select(getWebDriver().findElement(By.id("eventcategory")));
-      selectBox.selectByVisibleText(translation);
-    }
-    getWebDriver().findElement(By.xpath("//input[@type='submit']")).click();
+    TranslationResponseOperation translationRO = new TranslationResponseOperation(webDriver);
+    translationRO.completeAndSubmitTranslationRequest(translation);
   }
 
   /**

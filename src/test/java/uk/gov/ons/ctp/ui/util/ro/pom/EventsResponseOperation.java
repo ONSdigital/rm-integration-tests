@@ -18,6 +18,18 @@ public class EventsResponseOperation {
   @FindBy(xpath = "//*[@id=\"breadcrumbs\"]/a[3]")
   private WebElement casesBreadcrumb;
 
+  @FindBy(css = "input[type='submit'][value='Request Individual Form…']")
+  private WebElement individualFormButton;
+
+  @FindBy(css = "input[type='submit'][value='Request Replacement Access Code…']")
+  private WebElement replacementCodeFormButton;
+
+  @FindBy(css = "input[type='submit'][value='Request Paper Form…']")
+  private WebElement paperFormButton;
+
+  @FindBy(css = "input[type='submit'][value='Request Translation Booklet…']")
+  private WebElement translateButton;
+
   @FindBy(className = "primary")
   private WebElement addressTable;
 
@@ -47,6 +59,34 @@ public class EventsResponseOperation {
    */
   public void clickCasesBreadcrumb() {
     casesBreadcrumb.click();
+  }
+
+  /**
+   * Click on translation booklet request button
+   */
+  public void clickIndividualForm() {
+    individualFormButton.click();
+  }
+
+  /**
+   * Click on translation booklet request button
+   */
+  public void clickReplacementCodeForm() {
+    replacementCodeFormButton.click();
+  }
+
+  /**
+   * Click on translation booklet request button
+   */
+  public void clickPaperForm() {
+    paperFormButton.click();
+  }
+
+  /**
+   * Click on translation booklet request button
+   */
+  public void clickTranslationBooklet() {
+    translateButton.click();
   }
   /**
    * Get address table from page
