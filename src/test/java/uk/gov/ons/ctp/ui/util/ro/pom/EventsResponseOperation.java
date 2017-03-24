@@ -107,6 +107,15 @@ public class EventsResponseOperation {
   }
 
   /**
+   * Get response date from questionnaire table
+   *
+   * @return response date as string
+   */
+  public String getResponseDate() {
+    return helper.extractValueFromTable(getQuestionnaireTable(), 1, 3);
+  }
+
+  /**
    * Get events table from page
    *
    * @return WebElement for events table
@@ -165,5 +174,23 @@ public class EventsResponseOperation {
    */
   public void clickCreateEventButton() {
     createEventButton.click();
+  }
+
+  /**
+   * Get action state from action table
+   *
+   * @return action state
+   */
+  public String getActionState() {
+    return helper.extractValueFromTable(getActionsTable(), 1, 4);
+  }
+
+  /**
+   * Is action table displayed
+   *
+   * @return action state
+   */
+  public boolean isActionTableDisplayed() {
+    return getActionsTable().isDisplayed();
   }
 }

@@ -297,7 +297,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "1"
     Then the case event category should contain "Arabic Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @bengaliRequest
@@ -309,7 +309,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "2"
     Then the case event category should contain "Bengali Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @cantoneseRequest
@@ -321,7 +321,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "3"
     Then the case event category should contain "Cantonese Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @gujaratiRequest
@@ -333,7 +333,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "4"
     Then the case event category should contain "Gujarati Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @lithuanianRequest
@@ -345,7 +345,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "5"
     Then the case event category should contain "Lithuanian Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @mandarinRequest
@@ -357,7 +357,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "6"
     Then the case event category should contain "Mandarin Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @polishRequest
@@ -369,7 +369,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "7"
     Then the case event category should contain "Polish Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @portugueseRequest
@@ -381,7 +381,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "8"
     Then the case event category should contain "Portuguese Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @gurmukhiRequest
@@ -393,7 +393,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "9"
     Then the case event category should contain "Punjabi (Gurmukhi) Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
 	@shalmukiRequest
@@ -405,7 +405,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "10"
     Then the case event category should contain "Punjabi (Shahmuki) Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @somaliRequest
@@ -417,7 +417,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "11"
     Then the case event category should contain "Somali Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @spanishRequest
@@ -429,7 +429,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "12"
     Then the case event category should contain "Spanish Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @turkishRequest
@@ -441,7 +441,7 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "13"
     Then the case event category should contain "Turkish Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out
 
   @urduRequest
@@ -453,5 +453,5 @@ Feature: Test other fulfilment translation booklets
     And navigates to the cases page for case "14"
     Then the case event category should contain "Urdu Translation"
     And the case event category should contain "Action Created"
-    And the case action should be "Completed"
+    And the action state should be "Completed"
     And the user logs out

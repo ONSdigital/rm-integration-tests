@@ -17,7 +17,7 @@ import uk.gov.ons.ctp.util.World;
  */
 public abstract class SeleniumAware {
   private World world;
-  protected static WebDriver webDriver;
+  private static WebDriver webDriver;
 
   /**
    * Constructor
@@ -47,7 +47,7 @@ public abstract class SeleniumAware {
   }
 
   /**
-   * Initialize a new WebDriver instance
+   * Initialise a new WebDriver instance
    *
    * @param browser string representation of the browser to be used
    */
@@ -71,7 +71,7 @@ public abstract class SeleniumAware {
   }
 
   /**
-   * Initialise browser and login to UI using the user
+   * Login to UI using the user
    *
    * @param user string representation of the user
    * @param browser string representation of the browser to be used

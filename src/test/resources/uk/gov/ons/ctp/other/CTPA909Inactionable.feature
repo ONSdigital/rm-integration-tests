@@ -171,7 +171,7 @@ Feature: Test successfull creation of events against an inactionable case
 
 	@createEvent
   Scenario: Create a General Complaint case event
-    Given the "Test" user has logged in using "Test"
+    Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF107BH"
     And selects case for address "BEDSIT 10"
     And navigates to the cases page for case "10"

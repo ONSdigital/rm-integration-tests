@@ -4,13 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
@@ -85,7 +79,7 @@ public class ResponseOperationUISteps {
   }
 
   /**
-   * Get address from table
+   * Get cases for address
    *
    * @param address to be used
    * @throws Throwable pass the exception
@@ -152,10 +146,8 @@ public class ResponseOperationUISteps {
     responseAware.invokeUICasesPage(caseId);
   }
 
-
-
   /**
-   * Confirm cases are associated with an address
+   * Confirm cases are associated with an address by confirming the cases table exists
    */
   @When("^check cases are associated with address$")
   public void check_cases_are_associated_with_address() {
@@ -164,7 +156,7 @@ public class ResponseOperationUISteps {
   }
 
   /**
-   * Confirm no cases are associated with an address
+   * Confirm no cases are associated with an address by confirming the cases table does not exists
    */
   @When("^check no cases are associated with address$")
   public void check_no_cases_are_associated_with_address() {
@@ -253,17 +245,6 @@ public class ResponseOperationUISteps {
   }
 
   /**
-   * Navigate to the case page from the escalated complaints on UI
-   *
-   * @param caseId to be used
-   * @throws Throwable pass the exception
-   */
-  @When("^selects case page for \"(.*?)\"$")
-  public void selects_case_page_for(String caseId) throws Throwable {
-    responseAware.invokeUIManagerCasePage(caseId);
-  }
-
-  /**
    * Test state of case for a specific case
    *
    * @param caseId case to be tested
@@ -274,18 +255,6 @@ public class ResponseOperationUISteps {
   public void the_case_state_for_should_be(String caseId, String state) throws Throwable {
     String caseState = responseAware.invokeCaseStateCheck(caseId);
     assertEquals("Status not as expected", state, caseState);
-  }
-
-  /**
-   * Test event description
-   *
-   * @param description to be tested
-   * @throws Throwable pass the exception
-   */
-  @Then("^the description should be \"(.*?)\"$")
-  public void the_description_should_be(String description) throws Throwable {
-    String uiDescription = responseAware.invokeDescriptionCheck();
-    assertEquals("Description not as expected: " + uiDescription, uiDescription, description);
   }
 
   /**
@@ -318,10 +287,10 @@ public class ResponseOperationUISteps {
    * @param category value to be tested against
    * @throws Throwable pass the exception
    */
-  @Then("^the case action should be \"(.*?)\"$")
-  public void the_case_action_should_be(String category) throws Throwable {
-    String caseEventCat = responseAware.invokeCaseActionCategory();
-    assertEquals("Case Action not as expected: " + caseEventCat, category, caseEventCat);
+  @Then("^the action state should be \"(.*?)\"$")
+  public void the_action_state_should_be(String category) throws Throwable {
+    String eventState = responseAware.invokeCaseActionState();
+    assertTrue("Case action state not as expected: " + eventState, category.equals(eventState));
   }
 
   /**
@@ -337,25 +306,25 @@ public class ResponseOperationUISteps {
   }
 
   /**
-   * Test case event is not removed from the view list as expected
+   * Test escalated user can see case event is present from the view list
    *
    * @param caseId value to be tested against
    * @throws Throwable pass the exception
    */
-  @When("^the case page for \"(.*?)\" is present")
-  public void the_case_page_for_is_present(String caseId) throws Throwable {
-    assertFalse(responseAware.checkCaseIdRemoved(caseId));
+  @When("^the escalated user checks case is present for \"(.*?)\"$")
+  public void the_escalated_user_checks_case_is_present_for(String caseId) throws Throwable {
+    assertFalse("Case not found in escalation review list", responseAware.isCaseLinkEmpty(caseId));
   }
 
   /**
-   * Test case event is removed from the view list as expected
+   * Test escalated user can see case event is not present in the view list
    *
    * @param caseId value to be tested against
    * @throws Throwable pass the exception
    */
-  @When("^the case page for \"(.*?)\" is no longer present")
-  public void the_case_page_for_is_no_longer_present(String caseId) throws Throwable {
-    assertTrue(responseAware.checkCaseIdRemoved(caseId));
+  @When("^the escalated user checks case is not present for \"(.*?)\"$")
+  public void the_escalated_user_checks_case_is_not_present_for(String caseId) throws Throwable {
+    assertTrue("Case found in escalation review list", responseAware.isCaseLinkEmpty(caseId));
   }
 
   /**
@@ -371,19 +340,20 @@ public class ResponseOperationUISteps {
   }
 
   /**
-   * Test case event history category is visible
+   * Test case event history is displayed
    */
-  @Then("^event history should be visible$")
-  public void event_history_should_be_visible() {
-    responseAware.eventHistoryVisible();
+  @Then("^the event history should be displayed$")
+  public void the_event_history_should_be_displayed() {
+    assertTrue("Action Events table not found", responseAware.eventHistoryDisplayed());
   }
 
   /**
    * Test response has been submitted to case
    */
-  @Then("^check if a response has been submitted$")
-  public void check_if_a_response_has_been_submitted() {
-    responseAware.checkResponseSubmitted();
+  @Then("^check response date is displayed$")
+  public void check_response_date_is_displayed() {
+    String result = responseAware.checkResponseDateDisplayed();
+    assertFalse("Date found: " + result, result.equals("-"));
   }
 
   /**
@@ -394,16 +364,6 @@ public class ResponseOperationUISteps {
   @Then("^the user logs out$")
   public void the_user_logs_out() throws Throwable {
     responseAware.invokeLogout();
-    responseAware.closeWebDriver();
-  }
-
-  /**
-   * close browser
-   *
-   * @throws Throwable pass the exception
-   */
-  @Then("^close browser$")
-  public void close_browser() throws Throwable {
     responseAware.closeWebDriver();
   }
 }

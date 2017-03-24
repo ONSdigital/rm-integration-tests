@@ -19,7 +19,7 @@ public class CreateEventResponseOperation {
 
   @FindBy(className = "secondary")
   private WebElement responseModeTable;
-  
+
   @FindBy(id = "eventtext")
   private WebElement eventDesc;
 
@@ -52,11 +52,22 @@ public class CreateEventResponseOperation {
   public CreateEventResponseOperation(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
   }
-  
+
+  /**
+   * Get response mode table
+   *
+   * @return response mode/language table
+   */
   public WebElement getResponseModeTable() {
     return responseModeTable;
   }
 
+  /**
+   * Click the specified request mode
+   *
+   * @param mode to be requested
+   * @param langauge to be requested
+   */
   public void setResponseMode(String mode, String langauge) {
     if (langauge.equals("English")) {
       WebElement row = helper.navigateToTableRowBySearch(getResponseModeTable(), langauge);
@@ -119,7 +130,7 @@ public class CreateEventResponseOperation {
   /**
    * Add customer contact to contact text box
    *
-   * @param contact text
+   * @param number contact number
    */
   public void setPhoneNumber(String number) {
     phoneNumber.sendKeys(number);

@@ -60,7 +60,7 @@ public class TableHelper {
   }
 
   /**
-   * Extract a values from a table column
+   * Extract all values from a table column
    *
    * @param table to be interrogated
    * @param columnNumber to extract values from
