@@ -214,7 +214,7 @@ public class ResponseOperationUIResponseAware extends SeleniumAware {
    */
   public void invokeUICreateReplacementPaperRequest(List<String> formContent) {
     EventsResponseOperation eventsRO = new EventsResponseOperation(webDriver);
-    eventsRO.clickReplacementCodeForm();
+    eventsRO.clickPaperForm();//.clickReplacementCodeForm();
 //    getWebDriver().findElement(By.cssSelector("input[type='submit'][value='Request Paper Form…']")).click();
     invokeUICompleteForm(formContent);
   }

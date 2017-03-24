@@ -119,7 +119,7 @@ Feature: Test successfull replacements for HH and individual paper response
 
 	@requestIndividualUI
 	Scenario: Ui request for individual paper request
-		Given the "Test" user has logged in using "Chrome"
+		Given the "Test" user has logged in using "Test"
     When the user gets the addresses for postcode "TF13LG"
     And selects case for address "11 EMRAL RISE"
     And the case state for "1" should be "ACTIONABLE"
@@ -161,7 +161,7 @@ Feature: Test successfull replacements for HH and individual paper response
 	# CTPA-814
 	# CTPA-867
 	# CTPA-756
-	@requestHHReplaceUI
+	@requestHHReplaceUI @pomtest
 	Scenario: Ui request for HH replacement IAC
 		Given the "Test" user has logged in using "Chrome"
     When the user gets the addresses for postcode "TF13LG"
