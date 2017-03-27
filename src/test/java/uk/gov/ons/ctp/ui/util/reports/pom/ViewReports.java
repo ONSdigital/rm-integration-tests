@@ -2,6 +2,7 @@ package uk.gov.ons.ctp.ui.util.reports.pom;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -52,5 +53,14 @@ public class ViewReports {
    */
   public int getReportTypeCount() {
     return helper.extractColumnValuesFromTable(getReportsTable(), 1).size();
+  }
+
+  /**
+   * Click report type from on reports table
+   *
+   * @param reportLink link to click
+   */
+  public void clickReportLink(String reportLink) {
+    getReportsTable().findElement(By.linkText(reportLink)).click();
   }
 }

@@ -8,7 +8,7 @@
 # Scenario Tags:@reportTypeValidation
 
 @reportMI @reportTypeValidation
-Feature: Validate report type within the UI
+Feature: Validate report types within the UI
 
   Scenario Outline: validate the report types
     Given the "Report" user has logged in using "Chrome"

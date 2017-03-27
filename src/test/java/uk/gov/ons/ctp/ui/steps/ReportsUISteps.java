@@ -2,11 +2,15 @@ package uk.gov.ons.ctp.ui.steps;
 
 import static org.junit.Assert.assertTrue;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 //import org.w3c.tidy.Report;
 
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 //import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.ui.util.ReportsUIResponseAware;
 
@@ -106,13 +110,13 @@ public class ReportsUISteps {
    *
    * @throws Throwable pass the exception
    */
-//  @When("^the report for todays date should be present$")
-//  public void the_report_for_todays_date_should_be_present() throws Throwable {
-//    String date = responseAware.invokeReportDateCheck();
-//    Date today = Calendar.getInstance().getTime();
-//    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMM yyyy");
-//    assertTrue("Report date doesn't match", date.startsWith(sdf.format(today)));
-//  }
+  @When("^the report for todays date should be present$")
+  public void the_report_for_todays_date_should_be_present() throws Throwable {
+    String reportDate = responseAware.invokeGetReportDate();
+    Date today = Calendar.getInstance().getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMM yyyy");
+    assertTrue("Report date doesn't match", reportDate.startsWith(sdf.format(today)));
+  }
 
   /**
    * Validates the report types
@@ -138,7 +142,28 @@ public class ReportsUISteps {
     assertTrue("Report type Count not valid: " + result, result == size);
   }
 
+  /**
+   * Navigates to the page for link
+   *
+   * @param link to click
+   * @throws Throwable pass the exception
+   */
+  @When("^the user navigates to the \"(.*?)\" page$")
+  public void the_user_navigates_to_the_page(String link) throws Throwable {
+    responseAware.invokeclickReportLink(link);
+  }
 
+  /**
+   * Verifies correct message is displayed
+   *
+   * @param msg to be validated
+   * @throws Throwable pass the exception
+   */
+  @Then("^the user gets the verification message \"(.*?)\"")
+  public void the_user_gets_the_verification_message(String msg) throws Throwable {
+    String result = responseAware.invokeGetReportsMessage();
+    assertTrue("Report message not valid: " + result, result.equals(msg));
+  }
 
 
 //  /**

@@ -19,25 +19,21 @@ Feature: List of reports is shown when a report type is selected, and correct er
 
   Scenario: No reports
     Given the "Report" user has logged in using "Chrome"
-    Then navigates to the "Reports" page
-    And navigates to the "HH Returnrate" page
-    And an error message appears on screen
-    And the error message is "No reports found for type HH Returnrate."
+    When the user navigates to the page for reports
+    And the user navigates to the "HH Returnrate" page
+    Then the user gets the verification message "No reports found for type HH Returnrate."
     And the user logs out
 
   Scenario: Check correct report exists for casesvc
     Given the "Report" user has logged in using "Chrome"
-    Then navigates to the "Reports" page
-    And navigates to the "HL Metrics" page
-    And there is no error message
+    When the user navigates to the page for reports
+    And the user navigates to the "HL Metrics" page
     And the report for todays date should be present
-    And navigates to the "Reports" page
     And the user logs out
 
   Scenario: Check correct report exists for action exporter reports
     Given the "Report" user has logged in using "Chrome"
-    Then navigates to the "Reports" page
-    And navigates to the "Print Volumes" page
-    And there is no error message
+    When the user navigates to the page for reports
+    And the user navigates to the "Print Volumes" page
     And the report for todays date should be present
     And the user logs out
