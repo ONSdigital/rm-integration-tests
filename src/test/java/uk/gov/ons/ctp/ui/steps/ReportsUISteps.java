@@ -1,12 +1,20 @@
 package uk.gov.ons.ctp.ui.steps;
 
-import uk.gov.ons.ctp.ui.util.ResponseOperationUIResponseAware;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+//import org.w3c.tidy.Report;
+
+import cucumber.api.java.en.Then;
+//import cucumber.api.java.en.When;
+import uk.gov.ons.ctp.ui.util.ReportsUIResponseAware;
 
 /**
  * Created by Stephen Goddard on 23/03/17.
  */
 public class ReportsUISteps {
-  private final ResponseOperationUIResponseAware responseAware;
+  private final ReportsUIResponseAware responseAware;
 //private static final List<String> REPORT_TYPES = new ArrayList<>(Arrays.asList("HH Returnrate", "HH Noreturns",
 //"HH Returnrate Sample", "HH Returnrate LA", "CE Returnrate Uni", "CE ReturnRate SHousing", "CE Returnrate Hotel",
 //"HL Metrics", "HH Outstanding Cases", "SH Outstanding Cases", "CE Outstanding Cases", "Print Volumes"));
@@ -17,20 +25,11 @@ public class ReportsUISteps {
    *
    * @param uiResponseAware ui runner
    */
-  public ReportsUISteps(ResponseOperationUIResponseAware uiResponseAware) {
+  public ReportsUISteps(ReportsUIResponseAware uiResponseAware) {
     this.responseAware = uiResponseAware;
   }
 
-  /**
-   * Navigate to the given page
-   *
-   * @param page to be navigated to
-   * @throws Throwable pass the exception
-   */
-//  @When("^navigates to the \"(.*?)\" page")
-//  public void navigates_to_the_page(String page) throws Throwable {
-//    responseAware.invokeUIReportsPage(page);
-//  }
+
 
   /**
    * The table contains the elements
@@ -118,21 +117,29 @@ public class ReportsUISteps {
   /**
    * Validates the report types
    *
+   * @param type report type
    * @throws Throwable pass the exception
    */
-//  @Then("validates the report types shown to the user$")
-//  public void validates_the_report_types_shown_to_the_user() throws Throwable {
-//    assertTrue(responseAware.invokeValidateOnReportTypes());
-//  }
+  @Then("^validates the report types shown \"(.*?)\"$")
+  public void validates_the_report_types_shown(String type) throws Throwable {
+    List<String> result = responseAware.invokeValidateOnReportTypes();
+    assertTrue("Invalid Report type found: " + result, result.contains(type));
+  }
 
-//  /**
-//   * Navigate to the given page
-//   *
-//   * @param page page to navigate to
-//   */
-//  public void invokeUIReportsPage(String page) {
-//    getWebDriver().findElement(By.linkText(page)).click();
-//  }
+  /**
+   * Validates the report types count
+   *
+   * @param size of report types
+   * @throws Throwable pass the exception
+   */
+  @Then("^the number of report types found is (\\d+)$")
+  public void the_number_of_report_types_found_is(int size) throws Throwable {
+    int result = responseAware.invokeGetReportTypeCount();
+    assertTrue("Report type Count not valid: " + result, result == size);
+  }
+
+
+
 
 //  /**
 //   * Extract report date from UI and return value
@@ -175,22 +182,7 @@ public class ReportsUISteps {
 //    return getWebDriver().getPageSource().contains(error);
 //  }
 //
-//  /**
-//   * checks contents of report type table to match format and content as within the data base.
-//   *
-//   * @return true is match is found
-//   */
-//  public boolean invokeValidateOnReportTypes() {
-//    List<String> returnedReportTypes = extractColumnValuesFromTable(1, 1);
-//
-//    if (returnedReportTypes.equals(REPORT_TYPES)) {
-//      System.out.println("Types match");
-//      return true;
-//    } else {
-//      System.out.println(returnedReportTypes + ", " + REPORT_TYPES);
-//      return false;
-//    }
-//  }
+
 
   //
 ///**

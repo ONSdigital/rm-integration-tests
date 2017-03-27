@@ -33,7 +33,7 @@ public class CommonSteps {
   private final HTTPResponseAware responseAware;
   private final World world;
   private File fileContent;
-  
+
   /**
    * Constructor - also gets singleton of http request runner
    *

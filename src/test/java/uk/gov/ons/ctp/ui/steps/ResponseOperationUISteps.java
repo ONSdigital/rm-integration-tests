@@ -189,12 +189,32 @@ public class ResponseOperationUISteps {
   /**
    * Navigate to the escalated page on UI
    *
+   * @throws Throwable pass the exception
+   */
+  @When("^the user navigates to the page for escalations$")
+  public void the_user_navigates_to_the_page_for_escalations() throws Throwable {
+    responseAware.invokeUIClickAdditionalFuctionLink();
+  }
+
+  /**
+   * Navigate to the escalated page for the type of escalated cases
+   *
    * @param ecalatedType type of escalation to be navigated to
    * @throws Throwable pass the exception
    */
   @When("^navigates to the escalated page \"(.*?)\"$")
   public void navigates_to_the_escalated_page(String ecalatedType) throws Throwable {
     responseAware.invokeUIEscalation(ecalatedType);
+  }
+
+  /**
+   * Navigate to the reports page on UI
+   *
+   * @throws Throwable pass the exception
+   */
+  @When("^the user navigates to the page for reports$")
+  public void the_user_navigates_to_the_page_for_reports() throws Throwable {
+    responseAware.invokeUIClickAdditionalFuctionLink();
   }
 
   /**

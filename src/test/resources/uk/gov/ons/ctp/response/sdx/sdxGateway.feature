@@ -27,7 +27,7 @@
 #								 @paperRespondedUI
 #								 @unlinkedCheck
 
-@sdxGateway
+@sdxGateway @sdxtest
 Feature: Validating SDX Gateway requests
 
 	# Clean Environment -----

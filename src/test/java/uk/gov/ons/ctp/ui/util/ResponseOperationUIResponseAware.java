@@ -206,11 +206,16 @@ public class ResponseOperationUIResponseAware extends SeleniumAware {
    * @param type of escalation to navigate to
    */
   public void invokeUIEscalation(String type) {
-    PostcodeResponseOperation postcodeRO = new PostcodeResponseOperation(getWebDriver());
-    postcodeRO.clickManageEscalation();
-
     ManageResponseOperation manageRO = new ManageResponseOperation(getWebDriver());
     manageRO.clickEscalationLink(type);
+  }
+
+  /**
+   * Navigate to the given page
+   */
+  public void invokeUIClickAdditionalFuctionLink() {
+    PostcodeResponseOperation postcodeRO = new PostcodeResponseOperation(getWebDriver());
+    postcodeRO.clickAdditionalFuctionLink();
   }
 
   /**
@@ -296,7 +301,7 @@ public class ResponseOperationUIResponseAware extends SeleniumAware {
   /**
    * Check if response date has been displayed for questionnaire
    *
-   * @return response date as string 
+   * @return response date as string
    */
   public String checkResponseDateDisplayed() {
     EventsResponseOperation eventsRO = new EventsResponseOperation(getWebDriver());

@@ -13,7 +13,7 @@ public class PostcodeResponseOperation {
   private WebElement loginMsg;
 
   @FindBy(xpath = "//*[@id=\"menu\"]/li[2]/a")
-  private WebElement escalationManage;
+  private WebElement additionalFuctionLink;
 
   /**
    * Constructor
@@ -34,9 +34,9 @@ public class PostcodeResponseOperation {
   }
 
   /**
-   * click on manage escalation link
+   * click on additional functionality link. Currently escalations and reports
    */
-  public void clickManageEscalation() {
-    escalationManage.click();
+  public void clickAdditionalFuctionLink() {
+    additionalFuctionLink.click();
   }
 }

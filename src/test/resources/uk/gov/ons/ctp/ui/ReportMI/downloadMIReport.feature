@@ -21,3 +21,4 @@ Feature: Report view contains correct data
     And get the contents of local file from "/tmp" where the filename begins "MI_Report.html"
     And the contents of the file should equal "./JMeter/test_files" where the filename begins "MI_Report_Test.html"
     And remove file from "/tmp/RM_Report.html"
+    And the user logs out
