@@ -78,4 +78,23 @@ public class TableHelper {
     }
     return columnValues;
   }
+
+  /**
+   * Extract the heading from the table
+   *
+   * @param table to be interrogated
+   * @return List of headings
+   */
+  public List<String> extractHeadingsFromTable(WebElement table) {
+    List<String> headings = new ArrayList<String>();
+    List<WebElement> trCollection = table.findElements(By.xpath("//table/thead/tr"));
+
+    for (WebElement trElement : trCollection) {
+      List<WebElement> tdCollection = trElement.findElements(By.xpath("th"));
+      for (WebElement thElement : tdCollection) {
+        headings.add(thElement.getText());
+      }
+    }
+    return headings;
+  }
 }

@@ -1,10 +1,10 @@
-#Author: Kieran Wardle
+# Author: Kieran Wardle
 #
-#Keywords Summary : Checking that the correct reports exist for a report type in the correct place
+# Keywords Summary : Checking that the correct reports exist for a report type in the correct place
 #
-#Feature: Clean Database
-#					No report exists and the correct error message is displayed.
-#					Reports exist and the correct report date is shown
+# Feature: Clean Database
+#					 No report exists and the correct error message is displayed.
+#					 Reports exist and the correct report date is shown
 #
 # Feature Tags: @reportMI
 #								@reportsListed

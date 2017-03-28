@@ -2,7 +2,8 @@ package uk.gov.ons.ctp.ui.util;
 
 import java.util.List;
 
-import uk.gov.ons.ctp.ui.util.reports.pom.DetailsReports;
+import uk.gov.ons.ctp.ui.util.reports.pom.ReportDetailsReports;
+import uk.gov.ons.ctp.ui.util.reports.pom.ReportListReports;
 import uk.gov.ons.ctp.ui.util.reports.pom.ViewReports;
 import uk.gov.ons.ctp.util.World;
 
@@ -56,8 +57,8 @@ public class ReportsUIResponseAware extends SeleniumAware {
    * @return String message
    */
   public String invokeGetReportsMessage() {
-    DetailsReports detailsReports = new DetailsReports(getWebDriver());
-    return detailsReports.getReportsMsg();
+    ReportListReports reportListReports = new ReportListReports(getWebDriver());
+    return reportListReports.getReportsMsg();
   }
 
   /**
@@ -66,7 +67,46 @@ public class ReportsUIResponseAware extends SeleniumAware {
   * @return report date
   */
   public String invokeGetReportDate() {
-    DetailsReports detailsReports = new DetailsReports(getWebDriver());
-    return detailsReports.getReportDateFromTable();
+    ReportListReports reportListReports = new ReportListReports(getWebDriver());
+    return reportListReports.getReportDateFromTable();
+  }
+
+  /**
+   * Click the view report link to navigate to the report details
+   */
+  public void invokeClickReportViewLink() {
+    ReportListReports reportListReports = new ReportListReports(getWebDriver());
+    reportListReports.clickReportView();
+  }
+
+  /**
+   * Get the headings appear for the current report
+   *
+   * @return List of headings
+   */
+  public List<String> invokeGetReportHeadings() {
+    ReportDetailsReports reportDetailsReports = new ReportDetailsReports(getWebDriver());
+    return reportDetailsReports.getReportTableHeadings();
+  }
+
+  /**
+   * Get the report message
+   *
+   * @return String message
+   */
+  public String invokeGetReportMessage() {
+    ReportDetailsReports reportDetailsReports = new ReportDetailsReports(getWebDriver());
+    return reportDetailsReports.getReportMessage();
+  }
+
+  /**
+   * Get the value for the specified row
+   *
+   * @param rowName to get value for
+   * @return String for the row value
+   */
+  public String invokeGetValueForRowname(String rowName) {
+    ReportDetailsReports reportDetailsReports = new ReportDetailsReports(getWebDriver());
+    return reportDetailsReports.getValueForRowname(rowName);
   }
 }

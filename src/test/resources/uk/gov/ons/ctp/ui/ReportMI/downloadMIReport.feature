@@ -8,8 +8,9 @@
 #              @reportMI
 #
 # Scenario Tags: @downloadMIReport
+
 @downloadMIReport @reportMI
-Feature: Report view contains correct data
+Feature: Report view contains correct data from download
 
   @downloadMIReport
   Scenario: Download MI report

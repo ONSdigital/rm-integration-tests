@@ -1,5 +1,6 @@
 package uk.gov.ons.ctp.ui.util.reports.pom;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,7 @@ import uk.gov.ons.ctp.ui.util.TableHelper;
 /**
  * Created by Stephen Goddard on 27/03/17.
  */
-public class DetailsReports {
+public class ReportListReports {
   private TableHelper helper = new TableHelper();
 
   @FindBy(id = "information")
@@ -25,7 +26,7 @@ public class DetailsReports {
    *
    * @param webDriver Selenium web driver
    */
-  public DetailsReports(WebDriver webDriver) {
+  public ReportListReports(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
   }
 
@@ -43,7 +44,7 @@ public class DetailsReports {
    *
    * @return WebElement for reports table
    */
-  public WebElement getReportstable() {
+  public WebElement getReportsTable() {
     return reportstable;
   }
 
@@ -53,6 +54,13 @@ public class DetailsReports {
    * @return displayed report date
    */
   public String getReportDateFromTable() {
-    return helper.extractValueFromTable(getReportstable(), 1, 1);
+    return helper.extractValueFromTable(getReportsTable(), 1, 1);
+  }
+
+  /**
+   * click the view report details
+   */
+  public void clickReportView() {
+    getReportsTable().findElement(By.linkText("View")).click();
   }
 }
