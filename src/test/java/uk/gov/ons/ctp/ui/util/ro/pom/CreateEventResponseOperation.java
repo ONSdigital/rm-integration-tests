@@ -178,7 +178,7 @@ public class CreateEventResponseOperation {
    * @param formContent data to complete form
    */
   public void completeAndSubmitIndiviualForm(List<String> formContent) {
-    setResponseMode(formContent.get(0), formContent.get(0));
+    setResponseMode(formContent.get(0), formContent.get(6));
     setTitleDropdown(formContent.get(1));
     setForename(formContent.get(2));
     setSurname(formContent.get(3));

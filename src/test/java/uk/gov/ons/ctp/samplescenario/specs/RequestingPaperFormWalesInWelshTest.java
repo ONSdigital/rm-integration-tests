@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         features = {"classpath:uk/gov/ons/ctp/sampleScenarios/requestingPaperFormWalesInWelsh.feature"},
         glue = {"uk.gov.ons.ctp.ui.steps", "uk.gov.ons.ctp.response.casesvc.steps",
             "uk.gov.ons.ctp.response.common.steps"},
-        plugin = {"pretty", "html:build/reqPpFmWW-cucumber-html-report", "json:build/jenkins/reqPpFmWW.json"}
+        plugin = {"pretty", "html:build/reqPpFmWW-cucumber-html-report", "json:build/jenkins/reqPpFmWE.json"}
 )
 public class RequestingPaperFormWalesInWelshTest {
 

@@ -81,6 +81,7 @@ Feature: Test successfull follow up reminder letters - Wales in English
     When the user gets the addresses for postcode "TF1 5TB"
     And selects case for address "42 HOOP MILL"
     And navigates to the cases page for case "11"
+    And the user logs out
 
 
   Scenario: Get request for samples for sample id - Checks that the new case has the correct action plan changed
