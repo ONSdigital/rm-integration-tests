@@ -26,6 +26,9 @@ public class AddressesResponseOperation {
   @FindBy(id = "information")
   private WebElement noAddressMsg;
 
+  @FindBy(className = "message")
+  private WebElement invalidPostcodeMsg;
+
   private WebElement row;
 
   /**
@@ -69,6 +72,19 @@ public class AddressesResponseOperation {
    */
   public String getNoAddressMsg() {
     return noAddressMsg.getText();
+  }
+
+  /**
+   * Get invalid postcode message
+   *
+   * @return String message
+   */
+  public String getInvalidPostcodeMsg() {
+    try {
+      return invalidPostcodeMsg.getText();
+    } catch (Exception e) {
+      return "";
+    }
   }
 
   /**

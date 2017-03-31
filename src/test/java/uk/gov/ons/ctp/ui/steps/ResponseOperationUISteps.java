@@ -90,25 +90,42 @@ public class ResponseOperationUISteps {
   }
 
   /**
-   * Get addresses message from addresses page
+   * verifies addresses message found from addresses page
    *
-   * @param found string for expected result
    * @throws Throwable pass the exception
    */
-  @Then("^the user gets the verification for found addresses \"(.*?)\"")
-  public void the_user_gets_the_verification_for_found_addresses(String found) throws Throwable {
-    boolean result = false;
-    String msg = "";
+  @Then("^the user gets verification addresses found$")
+  public void the_user_gets_verification_addresses_found() throws Throwable {
+    String msg = responseAware.invokeGetAddressesFoundMessage();
+    assertTrue("No addresses found with message: " + msg, msg.equals("Click to view cases for an address."));
+  }
 
-    if (Boolean.parseBoolean(found)) {
-      msg = responseAware.invokeGetAddressesFoundMessage();
-      result = msg.equals("Click to view cases for an address.");
-    } else {
-      msg = responseAware.invokeGetNoAddressesFoundMessage();
-      result = msg.equals("There are no addresses for this postcode.");
-    }
+  /**
+   * verifies no addresses message found from addresses page
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the user gets verification addresses not found$")
+  public void the_user_gets_verification_addresses_not_found() throws Throwable {
+    String invalidMsg = responseAware.invokeGetInvalidPostcodeMessage();
+    assertTrue("Invalid postcode found message: " + invalidMsg, invalidMsg.equals(""));
 
-    assertTrue("Expected address message does not match result: " + msg, result);
+    String msg = responseAware.invokeGetNoAddressesFoundMessage();
+    assertTrue("Addresses found with message: " + msg, msg.equals("There are no addresses for this postcode."));
+  }
+
+  /**
+   * verifies invalid postcode message found from addresses page
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the user gets verification of invalid postcode$")
+  public void the_user_gets_verification_of_invalid_postcode() throws Throwable {
+    String invalidMsg = responseAware.invokeGetInvalidPostcodeMessage();
+    assertTrue("Addresses found with message: " + invalidMsg, invalidMsg.equals("• Please enter a valid postcode"));
+
+    String msg = responseAware.invokeGetNoAddressesFoundMessage();
+    assertTrue("Addresses found with message: " + msg, msg.equals("There are no addresses for this postcode."));
   }
 
   /**

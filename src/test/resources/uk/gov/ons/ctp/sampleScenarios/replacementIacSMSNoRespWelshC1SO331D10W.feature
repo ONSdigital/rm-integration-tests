@@ -13,7 +13,7 @@
 # Feature Tag:@sampleScenarios  @SMSIACWelshC1EO331D4W
 
 @sampleScenarios @SMSIACWelshC1SO331D10W
-Feature: Testing user requesting replacement IAC by SMS in Welsh with no response
+Feature: Testing user requesting replacement IAC by SMS in Welsh with no response - C1SO331D10W
 
   Scenario: Clean DB to pre test condition
     When reset the postgres DB

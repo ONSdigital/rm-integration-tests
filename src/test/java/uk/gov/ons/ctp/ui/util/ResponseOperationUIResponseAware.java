@@ -71,6 +71,16 @@ public class ResponseOperationUIResponseAware extends SeleniumAware {
   }
 
   /**
+   * Get invalid postcode message
+   *
+   * @return String message
+   */
+  public String invokeGetInvalidPostcodeMessage() {
+    AddressesResponseOperation addressesRO = new AddressesResponseOperation(getWebDriver());
+    return addressesRO.getInvalidPostcodeMsg();
+  }
+
+  /**
    * Select address from table and click view cases
    *
    * @param address string representation of address to find in table
