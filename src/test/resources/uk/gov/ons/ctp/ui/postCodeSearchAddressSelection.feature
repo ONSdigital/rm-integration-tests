@@ -40,10 +40,10 @@ Feature: Post Code Search & Address Selection
   	| notFoundPostcode |
   	| TF117BH          |
   	| TF11 7BH         |
-  	| S1S4HL           |
-  	| S1S 4HL          |
-  	| TF1T3BP          |
-  	| TF1T 3BP         |
+  #	| S1S4HL           |
+  #	| S1S 4HL          |
+  #	| TF1T3BP          |
+  #	| TF1T 3BP         |
 
   Scenario Outline: Search for a invalid postcodes:
     Given the "Test" user has logged in using "Chrome"
