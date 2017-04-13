@@ -11,7 +11,7 @@
 #							 @postcodeVerifcation
 
 @helplineUI @postcodeVerifcation
-Feature: Post Code Search & Address Selection
+Feature: Post Code Search & Address Selection - Valid format: A9 9AA, A99 9AA, AA9 9AA, AA99 9AA, A9A 9AA, AA9A 9AA
 
   Scenario Outline: Search for valid postcodes:
   		Testing format AA99 9AA, AA9 9AA, A99 9AA, A9 9AA with and without spaces
@@ -40,10 +40,10 @@ Feature: Post Code Search & Address Selection
   	| notFoundPostcode |
   	| TF117BH          |
   	| TF11 7BH         |
-  #	| S1S4HL           |
-  #	| S1S 4HL          |
-  #	| TF1T3BP          |
-  #	| TF1T 3BP         |
+  	| S1S4HL           |
+  	| S1S 4HL          |
+  	| TF1T3BP          |
+  	| TF1T 3BP         |
 
   Scenario Outline: Search for a invalid postcodes:
     Given the "Test" user has logged in using "Chrome"
@@ -53,6 +53,3 @@ Feature: Post Code Search & Address Selection
   Examples:
   	| invalidPostcode |
   	| 117             |
-
-# Valid format: A9 9AA, A99 9AA, AA9 9AA, AA99 9AA, A9A 9AA, AA9A 9AA
-
