@@ -1,9 +1,13 @@
 package uk.gov.ons.ctp.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
@@ -14,6 +18,15 @@ import com.jcraft.jsch.Session;
  * Created by Stephen Goddard on 15/8/16.
  */
 public class SSHResponseAware {
+  /* Property keys */
+  private static final String ENV_KEY = "cuc.server";
+  private static final String SFTP_LOCATION_SURVEY_KEY = "cuc.collect.samplesvc.sftp.survey";
+  private static final String SFTP_LOCATION_ERROR_KEY = "cuc.collect.samplesvc.sftp.error";
+  private static final String SSVC_FILENAME_VALID_KEY = "cuc.collect.samplesvc.valid.filename";
+  private static final String SSVC_FILENAME_INVALID_KEY = "cuc.collect.samplesvc.invalid.filename";
+  private static final String SSVC_SOURCE_KEY = "cuc.collect.samplesvc.file.source";
+  private static final String SSVC_DEST_KEY = "cuc.collect.samplesvc.file.dest";
+
   private static final int BYTE_SIZE = 1024;
   private static final long DEFAULT_TIMEOUT = Duration.ofMinutes(1).toMillis();
   private static final String MKDIR_CMD = "echo Make Dir;[ ! -d %s ] && mkdir %s || echo Directory exists";
@@ -124,7 +137,79 @@ public class SSHResponseAware {
   }
 
   /**
-   * Set ssh connection to be used
+   * Clean any files from previous runs of the sample service for the survey area:
+   * Clean survey area files
+   * Clean errors files
+   *
+   * @param surveyType survey area to run
+   */
+  public void invokeCleanSurveyFolders(String surveyType) {
+    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType);
+    final String deleteSurveyFiles = String.format(SSHScripts.DELETE_FILES_CMD, surveyLocation);
+    executeCommand(DEFAULT_TIMEOUT, deleteSurveyFiles);
+
+    final String errorLocation = world.getProperty(SFTP_LOCATION_ERROR_KEY);
+    final String deleteErrorFiles = String.format(SSHScripts.DELETE_FILES_CMD, errorLocation);
+    executeCommand(DEFAULT_TIMEOUT, deleteErrorFiles);
+  }
+
+  /**
+   * Move files to trigger the sample service for the survey type
+   *
+   * @param surveyType survey area to run
+   * @param fileType currently either valid or invalid
+   */
+  public void invokeSurveyFileTransfer(String surveyType, String fileType) {
+    final String localFile = world.getProperty(SSVC_SOURCE_KEY) + constructFilename(surveyType, fileType, "");
+
+    final String remoteLoc = String.format(world.getProperty(SSVC_DEST_KEY), surveyType);
+    final String timestamp = new SimpleDateFormat("-yyyy-MM-dd-HHmm").format(new Date());
+    final String remoteFile = remoteLoc + constructFilename(surveyType, fileType, timestamp);
+
+    if (world.getProperty(ENV_KEY).equals("localhost")) {
+      final String script = String.format(SSHScripts.FILES_TRANSFER_CMD_LOCAL, localFile, remoteFile);
+      executeCommand(DEFAULT_TIMEOUT, script);
+    } else {
+      final String script = String.format(SSHScripts.FILES_TRANSFER_CMD, remoteFile);
+      executeSCP(DEFAULT_TIMEOUT, script, localFile);
+    }
+  }
+
+  /**
+   * Construct filename for survey type
+   *
+   * @param surveyType survey area to run
+   * @param fileType currently either valid or invalid
+   * @param timestamp date time to make the file unique
+   * @return constructed filename
+   */
+  private String constructFilename(String surveyType, String fileType, String timestamp) {
+    String filename = "";
+    if (fileType.equalsIgnoreCase("valid")) {
+      filename = String.format(world.getProperty(SSVC_FILENAME_VALID_KEY), surveyType, timestamp);
+    } else if (fileType.equalsIgnoreCase("invalid")) {
+      filename = String.format(world.getProperty(SSVC_FILENAME_INVALID_KEY), surveyType, timestamp);
+    }
+    return filename;
+  }
+
+  /**
+   * Confirm file exists
+   *
+   * @param surveyType survey area to run
+   * @param filename name of file to check exists
+   * @return response body from script run - Found, Not found
+   */
+  public String invokeConfirmSurveyProcessedFileExists(String surveyType, String filename) {
+    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType) + filename;
+    final String filesExist = String.format(SSHScripts.FILES_EXIST_CMD, surveyLocation);
+
+    executeCommand(DEFAULT_TIMEOUT, filesExist);
+    return getBody();
+  }
+
+  /**
+   * Set connection to be used
    */
   private void connect() {
     try {
@@ -136,20 +221,28 @@ public class SSHResponseAware {
       config.put("StrictHostKeyChecking", "no");
       session.setConfig(config);
       session.connect();
+
+      channel = (ChannelExec) session.openChannel("exec");
+      channel.setPty(true);
     } catch (JSchException jse) {
       System.out.println(jse.getMessage());
     }
   }
 
   /**
-   * Close ssh connection used
+   * Close connections used
    */
   private void disconnect() {
-    session.disconnect();
+    if (channel != null) {
+      channel.disconnect();
+    }
+    if (session != null) {
+      session.disconnect();
+    }
   }
 
   /**
-   * Set DB connection to be used
+   * Run SCP command script
    *
    * @param runTime time in milliseconds to run script if not completed before
    * @param script command line instructions to be run
@@ -163,9 +256,6 @@ public class SSHResponseAware {
     connect();
 
     try {
-      channel = (ChannelExec) session.openChannel("exec");
-      channel.setPty(true);
-
       System.out.println("Execute: " + script);
       channel.setCommand(script);
 
@@ -173,6 +263,7 @@ public class SSHResponseAware {
       OutputStream out = channel.getOutputStream();
       channel.setErrStream(System.err);
 
+      channel.setPty(true);
       channel.connect();
 
       if (script.contains("sudo")) {
@@ -232,15 +323,92 @@ public class SSHResponseAware {
     } catch (IOException e) {
       System.out.println("IO operation failed: " + e.getMessage());
     } finally {
-      if (channel != null) {
-        channel.disconnect();
-      }
-      if (session != null) {
-        disconnect();
-      }
+      disconnect();
     }
+
     this.body = sshBody.toString();
+    System.out.println("Script Response Code: " + status);
     System.out.println("Script Response Body: " + body);
-    System.out.println("Ssh disconnect");
+    System.out.println("SSH disconnect");
+  }
+
+  /**
+   * Run SCP command script
+   *
+   * @param runTime time in milliseconds to run script if not completed before
+   * @param script SCP command line instructions to be run
+   * @param localFile name of local file to be uploaded to remote
+   *
+   * @throws JSchException pass the exception
+   * @throws IOException pass the exception
+   */
+  private void executeSCP(long runTime, String script, String localFile) {
+    StringBuffer scpBody = new StringBuffer();
+    FileInputStream fis = null;
+
+    connect();
+
+    try {
+      System.out.println("Execute: " + script);
+      ((ChannelExec) channel).setCommand(script);
+
+      OutputStream out = channel.getOutputStream();
+      InputStream in = channel.getInputStream();
+      channel.setErrStream(System.err);
+
+      channel.connect();
+
+      if (channel.getExitStatus() >= 0) {
+        System.out.println("Script run error: " + script);
+      }
+
+      long filesize = new File(localFile).length();
+      int lastIndex = localFile.lastIndexOf('/');
+      script = "C0644 " + filesize + " " + localFile.substring(lastIndex + 1) + "\n";
+      System.out.println(script);
+      out.write(script.getBytes());
+      out.flush();
+
+      if (channel.getExitStatus() >= 0) {
+        System.out.println("Script run error: " + script);
+      }
+
+      fis = new FileInputStream(localFile);
+      byte[] buf = new byte[BYTE_SIZE];
+      while (true) {
+        int len = fis.read(buf, 0, buf.length);
+        if (len <= 0) {
+          break;
+        }
+        out.write(buf, 0, len);
+      }
+      fis.close();
+
+      buf[0] = 0;
+      out.write(buf, 0, 1);
+      out.flush();
+      out.close();
+
+      byte[] tmp = new byte[BYTE_SIZE];
+      while (in.available() > 0) {
+        int i = in.read(tmp, 0, BYTE_SIZE);
+        scpBody.append(new String(tmp, 0, i));
+      }
+
+      if (channel.getExitStatus() >= 0) {
+        System.out.println("Script run error: " + script);
+      }
+
+      status = channel.getExitStatus();
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    } finally {
+      disconnect();
+    }
+
+    this.body = scpBody.toString();
+    System.out.println("Script Response Code: " + status);
+    System.out.println("Script Response Body: " + body);
+    System.out.println("SCP disconnect");
   }
 }

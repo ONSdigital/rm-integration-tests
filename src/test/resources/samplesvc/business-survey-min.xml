@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<p:businessSurveySample xmlns:p="http://ons.gov.uk/ctp/response/sample/definition"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://ons.gov.uk/ctp/response/sample/definition business-survey-sample.xsd ">
+	<surveyRef>BRES</surveyRef>
+	<collectionExerciseRef>Treatment01</collectionExerciseRef>
+	<effectiveStartDateTime>2017-09-01T00:00:00.000</effectiveStartDateTime>
+	<effectiveEndDateTime>2018-09-01T00:00:00.000</effectiveEndDateTime>
+	<sampleUnits></sampleUnits>
+</p:businessSurveySample>
