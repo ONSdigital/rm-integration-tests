@@ -21,9 +21,9 @@ public class SSHResponseAware {
   /* Property keys */
   private static final String ENV_KEY = "cuc.server";
   private static final String SFTP_LOCATION_SURVEY_KEY = "cuc.collect.samplesvc.sftp.survey";
-  private static final String SFTP_LOCATION_ERROR_KEY = "cuc.collect.samplesvc.sftp.error";
   private static final String SSVC_FILENAME_VALID_KEY = "cuc.collect.samplesvc.valid.filename";
   private static final String SSVC_FILENAME_INVALID_KEY = "cuc.collect.samplesvc.invalid.filename";
+  private static final String SSVC_FILENAME_MIN_KEY = "cuc.collect.samplesvc.min.filename";
   private static final String SSVC_SOURCE_KEY = "cuc.collect.samplesvc.file.source";
   private static final String SSVC_DEST_KEY = "cuc.collect.samplesvc.file.dest";
 
@@ -147,10 +147,6 @@ public class SSHResponseAware {
     final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType);
     final String deleteSurveyFiles = String.format(SSHScripts.DELETE_FILES_CMD, surveyLocation);
     executeCommand(DEFAULT_TIMEOUT, deleteSurveyFiles);
-
-    final String errorLocation = world.getProperty(SFTP_LOCATION_ERROR_KEY);
-    final String deleteErrorFiles = String.format(SSHScripts.DELETE_FILES_CMD, errorLocation);
-    executeCommand(DEFAULT_TIMEOUT, deleteErrorFiles);
   }
 
   /**
@@ -187,9 +183,12 @@ public class SSHResponseAware {
     String filename = "";
     if (fileType.equalsIgnoreCase("valid")) {
       filename = String.format(world.getProperty(SSVC_FILENAME_VALID_KEY), surveyType, timestamp);
-    } else if (fileType.equalsIgnoreCase("invalid")) {
+    } if (fileType.equalsIgnoreCase("invalid")) {
       filename = String.format(world.getProperty(SSVC_FILENAME_INVALID_KEY), surveyType, timestamp);
+    } else if (fileType.equalsIgnoreCase("min")) {
+      filename = String.format(world.getProperty(SSVC_FILENAME_MIN_KEY), surveyType, timestamp);
     }
+    
     return filename;
   }
 
@@ -206,6 +205,12 @@ public class SSHResponseAware {
 
     executeCommand(DEFAULT_TIMEOUT, filesExist);
     return getBody();
+  }
+  
+  public void invokeGetFileContents(String surveyType, String filename) {
+    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType) + filename;
+    String catScript = String.format(SSHScripts.GET_FILE_CONTENTS_CMD, surveyLocation);
+    executeCommand(DEFAULT_TIMEOUT, catScript);
   }
 
   /**

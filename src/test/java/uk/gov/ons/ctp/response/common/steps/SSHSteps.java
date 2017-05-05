@@ -187,4 +187,8 @@ public class SSHSteps {
     assertTrue("Processed File not found: " + filename, result.contains("\nFound"));
   }
 
+  @Then("^for the \"(.*?)\" survey get the contents of the file \"(.*?)\"$")
+  public void for_the_survey_get_the_contents_of_the_file(String surveyType, String filename) throws Throwable {
+    responseAware.invokeGetFileContents(surveyType, filename);
+  }
 }

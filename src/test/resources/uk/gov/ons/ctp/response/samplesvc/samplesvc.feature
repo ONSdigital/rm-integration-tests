@@ -26,42 +26,42 @@ Feature: Runs the sample service endpoints
     When for the "census" survey move the "valid" file to trigger ingestion
     Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found
     And the exit status should be 0
+    
+  Scenario: Load empty Business example survey
+    Given clean sftp folders of all previous ingestions for "business" surveys
+    And the exit status should be 0
+    When for the "business" survey move the "min" file to trigger ingestion
+    Then for the "business" survey confirm processed file "census-survey-full*.xml.processed" is found
+    And the exit status should be 0
+
 
 	# Endpoint Tests -----
 
-	# POST /samples/{surveyRef}/{startTimestamp}???
+	# POST /samples/sampleunitrequests
 	# 200
   Scenario: Get request to sample service for specific survey referance and start time stamp
-    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" with a start of "2001-12-31%2012:00:00"
+    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" and for "1234" with a start of "2001-12-31T12:00:00+00"
     When the response status should be 200
-    Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"sampleUnitId":1,"sampleId":1,"sampleUnitRef":"sampleUnitRef","sampleUnitType":"H"}
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
-	# 404?
+	Scenario: Get request to sample service for specific survey referance and start time stamp
+    Given I make the POST call to the sample service endpoint for surveyRef "InvalidRef" and for "1234" with a start of "2001-12-31T12:00:00+00"
+    When the response status should be 200
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
+
+	#201
+	@empty
+	Scenario: Get request to sample service for specific survey referance and start time stamp
+    Given I make the POST call to the sample service endpoint for surveyRef "BRES" and for "1234" with a start of "2001-12-31T12:00:00+00"
+    When the response status should be 201
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
+
+	# 400
   Scenario: Get request to sample service for specific survey referance and start time stamp
-    Given I make the POST call to the sample service endpoint for surveyRef "InvalidRef" with a start of "2001-12-31%2012:00:00"
-    When the response status should be 204
-    Then the response should contain the field "error.code" with value "SYSTEM_ERROR"
-		And the response should contain the field "error.message" with value ""
-		And the response should contain the field "error.timestamp"
+    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" and for "1234" with a start of "2001-12-31T12:00:00+00"
+    When the response status should be 400
+    #Then the response should contain the field "error.code" with value "SYSTEM_ERROR"
+		#And the response should contain the field "error.message" with value ""
+		#And the response should contain the field "error.timestamp"
 
 
-	# PUT /samples/{sampleId}
-	# 200
-	Scenario: Put request for sample to create online cases for the specified sample id
-		Given Update "sample.samplesummary" to "state = 'INIT'" where "sampleid = 1"
-		When I make the PUT call to the sample service endpoint for sample id "1"
-		Then the response status should be 200
-		And the response should contain the field "sampleId" with an integer value of 1
-		And the response should contain the field "effectiveStartDateTime"
-		And the response should contain the field "surveyRef" with value "CENSUS"
-		And the response should contain the field "effectiveStartDateTime"
-		And the response should contain the field "state" with value "ACTIVE"
-
-	# 404?
-  Scenario: Get request to sample service for specific survey referance and start time stamp
-    Given I make the PUT call to the sample service endpoint for sample id "101"
-    When the response status should be 404
-    Then the response should contain the field "error.code" with value "SYSTEM_ERROR"
-		And the response should contain the field "error.message" with value ""
-		And the response should contain the field "error.timestamp"

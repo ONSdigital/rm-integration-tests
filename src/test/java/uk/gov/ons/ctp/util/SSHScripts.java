@@ -23,4 +23,9 @@ public class SSHScripts {
    * If file exists then output message of the result
    */
   public static final String FILES_EXIST_CMD = "[ -f %s ] && echo Found || echo Not Found";
+
+  /*
+   * Get file contents
+   */
+  public static final String GET_FILE_CONTENTS_CMD = "cat %s";
 }

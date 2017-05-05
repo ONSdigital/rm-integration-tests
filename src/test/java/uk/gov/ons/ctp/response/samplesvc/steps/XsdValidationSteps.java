@@ -15,8 +15,8 @@ import uk.gov.ons.ctp.util.World;
  * Created by stephen.goddard on 3/4/17.
  */
 public class XsdValidationSteps {
-  private static final String XSD_LOCATION_KEY = "cuc.collect.samplesvc.xsdlocation";
-  private static final String XML_LOCATION_KEY = "cuc.collect.samplesvc.file.source";
+  private static final String XSD_LOCATION_KEY = "cuc.collect.samplesvc.xsd.location";
+  private static final String XML_LOCATION_KEY = "cuc.collect.samplesvc.xml.location";
   private String schemaFile;
   private String sourceFile;
 

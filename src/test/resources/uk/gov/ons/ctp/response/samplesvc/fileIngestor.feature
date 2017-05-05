@@ -36,7 +36,8 @@ Feature: Tests the file ingestion of samples for each survey area
     When for the "business" survey move the "invalid" file to trigger ingestion
     Then for the "business" survey confirm processed file "business-survey-invalid*.error" is found
     And the exit status should be 0
-    Then get the contents of the file from "Documents/errors/" where the filename begins "business-survey-invalid"
+    #Then get the contents of the file from "Documents/errors/" where the filename begins "business-survey-invalid"
+    Then for the "business" survey get the contents of the file "business-survey-invalid*error.txt"
 		And the exit status should be 0
 		And and the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:"
 		And and the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{treatmentRef}' is expected."
@@ -51,14 +52,14 @@ Feature: Tests the file ingestion of samples for each survey area
     Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found
     And the exit status should be 0
 
-	@censusIngest
+	@censusIngesttest
   Scenario: Title of your scenario
     Given clean sftp folders of all previous ingestions for "census" surveys
     And the exit status should be 0
     When for the "census" survey move the "invalid" file to trigger ingestion
     Then for the "census" survey confirm processed file "census-survey-invalid*.error" is found
     And the exit status should be 0
-    Then get the contents of the file from "Documents/errors/" where the filename begins "census-survey-invalid"
+    Then for the "census" survey get the contents of the file "census-survey-invalid*error.txt"
 		And the exit status should be 0
 		And and the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:"
 		And and the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{treatmentRef}' is expected."
@@ -80,7 +81,8 @@ Feature: Tests the file ingestion of samples for each survey area
     When for the "social" survey move the "invalid" file to trigger ingestion
     Then for the "social" survey confirm processed file "social-survey-invalid*.error" is found
     And the exit status should be 0
-    Then get the contents of the file from "Documents/errors/" where the filename begins "social-survey-invalid"
+    #Then get the contents of the file from "Documents/errors/" where the filename begins "social-survey-invalid"
+    Then for the "social" survey get the contents of the file "social-survey-invalid*error.txt"
 		And the exit status should be 0
 		And and the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:"
 		And and the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{treatmentRef}' is expected."
