@@ -92,13 +92,17 @@ public class PostgresSteps {
   public void the_samplesvc_database_has_been_reset() throws Throwable {
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "sample.samplesummary"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "sample.sampleunit"));
+    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "sample.collectionexercisejob"));
     check_records_in_DB_equal("sample.samplesummary", 0);
     check_records_in_DB_equal("sample.sampleunit", 0);
+    check_records_in_DB_equal("sample.collectionexercisejob", 0);
 
     responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "sample.sampleidseq", "1"));
     responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "sample.sampleunitidseq", "1"));
+    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "sample.collectionexercisejobidseq", "1"));
     check_sequence_in_DB_equal("sample.sampleidseq", 1);
     check_sequence_in_DB_equal("sample.sampleunitidseq", 1);
+    check_sequence_in_DB_equal("sample.collectionexercisejobidseq", 1);
   }
 
   /**

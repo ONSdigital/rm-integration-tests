@@ -136,18 +136,45 @@ public class SSHResponseAware {
     return commandStatus == 0;
   }
 
-  /**
-   * Clean any files from previous runs of the sample service for the survey area:
-   * Clean survey area files
-   * Clean errors files
-   *
-   * @param surveyType survey area to run
-   */
-  public void invokeCleanSurveyFolders(String surveyType) {
-    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType);
-    final String deleteSurveyFiles = String.format(SSHScripts.DELETE_FILES_CMD, surveyLocation);
-    executeCommand(DEFAULT_TIMEOUT, deleteSurveyFiles);
-  }
+//  /**
+//   * Clean any files from previous runs of the sample service for the survey area:
+//   * Clean survey area files
+//   * Clean errors files
+//   *
+//   * @param surveyType survey area to run
+//   */
+//  public void invokeCleanSurveyFolders(String surveyType) {
+////    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType);
+////    final String deleteSurveyFiles = String.format(SSHScripts.DELETE_FILES_CMD, surveyLocation);
+////    executeCommand(DEFAULT_TIMEOUT, deleteSurveyFiles);
+//    System.out.println("Start");
+//    JSch jsch = new JSch();
+//      Session session = null;
+//      try {
+//          session = jsch.getSession("centos", "127.0.0.1", 22);
+//          session.setConfig("StrictHostKeyChecking", "no");
+//          session.setPassword("JLibV2&XD,");
+//          session.connect();
+//
+//          Channel channel = session.openChannel("sftp");
+//          channel.connect();
+//          ChannelSftp sftpChannel = (ChannelSftp) channel;
+//          sftpChannel.cd("Documents/sftp/business-sftp");
+//          Vector<ChannelSftp.LsEntry> list = sftpChannel.ls("*");
+//          for(ChannelSftp.LsEntry entry : list) {
+//               System.out.println(entry.getFilename());
+//          }
+////          sftpChannel.get("README.md", "localfile.txt");
+////          sftpChannel.
+//          sftpChannel.exit();
+//          session.disconnect();
+//      } catch (JSchException e) {
+//          e.printStackTrace();
+//      } catch (SftpException e) {
+//          e.printStackTrace();
+//      }
+//      System.out.println("Finish");
+//  }
 
   /**
    * Move files to trigger the sample service for the survey type
@@ -183,12 +210,12 @@ public class SSHResponseAware {
     String filename = "";
     if (fileType.equalsIgnoreCase("valid")) {
       filename = String.format(world.getProperty(SSVC_FILENAME_VALID_KEY), surveyType, timestamp);
-    } if (fileType.equalsIgnoreCase("invalid")) {
+    } else if (fileType.equalsIgnoreCase("invalid")) {
       filename = String.format(world.getProperty(SSVC_FILENAME_INVALID_KEY), surveyType, timestamp);
     } else if (fileType.equalsIgnoreCase("min")) {
       filename = String.format(world.getProperty(SSVC_FILENAME_MIN_KEY), surveyType, timestamp);
     }
-    
+
     return filename;
   }
 
@@ -206,12 +233,12 @@ public class SSHResponseAware {
     executeCommand(DEFAULT_TIMEOUT, filesExist);
     return getBody();
   }
-  
-  public void invokeGetFileContents(String surveyType, String filename) {
-    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType) + filename;
-    String catScript = String.format(SSHScripts.GET_FILE_CONTENTS_CMD, surveyLocation);
-    executeCommand(DEFAULT_TIMEOUT, catScript);
-  }
+
+//  public void invokeGetFileContents(String surveyType, String filename) {
+//    final String surveyLocation = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType) + filename;
+//    String catScript = String.format(SSHScripts.GET_FILE_CONTENTS_CMD, surveyLocation);
+//    executeCommand(DEFAULT_TIMEOUT, catScript);
+//  }
 
   /**
    * Set connection to be used

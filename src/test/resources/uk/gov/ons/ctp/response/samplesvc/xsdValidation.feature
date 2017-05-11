@@ -3,16 +3,16 @@
 # Keywords Summary: This feature file contains the scenario tests for the survey xsd
 #
 # Feature: List of survey xsd scenarios: xsd validation without failure
-#																				 xsd validation with failure
+#                                        xsd validation with failure
 #
 # Feature Tags: @sampleSvc
-#								@sampleXsd
+#               @sampleXsd
 #
 # Scenario Tags: @xsdValidation
-#								 @businessXsdInvalid
-#								 @censusXsdInvalid
-#								 @socialXsdInvalid
-
+#                @businessXsdInvalid
+#                @censusXsdInvalid
+#                @socialXsdInvalid
+#
 @sampleSvc @sampleXsd
 Feature: Test the sample service survey xsd
 
