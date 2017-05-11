@@ -24,8 +24,9 @@ public class SSHResponseAware {
   private static final String SSVC_FILENAME_VALID_KEY = "cuc.collect.samplesvc.valid.filename";
   private static final String SSVC_FILENAME_INVALID_KEY = "cuc.collect.samplesvc.invalid.filename";
   private static final String SSVC_FILENAME_MIN_KEY = "cuc.collect.samplesvc.min.filename";
-  private static final String SSVC_SOURCE_KEY = "cuc.collect.samplesvc.file.source";
-  private static final String SSVC_DEST_KEY = "cuc.collect.samplesvc.file.dest";
+  private static final String XML_LOCATION_KEY = "cuc.collect.samplesvc.xml.location";
+//  private static final String SSVC_SOURCE_KEY = "cuc.collect.samplesvc.file.source";
+//  private static final String SSVC_DEST_KEY = "cuc.collect.samplesvc.file.dest";
 
   private static final int BYTE_SIZE = 1024;
   private static final long DEFAULT_TIMEOUT = Duration.ofMinutes(1).toMillis();
@@ -183,9 +184,9 @@ public class SSHResponseAware {
    * @param fileType currently either valid or invalid
    */
   public void invokeSurveyFileTransfer(String surveyType, String fileType) {
-    final String localFile = world.getProperty(SSVC_SOURCE_KEY) + constructFilename(surveyType, fileType, "");
+    final String localFile = world.getProperty(XML_LOCATION_KEY) + constructFilename(surveyType, fileType, "");
 
-    final String remoteLoc = String.format(world.getProperty(SSVC_DEST_KEY), surveyType);
+    final String remoteLoc = String.format(world.getProperty(SFTP_LOCATION_SURVEY_KEY), surveyType);
     final String timestamp = new SimpleDateFormat("-yyyy-MM-dd-HHmm").format(new Date());
     final String remoteFile = remoteLoc + constructFilename(surveyType, fileType, timestamp);
 
