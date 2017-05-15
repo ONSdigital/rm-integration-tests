@@ -260,6 +260,29 @@ public class AbstractPropertyLoader {
     System.out.format("For UI '%s', constructed URL '%s'.\n", name, url.toString());
     return url.toString();
   }
+
+  /**
+   * Constructs the URL of collection exercise service from environment specific components
+   * gleaned from property files.
+   *
+   * The URL is constructed as follows:
+   * ${cuc.protocol}://${cuc.collect.collectionexercisesvc.host}:${cuc.collect.collectionexercisesvc.port}
+   *
+   * @param name the name of the path
+   * @return constructed URL
+   */
+  public final String getCollectionExerciseSvcUrl(final String name) {
+    final StringBuilder url = new StringBuilder();
+    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.collect.collectionexercisesvc.host"))
+        .append(":").append(getProperty("cuc.collect.collectionexercisesvc.port"));
+    if (!name.startsWith("/")) {
+      url.append("/");
+    }
+    url.append(name);
+    System.out.format("For UI '%s', constructed URL '%s'.\n", name, url.toString());
+    return url.toString();
+  }
+
   /**
    * Constructs the URL of SDX Gateway from environment specific components
    * gleaned from property files.

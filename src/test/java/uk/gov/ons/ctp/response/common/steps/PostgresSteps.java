@@ -3,6 +3,10 @@ package uk.gov.ons.ctp.response.common.steps;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +18,16 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.util.PostgresResponseAware;
+import uk.gov.ons.ctp.util.World;
 
 /**
  * Created by Stephen Goddard on 25/5/16.
  */
 public class PostgresSteps {
+  /* Property keys */
+  private static final String SQL_LOCATION = "cuc.sql.location";
+
+  private World world;
   private final PostgresResponseAware responseAware;
 
   /* Truncate SQL */
@@ -46,9 +55,11 @@ public class PostgresSteps {
    * Constructor
    *
    * @param postgresResponseAware postgres runner
+   * @param newWorld class with application and environment properties
    */
-  public PostgresSteps(PostgresResponseAware postgresResponseAware) {
+  public PostgresSteps(PostgresResponseAware postgresResponseAware, final World newWorld) {
     this.responseAware = postgresResponseAware;
+    this.world = newWorld;
   }
 
   /**
@@ -84,25 +95,54 @@ public class PostgresSteps {
   }
 
   /**
-   * Reset the sample service postgres DB to an initial state
+   * Confirm clean of sample service postgres DB
    *
    * @throws Throwable pass the exception
    */
   @Given("^the samplesvc database has been reset$")
   public void the_samplesvc_database_has_been_reset() throws Throwable {
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "sample.samplesummary"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "sample.sampleunit"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "sample.collectionexercisejob"));
     check_records_in_DB_equal("sample.samplesummary", 0);
     check_records_in_DB_equal("sample.sampleunit", 0);
     check_records_in_DB_equal("sample.collectionexercisejob", 0);
 
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "sample.sampleidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "sample.sampleunitidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "sample.collectionexercisejobidseq", "1"));
     check_sequence_in_DB_equal("sample.sampleidseq", 1);
     check_sequence_in_DB_equal("sample.sampleunitidseq", 1);
     check_sequence_in_DB_equal("sample.collectionexercisejobidseq", 1);
+  }
+
+  /**
+   * Confirm clean of collection exercise service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^the collectionexercisesvc database has been reset$")
+  public void the_collectionexercisesvc_database_has_been_reset() throws Throwable {
+    check_records_in_DB_equal("collectionexercise.sampleunit", 0);
+    check_records_in_DB_equal("collectionexercise.sampleunitgroup", 0);
+    check_records_in_DB_equal("collectionexercise.collectionexercise", 0);
+    check_records_in_DB_equal("collectionexercise.survey", 0);
+
+    check_sequence_in_DB_equal("collectionexercise.exerciseidseq", 1);
+    check_sequence_in_DB_equal("collectionexercise.sampleunitgroupidseq", 1);
+  }
+
+  /**
+   * Run .sql script
+   *
+   * @param service to run script against
+   * @param scriptFile to be run
+   * @throws Throwable pass the exception
+   */
+  @Given("^for the \"(.*?)\" run the \"(.*?)\" postgres DB script$")
+  public void for_the_run_the_postgres_DB_script(String service, String scriptFile) throws Throwable {
+    StringBuffer strbuffer = new StringBuffer();
+    Path path = Paths.get(world.getProperty(SQL_LOCATION) + service + "/" + scriptFile);
+
+    List<String> lines = Files.readAllLines(path, Charset.forName("UTF-8"));
+    for (String line:lines) {
+      strbuffer.append(line);
+    }
+    responseAware.dbUpdateInsert(strbuffer.toString());
   }
 
   /**

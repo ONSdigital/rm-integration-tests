@@ -29,7 +29,8 @@ public class SampleSvcSteps {
    *
    * @throws Throwable pass the exception
    */
-  @Given("^I make the POST call to the sample service endpoint for surveyRef \"(.*?)\" and for \"(.*?)\" with a start of \"(.*?)\"$")
+  @Given("^I make the POST call to the sample service endpoint for surveyRef \"(.*?)\" and for \"(.*?)\""
+      + " with a start of \"(.*?)\"$")
   public void i_make_the_POST_call_to_the_sample_service_endpoint_for_surveyRef_and_for_with_a_start_of(
       String surveyRef, String collectionExerciseId, String timeStamp) throws Throwable {
     Properties properties = new Properties();
