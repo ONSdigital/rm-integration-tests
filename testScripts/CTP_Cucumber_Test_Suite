@@ -1,0 +1,8 @@
+echo This script runs the tests
+echo Running Test Suite .....
+
+echo Sample Service
+./CTP_Cucumber_Samplesvc $1
+
+echo Collection Exercise Service
+./CTP_Cucumber_Collectionexercisesvc $1

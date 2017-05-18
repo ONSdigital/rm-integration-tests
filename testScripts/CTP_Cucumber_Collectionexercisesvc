@@ -1,0 +1,5 @@
+echo Sample Service - Endpoint details are in the swagger spec ???? swagger.yml
+echo Running @collectionexercisesvc ...
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @collectionExerciseSvc" -Dcuc.env=$1

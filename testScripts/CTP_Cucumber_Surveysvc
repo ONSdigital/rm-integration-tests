@@ -1,0 +1,5 @@
+echo Survey Service - Endpoint details are in the swagger spec https://github.com/ONSdigital/rm-survey-service/blob/master/API.md
+echo Running @surveysvc ...
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @surveySvc" -Dcuc.env=$1

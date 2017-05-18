@@ -18,7 +18,8 @@ Feature: Runs the sample service endpoints
   # Pre Test Environment Set Up -----
 
   Scenario: Reset sample service database to pre test condition
-    Given the samplesvc database has been reset
+    When for the "samplesvc" run the "samplereset.sql" postgres DB script
+    Then the samplesvc database has been reset
 
   Scenario: Load Census example survey
     Given clean sftp folders of all previous ingestions for "census" surveys

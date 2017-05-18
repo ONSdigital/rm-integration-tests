@@ -57,6 +57,17 @@ public class CommonSteps {
   }
 
   /**
+   * Test response should contain the value from feature
+   *
+   * @param value from scenario in feature
+   * @throws Throwable pass the exception
+   */
+  @Then("^the response should contain \"(.*?)\"$")
+  public void the_response_should_contain(String value) throws Throwable {
+    assertTrue("Response does not match: " + responseAware.getBody(), responseAware.getBody().contains(value));
+  }
+
+  /**
    * Test response should contain the field from feature
    *
    * @param field value from scenario in feature

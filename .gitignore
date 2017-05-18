@@ -63,3 +63,4 @@ target
 
 /build/
 *.properties
+.DS_Store

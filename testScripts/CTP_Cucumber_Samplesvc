@@ -1,0 +1,7 @@
+echo Sample Service - Xsd validation checking
+echo Sample Service - File ingestion
+echo Sample Service - Endpoint details are in the swagger spec https://github.com/ONSdigital/rm-sample-service/blob/master/samplesvc-api/swagger.yml
+echo Running @samplesvc ...
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @sampleSvc" -Dcuc.env=$1

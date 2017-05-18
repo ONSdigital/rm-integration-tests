@@ -10,10 +10,10 @@ import cucumber.api.junit.Cucumber;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = {"classpath:uk/gov/ons/ctp/response/samplesvc/samplesvc.feature"},
-        glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
-            "uk.gov.ons.ctp.response.common.steps"},
-        plugin = {"pretty", "html:build/samplesvc-cucumber-html-report", "json:build/jenkins/samplesvc.json"}
+  features = {"classpath:uk/gov/ons/ctp/response/samplesvc/samplesvc.feature"},
+  glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
+          "uk.gov.ons.ctp.response.common.steps"},
+  plugin = {"pretty", "html:build/samplesvc-cucumber-html-report", "json:build/jenkins/samplesvc.json"}
 )
 public class SampleSvcTest {
 

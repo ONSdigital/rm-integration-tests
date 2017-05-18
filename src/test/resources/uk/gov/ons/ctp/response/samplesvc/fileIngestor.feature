@@ -19,7 +19,7 @@
 @sampleSvc @sampleIngest 
 Feature: Tests the file ingestion of samples for each survey area 
 
-# File ingest Tests -----
+  # File ingest Tests -----
 
   @businessIngest 
   Scenario: Title of your scenario 
