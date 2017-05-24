@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
+import org.springframework.core.io.ClassPathResource;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -29,8 +31,8 @@ public class XsdValidationSteps {
    * @param newWorld class with application and environment properties
    */
   public XsdValidationSteps(World newWorld) {
-    validator = new XsdValidator();
     this.world = newWorld;
+    validator = new XsdValidator(world.getProperty(XSD_LOCATION_KEY));
   }
 
   /**
@@ -42,8 +44,7 @@ public class XsdValidationSteps {
   @Given("^xsd is available \"(.*?)\"$")
   public void xsd_is_available(String fileName) throws Throwable {
     schemaFile = world.getProperty(XSD_LOCATION_KEY) + fileName;
-    File file = new File(schemaFile);
-    assertTrue("XSD file does not exist: " + schemaFile, file.exists());
+    assertTrue("XSD file does not exist: " + schemaFile, new ClassPathResource(schemaFile).exists());
   }
 
   /**

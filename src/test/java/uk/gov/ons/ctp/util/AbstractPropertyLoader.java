@@ -67,6 +67,32 @@ public class AbstractPropertyLoader {
   }
 
   /**
+   * Constructs the URL of service from environment specific components
+   * gleaned from property files.
+   *
+   * The URL is constructed as follows:
+   * ${cuc.protocol}://${cuc.collect.*.host}:${cuc.collect.*.port}
+   *
+   * @param name the name of the path
+   * @param service name of service to build URL for
+   * @return constructed URL
+   */
+  public final String getUrl(final String name, final String service) {
+    final StringBuilder url = new StringBuilder();
+    url.append(getProperty("cuc.protocol"))
+        .append("://")
+        .append(getProperty("cuc.collect." + service + ".host"))
+        .append(":")
+        .append(getProperty("cuc.collect." + service + ".port"));
+    if (!name.startsWith("/")) {
+      url.append("/");
+    }
+    url.append(name);
+    System.out.format("For '%s' '%s', constructed URL '%s'.\n", service, name, url.toString());
+    return url.toString();
+  }
+
+  /**
    * Constructs the URL of an endpoint from environment specific components
    * gleaned from property files.
    *
@@ -236,76 +262,6 @@ public class AbstractPropertyLoader {
     }
     url.append(name);
     System.out.format("For UI '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
-  }
-
-  /**
-   * Constructs the URL of sample service from environment specific components
-   * gleaned from property files.
-   *
-   * The URL is constructed as follows:
-   * ${cuc.protocol}://${cuc.collect.samplesvc.host}:${cuc.collect.samplesvc.port}
-   *
-   * @param name the name of the path
-   * @return constructed URL
-   */
-  public final String getSampleSvcUrl(final String name) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.collect.samplesvc.host")).append(":")
-        .append(getProperty("cuc.collect.samplesvc.port"));
-    if (!name.startsWith("/")) {
-      url.append("/");
-    }
-    url.append(name);
-    System.out.format("For Sample Svc '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
-  }
-
-  /**
-   * Constructs the URL of collection exercise service from environment specific components
-   * gleaned from property files.
-   *
-   * The URL is constructed as follows:
-   * ${cuc.protocol}://${cuc.collect.collectionexercisesvc.host}:${cuc.collect.collectionexercisesvc.port}
-   *
-   * @param name the name of the path
-   * @return constructed URL
-   */
-  public final String getCollectionExerciseSvcUrl(final String name) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.collect.collectionexercisesvc.host"))
-        .append(":").append(getProperty("cuc.collect.collectionexercisesvc.port"));
-    if (!name.startsWith("/")) {
-      url.append("/");
-    }
-    url.append(name);
-    System.out.format("For Collect Exercise Svc '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
-  }
-
-  /**
-   * Constructs the URL of survey service from environment specific components
-   * gleaned from property files.
-   *
-   * The URL is constructed as follows:
-   * ${cuc.protocol}://${cuc.collect.*.host}:${cuc.collect.*.port}
-   *
-   * @param name the name of the path
-   * @param service name of service to build URL for
-   * @return constructed URL
-   */
-  public final String getUrl(final String name, final String service) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol"))
-        .append("://")
-        .append(getProperty("cuc.collect." + service + ".host"))
-        .append(":")
-        .append(getProperty("cuc.collect." + service + ".port"));
-    if (!name.startsWith("/")) {
-      url.append("/");
-    }
-    url.append(name);
-    System.out.format("For '%s' '%s', constructed URL '%s'.\n", service, name, url.toString());
     return url.toString();
   }
 

@@ -10,7 +10,7 @@
 		<businessSampleUnit>
 			<sampleUnitRef>str1234</sampleUnitRef>
 			<sampleUnitType>H</sampleUnitType>
-			<treatmentRef>str1234</treatmentRef>
+			<!-- <treatmentRef>str1234</treatmentRef> -->
 			<line1>str1234</line1>
 			<line2>str1234</line2>
 			<line3>str1234</line3>

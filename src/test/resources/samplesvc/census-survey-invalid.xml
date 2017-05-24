@@ -9,7 +9,7 @@
       <sampleUnitRef>sampleUnitRef</sampleUnitRef>
       <sampleUnitType>H</sampleUnitType>
       <sampleUnitType>Invalid</sampleUnitType>
-      <treatmentRef>treatmentRef</treatmentRef>
+      <!-- <treatmentRef>treatmentRef</treatmentRef> -->
       <line1>line1</line1>
       <line2>line2</line2>
       <postcode>TR2 4SA</postcode>

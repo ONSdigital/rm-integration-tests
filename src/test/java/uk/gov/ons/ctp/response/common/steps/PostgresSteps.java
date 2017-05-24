@@ -26,6 +26,7 @@ import uk.gov.ons.ctp.util.World;
 public class PostgresSteps {
   /* Property keys */
   private static final String SQL_LOCATION = "cuc.sql.location";
+  private static final long CASEREF_SEQ = 1000000000000001L;
 
   private World world;
   private final PostgresResponseAware responseAware;
@@ -69,26 +70,26 @@ public class PostgresSteps {
    */
   @When("^reset the postgres DB$")
   public void reset_the_postgres_DB() throws Throwable {
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.case"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.caseevent"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.casegroup"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.contact"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.response"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.messagelog"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.unlinkedcasereceipt"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.report"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.case"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.caseevent"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.casegroup"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.contact"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.response"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.messagelog"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.unlinkedcasereceipt"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.report"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "actionexporter.report"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.action"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.actionplanjob"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.case"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.messagelog"));
 
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caseeventidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caseidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.casegroupidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caserefseq", "1000000000000001"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.responseidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.messageseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caseeventidseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caseidseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.casegroupidseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caserefseq", "1000000000000001"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.responseidseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.messageseq", "1"));
     responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.actionidseq", "1"));
     responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.actionplanjobseq", "1"));
     responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.messageseq", "1"));
@@ -105,7 +106,7 @@ public class PostgresSteps {
     check_records_in_DB_equal("sample.sampleunit", 0);
     check_records_in_DB_equal("sample.collectionexercisejob", 0);
 
-    check_sequence_in_DB_equal("sample.sampleidseq", 1);
+    check_sequence_in_DB_equal("sample.samplesummaryseq", 1);
     check_sequence_in_DB_equal("sample.sampleunitidseq", 1);
     check_sequence_in_DB_equal("sample.collectionexercisejobidseq", 1);
   }
@@ -124,6 +125,25 @@ public class PostgresSteps {
 
     check_sequence_in_DB_equal("collectionexercise.exerciseidseq", 1);
     check_sequence_in_DB_equal("collectionexercise.sampleunitgroupidseq", 1);
+  }
+
+  /**
+   * Confirm clean of case service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the casesvc database has been reset$")
+  public void the_casesvc_database_has_been_reset() throws Throwable {
+    check_records_in_DB_equal("casesvc.case", 0);
+    check_records_in_DB_equal("casesvc.caseevent", 0);
+    check_records_in_DB_equal("casesvc.casegroup", 0);
+    check_records_in_DB_equal("casesvc.response", 0);
+
+    check_sequence_in_DB_equal("casesvc.caseeventidseq", 1);
+    check_sequence_in_DB_equal("casesvc.casegroupidseq", 1);
+    check_sequence_in_DB_equal("casesvc.caseidseq", 1);
+    check_sequence_in_DB_equal("casesvc.caserefseq", CASEREF_SEQ);
+    check_sequence_in_DB_equal("casesvc.responseidseq", 1);
   }
 
   /**
@@ -153,7 +173,7 @@ public class PostgresSteps {
    * @throws Throwable pass the exception
    */
   @Then("^check \"(.*?)\" records in DB equal (\\d+)$")
-  public void check_records_in_DB_equal(String table, int total) throws Throwable {
+  public void check_records_in_DB_equal(String table, long total) throws Throwable {
     long result = responseAware.rowCount(String.format(COUNT_SQL, table));
     assertTrue(table + " found in DB equal to: " + result, result == total);
   }

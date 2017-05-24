@@ -26,7 +26,7 @@ Feature: Runs the sample service endpoints
     And the sftp exit status should be "-1"
     When for the "census" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 10 seconds
+    And after a delay of 05 seconds
     Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
     
@@ -35,7 +35,7 @@ Feature: Runs the sample service endpoints
     And the sftp exit status should be "-1"
     When for the "business" survey move the "min" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 10 seconds
+    And after a delay of 05 seconds
     Then for the "business" survey confirm processed file "business-survey-min*.xml.processed" is found
     And the sftp exit status should be "-1"
 

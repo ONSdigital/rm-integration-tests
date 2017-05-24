@@ -13,6 +13,7 @@ import uk.gov.ons.ctp.util.World;
  */
 public class CollectionExerciseSvcResponseAware {
   private static final String PUT_URL = "/collectionexercises/%s";
+  private static final String SERVICE = "collectionexercisesvc";
   private World world;
   private HTTPResponseAware responseAware;
 
@@ -34,7 +35,7 @@ public class CollectionExerciseSvcResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokePutCollectionExerciseId(String exerciseId) throws AuthenticationException, IOException {
-    final String url = String.format(world.getCollectionExerciseSvcUrl(PUT_URL), exerciseId);
+    final String url = String.format(world.getUrl(PUT_URL, SERVICE), exerciseId);
     responseAware.invokePut(url, "", ContentType.APPLICATION_JSON);
   }
 }
