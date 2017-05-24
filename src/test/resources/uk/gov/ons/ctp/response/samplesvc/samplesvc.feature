@@ -43,30 +43,28 @@ Feature: Runs the sample service endpoints
   # Endpoint Tests -----
 
   # POST /samples/sampleunitrequests
-  # 200
+  # 201
   Scenario: Post request to sample service for specific survey reference and start time stamp
-    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" and for "1234" with a start of "2001-12-31T12:00:00.000+0000"
+    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" and for "c6467711-21eb-4e78-804c-1db8392f93fb" with a start of "2001-12-31T12:00:00.000+0000"
     When the response status should be 201
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
 
-  Scenario: Post request to sample service for invalid survey reference and start time stamp
-    Given I make the POST call to the sample service endpoint for surveyRef "InvalidRef" and for "1234" with a start of "2001-12-31T12:00:00.000+0000"
+  Scenario: Post request to sample service for an empty survey reference and start time stamp
+    Given I make the POST call to the sample service endpoint for surveyRef "BRES" and for "c6467711-21eb-4e78-804c-1db8392f93fc" with a start of "2018-08-31T23:00:00.000+0000"
     When the response status should be 201
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
-  # 201
-  @empty
-  Scenario: Post request to sample service for an empty survey reference and start time stamp
-    Given I make the POST call to the sample service endpoint for surveyRef "BRES" and for "1234" with a start of "2001-12-31T12:00:00.000+0000"
+  Scenario: Post request to sample service for invalid survey reference and start time stamp
+    Given I make the POST call to the sample service endpoint for surveyRef "InvalidRef" and for "c6467711-21eb-4e78-804c-1db8392f93fd" with a start of "2001-12-31T12:00:00.000+0000"
     When the response status should be 201
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
   # 400
   Scenario: Post request to sample service for specific survey reference and start time stamp with a collection exercise job
-    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" and for "1234" with a start of "2001-12-31T12:00:00.000+0000"
+    Given I make the POST call to the sample service endpoint for surveyRef "CENSUS" and for "c6467711-21eb-4e78-804c-1db8392f93fb" with a start of "2001-12-31T12:00:00.000+0000"
     When the response status should be 400
     Then the response should contain the field "error.code" with value "BAD_REQUEST"
-		And the response should contain the field "error.message" with value "CollectionExerciseId 1234 already exists in the collectionexercisejob table"
+		And the response should contain the field "error.message" with value "CollectionExerciseId c6467711-21eb-4e78-804c-1db8392f93fb already exists in the collectionexercisejob table"
 		And the response should contain the field "error.timestamp"
 
 

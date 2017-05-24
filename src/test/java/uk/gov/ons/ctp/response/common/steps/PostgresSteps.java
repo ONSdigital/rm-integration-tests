@@ -107,8 +107,8 @@ public class PostgresSteps {
     check_records_in_DB_equal("sample.collectionexercisejob", 0);
 
     check_sequence_in_DB_equal("sample.samplesummaryseq", 1);
-    check_sequence_in_DB_equal("sample.sampleunitidseq", 1);
-    check_sequence_in_DB_equal("sample.collectionexercisejobidseq", 1);
+    check_sequence_in_DB_equal("sample.sampleunitseq", 1);
+    check_sequence_in_DB_equal("sample.collectionexercisejobseq", 1);
   }
 
   /**
