@@ -1,5 +1,0 @@
-echo This test runs the follow ups as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875.
-echo Running @followUp .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @followUp" -Dcuc.env=$1

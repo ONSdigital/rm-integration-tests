@@ -1,0 +1,5 @@
+echo This script runs the smoke tests that confirms basic system checks.
+echo Running @smoke .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @smoke" -Dcuc.env=$1

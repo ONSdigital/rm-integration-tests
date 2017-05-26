@@ -1,8 +1,17 @@
-echo This script runs the tests
+echo This script runs the full range of tests
 echo Running Test Suite .....
+
+echo Smoke Tests
+./CTP_Cucumber_Smoke $1
 
 echo Sample Service
 ./CTP_Cucumber_Samplesvc $1
 
+echo Load Sample
+./CTP_Cucumber_Load_Samples $1
+
 echo Collection Exercise Service
-./CTP_Cucumber_Collectionexercisesvc $1
+echo./CTP_Cucumber_Collectionexercisesvc $1
+
+echo Publish Collection Exercise
+./CTP_Cucumber_Publish_Exercise $1

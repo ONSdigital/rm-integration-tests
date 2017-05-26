@@ -1,0 +1,6 @@
+echo This script runs the tests which test load sample journeys.
+echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo Running @loadSample .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @loadSample" -Dcuc.env=$1

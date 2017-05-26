@@ -1,5 +1,0 @@
-echo This test runs the no response expected as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875.
-echo Running @helpline .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @helpline" -Dcuc.env=$1

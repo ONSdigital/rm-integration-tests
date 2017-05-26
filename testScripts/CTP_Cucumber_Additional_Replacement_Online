@@ -1,5 +1,0 @@
-echo This test runs the replacement online response as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875.
-echo Running @replaceOnlineResponse .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @replaceOnlineResponse" -Dcuc.env=$1

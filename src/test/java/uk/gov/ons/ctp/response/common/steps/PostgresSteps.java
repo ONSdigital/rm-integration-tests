@@ -123,8 +123,8 @@ public class PostgresSteps {
     check_records_in_DB_equal("collectionexercise.collectionexercise", 0);
     check_records_in_DB_equal("collectionexercise.survey", 0);
 
-    check_sequence_in_DB_equal("collectionexercise.exerciseidseq", 1);
-    check_sequence_in_DB_equal("collectionexercise.sampleunitgroupidseq", 1);
+    check_sequence_in_DB_equal("collectionexercise.exercisepkseq", 1);
+    check_sequence_in_DB_equal("collectionexercise.sampleunitgrouppkseq", 1);
   }
 
   /**
@@ -139,11 +139,11 @@ public class PostgresSteps {
     check_records_in_DB_equal("casesvc.casegroup", 0);
     check_records_in_DB_equal("casesvc.response", 0);
 
-    check_sequence_in_DB_equal("casesvc.caseeventidseq", 1);
-    check_sequence_in_DB_equal("casesvc.casegroupidseq", 1);
-    check_sequence_in_DB_equal("casesvc.caseidseq", 1);
+    check_sequence_in_DB_equal("casesvc.caseeventseq", 1);
+    check_sequence_in_DB_equal("casesvc.casegroupseq", 1);
+    check_sequence_in_DB_equal("casesvc.caseseq", 1);
     check_sequence_in_DB_equal("casesvc.caserefseq", CASEREF_SEQ);
-    check_sequence_in_DB_equal("casesvc.responseidseq", 1);
+    check_sequence_in_DB_equal("casesvc.responseseq", 1);
   }
 
   /**
