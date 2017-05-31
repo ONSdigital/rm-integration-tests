@@ -10,8 +10,11 @@ echo Sample Service
 echo Load Sample
 ./CTP_Cucumber_Load_Samples $1
 
+echo Survey Sample
+./CTP_Cucumber_Surveysvc $1
+
 echo Collection Exercise Service
 echo./CTP_Cucumber_Collectionexercisesvc $1
 
 echo Publish Collection Exercise
-./CTP_Cucumber_Publish_Exercise $1
+echo./CTP_Cucumber_Publish_Exercise $1
