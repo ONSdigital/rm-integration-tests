@@ -120,11 +120,9 @@ public class PostgresSteps {
   public void the_collectionexercisesvc_database_has_been_reset() throws Throwable {
     check_records_in_DB_equal("collectionexercise.sampleunit", 0);
     check_records_in_DB_equal("collectionexercise.sampleunitgroup", 0);
-    check_records_in_DB_equal("collectionexercise.collectionexercise", 0);
-    check_records_in_DB_equal("collectionexercise.survey", 0);
 
-    check_sequence_in_DB_equal("collectionexercise.exercisepkseq", 1);
     check_sequence_in_DB_equal("collectionexercise.sampleunitgrouppkseq", 1);
+    check_sequence_in_DB_equal("collectionexercise.sampleunitpkseq", 1);
   }
 
   /**

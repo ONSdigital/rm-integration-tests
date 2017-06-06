@@ -55,9 +55,6 @@ Feature: Runs the case creation
     When for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     Then the collectionexercisesvc database has been reset
 
-  Scenario: Load collection exercise seed data
-    Given for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
-
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "1"
     When the response status should be 200

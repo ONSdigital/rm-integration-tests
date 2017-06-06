@@ -11,7 +11,7 @@
 #
 # Scenario Tags: @socialLoad
 #
-@loadSample
+@loadSample @socialLoad
 Feature: Tests the load of census sample
 
   # Pre Test Environment Set Up -----
@@ -23,7 +23,6 @@ Feature: Tests the load of census sample
 
   # Social Sample Load Tests -----
 
-  @socialLoad
   Scenario: Test load of social sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
     Given clean sftp folders of all previous ingestions for "social" surveys 
     And the sftp exit status should be "-1" 

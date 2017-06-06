@@ -14,7 +14,7 @@ echo Survey Sample
 ./CTP_Cucumber_Surveysvc $1
 
 echo Collection Exercise Service
-echo./CTP_Cucumber_Collectionexercisesvc $1
+./CTP_Cucumber_Collectionexercisesvc $1
 
 echo Publish Collection Exercise
-echo./CTP_Cucumber_Publish_Exercise $1
+./CTP_Cucumber_Publish_Exercise $1

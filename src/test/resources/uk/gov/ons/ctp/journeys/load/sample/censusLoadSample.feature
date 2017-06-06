@@ -11,7 +11,7 @@
 #
 # Scenario Tags: @censusLoad
 #
-@loadSample
+@loadSample @censusLoad
 Feature: Tests the load of census sample
 
   # Pre Test Environment Set Up -----
@@ -23,7 +23,6 @@ Feature: Tests the load of census sample
 
   # Census Sample Load Tests -----
 
-  @censusLoad
   Scenario: Test load of census sample file (Journey steps: 1.1, 1.2, 1.3, 1.4) 
     Given clean sftp folders of all previous ingestions for "census" surveys 
     And the sftp exit status should be "-1" 

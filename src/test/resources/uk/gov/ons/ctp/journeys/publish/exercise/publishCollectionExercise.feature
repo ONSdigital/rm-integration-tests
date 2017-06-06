@@ -32,7 +32,7 @@ Feature: Tests the publish collection exercise
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 5 seconds
+    And after a delay of 30 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -58,11 +58,9 @@ Feature: Tests the publish collection exercise
   # Pre Test Collection Exercise Service Environment Set Up -----
 
   Scenario: Reset collection exercise service database to pre test condition
-    When for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
-    Then the collectionexercisesvc database has been reset
-
-  Scenario: Load collection exercise seed data
-    Given for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
+    Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
+    When the collectionexercisesvc database has been reset
+    Then for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
 
 
   # Pre Test Case Service Environment Set Up -----
@@ -77,7 +75,7 @@ Feature: Tests the publish collection exercise
   Scenario: Put request to collection exercise service for specific business survey by exercise id 2.1, 2.2
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Put request to collection exercise service for specific census survey by exercise id 2.1, 2.2
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
@@ -88,9 +86,16 @@ Feature: Tests the publish collection exercise
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
-    
+
+
   # Get check cases 2.3
-  
+  Scenario: Test case DB state (Journey steps: 1.5)
+    When check "casesvc.case" records in DB equal 0 for "state = 'ACTIONABLE'"
+    
+  Scenario: Test case DB state (Journey steps: 1.5)
+    When check "action.case" records in DB equal 0 for "actionplanfk = 1"
+    When check "action.action" records in DB equal 0 for "statefk = 'PENDING'"
+
   # Check action plan 2.4
   
   # Publish complete 2.5

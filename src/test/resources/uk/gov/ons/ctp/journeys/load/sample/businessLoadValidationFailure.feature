@@ -11,7 +11,7 @@
 #
 # Scenario Tags: @businessLoadFail
 #
-@loadSample
+@loadSample @businessLoadFail
 Feature: Tests the load validation failure for business sample
 
   # Pre Test Environment Set Up -----
@@ -23,7 +23,6 @@ Feature: Tests the load validation failure for business sample
 
   # Business Sample Load Tests -----
 
-  @businessLoadFail
   Scenario: Test fail validation for business sample file (Journey steps: 1.1, 1.2) 
     Given clean sftp folders of all previous ingestions for "business" surveys 
     And the sftp exit status should be "-1" 
@@ -34,7 +33,7 @@ Feature: Tests the load validation failure for business sample
     Then for the "business" survey get the contents of the file "business-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And and the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
-    And and the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{line1}' is expected." 
+    And and the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType, line1}' is expected." 
     And and the contents should contain "cvc-enumeration-valid: Value 'Invalid' is not facet-valid with respect to enumeration '[H, HI, C, CI, B, BI]'. It must be a value from the enumeration." 
     And and the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
 

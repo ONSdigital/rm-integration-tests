@@ -26,7 +26,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 5 seconds
+    And after a delay of 30 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -52,11 +52,9 @@ Feature: Runs the Collection Exercise endpoints
   # Pre Test Collection Exercise Service Environment Set Up -----
 
   Scenario: Reset collection exercise service database to pre test condition
-    When for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
-    Then the collectionexercisesvc database has been reset
-
-  Scenario: Load collection exercise seed data
-    Given for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
+    Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
+    When the collectionexercisesvc database has been reset
+    Then for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
 
 
   # Endpoint Tests -----
@@ -66,7 +64,7 @@ Feature: Runs the Collection Exercise endpoints
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Put request to collection exercise service for specific census survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
@@ -92,7 +90,6 @@ Feature: Runs the Collection Exercise endpoints
 
   # GET /collectionexercises/survey/{surveyid}
   # 200
-  @cases
   Scenario: Get request to cases for iac
     Given I make the GET call to the collection exercise endpoint for survey by survey id "99f6cd6d-880c-4b36-b157-aeda409ec441"
     And the response status should be 200
@@ -102,7 +99,6 @@ Feature: Runs the Collection Exercise endpoints
 
   # GET /collectionexercises/{exerciseid}
   # 200
-  @cases
   Scenario: Get request to cases for iac
     Given I make the GET call to the collection exercise endpoint for exercise by exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
     And the response status should be 200
