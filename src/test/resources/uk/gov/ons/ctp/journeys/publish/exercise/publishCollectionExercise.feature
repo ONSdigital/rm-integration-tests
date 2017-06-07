@@ -60,14 +60,20 @@ Feature: Tests the publish collection exercise
   Scenario: Reset collection exercise service database to pre test condition
     Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     When the collectionexercisesvc database has been reset
-    Then for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
 
 
   # Pre Test Case Service Environment Set Up -----
 
-  Scenario: Reset collection exercise service database to pre test condition
+  Scenario: Reset case service database to pre test condition
     When for the "casesvc" run the "casereset.sql" postgres DB script
     Then the casesvc database has been reset
+
+
+  # Pre Test Action Service Environment Set Up -----
+
+  Scenario: Reset action service database to pre test condition
+    When for the "actionsvc" run the "actionreset.sql" postgres DB script
+    Then the actionsvc database has been reset
 
 
   # Publish Collection Exercise -----

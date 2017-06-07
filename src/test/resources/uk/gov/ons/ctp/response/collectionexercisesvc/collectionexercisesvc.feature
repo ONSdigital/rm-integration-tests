@@ -54,7 +54,6 @@ Feature: Runs the Collection Exercise endpoints
   Scenario: Reset collection exercise service database to pre test condition
     Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     When the collectionexercisesvc database has been reset
-    Then for the "collectionexercisesvc" run the "collectionexerciseseed.sql" postgres DB script
 
 
   # Endpoint Tests -----

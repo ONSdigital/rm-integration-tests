@@ -52,8 +52,8 @@ Feature: Runs the case creation
   # Pre Test Collection Exercise Service Environment Set Up -----
 
   Scenario: Reset collection exercise service database to pre test condition
-    When for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
-    Then the collectionexercisesvc database has been reset
+    Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
+    When the collectionexercisesvc database has been reset
 
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "1"

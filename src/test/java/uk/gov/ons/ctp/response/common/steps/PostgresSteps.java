@@ -35,13 +35,13 @@ public class PostgresSteps {
   private static final String TRUNCATE_SQL = "truncate %s cascade;";
 
   /* Sequence SQL */
-  private static final String SEQUENCE_SQL = "alter sequence %s restart with %s";
+//  private static final String SEQUENCE_SQL = "alter sequence %s restart with %s";
   private static final String CURRVAL_SQL = "select last_value from %s";
 
   /* Row count SQL */
   private static final String COUNT_SQL = "select count(*) from %s";
   private static final String COUNT_FIELD_SQL = "select * from %s where %s is not null";
-  private static final String COUNT_WHERE = "select count(*) from %s where %s";
+  private static final String COUNT_WHERE = "SELECT count(*) FROM %s WHERE %s";
   private static final String COUNT_WHERE_SELECT = "select count(*) from %s where exists (select %s from %s where %s)";
   private static final String DISTINCT_COUNT = "select count(*) from (select distinct %s from %s where %s) as temp";
 
@@ -79,10 +79,10 @@ public class PostgresSteps {
 //    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.unlinkedcasereceipt"));
 //    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "casesvc.report"));
     responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "actionexporter.report"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.action"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.actionplanjob"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.case"));
-    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.messagelog"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.action"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.actionplanjob"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.case"));
+//    responseAware.dbUpdateInsert(String.format(TRUNCATE_SQL, "action.messagelog"));
 
 //    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caseeventidseq", "1"));
 //    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caseidseq", "1"));
@@ -90,9 +90,9 @@ public class PostgresSteps {
 //    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.caserefseq", "1000000000000001"));
 //    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.responseidseq", "1"));
 //    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "casesvc.messageseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.actionidseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.actionplanjobseq", "1"));
-    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.messageseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.actionidseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.actionplanjobseq", "1"));
+//    responseAware.dbUpdateInsert(String.format(SEQUENCE_SQL, "action.messageseq", "1"));
   }
 
   /**
@@ -123,6 +123,8 @@ public class PostgresSteps {
 
     check_sequence_in_DB_equal("collectionexercise.sampleunitgrouppkseq", 1);
     check_sequence_in_DB_equal("collectionexercise.sampleunitpkseq", 1);
+    
+    check_records_in_DB_equal_for("collectionexercise.collectionexercise", 3, "statefk = 'INIT'");
   }
 
   /**
@@ -142,6 +144,24 @@ public class PostgresSteps {
     check_sequence_in_DB_equal("casesvc.caseseq", 1);
     check_sequence_in_DB_equal("casesvc.caserefseq", CASEREF_SEQ);
     check_sequence_in_DB_equal("casesvc.responseseq", 1);
+  }
+
+  /**
+   * Confirm clean of action service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the actionsvc database has been reset$")
+  public void the_actionsvc_database_has_been_reset() throws Throwable {
+    check_records_in_DB_equal("action.action", 0);
+    check_records_in_DB_equal("action.actionplanjob", 0);
+    check_records_in_DB_equal("action.case", 0);
+    check_records_in_DB_equal("action.messagelog", 0);
+
+    check_sequence_in_DB_equal("action.actionpkseq", 1);
+    check_sequence_in_DB_equal("action.actionplanjobseq", 1);
+    check_sequence_in_DB_equal("action.casepkseq", 1);
+    check_sequence_in_DB_equal("action.messageseq", 1);
   }
 
   /**
