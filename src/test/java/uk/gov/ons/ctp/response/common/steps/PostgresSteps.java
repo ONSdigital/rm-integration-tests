@@ -206,6 +206,7 @@ public class PostgresSteps {
    */
   @Then("^check \"(.*?)\" records in DB equal (\\d+) for \"(.*?)\"$")
   public void check_records_in_DB_equal_for(String table, int total, String whereSearch) throws Throwable {
+    System.out.println(String.format(COUNT_WHERE, table, whereSearch));
     long result = responseAware.rowCount(String.format(COUNT_WHERE, table, whereSearch));
     assertTrue(table + " found " + whereSearch + " in DB equal to: " + result, result == total);
   }
@@ -301,6 +302,10 @@ public class PostgresSteps {
     List<String> adjustmentData = data.asList(String.class);
 
     int adjustment = getActionPlanDaysOffset(adjustmentData.get(3), adjustmentData.get(4));
+    // If 0 offset then make 1 to adjust -1 as summer time saving is out by hour.
+    if (adjustment == 0) {
+      adjustment = 1;
+    }
     adjustment = -adjustment;
     String adjustedTime = adjustTimeFromNow(Calendar.DATE, adjustment);
     System.out.println("Ajustment offset: " + adjustment + " Adjusted Time: " + adjustedTime);
@@ -321,8 +326,8 @@ public class PostgresSteps {
     List<Object> daysOffset = new ArrayList<Object>();
     int offset = 0;
 
-    String whereCriteria = String.format("actionplanid = %s and actiontypeid = %s", actionPlanId, actionTypeId);
-    String adjustmentSql = String.format(SELECT_WHERE, "surveydatedaysoffset", "action.actionrule", whereCriteria);
+    String whereCriteria = String.format("actionplanfk = %s and actiontypefk = %s", actionPlanId, actionTypeId);
+    String adjustmentSql = String.format(SELECT_WHERE, "daysoffset", "action.actionrule", whereCriteria);
     daysOffset = (ArrayList<Object>) responseAware.dbSelect(adjustmentSql);
     offset = (Integer) daysOffset.get(0);
 
@@ -386,7 +391,7 @@ public class PostgresSteps {
    */
   private int adjustActionCaseSurveyStartDate(String adjustedTime, String actionPlanId) throws Throwable {
     String updateSql = String.format(UPDATE_WHERE, "action.case",
-        "actionplanstartdate = '" + adjustedTime + "'", "actionplanid = " + actionPlanId);
+        "actionplanstartdate = '" + adjustedTime + "'", "actionplanfk = " + actionPlanId);
     int result = responseAware.dbUpdateInsert(updateSql);
 
     return result;

@@ -8,15 +8,14 @@
 #                                                         load census sample
 #                                                         load social sample
 #                                                         pre test DBclean of collection exercise service
-#                                                         load collection exercise seed data
-#                                                  test collect sample units (Journey steps: 2.1)
-#                                                  test create cases (Journey steps: 2.2, 2.3)
-#                                                  test assign action plan (Journey steps: 2.4)
-#                                                  test publish collection (Journey steps: 2.5)
+#                                                         pre test DBclean of case service
+#                                                         pre test DBclean of action service
+#                                                         test collect sample units (Journey steps: 2.1)
+#                                                         test create cases (Journey steps: 2.2, 2.3)
+#                                                         test assign action plan (Journey steps: 2.4)
+#                                                         test publish collection (Journey steps: 2.5)
 #
 # Feature Tags: @publishExercise
-#
-# Scenario Tags: @---
 #
 @publishExercise
 Feature: Tests the publish collection exercise
@@ -78,30 +77,34 @@ Feature: Tests the publish collection exercise
 
   # Publish Collection Exercise -----
 
-  Scenario: Put request to collection exercise service for specific business survey by exercise id 2.1, 2.2
+  Scenario: Test publish from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
-  Scenario: Put request to collection exercise service for specific census survey by exercise id 2.1, 2.2
+  Scenario: Test publish from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
 
-  Scenario: Put request to collection exercise service for specific social survey by exercise id 2.1, 2.2
+  Scenario: Test publish from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
 
-
-  # Get check cases 2.3
-  Scenario: Test case DB state (Journey steps: 1.5)
-    When check "casesvc.case" records in DB equal 0 for "state = 'ACTIONABLE'"
+  Scenario: Test casesvc case DB state (Journey steps: 2.3)
+    Given after a delay of 180 seconds
+    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
     
-  Scenario: Test case DB state (Journey steps: 1.5)
-    When check "action.case" records in DB equal 0 for "actionplanfk = 1"
-    When check "action.action" records in DB equal 0 for "statefk = 'PENDING'"
+  Scenario: Test actionsvc case DB state for actionplan 1 (Journey steps: 2.4)
+    Given after a delay of 60 seconds
+    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
 
-  # Check action plan 2.4
-  
-  # Publish complete 2.5
+  Scenario: Test action creation by post request to create jobs for specified action plan (Journey steps: 2.5)
+    Given the case start date is adjusted to trigger action plan
+      | actionplanfk  | actiontypefk | total |
+      | 1             | 1            | 500   |
+    When after a delay of 60 seconds
+    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Letter'"
