@@ -9,10 +9,15 @@
 #                                        test census sample load validation failure
 #                                        test social sample load
 #                                        test social sample load validation failure
+#                                        test business survey publish
+#                                        test census survey publish
+#                                        test social survey publish
+#                                        test case service case generation
+#                                        test action service case and action generation with case event
 #
 # Feature Tags: @smoke
 #
-# Scenario Tags: @smokeSampleService
+# Scenario Tags: ---
 #
 @smoke
 Feature: Smoke Test
@@ -31,10 +36,13 @@ Feature: Smoke Test
     When for the "casesvc" run the "casereset.sql" postgres DB script
     Then the casesvc database has been reset
 
+  Scenario: Reset action service database to pre test condition
+    When for the "actionsvc" run the "actionreset.sql" postgres DB script
+    Then the actionsvc database has been reset
+
 
   # Sample Service Smoke Tests -----
 
-  @smokeSampleService
   Scenario: Test business sample load
     Given clean sftp folders of all previous ingestions for "business" surveys 
     And the sftp exit status should be "-1" 
@@ -44,7 +52,6 @@ Feature: Smoke Test
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
   
-  @smokeSampleService
   Scenario: Test business sample load validation failure 
     Given clean sftp folders of all previous ingestions for "business" surveys 
     And the sftp exit status should be "-1" 
@@ -59,7 +66,6 @@ Feature: Smoke Test
     And and the contents should contain "cvc-enumeration-valid: Value 'Invalid' is not facet-valid with respect to enumeration '[H, HI, C, CI, B, BI]'. It must be a value from the enumeration." 
     And and the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
   
-  @smokeSampleService
   Scenario: Test census sample load
     Given clean sftp folders of all previous ingestions for "census" surveys 
     And the sftp exit status should be "-1" 
@@ -69,7 +75,6 @@ Feature: Smoke Test
     Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
   
-  @smokeSampleService
   Scenario: Test census sample load validation failure
     Given clean sftp folders of all previous ingestions for "census" surveys 
     And the sftp exit status should be "-1" 
@@ -83,8 +88,7 @@ Feature: Smoke Test
     And and the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType, line1}' is expected." 
     And and the contents should contain "cvc-enumeration-valid: Value 'Invalid' is not facet-valid with respect to enumeration '[H, HI, C, CI, B, BI]'. It must be a value from the enumeration." 
     And and the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
-  
-  @smokeSampleService
+
   Scenario: Test social sample load
     Given clean sftp folders of all previous ingestions for "social" surveys 
     And the sftp exit status should be "-1" 
@@ -93,8 +97,7 @@ Feature: Smoke Test
     And after a delay of 5 seconds 
     Then for the "social" survey confirm processed file "social-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
-  
-  @smokeSampleService
+
   Scenario: Test social sample load validation failure
     Given clean sftp folders of all previous ingestions for "social" surveys 
     And the sftp exit status should be "-1" 
@@ -126,3 +129,26 @@ Feature: Smoke Test
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
+
+
+  # Case Service Smoke Tests -----
+
+  Scenario: Test casesvc case DB state (Journey steps: 2.3)
+    Given after a delay of 180 seconds
+    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
+
+
+  # Action Service Smoke Tests -----
+
+  Scenario: Test actionsvc case DB state for actionplan 1 (Journey steps: 2.4)
+    Given after a delay of 60 seconds
+    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+
+  Scenario: Test action creation by post request to create jobs for specified action plan (Journey steps: 2.5)
+    Given the case start date is adjusted to trigger action plan
+      | actionplanfk  | actiontypefk | total |
+      | 1             | 1            | 500   |
+    When after a delay of 60 seconds
+    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Letter'"
