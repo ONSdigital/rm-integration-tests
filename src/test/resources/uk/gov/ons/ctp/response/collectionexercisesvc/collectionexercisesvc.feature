@@ -90,7 +90,7 @@ Feature: Runs the Collection Exercise endpoints
   # GET /collectionexercises/survey/{surveyid}
   # 200
   Scenario: Get request to cases for iac
-    Given I make the GET call to the collection exercise endpoint for survey by survey id "99f6cd6d-880c-4b36-b157-aeda409ec441"
+    Given I make the GET call to the collection exercise endpoint for survey by survey id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response status should be 200
     And the response should contain a JSON array of size 1
     And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2016","scheduledExecutionDateTime":1503529200000}
