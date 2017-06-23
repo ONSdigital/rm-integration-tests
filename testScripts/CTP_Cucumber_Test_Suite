@@ -16,5 +16,11 @@ echo Survey Sample
 echo Collection Exercise Service
 ./CTP_Cucumber_Collectionexercisesvc $1
 
+echo Iac Service
+./CTP_Cucumber_Iacsvc_Endpoints $1
+
 echo Publish Collection Exercise
 ./CTP_Cucumber_Publish_Exercise $1
+
+echo Publish Collection Exercise
+./CTP_Cucumber_Send_Letters $1

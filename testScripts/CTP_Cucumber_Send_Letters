@@ -1,0 +1,6 @@
+echo This script runs the tests which test send enrolment letters and reminders letters journeys.
+echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo Running @sendEnrolment .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @sendEnrolment" -Dcuc.env=$1
