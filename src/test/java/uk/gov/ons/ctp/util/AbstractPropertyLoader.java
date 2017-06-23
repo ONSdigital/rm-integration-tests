@@ -2,7 +2,14 @@ package uk.gov.ons.ctp.util;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+
+//import org.apache.http.auth.AuthenticationException;
+
+//import uk.gov.ons.ctp.response.common.steps.PostgresSteps;
 
 /**
  * This class ensures that only one instance of the application properties is
@@ -11,8 +18,8 @@ import java.util.Properties;
  * Created by philippe.brossier on 2/10/16.
  */
 public class AbstractPropertyLoader {
-
   private static final Properties PROPERTIES = new Properties();
+  private static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
 
   // Load the properties once. Reads system property 'profile' and defaults to 'local'.
   static {
@@ -93,71 +100,25 @@ public class AbstractPropertyLoader {
   }
 
   /**
-   * Constructs the URL of an endpoint from environment specific components
-   * gleaned from property files.
+   * Get UUID from DB
    *
-   * The name is used to obtain the endpoint path from a property with key
-   * "cuc.endpoint.${name}".
-   *
-   * If the property does not exist then the name will be assumed to be the
-   * endpoint.
-   *
-   * When an endpoint is found as a property the URL is constructed as follows:
-   * ${cuc.protocol}://${cuc.server}:${cuc.collect.frameservice.port}${cuc.
-   * endpoint.${name}}
-   *
-   * When an endpoint is NOT found as a property the URL is constructed as
-   * follows:
-   * ${cuc.protocol}://${cuc.server}:${cuc.collect.frameservice.port}/${name}
-   *
-   * @param name the name of the endpoint, for example ping
-   * @return constructed URL
+   * @param id to be found
+   * @param table to run against
+   * @param quantity number of UUID,s to recover
+   * @param dbResponseAware database runner
+   * @return string UUID
    */
-  public final String getCaseframeserviceEndpoint(final String name) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.server")).append(":")
-      .append(getProperty("cuc.collect.frameservice.port"));
-    final String ep = getProperty("cuc.endpoint." + name, name);
-    if (!ep.startsWith("/")) {
-      url.append("/");
-    }
-    url.append(ep);
-    System.out.format("For endpoint '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
-  }
+  public final String getIdFromDB(String id, String table, String quantity, PostgresResponseAware dbResponseAware) {
+    List<Object> result = new ArrayList<Object>();
 
-  /**
-   * Constructs the URL of an endpoint from environment specific components
-   * gleaned from property files.
-   *
-   * The name is used to obtain the endpoint path from a property with key
-   * "cuc.endpoint.${name}".
-   *
-   * If the property does not exist then the name will be assumed to be the
-   * endpoint.
-   *
-   * When an endpoint is found as a property the URL is constructed as follows:
-   * ${cuc.protocol}://${cuc.server}:${cuc.collect.actionexp.port}${cuc.
-   * endpoint.${name}}
-   *
-   * When an endpoint is NOT found as a property the URL is constructed as
-   * follows:
-   * ${cuc.protocol}://${cuc.server}:${cuc.collect.actionexp.port}/${name}
-   *
-   * @param name the name of the endpoint, for example ping
-   * @return constructed URL
-   */
-  public final String getActionExporterEndpoint(final String name) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.server")).append(":")
-      .append(getProperty("cuc.collect.actionexp.port"));
-    final String ep = getProperty("cuc.endpoint." + name, name);
-    if (!ep.startsWith("/")) {
-      url.append("/");
+    String sql = String.format(LIMIT_SQL, id, table, quantity);
+    try {
+      result = (ArrayList<Object>) dbResponseAware.dbSelect(sql);
+    } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
     }
-    url.append(ep);
-    System.out.format("For endpoint '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
+
+    return result.get(0).toString();
   }
 
   /**
@@ -241,28 +202,6 @@ public class AbstractPropertyLoader {
     String url = String.format(postgresUrl, getProperty("cuc.postgres.server"), getProperty("cuc.postgres.port"));
     System.out.format("Postgres DB, constructed URL '%s'.\n", url);
     return url;
-  }
-
-  /**
-   * Constructs the URL of Iacsvc from environment specific components
-   * gleaned from property files.
-   *
-   * The URL is constructed as follows:
-   * ${cuc.protocol}://${cuc.collect.iacsvc.host}:${cuc.collect.iacsvc.port}
-   *
-   * @param name the name of the path
-   * @return constructed URL
-   */
-  public final String getIacsvcUrl(final String name) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.collect.iacsvc.host")).append(":")
-        .append(getProperty("cuc.collect.iacsvc.port"));
-    if (!name.startsWith("/")) {
-      url.append("/");
-    }
-    url.append(name);
-    System.out.format("For UI '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
   }
 
   /**

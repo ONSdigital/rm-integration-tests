@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import cucumber.api.DataTable;
-import cucumber.api.java.en.Given;
+//import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.util.SSHResponseAware;
@@ -15,7 +15,7 @@ import uk.gov.ons.ctp.util.SSHResponseAware;
  * Created by Stephen Goddard on 16/8/16.
  */
 public class SSHSteps {
-  private static final int IAC_SIZE = 12;
+//  private static final int IAC_SIZE = 12;
   private final SSHResponseAware responseAware;
 
   /**
@@ -27,16 +27,16 @@ public class SSHSteps {
     this.responseAware = sshResponseAware;
   }
 
-  /**
-   * Create the directory if it does not exist
-   *
-   * @param location source folder
-   * @throws Throwable pass the exception
-   */
-  @Given("^create test directory \"(.*?)\"$")
-  public void create_test_directory(String location) throws Throwable {
-    responseAware.invokeMkdir(location);
-  }
+//  /**
+//   * Create the directory if it does not exist
+//   *
+//   * @param location source folder
+//   * @throws Throwable pass the exception
+//   */
+//  @Given("^create test directory \"(.*?)\"$")
+//  public void create_test_directory(String location) throws Throwable {
+//    responseAware.invokeMkdir(location);
+//  }
 
   /**
    * Move any files to the destination folder
@@ -75,23 +75,23 @@ public class SSHSteps {
     responseAware.invokeGetFileContentsForActionType(location, actionType);
   }
 
-  /**
-   * Confirm each line starts with an iac by checking length of first field
-   *
-   * @throws Throwable pass the exception
-   */
-  @When("^and each line should start with an iac$")
-  public void and_each_line_should_start_with_an_iac() throws Throwable {
-    String[] lines = responseAware.getBody().split("\\n");
-
-    for (String line: lines) {
-      if (line.contains("|")) {
-        String[] fields = line.split("\\|");
-        String iac = fields[0];
-        assertTrue("iac not found: " + iac, iac.length() == IAC_SIZE);
-      }
-    }
-  }
+//  /**
+//   * Confirm each line starts with an iac by checking length of first field
+//   *
+//   * @throws Throwable pass the exception
+//   */
+//  @When("^and each line should start with an iac$")
+//  public void and_each_line_should_start_with_an_iac() throws Throwable {
+//    String[] lines = responseAware.getBody().split("\\n");
+//
+//    for (String line: lines) {
+//      if (line.contains("|")) {
+//        String[] fields = line.split("\\|");
+//        String iac = fields[0];
+//        assertTrue("iac not found: " + iac, iac.length() == IAC_SIZE);
+//      }
+//    }
+//  }
 
 //  /**
 //   * Confirm the file contains a line with the details as expected

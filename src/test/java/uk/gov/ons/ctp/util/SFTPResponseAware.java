@@ -10,9 +10,11 @@ import java.util.Vector;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.ChannelSftp.LsEntry;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
 
 /**
@@ -69,6 +71,71 @@ public class SFTPResponseAware {
   }
 
   /**
+   * Make directory on sftp area
+   *
+   * @param workingDir base directory
+   * @param newDir directory to create
+   * @throws JSchException JSch exception
+   * @throws SftpException SFTP exception
+   * @throws IOException IO exception
+   */
+  public void makeDir(String workingDir, String newDir) throws JSchException, SftpException, IOException {
+    boolean notFound = true;
+    connect(workingDir);
+
+    try {
+      List<LsEntry> foundFiles = getListDirectoriesInDirectory("*");
+
+      for (LsEntry file: foundFiles) {
+        if (file.getFilename().equals(newDir)) {
+          notFound = false;
+        }
+      }
+
+      if (notFound) {
+        System.out.println("Creating dir: " + workingDir + newDir);
+        sftpChannel.mkdir(newDir);
+      }
+
+      System.out.println("Status: " + sftpChannel.getExitStatus());
+      status = sftpChannel.getExitStatus();
+    } finally {
+      disconnect();
+    }
+  }
+
+  /**
+   * Make directory on sftp area
+   *
+   * @param workingDir base directory
+   * @param copyLocation directory to move files to
+   * @throws JSchException JSch exception
+   * @throws SftpException SFTP exception
+   * @throws IOException IO exception
+   */
+  public void moveFiles(String workingDir, String copyLocation) throws JSchException, SftpException, IOException {
+    connect(workingDir);
+
+    try {
+      List<LsEntry> foundFiles = getListFilesInDirectory("*");
+
+      for (LsEntry file: foundFiles) {
+        SftpATTRS attr = file.getAttrs();
+        if (!attr.isDir()) {
+          String filename = file.getFilename();
+          System.out.println("File to be Moved: " + sftpChannel.pwd() + "/" + filename);
+          sftpChannel.rename(filename, copyLocation + filename);
+        }
+      }
+
+      System.out.println("Status: " + sftpChannel.getExitStatus());
+      status = sftpChannel.getExitStatus();
+    } finally {
+      disconnect();
+    }
+  }
+
+  /**
    * Delete all files from the specified location
    *
    * @param workingDir directory to be cleaned
@@ -79,12 +146,16 @@ public class SFTPResponseAware {
     connect(workingDir);
 
     try {
-      @SuppressWarnings("unchecked")
-      Vector<ChannelSftp.LsEntry> list = sftpChannel.ls("*");
-      for (ChannelSftp.LsEntry entry : list) {
-        System.out.println("File to be deleted: " + sftpChannel.pwd() + "/" + entry.getFilename());
-        sftpChannel.rm(entry.getFilename());
+      List<LsEntry> foundFiles = getListFilesInDirectory("*");
+
+      for (LsEntry file: foundFiles) {
+        SftpATTRS attr = file.getAttrs();
+        if (!attr.isDir()) {
+          System.out.println("File to be deleted: " + sftpChannel.pwd() + "/" + file.getFilename());
+          sftpChannel.rm(file.getFilename());
+        }
       }
+
       System.out.println("Status: " + sftpChannel.getExitStatus());
       status = sftpChannel.getExitStatus();
     } finally {
@@ -107,11 +178,8 @@ public class SFTPResponseAware {
 
     try {
       sftpChannel.put(srcLocation + filename, filename);
-      @SuppressWarnings("unchecked")
-      Vector<ChannelSftp.LsEntry> list = sftpChannel.ls("*");
-      for (ChannelSftp.LsEntry entry : list) {
-        System.out.println("File moved to: " + sftpChannel.pwd() + "/" + entry.getFilename());
-      }
+      System.out.println("File moved to: " + sftpChannel.pwd() + "/" + filename);
+
       System.out.println("Status: " + sftpChannel.getExitStatus());
       status = sftpChannel.getExitStatus();
     } finally {
@@ -134,8 +202,8 @@ public class SFTPResponseAware {
 
     try {
       @SuppressWarnings("unchecked")
-      Vector<ChannelSftp.LsEntry> list = sftpChannel.ls(filename);
-      for (ChannelSftp.LsEntry entry : list) {
+      Vector<LsEntry> list = sftpChannel.ls(filename);
+      for (LsEntry entry : list) {
         System.out.println("File found: " + sftpChannel.pwd() + "/" + entry.getFilename());
         foundFiles.add(entry.getFilename());
       }
@@ -161,20 +229,72 @@ public class SFTPResponseAware {
     StringBuffer buffer = new StringBuffer();
     connect(workingDir);
 
+//    List<LsEntry> files = getListFilesInDirectory(filename);//findFilesInDirectory(workingDir, filename);
+
     try {
-      InputStream inStream = sftpChannel.get(filename);
-      BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
-      String line;
-      while ((line = br.readLine()) != null) {
-        System.out.println(line);
-        buffer.append(line);
+      List<LsEntry> files = getListFilesInDirectory(filename);
+
+      for (LsEntry entry : files) {
+        InputStream inStream = sftpChannel.get(entry.getFilename());
+        BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        while ((line = br.readLine()) != null) {
+          System.out.println(line);
+          buffer.append(line + System.lineSeparator());
+        }
+        body = buffer.toString();
       }
-      body = buffer.toString();
       System.out.println("Status: " + sftpChannel.getExitStatus());
       status = sftpChannel.getExitStatus();
     } finally {
       disconnect();
     }
+  }
+
+  /**
+   * Get list of directories found in directory
+   *
+   * @param search criteria
+   * @return List of directories as LsEntry
+   * @throws SftpException SFTP exception
+   */
+  private List<LsEntry> getListDirectoriesInDirectory(String search) throws SftpException {
+    List<LsEntry> dirs =  new ArrayList<LsEntry>();
+
+    @SuppressWarnings("unchecked")
+    Vector<LsEntry> list = sftpChannel.ls(search);
+    for (LsEntry entry : list) {
+      SftpATTRS attr = entry.getAttrs();
+      if (attr.isDir()) {
+        dirs.add(entry);
+      }
+    }
+    System.out.println("Directories found: " + dirs);
+
+    return dirs;
+  }
+
+  /**
+   * Get list of files found in directory
+   *
+   * @param search criteria
+   * @return List of files as LsEntry
+   * @throws SftpException SFTP exception
+   */
+  private List<LsEntry> getListFilesInDirectory(String search) throws SftpException {
+    List<LsEntry> files =  new ArrayList<LsEntry>();
+
+    @SuppressWarnings("unchecked")
+    Vector<LsEntry> list = sftpChannel.ls(search);
+    for (LsEntry entry : list) {
+      SftpATTRS attr = entry.getAttrs();
+      if (!attr.isDir()) {
+        files.add(entry);
+      }
+    }
+    System.out.println("Files found: " + files);
+
+    return files;
   }
 
   /**

@@ -25,12 +25,12 @@ Feature: Tests the load of business sample
 
   Scenario: Test load of business sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
     Given clean sftp folders of all previous ingestions for "business" surveys 
-    And the sftp exit status should be "-1" 
+    And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
+    And the sftp exit status should be "-1"
     And after a delay of 30 seconds 
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
-    And the sftp exit status should be "-1" 
+    And the sftp exit status should be "-1"
   
   Scenario: Test sample DB state (Journey steps: 1.5)
     When check "sample.samplesummary" records in DB equal 1 for "state = 'ACTIVE' AND surveyref = '221'"

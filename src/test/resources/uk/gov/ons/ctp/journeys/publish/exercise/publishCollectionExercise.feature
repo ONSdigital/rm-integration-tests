@@ -101,10 +101,10 @@ Feature: Tests the publish collection exercise
     Given after a delay of 60 seconds
     When check "action.case" records in DB equal 500 for "actionplanfk = 1"
 
-  Scenario: Test action creation by post request to create jobs for specified action plan (Journey steps: 2.5)
-    Given the case start date is adjusted to trigger action plan
-      | actionplanfk  | actiontypefk | total |
-      | 1             | 1            | 500   |
-    When after a delay of 60 seconds
-    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Letter'"
+#  Scenario: Test action creation by post request to create jobs for specified action plan (Journey steps: 2.5)
+#    Given the case start date is adjusted to trigger action plan
+#      | actionplanfk  | actiontypefk | total |
+#      | 1             | 1            | 500   |
+#    When after a delay of 60 seconds
+#    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
+#    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Letter'"
