@@ -1,5 +1,0 @@
-echo This test runs the test which verifies the UI fulfils the requirments found in: https://collaborate2.ons.gov.uk/confluence/display/SDC/Helpline+Interface+Test+Scenarios
-echo Running @helplineUI .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @helplineUI" -Dcuc.env=$1

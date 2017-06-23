@@ -1,5 +1,0 @@
-echo This test runs various scenarios as found in: Detailed in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?spaceKey=SDC&title=Test+Scenarios
-echo Running @sampleScenarios .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @sampleScenarios" -Dcuc.env=$1

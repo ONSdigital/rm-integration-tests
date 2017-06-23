@@ -1,5 +1,0 @@
-echo This test runs the initial online response as found in https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=3690875.
-echo Running @translationBooklets .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @translationBooklets" -Dcuc.env=$1
