@@ -2,6 +2,7 @@
 #
 # Keywords Summary: This feature confirms that the collection exercise service will publish the collection exercise. The journey is specified in:
 #                   https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+#                   https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5385665
 #
 # Feature: List of publish collection exercise scenarios: pre test DB clean of sample service
 #                                                         load business sample
@@ -19,6 +20,8 @@
 #
 @publishExercise
 Feature: Tests the publish collection exercise
+
+  # Pre Test Set Up
 
   # Pre Test Sample Service Environment Set Up -----
 
@@ -75,6 +78,8 @@ Feature: Tests the publish collection exercise
     Then the actionsvc database has been reset
 
 
+  # Journey Test
+
   # Publish Collection Exercise -----
 
   Scenario: Test publish from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2)
@@ -82,29 +87,21 @@ Feature: Tests the publish collection exercise
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
-  Scenario: Test publish from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2)
+  Scenario: Test publish from collection exercise by put request for specific census survey by exercise id (Journey steps: 2.1, 2.2)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
 
-  Scenario: Test publish from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2)
+  Scenario: Test publish from collection exercise by put request for specific social survey by exercise id (Journey steps: 2.1, 2.2)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 1
 
-  Scenario: Test casesvc case DB state (Journey steps: 2.3)
+  Scenario: Test casesvc case for business survey DB state (Journey steps: 2.3)
     Given after a delay of 180 seconds
     When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
     
-  Scenario: Test actionsvc case DB state for actionplan 1 (Journey steps: 2.4)
+  Scenario: Test actionsvc case for business survey DB state for actionplan 1 (Journey steps: 2.4)
     Given after a delay of 60 seconds
     When check "action.case" records in DB equal 500 for "actionplanfk = 1"
-
-#  Scenario: Test action creation by post request to create jobs for specified action plan (Journey steps: 2.5)
-#    Given the case start date is adjusted to trigger action plan
-#      | actionplanfk  | actiontypefk | total |
-#      | 1             | 1            | 500   |
-#    When after a delay of 60 seconds
-#    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
-#    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Letter'"
