@@ -14,320 +14,170 @@
 # Feature Tags: @postIACHandlersTest
 #							  @actionsvc
 #							  @action
-
+#
 @actionsvc @action
 Feature: Validating action requests
 
-	# Clean Environment -----
+	# Pre Test DB Environment Set Up -----
 
-  Scenario: Clean DB to pre test condition
-    When reset the postgres DB
-    Then check "casesvc.case" records in DB equal 0
-    And check "casesvc.caseevent" records in DB equal 0
-		And check "casesvc.casegroup" records in DB equal 0
-		And check "casesvc.contact" records in DB equal 0
-		And check "casesvc.response" records in DB equal 0
-    And check "casesvc.messagelog" records in DB equal 0
-    And check "casesvc.unlinkedcasereceipt" records in DB equal 0
-    And check "action.action" records in DB equal 0
-    And check "action.actionplanjob" records in DB equal 0
-    And check "action.case" records in DB equal 0
-    And check "action.messagelog" records in DB equal 0
-    And check "casesvc.caseeventidseq" sequence in DB equal 1
-    And check "casesvc.caseidseq" sequence in DB equal 1
-    And check "casesvc.casegroupidseq" sequence in DB equal 1
-    And check "casesvc.caserefseq" sequence in DB equal 1000000000000001
-    And check "casesvc.responseidseq" sequence in DB equal 1
-    And check "casesvc.messageseq" sequence in DB equal 1
-    And check "action.actionidseq" sequence in DB equal 1
-    And check "action.actionplanjobseq" sequence in DB equal 1
-    And check "action.messageseq" sequence in DB equal 1
+  Scenario: Reset sample service database to pre test condition
+    When for the "samplesvc" run the "samplereset.sql" postgres DB script
+    Then the samplesvc database has been reset
+
+  Scenario: Reset collection exercise service database to pre test condition
+    Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
+    When the collectionexercisesvc database has been reset
+
+  Scenario: Reset case service database to pre test condition
+    When for the "casesvc" run the "casereset.sql" postgres DB script
+    Then the casesvc database has been reset
+
+  Scenario: Reset action service database to pre test condition
+    When for the "actionsvc" run the "actionreset.sql" postgres DB script
+    Then the actionsvc database has been reset
 
 
-	# Online Sample Creation -----
+  # Pre Test Sample Service Environment Set Up -----
 
-	Scenario: Put request for sample to create online cases for the specified sample id
-		When I make the PUT call to the caseservice sample endpoint for sample id "1" for area "REGION" code "E12000005"
-		Then the response status should be 200
-		And the response should contain the field "name" with value "C2EO332E"
-		And the response should contain the field "survey" with value "2017 TEST"
-		And check "casesvc.caseevent" records in DB equal 10
-
-
-	Scenario: Get request to case for highest expected case id
-		Given after a delay of 150 seconds
-		When I make the GET call to the caseservice cases endpoint for case "10"
-		Then the response status should be 200
-		And the response should contain the field "caseId" with an integer value of 10
-		And the response should contain the field "caseGroupId" with an integer value of 10
-		And the response should contain the field "caseRef" with value "1000000000000010"
-		And the response should contain the field "state" with value "ACTIONABLE"
-		And the response should contain the field "caseTypeId" with an integer value of 17
-		And the response should contain the field "actionPlanMappingId" with an integer value of 17
-		And the response should contain the field "createdDateTime"
-		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "iac"
-		And the response should contain the field "responses" with one element of the JSON array must be []
-		And the response should contain the field "contact" with a null value
+  Scenario: Test business sample load
+    Given clean sftp folders of all previous ingestions for "business" surveys 
+    And the sftp exit status should be "-1" 
+    When for the "business" survey move the "valid" file to trigger ingestion 
+    And the sftp exit status should be "-1" 
+    And after a delay of 30 seconds 
+    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    And the sftp exit status should be "-1"
 
 
-	# Action Endpoints -----
+  # Pre Test Collection Exercise Service Environment Set Up -----
 
-	# GET /actions
-	# 200
-	Scenario: Get request to actions filtered by actionType
-		When I make the GET call to the actionservice actions endpoint
-					| ICL1_2003 |  |
-		Then the response status should be 200
-		And the response should contain a JSON array of size 10
-		# Not complete record checked due to dynamic values which change for each test
-		And one element of the JSON array must be {"actionId":1,
-		And one element of the JSON array must be {"actionId":2,
-		And one element of the JSON array must be {"actionId":3,
-		And one element of the JSON array must be {"actionId":4,
-		And one element of the JSON array must be {"actionId":5,
-		And one element of the JSON array must be {"actionId":6,
-		And one element of the JSON array must be {"actionId":7,
-		And one element of the JSON array must be {"actionId":8,
-		And one element of the JSON array must be {"actionId":9,
-		And one element of the JSON array must be {"actionId":10,
-		And one element of the JSON array must be "caseId":5,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":1,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":4,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":8,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":2,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":6,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":7,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":9,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":10,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":3,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "updatedDateTime":
-
-	# 200
-	Scenario: Get request to actions filtered by state
-		When I make the GET call to the actionservice actions endpoint
-					|  | COMPLETED |
-		Then the response status should be 200
-		And the response should contain a JSON array of size 10
-		# Not complete record checked due to dynamic values which change for each test
-		And one element of the JSON array must be {"actionId":1,
-		And one element of the JSON array must be {"actionId":2,
-		And one element of the JSON array must be {"actionId":3,
-		And one element of the JSON array must be {"actionId":4,
-		And one element of the JSON array must be {"actionId":5,
-		And one element of the JSON array must be {"actionId":6,
-		And one element of the JSON array must be {"actionId":7,
-		And one element of the JSON array must be {"actionId":8,
-		And one element of the JSON array must be {"actionId":9,
-		And one element of the JSON array must be {"actionId":10,
-		And one element of the JSON array must be "caseId":5,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":1,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":4,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":8,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":2,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":6,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":7,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":9,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":10,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":3,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "updatedDateTime":
-
-	# 200
-	Scenario: Get request to actions filtered by actionType and state
-		When I make the GET call to the actionservice actions endpoint
-					| ICL1_2003 | COMPLETED |
-		Then the response status should be 200
-		And the response should contain a JSON array of size 10
-		# Not complete record checked due to dynamic values which change for each test
-		And one element of the JSON array must be {"actionId":1,
-		And one element of the JSON array must be {"actionId":2,
-		And one element of the JSON array must be {"actionId":3,
-		And one element of the JSON array must be {"actionId":4,
-		And one element of the JSON array must be {"actionId":5,
-		And one element of the JSON array must be {"actionId":6,
-		And one element of the JSON array must be {"actionId":7,
-		And one element of the JSON array must be {"actionId":8,
-		And one element of the JSON array must be {"actionId":9,
-		And one element of the JSON array must be {"actionId":10,
-		And one element of the JSON array must be "caseId":5,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":1,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":4,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":8,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":2,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":6,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":7,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":9,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":10,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "caseId":3,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "updatedDateTime":
-
-	# 204
-	Scenario: Get request to actions filtered by actionType
-		When I make the GET call to the actionservice actions endpoint
-					| 1RL1_0504 |  |
-		Then the response status should be 204
+  Scenario: Put request to collection exercise service for specific business survey by exercise id 2.1, 2.2
+    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
+    When the response status should be 200
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
 
-	# POST /actions
-	# 201
-	Scenario: Post request to actions to create action from caseId, actionTypeName and createdBy properties
-		When I make the POST call to the actionservice actions endpoint
-					| 1 | QGPOL | 3 | cucumberTest |
-		Then the response status should be 201
-		And the response should contain the field "actionId" with an integer value of 11
-		And the response should contain the field "caseId" with an integer value of 1
-		And the response should contain the field "actionPlanId" with a null value
-		And the response should contain the field "actionRuleId" with a null value
-		And the response should contain the field "actionTypeName" with value "QGPOL"
-		And the response should contain the field "createdBy" with value "cucumberTest"
-		And the response should contain the field "manuallyCreated" with boolean value "true"
-		And the response should contain the field "priority" with an integer value of 3
-		And the response should contain the field "situation" with a null value
-		And the response should contain the field "state" with value "SUBMITTED"
-		And the response should contain the field "createdDateTime"
-		And the response should contain the field "updatedDateTime" with a null value
+  # Pre Test Case Service Environment Set Up -----
 
-	# 400
-	Scenario: Post request to actions with invalid input
-		When I make the POST call to the actionservice actions endpoint with invalid input
-		Then the response status should be 400
-		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json is incorrect."
-		And the response should contain the field "error.timestamp"
-	
-
-	# PUT /actions/{actionId}/feedback
-	# 200
-	Scenario: Post request to actions with invalid input
-		Given I make the POST call to the actionservice actions endpoint
-					| 1 | QGPOL | 3 | cucumberTest |
-		And the response status should be 201
-		When I make the PUT call to the actionservice actions feedback endpoint for actionId "12"
-		Then the response status should be 200
-		And the response should contain the field "actionId" with an integer value of 12
-		And the response should contain the field "caseId" with an integer value of 1
-		And the response should contain the field "actionPlanId" with a null value
-		And the response should contain the field "actionRuleId" with a null value
-		And the response should contain the field "actionTypeName" with value "QGPOL"
-		And the response should contain the field "createdBy" with value "cucumberTest"
-		And the response should contain the field "manuallyCreated" with boolean value "true"
-		And the response should contain the field "priority" with an integer value of 3
-		And the response should contain the field "situation" with value "CI Test Run"
-		And the response should contain the field "state" with value "COMPLETED"
-		And the response should contain the field "createdDateTime"
-		And the response should contain the field "updatedDateTime"
+  Scenario: Test casesvc case DB state (Journey steps: 2.3)
+    Given after a delay of 180 seconds
+    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 
 
-	# 400
-	Scenario: Post request to actions with invalid input
-		When I make the PUT call to the actionservice actions feedback endpoint with invalid input "1"
-		Then the response status should be 400
+  # Pre Test Action Service Environment Set Up -----
+
+  Scenario: Test actionsvc case DB state for actionplan 1 (Journey steps: 2.4)
+    Given after a delay of 60 seconds
+    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+
+  Scenario: Test action creation by post request to create jobs for specified action plan (Journey steps: 2.5)
+    Given the case start date is adjusted to trigger action plan
+      | actionplanfk  | actiontypefk | total |
+      | 1             | 1            | 500   |
+    When after a delay of 60 seconds
+    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Letter'"
 
 
-	# GET /actions/{actionId}
-	# 200
-	Scenario: Get request to actions for specific action id
-		When I make the GET call to the actionservice actions endpoint for actionId "10"
-		Then the response status should be 200
-		And the response should contain the field "actionId" with an integer value of 10
-		And the response should contain the field "caseId"
-		And the response should contain the field "actionPlanId" with an integer value of 11
-		And the response should contain the field "actionRuleId" with an integer value of 45
-		And the response should contain the field "actionTypeName" with value "ICL1_2003"
-		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "manuallyCreated" with boolean value "false"
-		And the response should contain the field "priority" with an integer value of 3
-		And the response should contain the field "situation" with a null value
-		And the response should contain the field "state" with value "COMPLETED"
-		And the response should contain the field "createdDateTime"
-		And the response should contain the field "updatedDateTime"
+  # Endpoint Tests -----
 
-	# 404
-	Scenario: Get request to actions for action id not found
-		When I make the GET call to the actionservice actions endpoint for actionId "101"
-		Then the response status should be 404
-		And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-		And the response should contain the field "error.message" with value "Action not found for id 101"
-		And the response should contain the field "error.timestamp"
+  # GET /actions
+  # 200
+  Scenario: Get request to actionswith no filters
+    Given I make the GET call to the actionservice actions endpoint
+        |  |  |
+    Then the response status should be 204
+#    And the response should contain a JSON array of size 500
 
-	
-	# PUT /actions/{actionId}
-	# 200
-	Scenario: Put request to actions for specific action id
-		When I make the PUT call to the actionservice actions endpoint for actionId
-    					| 7 | 3 | Test Situation |
-		Then the response status should be 200
-		And the response should contain the field "actionId" with an integer value of 7
-		And the response should contain the field "caseId"
-		And the response should contain the field "actionPlanId" with an integer value of 11
-		And the response should contain the field "actionRuleId" with an integer value of 45
-		And the response should contain the field "actionTypeName" with value "ICL1_2003"
-		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "manuallyCreated" with boolean value "false"
-		And the response should contain the field "priority" with an integer value of 3
-		And the response should contain the field "situation" with value "Test Situation"
-		And the response should contain the field "state" with value "COMPLETED"
-		And the response should contain the field "createdDateTime"
-		And the response should contain the field "updatedDateTime"
+  Scenario: Get request to actions filtered by actionType
+    Given I make the GET call to the actionservice actions endpoint
+        | BRESEL |  |
+    When the response status should be 200
+    Then the response should contain a JSON array of size 500
+    # Not complete record checked due to dynamic values which change for each test
+    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be ,"caseId":
+    And one element of the JSON array must be ,"actionPlanId":null,"actionRuleId":null,"actionTypeName":"BRESEL","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
+    And one element of the JSON array must be ,"updatedDateTime":
 
-	# 404
-	Scenario: Put request to actions for specific action id
-		When I make the PUT call to the actionservice actions endpoint for actionId
-    					| 101 | 3 | Test Situation |
-		Then the response status should be 404
-		And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-		And the response should contain the field "error.message" with value "Action not updated for id 101"
-		And the response should contain the field "error.timestamp"
+  Scenario: Get request to actions filtered by status
+    Given I make the GET call to the actionservice actions endpoint
+        |  | COMPLETED |
+    When the response status should be 200
+    Then the response should contain a JSON array of size 500
+    # Not complete record checked due to dynamic values which change for each test
+    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be ,"caseId":
+    And one element of the JSON array must be ,"actionPlanId":null,"actionRuleId":null,"actionTypeName":"BRESEL","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
+    And one element of the JSON array must be ,"updatedDateTime":
 
-	# 400
-	Scenario: Put request to actions with invalid input
-		When I make the PUT call to the actionservice actions endpoint for actionId "1" with invalid input 
-		Then the response status should be 400
-		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json is incorrect."
-		And the response should contain the field "error.timestamp"
-	
-	
-	# GET /actions/case/{caseId}
-	# 200
-	Scenario: Get request to actions for specific case id
-		When I make the GET call to the actionservice actions endpoint for caseId "10"
-		Then the response status should be 200
-		And the response should contain a JSON array of size 1
-		And one element of the JSON array must be {"actionId":
-		And one element of the JSON array must be "caseId":10,"actionPlanId":11,"actionRuleId":45,"actionTypeName":"ICL1_2003","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":
-		And one element of the JSON array must be ,"state":"COMPLETED","createdDateTime":
-		And one element of the JSON array must be "updatedDateTime":
+  Scenario: Get request to actions filtered by actionType and status
+    Given I make the GET call to the actionservice actions endpoint
+        | BRESEL | COMPLETED |
+    When the response status should be 200
+    Then the response should contain a JSON array of size 500
+    # Not complete record checked due to dynamic values which change for each test
+    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be ,"caseId":
+    And one element of the JSON array must be ,"actionPlanId":null,"actionRuleId":null,"actionTypeName":"BRESEL","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
+    And one element of the JSON array must be ,"updatedDateTime":
 
-	# 204
-	Scenario: Get request to actions for specific case id with no actions
-		When I make the GET call to the actionservice actions endpoint for caseId "101"
-		Then the response status should be 204
-	
-	
-	# PUT /actions/case/{caseId}/cancel
-	# 200
-	Scenario: Put request to cancel actions for specific case id - Create sample and a field visit event to cancel
-		Given I make the PUT call to the caseservice sample endpoint for sample id "7" for area "REGION" code "E12000005"
-		And the response status should be 200
-		And the response should contain the field "name" with value "C1SO331D4E"
-		And the response should contain the field "survey" with value "2017 TEST"
-		And after a delay of 60 seconds
-		When the case start date is adjusted to trigger action plan
-			| actionPlanId  | actiontypeid | total |
-			| 1   					| 14   				 | 10		 |
-		And after a delay of 100 seconds
-		Then I make the PUT call to the actionservice cancel actions endpoint for caseId "11"
-		And the response status should be 200
-		And one element of the JSON array must be {"actionId":
-		And one element of the JSON array must be "caseId":11,"actionPlanId":1,"actionRuleId":3,"actionTypeName":"HouseholdCreateVisit","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":
-		And one element of the JSON array must be ,"state":"CANCEL_SUBMITTED","createdDateTime":
-		And one element of the JSON array must be "updatedDateTime":
+  Scenario: Get request to actions filtered by actionType and status when no actions exist
+    Given I make the GET call to the actionservice actions endpoint
+        | BRESSNE | SUBMITTED |
+    When the response status should be 204
 
-	# 404
-	Scenario: Put request to cancel actions for specific case id with no actions
-		When I make the PUT call to the actionservice cancel actions endpoint for caseId "101"
-		Then the response status should be 404
-		And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-		And the response should contain the field "error.message" with value "Case not found for caseId 101"
-		And the response should contain the field "error.timestamp"	
+
+  # GET /actions/caseid/{caseId}
+  # 200
+  Scenario: Get request to actions for case id reteaved from DB
+    Given I make the GET call to the actionservice actions endpoint for caseId
+    When the response status should be 200
+    Then one element of the JSON array must be {"id":
+    And one element of the JSON array must be ,"caseId":
+    And one element of the JSON array must be ,"actionPlanId":null,"actionRuleId":null,"actionTypeName":"BRESEL","createdBy":"SYSTEM","manuallyCreated":false,"priority":3,"situation":null,"state":"COMPLETED","createdDateTime":
+    And one element of the JSON array must be ,"updatedDateTime":
+
+  # 204
+  Scenario: Get request to actions for invalid case id
+    Given I make the GET call to the actionservice actions endpoint for caseId "87c8b602-aabd-4fc3-8676-bb875f4ce101"
+    When the response status should be 204
+
+
+  # GET /actions/{actionId}
+  # 200
+  Scenario: Get request to actions for specific action id
+    Given I make the GET call to the actionservice actions endpoint for actionId
+    When the response status should be 200
+    Then the response should contain the field "id"
+    And the response should contain the field "caseId"
+    And the response should contain the field "actionPlanId" with a null value
+    And the response should contain the field "actionRuleId" with a null value
+    And the response should contain the field "actionTypeName" with value "BRESEL"
+    And the response should contain the field "createdBy" with value "SYSTEM"
+    And the response should contain the field "manuallyCreated" with boolean value "false"
+    And the response should contain the field "priority" with an integer value of 3
+    And the response should contain the field "situation" with a null value
+    And the response should contain the field "state" with value "COMPLETED"
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime"
+  
+  # 404
+  Scenario: Get request to actions for action id not found
+    Given I make the GET call to the actionservice actions endpoint for actionId "88c8b602-aabd-4fc3-8676-bb875f4ce101"
+    When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Action not found for id 88c8b602-aabd-4fc3-8676-bb875f4ce101"
+    And the response should contain the field "error.timestamp"
+
+
+
+
+
+
+
+
+
+
+

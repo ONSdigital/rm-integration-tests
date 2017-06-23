@@ -72,7 +72,7 @@ public class JmeterResponseAware {
   public void invokeGetReportNumber(String reportType) {
     try {
       String url = String.format("/reports/types/%s", reportType);
-      responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+      responseAware.invokeGet(world.getUrl(url, ""));
     } catch (AuthenticationException ae) {
       ae.printStackTrace();
     } catch (IOException ioe) {

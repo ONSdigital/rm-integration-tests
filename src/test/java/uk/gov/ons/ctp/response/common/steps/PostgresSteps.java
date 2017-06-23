@@ -190,15 +190,24 @@ public class PostgresSteps {
     assertTrue(table + " found " + whereSearch + " in DB equal to: " + result, result == total);
   }
 
+  /**
+   * Check number of records in DB action service
+   *
+   * @param table to be checked
+   * @param data used to complete DB count
+   * @throws Throwable pass the exception
+   */
   @Then("^check \"(.*?)\" records in DB$")
   public void check_records_in_DB(String table, DataTable data) throws Throwable {
     List<String> testData = data.asList(String.class);
-    
-    String whereCriteria = String.format("actionplanfk = %s and actionrulefk = %s and actiontypefk = %s and statefk = '%s'", testData.get(5), testData.get(6), testData.get(7), testData.get(8));
+
+    String whereCriteria = String.format(
+        "actionplanfk = %s and actionrulefk = %s and actiontypefk = %s and statefk = '%s'",
+        testData.get(5), testData.get(6), testData.get(7), testData.get(8));
     System.out.println(String.format(COUNT_WHERE, table, whereCriteria));
     long result = responseAware.rowCount(String.format(COUNT_WHERE, table, whereCriteria));
-    
-    assertTrue(table + " found " + whereCriteria + " in DB equal to: " + result, result == Integer.parseInt(testData.get(9)));
+
+    assertTrue("Found " + whereCriteria + " in DB equal to: " + result, result == Integer.parseInt(testData.get(9)));
   }
 
   /**
@@ -244,15 +253,15 @@ public class PostgresSteps {
 
     adjustment = -adjustment;
     String adjustedTime = adjustTimeFromNow(new Date(), Calendar.DATE, adjustment);
-    
+
     // Adjust -1 as summer time saving is not processed in postgres.
-    if (TimeZone.getTimeZone( "Europe/London").inDaylightTime( new Date() )) {
+    if (TimeZone.getTimeZone("Europe/London").inDaylightTime(new Date())) {
       System.out.println("BST Adjustment");
-      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");//2017-06-20 11:28:20.358
+      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
       Date bstDate = formatter.parse(adjustedTime);
       adjustedTime = adjustTimeFromNow(bstDate, Calendar.HOUR, -1);
     }
-    
+
     System.out.println("Ajustment offset: " + adjustment + " Adjusted Time: " + adjustedTime);
     int result = adjustActionCaseSurveyStartDate(adjustedTime, adjustmentData.get(4));
 
@@ -263,6 +272,7 @@ public class PostgresSteps {
    * Get the days offset for action plan rule
    *
    * @param actionPlanId action plan to get rule for
+   * @param actionRuleId action plan rule
    * @param actionTypeId action type to get rule for
    * @return the offset in days
    * @throws Throwable pass the exception
@@ -271,7 +281,8 @@ public class PostgresSteps {
     List<Object> daysOffset = new ArrayList<Object>();
     int offset = 0;
 
-    String whereCriteria = String.format("actionplanfk = %s and actionrulepk = %s and actiontypefk = %s", actionPlanId, actionRuleId, actionTypeId);
+    String whereCriteria = String.format(
+        "actionplanfk = %s and actionrulepk = %s and actiontypefk = %s", actionPlanId, actionRuleId, actionTypeId);
     String adjustmentSql = String.format(SELECT_WHERE, "daysoffset", "action.actionrule", whereCriteria);
     daysOffset = (ArrayList<Object>) responseAware.dbSelect(adjustmentSql);
     offset = (Integer) daysOffset.get(0);
@@ -298,6 +309,7 @@ public class PostgresSteps {
   /**
    * Adjust time from now
    *
+   * @param date against which to be adjusted
    * @param unit unit of time to be adjusted
    * @param adjustment the amount by which time is to be adjusted
    * @return adjusted time as string

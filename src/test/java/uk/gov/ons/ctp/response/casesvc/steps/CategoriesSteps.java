@@ -29,7 +29,7 @@ public class CategoriesSteps {
   }
 
   /**
-   * Test get request for /categories/{categoryName}
+   * Test get request for /categories/name/{categoryName}
    *
    * @param categoryName category id
    * @throws Throwable pass the exception
@@ -38,5 +38,4 @@ public class CategoriesSteps {
   public void i_make_the_GET_call_to_the_caseservice_for_category(String categoryName) throws Throwable {
     responseAware.invokeCategoriesEndpoint(categoryName);
   }
-
 }

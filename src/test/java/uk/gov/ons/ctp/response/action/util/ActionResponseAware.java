@@ -44,6 +44,25 @@ public class ActionResponseAware {
     responseAware.invokeGet(world.getActionServiceEndpoint(url));
   }
 
+//  public String invokeActionsEndpointReturnCaseId(String filter) throws IOException, AuthenticationException {
+//    final String url = String.format("/actions%s", filter);
+//    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+//
+//    String id = getIdFromString(responseAware.getBody(), "caseId\":", 9);
+//
+//    return id;
+//  }
+
+//  private String getIdFromString(String body, String startStr, int offset) {
+//    int start = body.indexOf(startStr);
+//    String tempStr = body.substring(start + offset);
+//
+//    int end = tempStr.indexOf("\"");
+//    String id = tempStr.substring(0, end);
+//
+//    return id;
+//  }
+
   /**
    * @action Service - /actions post endpoints.
    *

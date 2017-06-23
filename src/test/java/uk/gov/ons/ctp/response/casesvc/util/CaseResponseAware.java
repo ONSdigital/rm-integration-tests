@@ -6,23 +6,38 @@ import java.util.Properties;
 import org.apache.http.auth.AuthenticationException;
 
 import uk.gov.ons.ctp.util.HTTPResponseAware;
+import uk.gov.ons.ctp.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
  * Created by Stephen Goddard on 04/05/16.
  */
 public class CaseResponseAware {
+  private static final String GET_CASEGROUP_URL = "/casegroups/%s";
+  private static final String GET_CASE_CASEGROUP_URL = "/cases/casegroupid/%s";
+  private static final String GET_IAC_URL = "/cases/iac/%s%s";
+  private static final String GET_CASEID_URL = "/cases/%s%s";
+  private static final String GET_PARTYID_URL = "/cases/partyid/%s%s";
+  private static final String GET_EVENTS_URL = "/cases/%s/events";
+  private static final String POST_EVENTS_URL = "/cases/%s/events";
+  private static final String GET_CATEGORIES_URL = "/categories";
+  private static final String GET_CATEGORY_NAME_URL = "/categories/name/%s";
+  private static final String SERVICE = "casesvc";
   private World world;
   private HTTPResponseAware responseAware;
+  private final PostgresResponseAware postgresResponseAware;
+
 
   /**
    * Constructor - also gets singleton of http request runner.
    *
    * @param newWorld class with application and environment properties
+   * @param dbResponseAware DB runner
    */
-  public CaseResponseAware(final World newWorld) {
+  public CaseResponseAware(final World newWorld, PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -36,88 +51,84 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /actionplanmappings/{mappingid} get endoints.
-   *
-   * @param mappingId action plan mapping id
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeActionPlanMappingIdEndpoint(String mappingId)  throws IOException, AuthenticationException {
-    final String url = String.format("/actionplanmappings/%s", mappingId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
-  }
-
-  /**
-   * @caseresponse Service - /actionplanmappings/casetype/{casetypeid} get endoints.
-   *
-   * @param casetypeId case type id
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeActionPlanMappingCaseTypeIdEndpoint(String casetypeId)
-      throws IOException, AuthenticationException {
-    final String url = String.format("/actionplanmappings/casetype/%s", casetypeId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
-  }
-
-  /**
-   * @caseresponse Service - /casegroup/uprn/{uprn} get endoints.
-   *
-   * @param uprn for case group
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeCaseGroupUprnEndpoint(String uprn) throws IOException, AuthenticationException {
-    final String url = String.format("/casegroups/uprn/%s", uprn);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
-  }
-
-  /**
    * @caseresponse Service - /casegroup/{casegroupid} get endoints.
    *
    * @param caseGroupId for case group
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeCaseGroupIdEndpoint(String caseGroupId) throws IOException, AuthenticationException {
-    final String url = String.format("/casegroups/%s", caseGroupId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+  public void invokeCasegroupIdEndpoint(String caseGroupId) throws IOException, AuthenticationException {
+    if (caseGroupId == null || caseGroupId.length() == 0) {
+      caseGroupId = world.getIdFromDB("id", "casesvc.casegroup", "1", postgresResponseAware);
+    }
+
+    final String url = String.format(GET_CASEGROUP_URL, caseGroupId);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
-   * @caseresponse Service - /cases/casegroup/{casegroupid} get endoints.
+   * @caseresponse Service - /cases/casegroupid/{casegroupid} get endoints.
    *
    * @param caseGroupId case group id
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeCaseGroupEndpoint(String caseGroupId) throws IOException, AuthenticationException {
-    final String url = String.format("/cases/casegroup/%s", caseGroupId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+  public void invokeCasesCasegroupEndpoint(String caseGroupId) throws IOException, AuthenticationException {
+    if (caseGroupId == null || caseGroupId.length() == 0) {
+      caseGroupId = world.getIdFromDB("id", "casesvc.casegroup", "1", postgresResponseAware);
+    }
+
+    final String url = String.format(GET_CASE_CASEGROUP_URL, caseGroupId);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
-   * @caseresponse Service - /cases/iac/{iac} get endoints.
+   * @caseresponse Service - /cases/iac/{iac}{parameters} get endoints.
    *
    * @param iac code to get case for
+   * @param parameters required to pass to as parameters
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeCaseIACEndpoint(String iac) throws IOException, AuthenticationException {
-    final String url = String.format("/cases/iac/%s", iac);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+  public void invokeCaseIACEndpoint(String iac, String parameters) throws IOException, AuthenticationException {
+    if (iac == null || iac.length() == 0) {
+      iac = world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
+    }
+
+    final String url = String.format(GET_IAC_URL, iac, parameters);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
-   * @caseresponse Service - /cases/{caseId} get endoints.
+   * @caseresponse Service - /cases/{caseId}{parameters} get endoints.
    *
    * @param caseId case id
+   * @param parameters required to pass to as parameters
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeCasesEndpoint(String caseId) throws IOException, AuthenticationException {
-    final String url = String.format("/cases/%s", caseId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+  public void invokeCasesEndpoint(String caseId, String parameters) throws IOException, AuthenticationException {
+    if (caseId == null || caseId.length() == 0) {
+      caseId = world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
+    }
+    final String url = String.format(GET_CASEID_URL, caseId, parameters);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
+  }
+
+  /**
+   * @caseresponse Service - /cases/partyid/{partyid}{parameters} get endoints.
+   *
+   * @param caseId case id
+   * @param parameters required to pass to as parameters
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePartyEndpoint(String caseId, String parameters) throws IOException, AuthenticationException {
+    if (caseId == null || caseId.length() == 0) {
+      caseId = world.getIdFromDB("partyid", "casesvc.case", "1", postgresResponseAware);
+    }
+    final String url = String.format(GET_PARTYID_URL, caseId, parameters);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
@@ -128,48 +139,30 @@ public class CaseResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeCasesEventsEndpoint(String caseId) throws IOException, AuthenticationException {
-    final String url = String.format("/cases/%s/events", caseId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+    if (caseId == null || caseId.length() == 0) {
+      caseId = world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
+    }
+    final String url = String.format(GET_EVENTS_URL, caseId);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
    * @caseresponse Service - /cases/{caseId}/events post endoints.
    *
    * @param caseId case id
-   * @param properties to construct JSON from
+   * @param properties required to pass
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
   public void invokePostCasesEventsEndpoint(String caseId, Properties properties)
       throws IOException, AuthenticationException {
-    final String url = String.format("/cases/%s/events", caseId);
-    responseAware.invokeJsonPost(world.getCaseframeserviceEndpoint(url), properties);
-  }
+    if (caseId == null || caseId.length() == 0) {
+      caseId = world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
+    }
+    properties.put("partyId", world.getIdFromDB("partyid", "casesvc.case", "1", postgresResponseAware));
 
-  /**
-   * @caseresponse Service - /cases/{caseId}/events post endoints.
-   *
-   * @param caseId case id
-   * @param jsonStr string representation of JSON
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokePostCasesEventsEndpoint(String caseId, String jsonStr)
-      throws IOException, AuthenticationException {
-    final String url = String.format("/cases/%s/events", caseId);
-    responseAware.invokeJsonPost(world.getCaseframeserviceEndpoint(url), jsonStr);
-  }
-
-  /**
-   * @caseresponse Service - /casetypes/{casetype} get endoints.
-   *
-   * @param casetype case type
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeCasetypesEndpoint(String casetype) throws IOException, AuthenticationException {
-    final String url = String.format("/casetypes/%s", casetype);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+    final String url = String.format(POST_EVENTS_URL, caseId);
+    responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
   }
 
   /**
@@ -179,45 +172,18 @@ public class CaseResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeCategoriesEndpoint() throws IOException, AuthenticationException {
-    final String url = "/categories";
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(GET_CATEGORIES_URL, SERVICE));
   }
 
   /**
-   * @caseresponse Service - /categories/{categoryName} get endoints.
+   * @caseresponse Service - /categories/name/{categoryName} get endoints.
    *
    * @param categoryName category id
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
   public void invokeCategoriesEndpoint(String categoryName) throws IOException, AuthenticationException {
-    final String url = String.format("/categories/%s", categoryName);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
-  }
-
-  /**
-   * @caseresponse Service - /samples/{sampleId} get endoints.
-   *
-   * @param sampleId sample id
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeSamplesEndpoint(String sampleId) throws IOException, AuthenticationException {
-    final String url = String.format("/samples/%s", sampleId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
-  }
-
-  /**
-   * @caseresponse Service - /samples/{sampleId} put endoints.
-   *
-   * @param sampleId sample id
-   * @param properties to construct JSON from
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeSamplesSamplesidEndpoint(String sampleId, Properties properties)
-      throws IOException, AuthenticationException {
-    final String url = String.format("/samples/%s", sampleId);
-    responseAware.invokeJsonPut(world.getCaseframeserviceEndpoint(url), properties);
+    final String url = String.format(GET_CATEGORY_NAME_URL, categoryName);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 }

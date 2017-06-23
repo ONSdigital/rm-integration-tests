@@ -36,7 +36,7 @@ public class ReportResponseAware {
    */
   public void invokeReportEndpoint() throws IOException, AuthenticationException {
     final String url = "/reports/types";
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+//    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
   }
 
   /**
@@ -48,7 +48,7 @@ public class ReportResponseAware {
    */
   public void invokeReportListEndpoint(String reportType) throws IOException, AuthenticationException {
     final String url = String.format("/reports/types/%s", reportType);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+//    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
   }
 
   /**
@@ -60,12 +60,12 @@ public class ReportResponseAware {
    */
   public void invokeReportContentEndpoint(String reportType) throws IOException, AuthenticationException {
     String url = String.format("/reports/types/%s", reportType);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+//    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
     JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
     String arrayString = jsonArray.toJSONString();
     String[] split =  arrayString.split(":");
     String reportId = split[5].substring(0, split[5].length() - 2);
     url = String.format("/reports/%s", reportId);
-    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
+//    responseAware.invokeGet(world.getCaseframeserviceEndpoint(url));
   }
 }

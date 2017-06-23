@@ -19,55 +19,51 @@
 #								 @iac
 #								 @createIacSample
 #								 @generateIAC
-
+#
 @iacsvc
 Feature: Validating iacsvc requests
 
-	# Clean Environment -----
+  # Pre Test DB Environment Set Up -----
 
-  @iacCleanEnvironment
-  Scenario: Clean DB to pre test condition
-    When reset the postgres DB
-    Then check "casesvc.case" records in DB equal 0
-    And check "casesvc.caseevent" records in DB equal 0
-		And check "casesvc.casegroup" records in DB equal 0
-		And check "casesvc.contact" records in DB equal 0
-		And check "casesvc.response" records in DB equal 0
-    And check "casesvc.messagelog" records in DB equal 0
-    And check "casesvc.unlinkedcasereceipt" records in DB equal 0
-    And check "action.action" records in DB equal 0
-    And check "action.actionplanjob" records in DB equal 0
-    And check "action.case" records in DB equal 0
-    And check "action.messagelog" records in DB equal 0
-    And check "casesvc.caseeventidseq" sequence in DB equal 1
-    And check "casesvc.caseidseq" sequence in DB equal 1
-    And check "casesvc.casegroupidseq" sequence in DB equal 1
-    And check "casesvc.caserefseq" sequence in DB equal 1000000000000001
-    And check "casesvc.responseidseq" sequence in DB equal 1
-    And check "casesvc.messageseq" sequence in DB equal 1
-    And check "action.actionidseq" sequence in DB equal 1
-    And check "action.actionplanjobseq" sequence in DB equal 1
-    And check "action.messageseq" sequence in DB equal 1
+  Scenario: Reset sample service database to pre test condition
+    When for the "samplesvc" run the "samplereset.sql" postgres DB script
+    Then the samplesvc database has been reset
+
+  Scenario: Reset collection exercise service database to pre test condition
+    Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
+    When the collectionexercisesvc database has been reset
+
+  Scenario: Reset case service database to pre test condition
+    When for the "casesvc" run the "casereset.sql" postgres DB script
+    Then the casesvc database has been reset
 
 
-	# Online Sample Creation -----
+  # Pre Test Sample Service Environment Set Up -----
 
-	@createIacSample
-	Scenario: Put request for sample to create online cases for the specified sample id
-		When I make the PUT call to the caseservice sample endpoint for sample id "1" for area "REGION" code "E12000005"
-		Then the response status should be 200
-		And the response should contain the field "name" with value "C2EO332E"
-		And the response should contain the field "survey" with value "2017 TEST"
-		And check "casesvc.caseevent" records in DB equal 10
-		And after a delay of 30 seconds
+  Scenario: Test business sample load
+    Given clean sftp folders of all previous ingestions for "business" surveys 
+    And the sftp exit status should be "-1" 
+    When for the "business" survey move the "valid" file to trigger ingestion 
+    And the sftp exit status should be "-1" 
+    And after a delay of 30 seconds 
+    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    And the sftp exit status should be "-1"
 
-	@generateIAC
-	Scenario: Each case has a unique IAC assigned to it - confirms system is ready for test
-			and in Actionable state
-			and action service has been notified case has been created
-		When check "casesvc.case" distinct records in DB equal 10 for "iac" where "state = 'ACTIONABLE'"
-		And check "casesvc.case" records in DB equal 10 for "state = 'ACTIONABLE' AND casetypeid = 17"
-		And check "action.case" records in DB equal 1 for "caseid = 10"
+
+  # Pre Test Collection Exercise Service Environment Set Up -----
+
+  Scenario: Put request to collection exercise service for specific business survey by exercise id 2.1, 2.2
+    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
+    When the response status should be 200
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
+
+
+  # Pre Test Case Service Environment Set Up -----
+
+  Scenario: Test casesvc case DB state (Journey steps: 2.3)
+    Given after a delay of 180 seconds
+    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 
 
 	# Endpoint Tests -----
@@ -76,17 +72,17 @@ Feature: Validating iacsvc requests
 	# 201
   @iac
   Scenario: Post request for IAC endpoint
-  	When I make the POST call to the iacsvc endpoint for count 1
-		Then the response status should be 201
-		And the response length should be 16 characters
+  	Given I make the POST call to the iacsvc endpoint for count 1
+		When the response status should be 201
+		Then the response length should be 16 characters
 
 	# 400
   @iac
   Scenario: Post request for IAC endpoint for invalid input
-  	When I make the POST call to the iacsvc endpoint with invalid input
-		Then the response status should be 400
-		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json is incorrect."
+  	Given I make the POST call to the iacsvc endpoint with invalid input
+		When the response status should be 400
+		Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
+		And the response should contain the field "error.message" with value "Provided json fails validation."
 		And the response should contain the field "error.timestamp"
 
 
@@ -94,24 +90,22 @@ Feature: Validating iacsvc requests
 	# 200
   @iac
   Scenario: Get request to the IAC endpoint
-  	Given I make the GET call to the caseservice cases endpoint for case "1"
-  	And the response status should be 200
+  	Given I make the GET call to the IAC service endpoint
+  	When the response status should be 200
+  	Then the response should contain the field "caseId"
+  	And the response should contain the field "caseRef" with a null value
   	And the response should contain the field "iac"
-  	Then I make the GET call to the IAC service endpoint
-  	And the response status should be 200
-  	And the response should contain the field "caseId" with an integer value of 1
-  	And the response should contain the field "caseRef" with value "1000000000000001"
-  	And the response should contain the field "iac"
-  	And the response should contain the field "active" with boolean value "true"
-  	And the response should contain the field "questionSet" with value "H1"
+    And the response should contain the field "active" with boolean value "true"
+    And the response should contain the field "questionSet" with a null value
+    And the response should contain the field "lastUsedDateTime"
 
 	# 404
   @iac
   Scenario: Get request to the IAC endpoint for a non existing IAC
-  	When I make the GET call to the iacsvc endpoint for IAC "100120023003"
-		Then the response status should be 404
-		And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-		And the response should contain the field "error.message" with value "IAC not found for iac 100120023003"
+  	Given I make the GET call to the iacsvc endpoint for IAC "101020023003"
+		When the response status should be 404
+		Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+		And the response should contain the field "error.message" with value "IAC not found for iac 101020023003"
 		And the response should contain the field "error.timestamp"
 
 
@@ -119,25 +113,23 @@ Feature: Validating iacsvc requests
 	# 200
   @iac
   Scenario: Put request to the IAC endpoint
-  	Given I make the GET call to the caseservice cases endpoint for case "1"
-  	And the response status should be 200
-  	And the response should contain the field "iac"
-  	Then I make the PUT call to the IAC service endpoint
-  	And the response status should be 200
-  	And the response should contain the field "code"
+  	Given I make the PUT call to the IAC service endpoint
+  	When the response status should be 200
+  	Then the response should contain the field "code"
   	And the response should contain the field "active" with boolean value "false"
   	And the response should contain the field "code"
   	And the response should contain the field "createdBy" with value "SYSTEM"
   	And the response should contain the field "createdDateTime"
   	And the response should contain the field "updatedBy" with value "Cucumber Test"
   	And the response should contain the field "updatedDateTime"
+  	And the response should contain the field "lastUsedDateTime"
 
 	# 400
   @iac
   Scenario: Put request to the IAC endpoint for invalid input
-  	When I make the PUT call to the iacsvc endpoint with invalid input
-		Then the response status should be 400
-		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json is incorrect."
+  	Given I make the PUT call to the iacsvc endpoint with invalid input
+		When the response status should be 400
+		Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
+		And the response should contain the field "error.message" with value "Provided json fails validation."
 		And the response should contain the field "error.timestamp"
   

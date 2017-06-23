@@ -36,7 +36,7 @@ public class ReportResponseAwareAE {
    */
   public void invokeReportEndpoint() throws IOException, AuthenticationException {
     final String url = "/reports/types";
-    responseAware.invokeGet(world.getActionExporterEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionexp"));
   }
 
   /**
@@ -48,7 +48,7 @@ public class ReportResponseAwareAE {
    */
   public void invokeReportListEndpoint(String reportType) throws IOException, AuthenticationException {
     final String url = String.format("/reports/types/%s", reportType);
-    responseAware.invokeGet(world.getActionExporterEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionexp"));
   }
 
   /**
@@ -60,13 +60,13 @@ public class ReportResponseAwareAE {
    */
   public void invokeReportContentEndpoint(String reportType) throws IOException, AuthenticationException {
     String url = String.format("/reports/types/%s", reportType);
-    responseAware.invokeGet(world.getActionExporterEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionexp"));
     JSONArray jsonArray = (JSONArray) JsonPath.read(responseAware.getBody(), "$");
     String arrayString = jsonArray.toJSONString();
     String[] split =  arrayString.split(":");
     String reportId = split[5].substring(0, split[5].length() - 2);
     url = String.format("/reports/%s", reportId);
-    responseAware.invokeGet(world.getActionExporterEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionexp"));
   }
 
   /**
@@ -78,6 +78,6 @@ public class ReportResponseAwareAE {
    */
   public void invokeActionExporterEndpoint(String actionId) throws IOException, AuthenticationException {
     final String url = String.format("/actionrequests/%s", actionId);
-    responseAware.invokeGet(world.getActionExporterEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionexp"));
   }
 }

@@ -67,8 +67,7 @@ public class IacsvcSteps {
    */
   @Then("^I make the GET call to the IAC service endpoint$")
   public void i_make_the_GET_call_to_the_IAC_service_endpoint() throws Throwable {
-    String iac = responseAware.getIACFromPreviousResponse();
-    responseAware.invokeGetIacEndpoint(iac);
+    responseAware.invokeGetIacEndpoint(null);
   }
 
   /**
@@ -79,14 +78,11 @@ public class IacsvcSteps {
    */
   @Then("^I make the PUT call to the IAC service endpoint$")
   public void i_make_the_PUT_call_to_the_IAC_service_endpoint() throws Throwable {
-    String iac = responseAware.getIACFromPreviousResponse();
-
-    System.out.println("IAC: " + iac);
     Properties properties = new Properties();
     properties.put("updatedBy", "Cucumber Test");
     System.out.println("Properties: " + properties);
 
-    responseAware.invokePutIacEndpoint(iac, properties);
+    responseAware.invokePutIacEndpoint(null, properties);
   }
 
   /**
@@ -98,7 +94,8 @@ public class IacsvcSteps {
   public void i_make_the_PUT_call_to_the_iacsvc_endpoint_with_invalid_input() throws Throwable {
     Properties properties = new Properties();
     properties.put("input", "invalid input value");
+    System.out.println("Properties: " + properties);
 
-    responseAware.invokePutIacEndpoint(properties);
+    responseAware.invokePutIacEndpoint(null, properties);
   }
 }

@@ -3,12 +3,10 @@ package uk.gov.ons.ctp.response.casesvc.steps;
 import java.util.List;
 import java.util.Properties;
 
-import org.json.JSONObject;
-
-import com.jayway.jsonpath.JsonPath;
-
-import cucumber.api.DataTable;
-import cucumber.api.java.en.Then;
+//import org.json.JSONObject;
+//
+//import cucumber.api.DataTable;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.casesvc.util.CaseResponseAware;
 
@@ -17,32 +15,6 @@ import uk.gov.ons.ctp.response.casesvc.util.CaseResponseAware;
  */
 public class CasesSteps {
   private final CaseResponseAware responseAware;
-
-  private static final int CASEID = 1;
-  private static final int DESC_LABEL = 2;
-  private static final int DESC_VALUE = 3;
-  private static final int CAT_LABEL = 4;
-  private static final int CAT_VALUE = 5;
-  private static final int SUBCAT_LABEL = 6;
-  private static final int SUBCAT_VALUE = 7;
-  private static final int CREATE_LABEL = 8;
-  private static final int CREATE_VALUE = 9;
-
-  private static final int CASE_CREATE_LABEL = 10;
-  private static final int CASE_TYPE_LABEL = 12;
-  private static final int CASE_TYPE_VALUE = 13;
-  private static final int ACTION_PLAN_LABEL = 14;
-  private static final int ACTION_PLAN_VALUE = 15;
-  private static final int TITLE_LABEL = 16;
-  private static final int TITLE_VALUE = 17;
-  private static final int FORENAME_LABEL = 18;
-  private static final int FORENAME_VALUE = 19;
-  private static final int SURNAME_LABEL = 20;
-  private static final int SURNAME_VALUE = 21;
-  private static final int PHONE_LABEL = 22;
-  private static final int PHONE_VALUE = 23;
-  private static final int EMAIL_LABEL = 24;
-  private static final int EMAIL_VALUE = 25;
 
   /**
    * Constructor
@@ -54,118 +26,137 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/casegroup/{casegroupid}
+   * Test get request for /cases/iac/{iac} Optional parameters are passed from the feature file to the url
    *
-   * @param caseGroupId case group id
+   * @param params Url parameters
    * @throws Throwable pass the exception
    */
-  @When("^I make the GET call to the caseservice case endpoint for casegroupid \"(.*?)\"$")
-  public void i_make_the_GET_call_to_the_caseservice_case_endpoint_for_casegroupid(String caseGroupId)
+  @Given("^I make the GET call to the caseservice case endpoint for iac with parameters \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_case_endpoint_for_iac_with_parameters(String params)
       throws Throwable {
-    responseAware.invokeCaseGroupEndpoint(caseGroupId);
+    responseAware.invokeCaseIACEndpoint(null, params);
   }
 
   /**
-   * Test get request for /cases/iac/{iac} iac
-   * Note: a previous run to get case is required so an IAC is available to test
-   *
-   * @throws Throwable pass the exception
-   */
-  @When("^I make the GET call to the caseservice case endpoint for iac$")
-  public void i_make_the_GET_call_to_the_caseservice_case_endpoint_for_iac() throws Throwable {
-    String iac = JsonPath.read(responseAware.getBody(), "$.iac");
-    iac = iac.replaceAll("\\s+", "%20");
-
-    responseAware.invokeCaseIACEndpoint(iac);
-  }
-
-  /**
-   * Test get request for /cases/iac/{iac} invalid iac
+   * Test get request for /cases/iac/{iac} invalid iac with no parameters
    *
    * @param iac code to get case for
    * @throws Throwable pass the exception
    */
   @When("^I make the GET call to the caseservice case endpoint for invalid iac \"(.*?)\"$")
   public void i_make_the_GET_call_to_the_caseservice_case_endpoint_for_invalid_iac(String iac) throws Throwable {
-    responseAware.invokeCaseIACEndpoint(iac);
+    responseAware.invokeCaseIACEndpoint(iac, "");
   }
 
   /**
-   * Test get request for /cases/{caseId}
+   * Test get request for /cases/{caseId} invalid iac with no parameters
+   *
+   * @param params Url parameters
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the GET call to the caseservice cases endpoint for case with parameters \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_case_with_parameters(String params)
+      throws Throwable {
+    responseAware.invokeCasesEndpoint(null, params);
+  }
+
+  /**
+   * Test get request for /cases/{caseId} invalid iac with no parameters
    *
    * @param caseid case id
    * @throws Throwable pass the exception
    */
   @When("^I make the GET call to the caseservice cases endpoint for case \"(.*?)\"$")
   public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_case(String caseid) throws Throwable {
-    responseAware.invokeCasesEndpoint(caseid);
+    responseAware.invokeCasesEndpoint(caseid, "");
   }
 
   /**
-   * Test get request for /cases/{caseId} where caseId is taken from a previous get
+   * Test get request for /cases/partyid/{partyid} invalid iac with no parameters
+   *
+   * @param params Url parameters
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the caseservice cases endpoint for party with parameters \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_party_with_parameters(String params)
+      throws Throwable {
+    responseAware.invokePartyEndpoint(null, params);
+  }
+
+  /**
+   * Test get request for /cases/partyid/{partyid} invalid partyid with no parameters
+   *
+   * @param partyId case id
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the caseservice cases endpoint for party \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_party(String partyId) throws Throwable {
+    responseAware.invokePartyEndpoint(partyId, "");
+  }
+
+  /**
+   * Test get request for /cases/caseevents/{caseid}
    *
    * @throws Throwable pass the exception
    */
-  @Then("^I make the GET call to the caseservice cases endpoint for current case$")
-  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_current_case() throws Throwable {
-    Integer caseId = JsonPath.read(responseAware.getBody(), "$." + "caseId");
-    responseAware.invokeCasesEndpoint(caseId.toString());
+  @Given("^I make the GET call to the caseservice cases endpoint for events$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events() throws Throwable {
+    responseAware.invokeCasesEventsEndpoint(null);
+  }
+
+  /**
+   * Test get request for /cases/caseevents/{caseid} invalid caseid with no parameters
+   *
+   * @param caseId case id
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the caseservice cases endpoint for events for \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events_for(String caseId) throws Throwable {
+    responseAware.invokeCasesEventsEndpoint(caseId);
   }
 
   /**
    * Test get request for /cases/{caseId}/events
    *
-   * @param caseid case id
+   * @param caseId case id
    * @throws Throwable pass the exception
    */
   @When("^I make the GET call to the caseservice cases endpoint for events for case \"(.*?)\"$")
-  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events_for_case(String caseid)
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events_for_case(String caseId)
       throws Throwable {
-    responseAware.invokeCasesEventsEndpoint(caseid);
+    responseAware.invokeCasesEventsEndpoint(caseId);
   }
 
   /**
    * Test post request for /cases/{caseId}/events invalid input
    *
-   * @param caseid case id
+   * @param caseId case id
    * @throws Throwable pass the exception
    */
   @When("^I make the POST call to the caseservice cases events with invalid input for case id \"(.*?)\"$")
-  public void i_make_the_POST_call_to_the_caseservice_cases_events_with_invalid_input_for_case_id(String caseid)
+  public void i_make_the_POST_call_to_the_caseservice_cases_events_with_invalid_input_for_case_id(String caseId)
       throws Throwable {
     Properties properties = new Properties();
     properties.put("input", "invalid input value");
 
-    responseAware.invokePostCasesEventsEndpoint(caseid, properties);
+    responseAware.invokePostCasesEventsEndpoint(caseId, properties);
   }
 
   /**
    * Test post request for /cases/{caseId}/events
    *
-   * @param content to be in json
+   * @param getValues to be in json
    * @throws Throwable pass the exception
    */
   @When("^I make the POST call to the caseservice cases events$")
-  public void i_make_the_POST_call_to_the_caseservice_cases_events(DataTable content) throws Throwable {
-    List<String> jsonContent = content.asList(String.class);
+  public void i_make_the_POST_call_to_the_caseservice_cases_events(List<String> getValues) throws Throwable {
+    Properties properties = new Properties();
+    properties.put("description", getValues.get(0));
+    properties.put("category", getValues.get(1));
+    properties.put("subCategory", getValues.get(2));
+    properties.put("createdBy", getValues.get(3));
 
-    JSONObject json = new JSONObject();
-    json.put(jsonContent.get(DESC_LABEL), jsonContent.get(DESC_VALUE));
-    json.put(jsonContent.get(CAT_LABEL), jsonContent.get(CAT_VALUE));
-    json.put(jsonContent.get(SUBCAT_LABEL), jsonContent.get(SUBCAT_VALUE));
-    json.put(jsonContent.get(CREATE_LABEL), jsonContent.get(CREATE_VALUE));
-
-    JSONObject subJson = new JSONObject();
-    subJson.put(jsonContent.get(CASE_TYPE_LABEL), Integer.parseInt(jsonContent.get(CASE_TYPE_VALUE)));
-    subJson.put(jsonContent.get(ACTION_PLAN_LABEL), Integer.parseInt(jsonContent.get(ACTION_PLAN_VALUE)));
-    subJson.put(jsonContent.get(TITLE_LABEL), jsonContent.get(TITLE_VALUE));
-    subJson.put(jsonContent.get(FORENAME_LABEL), jsonContent.get(FORENAME_VALUE));
-    subJson.put(jsonContent.get(SURNAME_LABEL), jsonContent.get(SURNAME_VALUE));
-    subJson.put(jsonContent.get(PHONE_LABEL), jsonContent.get(PHONE_VALUE));
-    subJson.put(jsonContent.get(EMAIL_LABEL), jsonContent.get(EMAIL_VALUE));
-    json.put(jsonContent.get(CASE_CREATE_LABEL), subJson);
-
-    responseAware.invokePostCasesEventsEndpoint(jsonContent.get(CASEID), json.toString());
+    responseAware.invokePostCasesEventsEndpoint(getValues.get(4), properties);
   }
 
 }

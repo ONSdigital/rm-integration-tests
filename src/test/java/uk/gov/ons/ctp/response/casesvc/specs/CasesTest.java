@@ -10,7 +10,9 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = {"classpath:uk/gov/ons/ctp/response/casesvc/cases.feature"},
-        glue = {"uk.gov.ons.ctp.response.casesvc.steps", "uk.gov.ons.ctp.response.common.steps"},
+        glue = {"uk.gov.ons.ctp.response.casesvc.steps",
+            "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
+            "uk.gov.ons.ctp.response.common.steps"},
         plugin = {"pretty", "html:build/cases-cucumber-html-report", "json:build/jenkins/cases.json"}
 )
 public class CasesTest {
