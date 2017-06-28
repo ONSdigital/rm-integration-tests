@@ -26,7 +26,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 30 seconds
+    And after a delay of 50 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -35,7 +35,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "census" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 5 seconds
+    And after a delay of 50 seconds
     Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -44,7 +44,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "social" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 5 seconds
+    And after a delay of 50 seconds
     Then for the "social" survey confirm processed file "social-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -84,34 +84,48 @@ Feature: Runs the Collection Exercise endpoints
     And the response should contain the field "error.timestamp"
 
 
-  # TODO Write test to confirm state change.
-
-
   # GET /collectionexercises/survey/{surveyid}
   # 200
   Scenario: Get request to cases for iac
     Given I make the GET call to the collection exercise endpoint for survey by survey id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response status should be 200
     And the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2016","scheduledExecutionDateTime":1503529200000}
+    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2016","scheduledExecutionDateTime":null}
+
+  # 404
+  Scenario: Get request to cases for iac
+    Given I make the GET call to the collection exercise endpoint for survey by survey id "87c8b602-aabd-4fc3-8676-bb875f4ce101"
+    When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Survey not found for survey Id 87c8b602-aabd-4fc3-8676-bb875f4ce101"
+    And the response should contain the field "error.timestamp"
 
 
   # GET /collectionexercises/{exerciseid}
   # 200
   Scenario: Get request to cases for iac
-    Given I make the GET call to the collection exercise endpoint for exercise by exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
+    Given I make the GET call to the collection exercise endpoint for exercise by exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     And the response status should be 200
-    And the response should contain the field "id" with value "14fb3e68-4dca-46db-bf49-04b84e07e87c"
-    And the response should contain the field "surveyId" with a null value
-    And the response should contain the field "name" with value "CucTest_Census"
-    And the response should contain the field "actualExecutionDateTime" with a null value
-    And the response should contain the field "scheduledExecutionDateTime" with a long value of 1009800000000
-    And the response should contain the field "scheduledStartDateTime" with a long value of 1009800000000
-    And the response should contain the field "actualPublishDateTime" with a null value
-    And the response should contain the field "periodStartDateTime" with a long value of 1009800000000
-    And the response should contain the field "periodEndDateTime" with a null value
+    And the response should contain the field "id" with value "14fb3e68-4dca-46db-bf49-04b84e07e77c"
+    And the response should contain the field "surveyId" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
+    And the response should contain the field "name" with value "BRES_2016"
+    And the response should contain the field "actualExecutionDateTime"
+    And the response should contain the field "scheduledExecutionDateTime" with a null value
+    And the response should contain the field "scheduledStartDateTime" with a long value of 1504047600000
+    And the response should contain the field "actualPublishDateTime"
+    And the response should contain the field "periodStartDateTime" with a long value of 1504825200000
+    And the response should contain the field "periodEndDateTime" with a long value of 1504825200000
     And the response should contain the field "scheduledReturnDateTime" with a null value
-    And the response should contain the field "scheduledEndDateTime" with a long value of 1009800000000
+    And the response should contain the field "scheduledEndDateTime" with a long value of 4070908800000
     And the response should contain the field "executedBy" with a null value
     And the response should contain the field "state" with value "PENDING"
-    And the response should contain the field "caseTypes" with one element of the JSON array must be []
+    And the response should contain the field "caseTypes" with one element of the JSON array must be [{"actionPlanId":"e71002ac-3575-47eb-b87f-cd9db92bf9a7","sampleUnitType":"B"}
+    And the response should contain the field "caseTypes" with one element of the JSON array must be {"actionPlanId":"0009e978-0932-463b-a2a1-b45cb3ffcb2a","sampleUnitType":"BI"}]
+
+      # 200
+  Scenario: Get request to cases for iac
+    Given I make the GET call to the collection exercise endpoint for exercise by exercise id "87c8b602-aabd-4fc3-8676-bb875f4ce101"
+    When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Collection Exercise not found for collection exercise Id 87c8b602-aabd-4fc3-8676-bb875f4ce101"
+    And the response should contain the field "error.timestamp"

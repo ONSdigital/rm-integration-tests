@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.journeys.publish.exercise.specs;
+package uk.gov.ons.ctp.journeys.execute.exercise.specs;
 
 import org.junit.runner.RunWith;
 
@@ -10,10 +10,11 @@ import cucumber.api.junit.Cucumber;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/publish/exercise/publishCollectionExercise.feature"},
-  glue = {"uk.gov.ons.ctp.response.collectionexercisesvc.steps",
+  glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
+          "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
           "uk.gov.ons.ctp.response.common.steps"},
   plugin = {"pretty", "html:build/publishExercise-cuc-html-report", "json:build/jenkins/publishExercise.json"}
 )
-public class PublishCollectionExerciseTest {
+public class ExecuteCollectionExerciseTest {
 
 }

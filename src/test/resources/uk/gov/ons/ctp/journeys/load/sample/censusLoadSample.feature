@@ -2,14 +2,14 @@
 #
 # Keywords Summary: This feature confirms that the sample service will load census samples. The journey is specified in:
 #                   https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+#                   https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+1+-+Load+Sample
 #
 # Feature: List of load census sample scenarios: pre test clean of sample service
 #                                                test load of census sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
 #                                                test sample DB state (Journey steps: 1.5)
 #
 # Feature Tags: @loadSample
-#
-# Scenario Tags: @censusLoad
+#               @censusLoad
 #
 @loadSample @censusLoad
 Feature: Tests the load of census sample
@@ -28,7 +28,7 @@ Feature: Tests the load of census sample
     And the sftp exit status should be "-1" 
     When for the "census" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 5 seconds 
+    And after a delay of 50 seconds 
     Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
 

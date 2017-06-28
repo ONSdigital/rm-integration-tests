@@ -13,6 +13,8 @@ import uk.gov.ons.ctp.util.World;
 public class SurveySvcResponseAware {
   private static final String GET_SURVEYS_URL = "/surveys";
   private static final String GET_SURVEY_URL = "/surveys/%s";
+  private static final String GET_NAME_URL = "/surveys/name/%s";
+  private static final String GET_SURVEYREF_URL = "/surveys/ref/%s";
   private static final String GET_CLASSIFIERS_URL = "/surveys/%s/classifiertypeselectors";
   private static final String GET_CLASSIFIER_URL = "/surveys/%s/classifiertypeselectors/%s";
   private static final String SERVICE = "surveysvc";
@@ -48,6 +50,30 @@ public class SurveySvcResponseAware {
    */
   public void invokeGetSurvey(String id) throws IOException, AuthenticationException {
     final String url = String.format(GET_SURVEY_URL, id);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
+  }
+
+  /**
+   * Test get request for /surveys/name/{name} response
+   *
+   * @param name survey name
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeGetSurveyName(String name) throws IOException, AuthenticationException {
+    final String url = String.format(GET_NAME_URL, name);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
+  }
+
+  /**
+   * Test get request for /surveys/ref/{surveyref} response
+   *
+   * @param surveyref survey reference
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeGetSurveyRef(String surveyref) throws IOException, AuthenticationException {
+    final String url = String.format(GET_SURVEYREF_URL, surveyref);
     responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 

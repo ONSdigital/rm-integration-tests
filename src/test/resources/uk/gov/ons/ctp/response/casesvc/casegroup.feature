@@ -44,7 +44,7 @@ Feature: Validating Case Group requests
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 30 seconds
+    And after a delay of 50 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -96,7 +96,7 @@ Feature: Validating Case Group requests
     And one element of the JSON array must be ,"state":"ACTIONABLE","actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
+    And one element of the JSON array must be ,"caseRef":null,"createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
     And one element of the JSON array must be ,"responses":[]}
 
   # 404
