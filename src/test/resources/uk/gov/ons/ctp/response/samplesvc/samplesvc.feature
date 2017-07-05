@@ -1,16 +1,18 @@
 # Author: Stephen Goddard 11/04/2017
 #
 # Keywords Summary : This feature file contains the scenario tests for the sample service endpoints - details are in the swagger spec
-#                    https://github.com/ONSdigital/rm-sample-service/blob/master/samplesvc-api/swagger.yml
+#                    https://github.com/ONSdigital/rm-sample-service/blob/master/API.md
+#                    http://localhost:8125/swagger-ui.html#/sample-endpoint
 #
 # Feature: List of cases scenarios: Clean sample service DB to pre test condition
-#                                   Get sample units by valid surveyid
-#                                   Get sample units by invalid surveyid
+#                                   Load samples
+#                                   Post valid sample
+#                                   Post empty sample
+#                                   Post invalid sample
+#                                   Post sample that already exists
 #
 # Feature Tags: @sampleSvc
 #               @sampleEndpoints
-#
-# Scenario Tags:
 #
 @sampleSvc @sampleEndpoints
 Feature: Runs the sample service endpoints
@@ -26,7 +28,7 @@ Feature: Runs the sample service endpoints
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 45 seconds
+    And after a delay of 70 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
     
@@ -60,7 +62,7 @@ Feature: Runs the sample service endpoints
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
   # 400
-  Scenario: Post request to sample service for specific survey reference and start time stamp with a collection exercise job
+  Scenario: Post request to sample service for specific survey reference and start time stamp with a collection exercise job that already exists
     Given I make the POST call to the sample service endpoint for surveyRef "221" and for "c6467711-21eb-4e78-804c-1db8392f93fb" with a start of "2017-08-29T23:00:00.000+0000"
     When the response status should be 400
     Then the response should contain the field "error.code" with value "BAD_REQUEST"

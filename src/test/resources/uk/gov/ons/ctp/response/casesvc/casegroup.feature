@@ -1,25 +1,18 @@
 # Author: Stephen Goddard 29/09/2016
 #
 # Keywords Summary : This feature file contains the scenario tests for the casesvc - casegroup - details are in the swagger spec
-#										 https://github.com/ONSdigital/response-management-service/blob/master/casesvc-api/swagger.yml
-#										 Note: Assumption that the DB has been loaded with seed data.
+#										 https://github.com/ONSdigital/rm-case-service/blob/master/API.md
+#                    http://localhost:8171/swagger-ui.html#/
 #
 # Feature: List of action plan mappings scenarios: Clean DB to pre test condition
 #																									 Create Sample
 #																									 Confirms system is ready for test
-#																									 Get the casegroup identified by uprn
-#																									 Get the casegroup identified by an invalid uprn
 #																									 Get the casegroup linked to by casegroupid
-#																									 Get the casegroup linked to by an invalid casegroupid
+#																									 Get the casegroup linked to by casegroupid not found
 # Feature Tags: @casesvc
-#								@case
+#								@casegroup
 #
-# Scenario Tags: @casegroupCleanEnvironment
-#								 @createCasegroupSample
-#								 @createCaseGroupCases
-#								 @casegroup
-#
-@casesvc @casegroup
+@caseSvc @casegroup
 Feature: Validating Case Group requests
 
 	# Pre Test DB Environment Set Up -----
@@ -84,25 +77,3 @@ Feature: Validating Case Group requests
 		Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
 		And the response should contain the field "error.message" with value "CaseGroup not found for casegroup id 03e1016e-b639-440d-8cc2-c386b31ab1bc"
 		And the response should contain the field "error.timestamp"
-
-
-  # GET /cases/casegroupid/{casegroupid}
-  #200
-  Scenario: Get request to cases for specific casegroupid
-    Given I make the GET call to the caseservice cases endpoint for casegroupid
-    When the response status should be 200
-    Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE","actionPlanId":
-    And one element of the JSON array must be ,"collectionInstrumentId":
-    And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"caseRef":null,"createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
-    And one element of the JSON array must be ,"responses":[]}
-
-  # 404
-  Scenario: Get request to cases for non existing casegroupid
-    Given I make the GET call to the caseservice cases endpoint for casegroupid "03e1016e-b639-440d-8cc2-c386b31ab1bc"
-    When the response status should be 404
-    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-    And the response should contain the field "error.message" with value "CaseGroup not found for casegroup id 03e1016e-b639-440d-8cc2-c386b31ab1bc"
-    And the response should contain the field "error.timestamp"

@@ -1,6 +1,6 @@
 # Author: Stephen Goddard 25/05/2017
 #
-# Keywords Summary: This feature confirms that the collection exercise service will publish the collection exercise. The journey is specified in:
+# Keywords Summary: This feature confirms that the collection exercise service will publish/execute the collection exercise. The journey is specified in:
 #                   https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
 #                   https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+2+-+Execute+Collection+Exercise
 #
@@ -19,7 +19,7 @@
 #
 # Feature Tags: @excuteExercise
 #
-@excuteExercise
+@executeExercise
 Feature: Tests the publish collection exercise
 
   # Pre Test Set Up

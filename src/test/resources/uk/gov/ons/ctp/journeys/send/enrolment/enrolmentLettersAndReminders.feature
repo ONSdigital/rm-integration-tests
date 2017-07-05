@@ -3,7 +3,7 @@
 # Keywords Summary: This feature confirms that the print files are generated as expected. The journey is specified in:
 #                   https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
 #                   https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+3+-+Send+Enrolment+Letters
-#                   https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+6+-+Send+Enrolment+Reminders
+#                   https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+4+-+Send+Enrolment+Reminder+Letters
 #
 # Feature: List of publish collection exercise scenarios: Pre test DB clean of sample service
 #                                                         Pre test load of business sample file into sample service
@@ -15,16 +15,18 @@
 #                                                         Generate cases
 #                                                         Test case generation
 #                                                         Test action case created
-#                                                         Test enrolment letter action creation by change date offset and case event creation (Journey steps: 3.1, 3.4)
-#                                                         Test print file generation and confirm contents (Journey steps: 3.2, 3.3)
+#                                                         Test enrolment letter action creation by change date offset and case event creation (Journey steps: 3.1, 3.2, 3.3, 3.4, 3.5, 3.7)
+#                                                         Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
 #                                                         Pre test DB clean of actionexporter
 #                                                         Pre test previous print file clean of actionexporter
-#                                                         Test enrolment reminder letter (first) action creation by change date offset and case event creation (Journey steps: 3.1, 3.4)
-#                                                         Test print file generation and confirm contents (Journey steps: 3.2, 3.3)
+#                                                         Test enrolment reminder letter (first) action creation by change date offset and case event creation (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
+#                                                         Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
 #                                                         Pre test DB clean of actionexporter
 #                                                         Pre test previous print file clean of actionexporter
-#                                                         Test enrolment reminder letter (second) action creation by change date offset and case event creation (Journey steps: 3.1, 3.4)
-#                                                         Test print file generation and confirm contents (Journey steps: 3.2, 3.3)
+#                                                         Test enrolment reminder letter (second) action creation by change date offset and case event creation (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
+#                                                         Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
+#
+# NOTE: Report not developed so not tested (Journey steps: 3.9, 4.9)
 #
 # Feature Tags: @sendEnrolement
 #
@@ -44,7 +46,7 @@ Feature: Tests the publish collection exercise
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 30 seconds
+    And after a delay of 50 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -85,13 +87,13 @@ Feature: Tests the publish collection exercise
 
   # Generate Cases -----
 
-  Scenario: Publish from collection exercise by put request for specific business survey by exercise id
+  Scenario: Execute collection exercise by put request for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 180 seconds
+    Given after a delay of 210 seconds
     When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 
@@ -104,23 +106,28 @@ Feature: Tests the publish collection exercise
 
   # Send Enrolment Letters -----
 
-  Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 3.1, 3.4)
+  Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 3.1, 3.2, 3.3, 3.4, 3.5, 3.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 500   |
-    When after a delay of 60 seconds
+    When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
       | 1             | 1            | 1            | COMPLETED | 500   |
     And check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Invitation Letter'"
 
-  Scenario: Test print file generation and confirm contents (Journey steps: 3.2, 3.3)
-    Given after a delay of 60 seconds
+  Scenario: Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
+    Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BRESEL"
     And the sftp exit status should be "-1"
     Then each line should start with an iac
-    And the contents should contain "|Edward|Stevens"
+    And the contents should contain "||"
     And the contents should contain 500 lines
+
+  # Report not developed so not tested (Journey steps: 3.9)
+
+
+  # Reset Action Exporter Environment Set Up -----
 
   Scenario: Reset actionexporter database to pre test condition
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
@@ -135,23 +142,28 @@ Feature: Tests the publish collection exercise
 
   # Send Enrolment Reminder Letters (First) -----
 
-  Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 6.1, 6.4)
+  Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 2            | 2            | 500   |
-    When after a delay of 60 seconds
+    When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
       | 1             | 2            | 2            | COMPLETED | 500   |
     And check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Reminder Letter'"
 
-  Scenario: Test print file generation and confirm contents (Journey steps: 6.2, 6.3)
-    Given after a delay of 60 seconds
+  Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
+    Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BRESERL"
     And the sftp exit status should be "-1"
     Then each line should start with an iac
-    And the contents should contain "|Edward|Stevens"
+    And the contents should contain "||"
     And the contents should contain 500 lines
+
+  # Report not developed so not tested (Journey steps: 4.9)
+
+
+  # Reset Action Exporter Environment Set Up -----
 
   Scenario: Reset actionexporter database to pre test condition
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
@@ -166,20 +178,22 @@ Feature: Tests the publish collection exercise
 
   # Send Enrolment Reminder Letters (Second) -----
 
-  Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 6.1, 6.4)
+  Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 3            | 2            | 500   |
-    When after a delay of 60 seconds
+    When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
       | 1             | 3            | 2            | COMPLETED | 500   |
     And check "casesvc.caseevent" records in DB equal 1000 for "description = 'Enrolment Reminder Letter'"
 
-  Scenario: Test print file generation and confirm contents (Journey steps: 6.2, 6.3)
-    Given after a delay of 60 seconds
+  Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
+    Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BRESERL"
     And the sftp exit status should be "-1"
     Then each line should start with an iac
-    And the contents should contain "|Edward|Stevens"
+    And the contents should contain "||"
     And the contents should contain 500 lines
+
+  # Report not developed so not tested (Journey steps: 4.9)

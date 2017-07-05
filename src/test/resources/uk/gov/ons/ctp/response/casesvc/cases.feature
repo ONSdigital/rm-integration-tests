@@ -1,39 +1,37 @@
 # Author: Stephen Goddard 04/03/2016
 #
 # Keywords Summary : This feature file contains the scenario tests for the casesvc - cases - details are in the swagger spec
-#										 https://github.com/ONSdigital/response-management-service/blob/master/casesvc-api/swagger.yml
-#										 Note: Assumption that the DB has been loaded with seed data.
+#                    https://github.com/ONSdigital/rm-case-service/blob/master/API.md
+#                    http://localhost:8171/swagger-ui.html#/
 #
 # Feature: List of cases scenarios: Clean DB to pre test condition
 #																		Create Sample
-#																		Confirms system is ready for testPut cases response by external reference
-#																		Put cases response by invalid external reference
+#																		Confirms system is ready for test
 #																		Get casegroup by valid casegroupid
 #																		Get casegroup by invalid casegroupid
-#																		Post casegroup by valid casegroupid
-#																		Post casegroup by invalid json
 #																		Get cases by valid case
+#                                   Get cases by valid case with casevents param filter
+#                                   Get cases by valid case with iac param filter
 #																		Get cases by invalid case
-#																		Put cases deactivate by valid case
-#																		Put cases deactivate by invalid case
-#																		Get cases by valid action plan
-#																		Get cases by invalid action plan
-#																		Get cases by valid action plan with filter
-#																		Get cases by invalid action plan with filter
-#																		Post case events by valid case
-#																		Post case events with invalid json
-#																		Post case events by invalid case
-#																		Get case events by valid case
-#																		Get case events by invalid case
+#                                   Get cases by valid party
+#                                   Get cases by valid party with casevents param filter
+#                                   Get cases by valid party with iac param filter
+#                                   Get cases by invalid party
+#                                   Get cases by valid access code
+#                                   Get cases by valid access code with casevents param filter
+#                                   Get cases by valid access code with iac param filter
+#                                   Get cases by invalid access code
+#                                   Get case events by valid case
+#                                   Get case events by invalid case
+#                                   Post case events by valid case without optional field
+#                                   Post case events by valid case with optional field
+#                                   Post case events by invalid case
+#                                   Post case events with invalid json
 #
 # Feature Tags: @casesvc
 #								@case
 #
-# Scenario Tags: @casesCleanEnvironment
-#								 @cases
-#								 @createcasesSample
-#
-@casesvc @case
+@caseSvc @case
 Feature: Validating cases requests
 
   # Pre Test DB Environment Set Up -----
@@ -84,6 +82,28 @@ Feature: Validating cases requests
 
 	# Endpoint Tests -----
 
+  # GET /cases/casegroupid/{casegroupid}
+  #200
+  Scenario: Get request to cases for specific casegroupid
+    Given I make the GET call to the caseservice cases endpoint for casegroupid
+    When the response status should be 200
+    Then the response should contain a JSON array of size 1
+    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be ,"state":"ACTIONABLE","actionPlanId":
+    And one element of the JSON array must be ,"collectionInstrumentId":
+    And one element of the JSON array must be ,"partyId":
+    And one element of the JSON array must be ,"caseRef":null,"createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
+    And one element of the JSON array must be ,"responses":[]}
+
+  # 404
+  Scenario: Get request to cases for non existing casegroupid
+    Given I make the GET call to the caseservice cases endpoint for casegroupid "03e1016e-b639-440d-8cc2-c386b31ab1bc"
+    When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "CaseGroup not found for casegroup id 03e1016e-b639-440d-8cc2-c386b31ab1bc"
+    And the response should contain the field "error.timestamp"
+
+
 	# GET /cases/{caseId} including with ?caseevents=true and ?iac=true
 	# 200
 	Scenario: Get request to cases for specific case id
@@ -117,7 +137,7 @@ Feature: Validating cases requests
     And the response should contain the field "responses" with one element of the JSON array must be []
     And the response should contain the field "caseGroup"
     And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
-    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Case created when Initial creation of case"}
+    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
 
   Scenario: Get request to cases for specific case id
     Given I make the GET call to the caseservice cases endpoint for case with parameters "?iac=true"
@@ -169,7 +189,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
     And one element of the JSON array must be ,"responses":[],"caseGroup":{
     And one element of the JSON array must be "caseEvents":[{"createdDateTime"
-    And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Case created when Initial creation of case"}
+    And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
 
   Scenario: Get request to cases for specific case id
     Given I make the GET call to the caseservice cases endpoint for party with parameters "?iac=true"
@@ -224,7 +244,7 @@ Feature: Validating cases requests
     And the response should contain the field "caseGroup"
     And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
     And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"ACCESS_CODE_AUTHENTICATION_ATTEMPT","subCategory":null,"createdBy":"SYSTEM","description":"Access Code authentication attempted"}
-    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Case created when Initial creation of case"}
+    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
 
   Scenario: Get request to cases for iac
     Given I make the GET call to the caseservice case endpoint for iac with parameters "?iac=true"
@@ -259,7 +279,7 @@ Feature: Validating cases requests
     And the response should contain a JSON array of size 4
     And one element of the JSON array must be {"createdDateTime":
     And one element of the JSON array must be ,"category":"ACCESS_CODE_AUTHENTICATION_ATTEMPT","subCategory":null,"createdBy":"SYSTEM","description":"Access Code authentication attempted"}
-    And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Case created when Initial creation of case"}
+    And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
 
   # 404
   Scenario: Get request for cases events endpoint for a non existing case id

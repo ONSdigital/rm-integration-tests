@@ -1,8 +1,8 @@
 # Author: Stephen Goddard 08/03/2016
 #
 # Keywords Summary : This feature file contains the scenario tests for the casesvc - categories - details are in the swagger spec
-#										 https://github.com/ONSdigital/response-management-service/blob/master/casesvc-api/swagger.yml
-#										 Note: Assumption that the DB has been loaded with seed data.
+#                    https://github.com/ONSdigital/rm-case-service/blob/master/API.md
+#                    http://localhost:8171/swagger-ui.html#/
 #
 # Feature: List of Categories scenarios. Get categories
 #																				 Get categories by valid name
@@ -11,7 +11,7 @@
 # Feature Tags: @casesvc
 #							  @categories
 #
-@casesvc @categories
+@caseSvc @categories
 Feature: Validating categories requests
 
 	# GET /categories

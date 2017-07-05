@@ -1,7 +1,7 @@
 # Author: Stephen Goddard 23/09/2017
 #
 # Keywords Summary : This feature file contains the scenario tests for the iac service - details are in the swagger spec
-#                    https://github.com/ONSdigital/iac-service/blob/master/iacsvc-api/swagger.yml
+#                    https://github.com/ONSdigital/iac-service/blob/master/API.md
 #
 # Feature: List of scenarios: Clean DB to pre test condition
 #															Create Sample
@@ -20,7 +20,7 @@
 #								 @createIacSample
 #								 @generateIAC
 #
-@iacsvc
+@iacSvc
 Feature: Validating iacsvc requests
 
   # Pre Test DB Environment Set Up -----
@@ -61,7 +61,7 @@ Feature: Validating iacsvc requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 180 seconds
+    Given after a delay of 210 seconds
     When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 

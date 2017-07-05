@@ -6,6 +6,10 @@
 # Feature: List of cases scenarios: Get surveys
 #                                   Get survey by valid id
 #                                   Get survey by invalid id
+#                                   Get survey by name
+#                                   Get survey by invalid name
+#                                   Get survey ref by valid id
+#                                   Get survey ref by invalid id
 #                                   Get classifiers for survey by valid id
 #                                   Get classifiers for survey by invalid id
 #                                   Get classifier type selector for survey by valid survey id and valid classifier id
@@ -13,8 +17,6 @@
 #
 # Feature Tags: @surveySvc
 #               @surveyEndpoints
-#
-# Scenario Tags:
 #
 @surveySvc @surveyEndpoints
 Feature: Runs the survey service endpoints
