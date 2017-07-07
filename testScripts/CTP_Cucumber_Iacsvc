@@ -1,5 +1,5 @@
-echo Endpoint tests for the iac service - details are in the swagger spec https://github.com/ONSdigital/iac-service/blob/master/iacsvc-api/swagger.yml
+echo Endpoint tests for the iac service - details are in the swagger spec https://github.com/ONSdigital/iac-service/blob/master/API.md
 echo Running @iacsvc ....
 
 cd ../
-mvn clean install -Dcucumber.options="--tags @iacsvc" -Dcuc.env=$1
+mvn clean install -Dcucumber.options="--tags @iacSvc" -Dcuc.env=$1

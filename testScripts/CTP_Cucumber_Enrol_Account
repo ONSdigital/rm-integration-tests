@@ -1,0 +1,9 @@
+echo This script runs the tests which test account verification, creation and enrolment journeys.
+echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo Journey https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+5+-+Verify+Enrolment+Code
+echo Journey https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+6+-+Create+Account
+echo Journey https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+7+-+Enrol+Respondent
+echo Running @enrolRespondent .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @enrolRespondent" -Dcuc.env=$1

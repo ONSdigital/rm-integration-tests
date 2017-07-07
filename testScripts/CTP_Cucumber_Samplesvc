@@ -1,6 +1,7 @@
 echo This script runs the sample service tests - The running order may vary - these include:
 echo Sample Service - Xsd validation checking
-echo Sample Service - Endpoint details are in the swagger spec https://github.com/ONSdigital/rm-sample-service/blob/master/samplesvc-api/swagger.yml
+echo Sample Service - Endpoint details are in the swagger spec https://github.com/ONSdigital/rm-sample-service/blob/master/API.md
+echo or http://localhost:8125/swagger-ui.html#/sample-endpoint
 echo Running @sampleSvc ...
 
 cd ../
