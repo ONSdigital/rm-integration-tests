@@ -3,10 +3,13 @@ package uk.gov.ons.ctp.response.casesvc.steps;
 import java.util.List;
 import java.util.Properties;
 
+import com.jayway.jsonpath.JsonPath;
+
 //import org.json.JSONObject;
 //
 //import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.casesvc.util.CaseResponseAware;
 
@@ -23,6 +26,30 @@ public class CasesSteps {
    */
   public CasesSteps(CaseResponseAware caseResponseAware) {
     this.responseAware = caseResponseAware;
+  }
+
+  /* End point steps */
+
+  /**
+   * Test get request for /cases/casegroupid/{casegroupid}
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the caseservice cases endpoint for casegroupid$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_casegroupid() throws Throwable {
+    responseAware.invokeCasesCasegroupEndpoint(null);
+  }
+
+  /**
+   * Test get request for /cases/casegroupid/{casegroupid} invalid caseGroupId
+   *
+   * @param caseGroupId case group id
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the caseservice cases endpoint for casegroupid \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_casegroupid(String caseGroupId)
+      throws Throwable {
+    responseAware.invokeCasesCasegroupEndpoint(caseGroupId);
   }
 
   /**
@@ -49,7 +76,7 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/{caseId} invalid iac with no parameters
+   * Test get request for /cases/{caseId} invalid iac with parameters
    *
    * @param params Url parameters
    * @throws Throwable pass the exception
@@ -72,7 +99,7 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/partyid/{partyid} invalid iac with no parameters
+   * Test get request for /cases/partyid/{partyid} invalid iac with parameters
    *
    * @param params Url parameters
    * @throws Throwable pass the exception
@@ -95,7 +122,7 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/caseevents/{caseid}
+   * Test get request for /cases/{caseId}/events
    *
    * @throws Throwable pass the exception
    */
@@ -104,19 +131,19 @@ public class CasesSteps {
     responseAware.invokeCasesEventsEndpoint(null);
   }
 
-  /**
-   * Test get request for /cases/caseevents/{caseid} invalid caseid with no parameters
-   *
-   * @param caseId case id
-   * @throws Throwable pass the exception
-   */
-  @Given("^I make the GET call to the caseservice cases endpoint for events for \"(.*?)\"$")
-  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events_for(String caseId) throws Throwable {
-    responseAware.invokeCasesEventsEndpoint(caseId);
-  }
+//  /**
+//   * Test get request for /cases/caseevents/{caseid} invalid caseid
+//   *
+//   * @param caseId case id
+//   * @throws Throwable pass the exception
+//   */
+//  @Given("^I make the GET call to the caseservice cases endpoint for events for \"(.*?)\"$")
+//  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events_for(String caseId) throws Throwable {
+//    responseAware.invokeCasesEventsEndpoint(caseId);
+//  }
 
   /**
-   * Test get request for /cases/{caseId}/events
+   * Test get request for /cases/{caseId}/events for invalid caseId
    *
    * @param caseId case id
    * @throws Throwable pass the exception
@@ -159,4 +186,26 @@ public class CasesSteps {
     responseAware.invokePostCasesEventsEndpoint(getValues.get(4), properties);
   }
 
+  /* Journey test steps */
+
+  /**
+   * Get the caseId from the previous run against post request for /cases/{caseId}/events
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^Check the case state has changed$")
+  public void check_the_case_state_has_changed() throws Throwable {
+    String caseId = JsonPath.read(responseAware.getBody(), "$." + "caseId");
+    responseAware.invokeCasesEndpoint(caseId, "");
+  }
+
+  /**
+   * Get the new case with the case events and iac filters on
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the caseservice cases endpoint for new case$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_new_case() throws Throwable {
+    responseAware.invokeCasesEndpointForNewUnknownCase("?caseevents=true&iac=true");
+  }
 }
