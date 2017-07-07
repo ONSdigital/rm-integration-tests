@@ -52,7 +52,7 @@ Feature: Validating Case Group requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state (Journey steps: 2.3)
-    Given after a delay of 180 seconds
+    Given after a delay of 210 seconds
     When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 

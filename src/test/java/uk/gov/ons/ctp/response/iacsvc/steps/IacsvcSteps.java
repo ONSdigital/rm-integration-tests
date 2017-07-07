@@ -21,6 +21,8 @@ public class IacsvcSteps {
     this.responseAware = iacsvcResponseAware;
   }
 
+  /* End point steps */
+
   /**
    * Test post request for /iacs response
    *
@@ -61,7 +63,7 @@ public class IacsvcSteps {
   }
 
   /**
-   * Test get request for /iacs/{iacs} response when a previous call to case endpoint has retrieved an iac
+   * Test get request for /iacs/{iacs} response when a previous call has retrieved an iac
    *
    * @throws Throwable pass the exception
    */

@@ -18,6 +18,8 @@ public class SurveySvcSteps {
     this.responseAware = surveySvcResponseAware;
   }
 
+  /* End point steps */
+
   /**
    * Test get request for /surveys response
    *

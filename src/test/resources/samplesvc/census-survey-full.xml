@@ -8,11 +8,20 @@
     <censusSampleUnit>
       <sampleUnitRef>sampleUnitRef</sampleUnitRef>
       <sampleUnitType>H</sampleUnitType>
-      <!-- <treatmentRef>treatmentRef</treatmentRef> -->
       <formType>CuFT</formType>
-      <line1>line1</line1>
-      <line2>line2</line2>
-      <postcode>TR2 4SA</postcode>
+      <addressType>H</addressType>
+      <estabType>H</estabType>
+      <organisationName>organisationName</organisationName>
+      <category>category</category>
+      <ladCode>lad123</ladCode>
+      <latitude>123.4</latitude>
+      <longitude>432.1</longitude>
+      <htc>9</htc>
+      <locality>locality</locality>
+      <oa>o123</oa>
+      <msoa>m234</msoa>
+      <lsoa>l345</lsoa>
+      <censusRegion>c456</censusRegion>
     </censusSampleUnit>
   </sampleUnits>
 </p:censusSurveySample>

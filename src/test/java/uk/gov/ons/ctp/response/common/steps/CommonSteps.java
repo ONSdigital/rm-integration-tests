@@ -5,17 +5,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
+//import java.io.File;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
 
 import com.jayway.jsonpath.JsonPath;
-import org.codehaus.plexus.util.FileUtils;
+//import org.codehaus.plexus.util.FileUtils;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+//import cucumber.api.java.en.When;
 import net.minidev.json.JSONArray;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
@@ -32,7 +32,7 @@ public class CommonSteps {
 
   private final HTTPResponseAware responseAware;
   private final World world;
-  private File fileContent;
+//  private File fileContent;
 
   /**
    * Constructor - also gets singleton of http request runner
@@ -363,42 +363,42 @@ public class CommonSteps {
     Thread.sleep(seconds * MILLI_TO_SECONDS);
   }
 
-  /**
-   * Utility which adds file reader
-   *
-   * @param location file location
-   * @param fileName file name
-   * @throws Throwable pass the exception
-   */
-  @Given("^get the contents of local file from \"(.*?)\" where the filename begins \"(.*?)\"$")
-  public void Get_the_contents_of_local_file_from_where_the_filename_begins(String location, String fileName)
-      throws Throwable {
-    fileContent = new File(location + "/" + fileName);
-    assertTrue("file does not exist: ", fileContent.exists());
-  }
+//  /**
+//   * Utility which adds file reader
+//   *
+//   * @param location file location
+//   * @param fileName file name
+//   * @throws Throwable pass the exception
+//   */
+//  @Given("^get the contents of local file from \"(.*?)\" where the filename begins \"(.*?)\"$")
+//  public void Get_the_contents_of_local_file_from_where_the_filename_begins(String location, String fileName)
+//      throws Throwable {
+//    fileContent = new File(location + "/" + fileName);
+//    assertTrue("file does not exist: ", fileContent.exists());
+//  }
 
-  /**
-   * Confirm the down loaded file contains corrected details
-   *
-   * @param location file location
-   * @param fileName file name
-   * @throws Throwable pass the exception
-   */
-  @When("^the contents of the file should equal \"(.*?)\" where the filename begins \"(.*?)\"$")
-  public void the_contents_of_the_file_should_equal_where_the_filename_begins(String location, String fileName)
-      throws Throwable {
-    File fileTest = new File(location + "/" + fileName);
-    assertTrue("file does not match downloaded file", FileUtils.contentEquals(fileContent, fileTest));
-  }
+//  /**
+//   * Confirm the down loaded file contains corrected details
+//   *
+//   * @param location file location
+//   * @param fileName file name
+//   * @throws Throwable pass the exception
+//   */
+//  @When("^the contents of the file should equal \"(.*?)\" where the filename begins \"(.*?)\"$")
+//  public void the_contents_of_the_file_should_equal_where_the_filename_begins(String location, String fileName)
+//      throws Throwable {
+//    File fileTest = new File(location + "/" + fileName);
+//    assertTrue("file does not match downloaded file", FileUtils.contentEquals(fileContent, fileTest));
+//  }
 
-  /**
-   * Utility which remove file from a location
-   *
-   * @param location file location
-   * @throws Throwable pass the exception
-   */
-  @Then("^remove file from \"(.*?)\"$")
-  public void remove_file_from(String location) throws Throwable {
-    fileContent.delete();
-  }
+//  /**
+//   * Utility which remove file from a location
+//   *
+//   * @param location file location
+//   * @throws Throwable pass the exception
+//   */
+//  @Then("^remove file from \"(.*?)\"$")
+//  public void remove_file_from(String location) throws Throwable {
+//    fileContent.delete();
+//  }
 }
