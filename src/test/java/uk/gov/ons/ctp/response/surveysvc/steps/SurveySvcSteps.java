@@ -18,6 +18,8 @@ public class SurveySvcSteps {
     this.responseAware = surveySvcResponseAware;
   }
 
+  /* End point steps */
+
   /**
    * Test get request for /surveys response
    *
@@ -38,6 +40,30 @@ public class SurveySvcSteps {
   @Given("^I make the GET call to the survey service endpoint for survey by id \"(.*?)\"$")
   public void i_make_the_GET_call_to_the_survey_service_endpoint_for_survey_by_id(String id) throws Throwable {
     responseAware.invokeGetSurvey(id);
+  }
+
+  /**
+   * Test get request for /surveys/name/{name} response
+   *
+   * @param name survey name
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the survey service endpoint for name \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_survey_service_endpoint_for_name(String name) throws Throwable {
+    responseAware.invokeGetSurveyName(name);
+  }
+
+  /**
+   * Test get request for /surveys/ref/{surveyref} response
+   *
+   * @param surveyref survey reference
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the survey service endpoint for survey ref \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_survey_service_endpoint_for_survey_ref(String surveyref) throws Throwable {
+    responseAware.invokeGetSurveyRef(surveyref);
   }
 
   /**

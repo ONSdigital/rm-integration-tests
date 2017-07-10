@@ -1,5 +1,0 @@
-echo Endpoint tests for the case service - details are in the swagger spec https://github.com/ONSdigital/response-management-service/blob/master/casesvc-api/swagger.yml
-echo Running @casesvc ...
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @casesvc" -Dcuc.env=$1

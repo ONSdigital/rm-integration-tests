@@ -20,6 +20,8 @@ public class SampleSvcSteps {
     this.responseAware = sampleSvcResponseAware;
   }
 
+  /* End point steps */
+
   /**
    * Test post request for /samples/sampleunitrequests response
    *

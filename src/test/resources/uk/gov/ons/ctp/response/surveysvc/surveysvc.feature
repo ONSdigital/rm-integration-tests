@@ -6,6 +6,10 @@
 # Feature: List of cases scenarios: Get surveys
 #                                   Get survey by valid id
 #                                   Get survey by invalid id
+#                                   Get survey by name
+#                                   Get survey by invalid name
+#                                   Get survey ref by valid id
+#                                   Get survey ref by invalid id
 #                                   Get classifiers for survey by valid id
 #                                   Get classifiers for survey by invalid id
 #                                   Get classifier type selector for survey by valid survey id and valid classifier id
@@ -13,8 +17,6 @@
 #
 # Feature Tags: @surveySvc
 #               @surveyEndpoints
-#
-# Scenario Tags:
 #
 @surveySvc @surveyEndpoints
 Feature: Runs the survey service endpoints
@@ -29,8 +31,10 @@ Feature: Runs the survey service endpoints
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be {"id":"cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87","name":"BRES"}
 
+  # 204 Not tested as surveys pre loaded
 
-  # GET /surveys/{id}
+
+  # GET /surveys/{surveyid}
   # 200
   Scenario: Get request to survey service for surveys by valid id
     Given I make the GET call to the survey service endpoint for survey by id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
@@ -39,9 +43,40 @@ Feature: Runs the survey service endpoints
     And the response should contain the field "name" with value "BRES"
 
   # 404
-  @test404
   Scenario: Get request to survey service for surveys by invalid id
     Given I make the GET call to the survey service endpoint for survey by id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef88"
+    When the response status should be 404
+    Then the response should contain "Survey not found"
+
+
+  # GET /surveys/name/{name}
+  # 200
+  Scenario: Get request to survey service for surveys by valid id
+    Given I make the GET call to the survey service endpoint for name "BRES"
+    When the response status should be 200
+    Then the response should contain the field "id" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
+    And the response should contain the field "name" with value "BRES"
+    And the response should contain the field "surveyRef" with value "221"
+
+  # 404
+  Scenario: Get request to survey service for surveys by invalid id
+    Given I make the GET call to the survey service endpoint for name "ROOM101"
+    When the response status should be 404
+    Then the response should contain "Survey not found"
+
+
+  # GET /surveys/ref/{surveyref}
+  # 200
+  Scenario: Get request to survey service for surveys by valid id
+    Given I make the GET call to the survey service endpoint for survey ref "221"
+    When the response status should be 200
+    Then the response should contain the field "id" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
+    And the response should contain the field "name" with value "BRES"
+    And the response should contain the field "surveyRef" with value "221"
+
+  # 404
+  Scenario: Get request to survey service for surveys by invalid id
+    Given I make the GET call to the survey service endpoint for survey ref "101"
     When the response status should be 404
     Then the response should contain "Survey not found"
 

@@ -1,0 +1,20 @@
+echo This script runs the full range of service tests, inc endpoint tests
+echo Running Service Test Suite .....
+
+echo Sample Service
+./CTP_Cucumber_Samplesvc $1
+
+echo Survey Sample
+./CTP_Cucumber_Surveysvc $1
+
+echo Collection Exercise Service
+./CTP_Cucumber_Collectionexercisesvc $1
+
+echo Iac Service
+./CTP_Cucumber_Iacsvc $1
+
+echo Case Service
+./CTP_Cucumber_Casesvc $1
+
+echo Action Service
+./CTP_Cucumber_Actionsvc $1

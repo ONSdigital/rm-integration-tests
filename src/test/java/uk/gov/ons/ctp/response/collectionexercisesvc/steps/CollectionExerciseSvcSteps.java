@@ -18,6 +18,8 @@ public class CollectionExerciseSvcSteps {
     this.responseAware = collectionExerciseSvcResponseAware;
   }
 
+  /* End point steps */
+
   /**
    * Test put request for /collectionexercises/{exerciseId}.
    *

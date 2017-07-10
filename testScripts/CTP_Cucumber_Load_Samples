@@ -1,5 +1,6 @@
 echo This script runs the tests which test load sample journeys.
 echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo or https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+1+-+Load+Sample
 echo Running @loadSample .....
 
 cd ../

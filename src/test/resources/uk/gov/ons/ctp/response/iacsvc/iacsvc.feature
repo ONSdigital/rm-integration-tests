@@ -1,7 +1,7 @@
 # Author: Stephen Goddard 23/09/2017
 #
 # Keywords Summary : This feature file contains the scenario tests for the iac service - details are in the swagger spec
-#                    https://github.com/ONSdigital/iac-service/blob/master/iacsvc-api/swagger.yml
+#                    https://github.com/ONSdigital/iac-service/blob/master/API.md
 #
 # Feature: List of scenarios: Clean DB to pre test condition
 #															Create Sample
@@ -20,7 +20,7 @@
 #								 @createIacSample
 #								 @generateIAC
 #
-@iacsvc
+@iacSvc
 Feature: Validating iacsvc requests
 
   # Pre Test DB Environment Set Up -----
@@ -45,7 +45,7 @@ Feature: Validating iacsvc requests
     And the sftp exit status should be "-1" 
     When for the "business" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 30 seconds 
+    And after a delay of 50 seconds 
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
@@ -60,8 +60,8 @@ Feature: Validating iacsvc requests
 
   # Pre Test Case Service Environment Set Up -----
 
-  Scenario: Test casesvc case DB state (Journey steps: 2.3)
-    Given after a delay of 180 seconds
+  Scenario: Test casesvc case DB state
+    Given after a delay of 210 seconds
     When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 
@@ -70,14 +70,12 @@ Feature: Validating iacsvc requests
 
   # POST /iacs
 	# 201
-  @iac
   Scenario: Post request for IAC endpoint
   	Given I make the POST call to the iacsvc endpoint for count 1
 		When the response status should be 201
 		Then the response length should be 16 characters
 
 	# 400
-  @iac
   Scenario: Post request for IAC endpoint for invalid input
   	Given I make the POST call to the iacsvc endpoint with invalid input
 		When the response status should be 400
@@ -88,7 +86,6 @@ Feature: Validating iacsvc requests
 
   # GET /iacs/{iac}
 	# 200
-  @iac
   Scenario: Get request to the IAC endpoint
   	Given I make the GET call to the IAC service endpoint
   	When the response status should be 200
@@ -100,7 +97,6 @@ Feature: Validating iacsvc requests
     And the response should contain the field "lastUsedDateTime"
 
 	# 404
-  @iac
   Scenario: Get request to the IAC endpoint for a non existing IAC
   	Given I make the GET call to the iacsvc endpoint for IAC "101020023003"
 		When the response status should be 404
@@ -111,7 +107,6 @@ Feature: Validating iacsvc requests
 
   # PUT /iacs/{iac}
 	# 200
-  @iac
   Scenario: Put request to the IAC endpoint
   	Given I make the PUT call to the IAC service endpoint
   	When the response status should be 200
@@ -125,7 +120,6 @@ Feature: Validating iacsvc requests
   	And the response should contain the field "lastUsedDateTime"
 
 	# 400
-  @iac
   Scenario: Put request to the IAC endpoint for invalid input
   	Given I make the PUT call to the iacsvc endpoint with invalid input
 		When the response status should be 400

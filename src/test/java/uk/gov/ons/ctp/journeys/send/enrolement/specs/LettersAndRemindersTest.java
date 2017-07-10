@@ -9,7 +9,7 @@ import cucumber.api.junit.Cucumber;
  * Created by stephen.goddard on 19/06/17.
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/send/enrolement/lettersAndReminders.feature"},
+@CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/send/enrolment/enrolmentLettersAndReminders.feature"},
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
       "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
       "uk.gov.ons.ctp.response.actionexporter.steps",
