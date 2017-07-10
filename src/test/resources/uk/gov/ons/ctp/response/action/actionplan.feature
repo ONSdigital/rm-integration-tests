@@ -87,7 +87,7 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		#And the response should contain the field "createdDateTime"
 		And the response should contain the field "lastRunDateTime"
-		
+
 	# 200
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
@@ -130,8 +130,7 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json is incorrect."
 		And the response should contain the field "error.timestamp"
-	
-	
+
 	# GET /actionplans/{actionPlanId}/rules
 	# 200
 	Scenario: Get request to actionplans rules for actionPlanId
