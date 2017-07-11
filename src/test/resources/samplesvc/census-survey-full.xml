@@ -8,11 +8,32 @@
     <censusSampleUnit>
       <sampleUnitRef>sampleUnitRef</sampleUnitRef>
       <sampleUnitType>H</sampleUnitType>
-      <!-- <treatmentRef>treatmentRef</treatmentRef> -->
       <formType>CuFT</formType>
-      <line1>line1</line1>
-      <line2>line2</line2>
-      <postcode>TR2 4SA</postcode>
+
+      <line1>The Burrow</line1>
+      <line2>Wimbledon Common</line2>
+      <line3>London</line3>
+      <line4>Address Line 4</line4>
+      <postcode>HA4 4AA</postcode>
+      <title>Great</title>
+      <forename>Uncle</forename>
+      <surname>Bulgaria</surname>
+      <phoneNumber>0220 112 4567</phoneNumber>
+      <emailAddress>wombles@gmail.com</emailAddress>
+      
+      <addressType>H</addressType>
+      <estabType>H</estabType>
+      <organisationName>organisationName</organisationName>
+      <category>category</category>
+      <ladCode>lad123</ladCode>
+      <latitude>123.4</latitude>
+      <longitude>432.1</longitude>
+      <htc>9</htc>
+      <locality>locality</locality>
+      <oa>o123</oa>
+      <msoa>m234</msoa>
+      <lsoa>l345</lsoa>
+      <censusRegion>c456</censusRegion>
     </censusSampleUnit>
   </sampleUnits>
 </p:censusSurveySample>

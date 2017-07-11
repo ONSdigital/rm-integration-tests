@@ -66,13 +66,13 @@ public class PostgresSteps {
    */
   @Given("^the samplesvc database has been reset$")
   public void the_samplesvc_database_has_been_reset() throws Throwable {
-    check_records_in_DB_equal("sample.samplesummary", 0);
-    check_records_in_DB_equal("sample.sampleunit", 0);
-    check_records_in_DB_equal("sample.collectionexercisejob", 0);
+    checkRecordsInDBEqual("sample.samplesummary", 0);
+    checkRecordsInDBEqual("sample.sampleunit", 0);
+    checkRecordsInDBEqual("sample.collectionexercisejob", 0);
 
-    check_sequence_in_DB_equal("sample.samplesummaryseq", 1);
-    check_sequence_in_DB_equal("sample.sampleunitseq", 1);
-    check_sequence_in_DB_equal("sample.collectionexercisejobseq", 1);
+    checkSequenceInDBEqual("sample.samplesummaryseq", 1);
+    checkSequenceInDBEqual("sample.sampleunitseq", 1);
+    checkSequenceInDBEqual("sample.collectionexercisejobseq", 1);
   }
 
   /**
@@ -82,11 +82,11 @@ public class PostgresSteps {
    */
   @Given("^the collectionexercisesvc database has been reset$")
   public void the_collectionexercisesvc_database_has_been_reset() throws Throwable {
-    check_records_in_DB_equal("collectionexercise.sampleunit", 0);
-    check_records_in_DB_equal("collectionexercise.sampleunitgroup", 0);
+    checkRecordsInDBEqual("collectionexercise.sampleunit", 0);
+    checkRecordsInDBEqual("collectionexercise.sampleunitgroup", 0);
 
-    check_sequence_in_DB_equal("collectionexercise.sampleunitgrouppkseq", 1);
-    check_sequence_in_DB_equal("collectionexercise.sampleunitpkseq", 1);
+    checkSequenceInDBEqual("collectionexercise.sampleunitgrouppkseq", 1);
+    checkSequenceInDBEqual("collectionexercise.sampleunitpkseq", 1);
 
     check_records_in_DB_equal_for("collectionexercise.collectionexercise", 1, "statefk = 'INIT'");
   }
@@ -98,16 +98,16 @@ public class PostgresSteps {
    */
   @Then("^the casesvc database has been reset$")
   public void the_casesvc_database_has_been_reset() throws Throwable {
-    check_records_in_DB_equal("casesvc.case", 0);
-    check_records_in_DB_equal("casesvc.caseevent", 0);
-    check_records_in_DB_equal("casesvc.casegroup", 0);
-    check_records_in_DB_equal("casesvc.response", 0);
+    checkRecordsInDBEqual("casesvc.case", 0);
+    checkRecordsInDBEqual("casesvc.caseevent", 0);
+    checkRecordsInDBEqual("casesvc.casegroup", 0);
+    checkRecordsInDBEqual("casesvc.response", 0);
 
-    check_sequence_in_DB_equal("casesvc.caseeventseq", 1);
-    check_sequence_in_DB_equal("casesvc.casegroupseq", 1);
-    check_sequence_in_DB_equal("casesvc.caseseq", 1);
-    check_sequence_in_DB_equal("casesvc.caserefseq", CASEREF_SEQ);
-    check_sequence_in_DB_equal("casesvc.responseseq", 1);
+    checkSequenceInDBEqual("casesvc.caseeventseq", 1);
+    checkSequenceInDBEqual("casesvc.casegroupseq", 1);
+    checkSequenceInDBEqual("casesvc.caseseq", 1);
+    checkSequenceInDBEqual("casesvc.caserefseq", CASEREF_SEQ);
+    checkSequenceInDBEqual("casesvc.responseseq", 1);
   }
 
   /**
@@ -117,15 +117,15 @@ public class PostgresSteps {
    */
   @Then("^the actionsvc database has been reset$")
   public void the_actionsvc_database_has_been_reset() throws Throwable {
-    check_records_in_DB_equal("action.action", 0);
-    check_records_in_DB_equal("action.actionplanjob", 0);
-    check_records_in_DB_equal("action.case", 0);
-    check_records_in_DB_equal("action.messagelog", 0);
+    checkRecordsInDBEqual("action.action", 0);
+    checkRecordsInDBLessThanEqual("action.actionplanjob", 1);
+    checkRecordsInDBEqual("action.case", 0);
+    checkRecordsInDBEqual("action.messagelog", 0);
 
-    check_sequence_in_DB_equal("action.actionpkseq", 1);
-    check_sequence_in_DB_equal("action.actionplanjobseq", 1);
-    check_sequence_in_DB_equal("action.casepkseq", 1);
-    check_sequence_in_DB_equal("action.messageseq", 1);
+    checkSequenceInDBEqual("action.actionpkseq", 1);
+    checkSequenceInDBEqual("action.actionplanjobseq", 1);
+    checkSequenceInDBEqual("action.casepkseq", 1);
+    checkSequenceInDBEqual("action.messageseq", 1);
   }
 
   /**
@@ -135,12 +135,12 @@ public class PostgresSteps {
    */
   @Then("^the actionexporter database has been reset$")
   public void the_actionexporter_database_has_been_reset() throws Throwable {
-    check_records_in_DB_equal("actionexporter.address", 0);
-    check_records_in_DB_equal("actionexporter.contact", 0);
-    check_records_in_DB_equal("actionexporter.filerowcount", 0);
+    checkRecordsInDBEqual("actionexporter.address", 0);
+    checkRecordsInDBEqual("actionexporter.contact", 0);
+    checkRecordsInDBEqual("actionexporter.filerowcount", 0);
 
-    check_sequence_in_DB_equal("actionexporter.actionrequestpkseq", 1);
-    check_sequence_in_DB_equal("actionexporter.contactpkseq", 1);
+    checkSequenceInDBEqual("actionexporter.actionrequestpkseq", 1);
+    checkSequenceInDBEqual("actionexporter.contactpkseq", 1);
   }
 
   /**
@@ -169,10 +169,23 @@ public class PostgresSteps {
    * @param total expected value to be tested
    * @throws Throwable pass the exception
    */
-  @Then("^check \"(.*?)\" records in DB equal (\\d+)$")
-  public void check_records_in_DB_equal(String table, long total) throws Throwable {
+//  @Then("^check \"(.*?)\" records in DB equal (\\d+)$")
+//  public void check_records_in_DB_equal(String table, long total) throws Throwable {
+  private void checkRecordsInDBEqual(String table, long total) throws Throwable {
     long result = responseAware.rowCount(String.format(COUNT_SQL, table));
     assertTrue(table + " found in DB equal to: " + result, result == total);
+  }
+
+  /**
+  * Test number records (less or equal) in a db table
+  *
+  * @param table to be checked
+  * @param total expected value to be tested
+  * @throws Throwable pass the exception
+  */
+  private void checkRecordsInDBLessThanEqual(String table, long total) throws Throwable {
+    long result = responseAware.rowCount(String.format(COUNT_SQL, table));
+    assertTrue(table + " found in DB equal to: " + result, result <= total);
   }
 
   /**
@@ -217,8 +230,9 @@ public class PostgresSteps {
    * @param total expected value to be tested
    * @throws Throwable pass the exception
    */
-  @Then("^check \"(.*?)\" sequence in DB equal (\\d+)$")
-  public void check_sequence_in_DB_equal(String sequence, long total) throws Throwable {
+//  @Then("^check \"(.*?)\" sequence in DB equal (\\d+)$")
+//  public void check_sequence_in_DB_equal(String sequence, long total) throws Throwable {
+  public void checkSequenceInDBEqual(String sequence, long total) throws Throwable {
     long result = responseAware.rowCount(String.format(CURRVAL_SQL, sequence));
     assertTrue(sequence + " found in DB equal to: " + result + " Not = : " + total, result == total);
   }

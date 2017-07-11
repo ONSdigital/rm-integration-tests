@@ -1,6 +1,0 @@
-echo This script runs the tests which test publish collection exercise journeys.
-echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
-echo Running @publishExercise .....
-
-cd ../
-mvn clean install -Dcucumber.options="--tags @publishExercise" -Dcuc.env=$1

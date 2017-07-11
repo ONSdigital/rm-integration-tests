@@ -1,20 +1,13 @@
 package uk.gov.ons.ctp.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URI;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.UsernamePasswordCredentials;
-
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -28,9 +21,15 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by Stephen Goddard on 04/05/16.
@@ -222,6 +221,25 @@ public class HTTPResponseAware {
 
     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
     builder.addBinaryBody("file", new FileInputStream(file), ContentType.APPLICATION_OCTET_STREAM, file.getName());
+    HttpEntity multipart = builder.build();
+    post.setEntity(multipart);
+
+    executeRequest(post);
+  }
+
+  /**
+   * Attach multipartFile before invoking a post http request.
+   *
+   * @param endpoint url
+   * @param file to be sent to actionexporter template
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeMultipartFilePost(final String endpoint, MultipartFile file) throws IOException, AuthenticationException {
+    final HttpPost post = new HttpPost(URI.create(endpoint));
+
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.addBinaryBody("file", file.getInputStream(), ContentType.APPLICATION_OCTET_STREAM, file.getName());
     HttpEntity multipart = builder.build();
     post.setEntity(multipart);
 

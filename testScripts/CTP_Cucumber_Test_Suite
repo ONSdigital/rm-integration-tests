@@ -1,26 +1,11 @@
-echo This script runs the full range of tests
+echo This script runs the full range of all tests
 echo Running Test Suite .....
 
 echo Smoke Tests
 ./CTP_Cucumber_Smoke $1
 
-echo Sample Service
-./CTP_Cucumber_Samplesvc $1
+echo Services Tests
+./CTP_Cucumber_Services_Test_Suite $1
 
-echo Load Sample
-./CTP_Cucumber_Load_Samples $1
-
-echo Survey Sample
-./CTP_Cucumber_Surveysvc $1
-
-echo Collection Exercise Service
-./CTP_Cucumber_Collectionexercisesvc $1
-
-echo Iac Service
-./CTP_Cucumber_Iacsvc_Endpoints $1
-
-echo Publish Collection Exercise
-./CTP_Cucumber_Publish_Exercise $1
-
-echo Publish Collection Exercise
-./CTP_Cucumber_Send_Letters $1
+echo Journey Tests
+./CTP_Cucumber_Journeys_Test_Suite $1

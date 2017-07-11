@@ -1,4 +1,4 @@
-# Author: Chris Hardman 10/02/2017
+# Author: Edward Stevens 29/06/2017
 #
 # Keywords Summary : This feature file contains the scenario tests for the action exporter endpoints - details are in the swagger spec
 #										 https://github.com/ONSdigital/response-management-service/blob/master/actionexportersvc/swagger.yml
@@ -11,44 +11,47 @@
 @actionexporter
 Feature: action exporter end points
 
-  Scenario: Clean DB to pre test condition
-    When reset the postgres DB
-    Then check "casesvc.case" records in DB equal 0
-    And check "casesvc.caseevent" records in DB equal 0
-		And check "casesvc.casegroup" records in DB equal 0
-		And check "casesvc.contact" records in DB equal 0
-		And check "casesvc.response" records in DB equal 0
-    And check "casesvc.messagelog" records in DB equal 0
-    And check "casesvc.unlinkedcasereceipt" records in DB equal 0
-    And check "action.action" records in DB equal 0
-    And check "action.actionplanjob" records in DB equal 0
-    And check "action.case" records in DB equal 0
-    And check "action.messagelog" records in DB equal 0
-    And check "casesvc.caseeventidseq" sequence in DB equal 1
-    And check "casesvc.caseidseq" sequence in DB equal 1
-    And check "casesvc.casegroupidseq" sequence in DB equal 1
-    And check "casesvc.caserefseq" sequence in DB equal 1000000000000001
-    And check "casesvc.responseidseq" sequence in DB equal 1
-    And check "casesvc.messageseq" sequence in DB equal 1
-    And check "action.actionidseq" sequence in DB equal 1
-    And check "action.actionplanjobseq" sequence in DB equal 1
-    And check "action.messageseq" sequence in DB equal 1
+	Scenario: Reset actionexporter database to pre test condition
+		When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
+		Then the actionexporter database has been reset
+        When for the "actionexporter" run the "actionexporterseed.sql" postgres DB script
+
+	Scenario: Get the action requests information for all action requests
+		Given after a delay of 30 seconds
+		When I make the GET call to the actionexporter endpoint for all action requests
+		Then the response status should be 200
+		And the response should contain a JSON array of size 1
+		And one element of the JSON array must be {"actionId":
+		And one element of the JSON array must be ,"responseRequired":true,"actionPlan":"BRES","actionType":"BRESEL","questionSet":"QUESTONSET","caseId":"7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1","caseRef":"CASEREF","iac":"IAC","dateStored":1492473600000,"dateSent":1492473600000}]
 
 	Scenario: Get the action requests information for the specified action id
 		Given after a delay of 30 seconds
-		When I make the GET call to the actionexporter endpoint for the action id "1835"
+		When I make the GET call to the actionexporter endpoint for the action id "7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1"
 		Then the response status should be 200
 		And the response should contain the field "actionId"
 		And the response should contain the field "responseRequired"
 		And the response should contain the field "actionPlan"
 		And the response should contain the field "actionType"
 		And the response should contain the field "questionSet"
-		And the response should contain the field "contact" with contents "null"
-		And the response should contain the field "address"
 		And the response should contain the field "caseId"
-		And the response should contain the field "priority"
 		And the response should contain the field "caseRef"
 		And the response should contain the field "iac"
-		And the response should contain the field "events" with contents "null"
 		And the response should contain the field "dateStored"
 		And the response should contain the field "dateSent"
+
+   # POST /actionrequests/{actionId}
+   # 201
+    Scenario: Post request to actionrequest to export a specific ActionRequest
+      When I make the POST call to the actionexporter actionrequests endpoint for actionrequest with specific id
+        | 7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1 | CucumberTest |
+      Then the response status should be 201
+      And the response should contain the field "actionId"
+      And the response should contain the field "responseRequired"
+      And the response should contain the field "actionPlan"
+      And the response should contain the field "actionType"
+      And the response should contain the field "questionSet"
+      And the response should contain the field "caseId"
+      And the response should contain the field "caseRef"
+      And the response should contain the field "iac"
+      And the response should contain the field "dateStored"
+      And the response should contain the field "dateSent"

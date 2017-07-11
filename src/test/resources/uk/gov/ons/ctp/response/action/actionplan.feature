@@ -82,7 +82,6 @@ Feature: Validating actionPlan requests
 
 
 	# 200
-
     Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
 					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  |  |
@@ -92,7 +91,8 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "description" with value "Hotel Action Plan - Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "lastGoodRunDateTime" with a null value
-		
+		And the response should contain the field "lastRunDateTime"
+
 	# 200
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
@@ -132,4 +132,15 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json is incorrect."
 		And the response should contain the field "error.timestamp"
+
+	# GET /actionplans/{actionPlanId}/rules
+	# 200
+	Scenario: Get request to actionplans rules for actionPlanId
+		When I make the GET call to the actionservice actionplans rules endpoint for actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+		Then the response status should be 200
+		And the response should contain a JSON array of size 2
+		And one element of the JSON array must be {"actionPlanId":
+    And one element of the JSON array must be ,"priority":3,"daysOffset":0,"actionTypeName":"BRESEL","name":"BRESEL+0","description":"Enrolment Letter(+0 days)"}
+    And one element of the JSON array must be {"actionPlanId":
+    And one element of the JSON array must be ,"priority":3,"daysOffset":82,"actionTypeName":"BRESERL","name":"BRESERL+82","description":"Enrolment Reminder Letter(+82 days)"}
 

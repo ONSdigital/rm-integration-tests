@@ -1,0 +1,14 @@
+echo This script runs the full range journey scenario tests specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo Running Journey Test Suite .....
+
+echo Load Sample
+./CTP_Cucumber_Load_Samples $1
+
+echo Execute Collection Exercise
+./CTP_Cucumber_Execute_Exercise $1
+
+echo Send Enrolment Letters
+./CTP_Cucumber_Send_Letters $1
+
+echo Verify, Create & Enrol Account
+./CTP_Cucumber_Enrol_Account $1

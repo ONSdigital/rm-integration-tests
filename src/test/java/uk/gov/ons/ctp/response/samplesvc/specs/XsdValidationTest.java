@@ -12,7 +12,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
         features = {"classpath:uk/gov/ons/ctp/response/samplesvc/xsdValidation.feature"},
         glue = {"uk.gov.ons.ctp.response.samplesvc.steps"},
-        plugin = {"pretty", "html:build/samplesvc-cucumber-html-report", "json:build/jenkins/samplesvc.json"}
+        plugin = {"pretty", "html:build/xsdValid-cucumber-html-report", "json:build/jenkins/xsdValid.json"}
 )
 public class XsdValidationTest {
 

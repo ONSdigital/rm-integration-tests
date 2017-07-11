@@ -1,6 +1,6 @@
 # Author: Stephen Goddard 03/04/2017
 #
-# Keywords Summary: This feature file contains the scenario tests for the survey xsd
+# Keywords Summary: This feature file contains the scenario tests for the survey xsd validation
 #
 # Feature: List of survey xsd scenarios: xsd validation without failure
 #                                        xsd validation with failure

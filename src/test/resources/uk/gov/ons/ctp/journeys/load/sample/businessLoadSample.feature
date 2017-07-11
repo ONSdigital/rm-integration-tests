@@ -2,14 +2,14 @@
 #
 # Keywords Summary: This feature confirms that the sample service will load business samples. The journey is specified in:
 #                   https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+#                   https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+1+-+Load+Sample
 #
 # Feature: List of load business sample scenarios: pre test clean of sample service
 #                                                  test load of business sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
 #                                                  test sample DB state (Journey steps: 1.5)
 #
 # Feature Tags: @loadSample
-#
-# Scenario Tags: @businessLoad
+#               @businessLoad
 #
 @loadSample @businessLoad
 Feature: Tests the load of business sample
@@ -28,7 +28,7 @@ Feature: Tests the load of business sample
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1"
-    And after a delay of 30 seconds 
+    And after a delay of 50 seconds 
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
   

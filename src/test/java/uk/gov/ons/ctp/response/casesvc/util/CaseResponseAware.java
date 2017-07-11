@@ -1,6 +1,8 @@
 package uk.gov.ons.ctp.response.casesvc.util;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
@@ -13,6 +15,7 @@ import uk.gov.ons.ctp.util.World;
  * Created by Stephen Goddard on 04/05/16.
  */
 public class CaseResponseAware {
+  private static final String WHERE_SQL = "SELECT %s FROM %s WHERE %s;";
   private static final String GET_CASEGROUP_URL = "/casegroups/%s";
   private static final String GET_CASE_CASEGROUP_URL = "/cases/casegroupid/%s";
   private static final String GET_IAC_URL = "/cases/iac/%s%s";
@@ -51,7 +54,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /casegroup/{casegroupid} get endoints.
+   * @caseresponse Service - /casegroup/{casegroupid} get end points.
    *
    * @param caseGroupId for case group
    * @throws IOException IO exception
@@ -67,7 +70,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /cases/casegroupid/{casegroupid} get endoints.
+   * @caseresponse Service - /cases/casegroupid/{casegroupid} get end points.
    *
    * @param caseGroupId case group id
    * @throws IOException IO exception
@@ -83,7 +86,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /cases/iac/{iac}{parameters} get endoints.
+   * @caseresponse Service - /cases/iac/{iac}{parameters} get end points.
    *
    * @param iac code to get case for
    * @param parameters required to pass to as parameters
@@ -100,7 +103,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /cases/{caseId}{parameters} get endoints.
+   * @caseresponse Service - /cases/{caseId}{parameters} get end points.
    *
    * @param caseId case id
    * @param parameters required to pass to as parameters
@@ -116,7 +119,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /cases/partyid/{partyid}{parameters} get endoints.
+   * @caseresponse Service - /cases/partyid/{partyid}{parameters} get end points.
    *
    * @param caseId case id
    * @param parameters required to pass to as parameters
@@ -132,7 +135,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /cases/{caseId}/events get endoints.
+   * @caseresponse Service - /cases/{caseId}/events get end points.
    *
    * @param caseId case id
    * @throws IOException IO exception
@@ -147,7 +150,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /cases/{caseId}/events post endoints.
+   * @caseresponse Service - /cases/{caseId}/events post end points.
    *
    * @param caseId case id
    * @param properties required to pass
@@ -166,7 +169,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /categories get endoints.
+   * @caseresponse Service - /categories get end points.
    *
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
@@ -176,7 +179,7 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /categories/name/{categoryName} get endoints.
+   * @caseresponse Service - /categories/name/{categoryName} get end points.
    *
    * @param categoryName category id
    * @throws IOException IO exception
@@ -185,5 +188,23 @@ public class CaseResponseAware {
   public void invokeCategoriesEndpoint(String categoryName) throws IOException, AuthenticationException {
     final String url = String.format(GET_CATEGORY_NAME_URL, categoryName);
     responseAware.invokeGet(world.getUrl(url, SERVICE));
+  }
+
+  // Journey Methods
+
+  /**
+   * @caseresponse Get new case using - /cases/{caseId}{parameters} get end point. Get caseId from DB first.
+   *
+   * @param params URL parameters
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   * @throws SQLException sql exception
+   * @throws ClassNotFoundException class not found exception
+   */
+  public void invokeCasesEndpointForNewUnknownCase(String params) throws IOException, AuthenticationException,
+      SQLException, ClassNotFoundException {
+    String sql = String.format(WHERE_SQL, "id", "casesvc.case", "casepk = 501");
+    List<Object> result = postgresResponseAware.dbSelect(sql);
+    invokeCasesEndpoint(result.get(0).toString(), params);
   }
 }

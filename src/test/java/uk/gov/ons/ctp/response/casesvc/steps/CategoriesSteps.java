@@ -18,6 +18,8 @@ public class CategoriesSteps {
     this.responseAware = caseResponseAware;
   }
 
+  /* End point steps */
+
   /**
    * Test get request for /categories
    *
