@@ -1,6 +1,6 @@
 # Author: Edward Stevens 29/06/2017
 #
-# Keywords Summary : This feature file contains the scenario tests for the action exporter endpoints - details are in the swagger spec
+# Keywords Summary : This feature file contains the scenario tests for the action exporter template endpoints - details are in the swagger spec
 #										 https://github.com/ONSdigital/response-management-service/blob/master/actionexportersvc/swagger.yml
 #										 Note: Assuption DB has been preloaded with template data, samples have been created and actions run
 #

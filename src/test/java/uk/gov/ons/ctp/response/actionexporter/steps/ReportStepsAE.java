@@ -147,4 +147,48 @@ public class ReportStepsAE {
     responseAware.invokeTemplateEndpoint(postValues.get(0), multipartFile);
   }
 
+  //TODO: TEMPLATE MAPPING STARTS HERE
+
+  /**
+   * Test get request for /templatemappings for actionexporter
+   *
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the GET call to the actionexporter template mappings endpoint for all template mappings$")
+  public void I_make_the_GET_call_to_the_actionexporter_template_mappings_endpoint_for_all_template_mappings()
+          throws Throwable {
+    responseAware.invokeActionExporterAllTemplateMappingsEndpoint();
+  }
+
+  /**
+   * Test get request for /templatemappings/{actionType} for actionexporter
+   *
+   * @param actionType the action type of the template to be retrieved
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the GET call to the actionexporter template mappings endpoint for the action type \"(.*?)\"$")
+  public void I_make_the_GET_call_to_the_actionexporter_template_mappings_endpoint_for_the_action_type(String actionType)
+          throws Throwable {
+    responseAware.invokeActionExporterTemplateMappingsEndpoint(actionType);
+  }
+
+  /**
+   * Test post request for /actionplans/{actionPlanId}/jobs
+   *
+   * @param postValues values to be posted using JSON
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the POST call to the actionexporter template mappings endpoint$")
+  public void i_make_the_POST_call_to_the_actionexporter_template_mappings_endpoint(
+          List<String> postValues) throws Throwable {
+
+    File file = new File(world.getProperty(FTL_LOCATION_KEY) + "action_exporter_template_mappings_test.ftl");
+
+    FileInputStream input = new FileInputStream(file);
+
+    MultipartFile multipartFile = new MockMultipartFile("action_exporter_template_mappings_test", file.getName(), "text/plain", IOUtils.toByteArray(input) );
+
+    responseAware.invokeTemplateMappingsEndpoint(multipartFile);
+  }
+
 }

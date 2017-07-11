@@ -155,4 +155,38 @@ public class ReportResponseAwareAE {
     responseAware.invokeMultipartFilePost(world.getActionExporterEndpoint(url), file);
   }
 
+  /**
+   * /templatemappings get endpoint for actionexporter
+   *
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeActionExporterAllTemplateMappingsEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl("/templatemappings", "actionexp"));
+  }
+
+  /**
+   * /templatemappings/{actionType} get endpoint for actionexporter
+   *
+   * @param actionType the action type to be checked for
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeActionExporterTemplateMappingsEndpoint(String actionType) throws IOException, AuthenticationException {
+    final String url = String.format("/templatemappings/%s", actionType);
+    responseAware.invokeGet(world.getUrl(url, "actionexp"));
+  }
+
+  /**
+   * /templatemappings post endpoint.
+   *
+   * @param file to be sent to ActionExporter Template Mappings Endpoint
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeTemplateMappingsEndpoint(MultipartFile file) throws IOException, AuthenticationException {
+    final String url = "/templatemappings";
+    responseAware.invokeMultipartFilePost(world.getActionExporterEndpoint(url), file);
+  }
+
 }
