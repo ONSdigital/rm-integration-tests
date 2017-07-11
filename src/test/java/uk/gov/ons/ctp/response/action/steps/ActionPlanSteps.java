@@ -104,16 +104,4 @@ public class ActionPlanSteps {
 
     responseAware.invokePutActionPlanIdEndpoint(actionPlanId, properties);
   }
-
-  /**
-   * Test get request for /actionplans/{actionPlanId}/rules
-   *
-   * @param actionPlanId action plan id
-   * @throws Throwable pass the exception
-   */
-  @When("^I make the GET call to the actionservice actionplans rules endpoint for actionPlanId \"(.*?)\"$")
-  public void i_make_the_GET_call_to_the_actionservice_actionplans_rules_endpoint_for_actionPlanId(String actionPlanId)
-      throws Throwable {
-    responseAware.invokeActionPlanRuleEndpoint(actionPlanId);
-  }
 }

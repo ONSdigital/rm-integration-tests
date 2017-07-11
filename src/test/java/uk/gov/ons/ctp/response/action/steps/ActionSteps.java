@@ -3,6 +3,7 @@ package uk.gov.ons.ctp.response.action.steps;
 import java.util.ArrayList;
 import java.util.List;
 //import java.util.Properties;
+import java.util.Properties;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -110,67 +111,94 @@ public class ActionSteps {
     responseAware.invokeActionsIdEndpoint(actionId);
   }
 
-//  /**
-//   * Test post request for /actions
-//   *
-//   * @param postValues values to be posted using JSON
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the actionservice actions endpoint$")
-//  public void i_make_the_POST_call_to_the_actionservice_actions_endpoint(List<String> postValues) throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("caseId", postValues.get(0));
-//    properties.put("actionTypeName", postValues.get(1));
-//    properties.put("priority", postValues.get(2));
-//    properties.put("createdBy", postValues.get(3));
-//
-//    responseAware.invokePostActionsEndpoint(properties);
-//  }
+  /**
+   * Test post request for /actions
+   *
+   * @param postValues values to be posted using JSON
+   * @throws Throwable pass the exception
+   *
+  @When("^I make the POST call to the actionservice actions endpoint$")
+  public void i_make_the_POST_call_to_the_actionservice_actions_endpoint(List<String> postValues) throws Throwable {
+    Properties properties = new Properties();
+    
+    properties.put("id", postValues.get(0));
+    properties.put("caseId", postValues.get(1));
+    properties.put("actionTypeName", postValues.get(2));
+    properties.put("priority", postValues.get(3));
+    properties.put("createdBy", postValues.get(4));
 
-//  /**
-//   * Test invalid post request for /actions
-//   *
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the actionservice actions endpoint with invalid input$")
-//  public void i_make_the_POST_call_to_the_actionservice_actions_endpoint_with_invalid_input() throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("input", "invalid input value");
-//
-//    responseAware.invokePostActionsEndpoint(properties);
-//  }
+    
+    responseAware.invokePostActionsEndpoint(properties);
+  }
+  */
 
-//  /**
-//   * Test put request for /actions/{actionId}/feedback
-//   *
-//   * @param actionId action id
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the PUT call to the actionservice actions feedback endpoint for actionId \"(.*?)\"$")
-//  public void i_make_the_PUT_call_to_the_actionservice_actions_feedback_endpoint_for_actionId(String actionId)
-//      throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("actionId", actionId);
-//    properties.put("situation", "CI Test Run");
-//    properties.put("outcome", "REQUEST_COMPLETED");
-//
-//    responseAware.invokePutActionsActionIdFeedbackEndpoint(actionId, properties);
-//  }
+  /**
+   * Test post request for /actions
+   *
+   * @param postValues values to be posted using JSON
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the PUT call to the actionservice feedback endpoint$")
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint(List<String> postValues) throws Throwable {
+    Properties properties = new Properties();
+    String actionid = postValues.get(0);
+    Boolean actionIdExist = false;
 
-//  /**
-//   * Test invalid put request for /actions/{actionId}/feedback
-//   *
-//   * @param actionId action id
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the PUT call to the actionservice actions feedback endpoint with invalid input \"(.*?)\"$")
-//  public void i_make_the_PUT_call_to_the_actionservice_actions_feedback_endpoint_with_invalid_input(String actionId)
-//      throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("input", "invalid input value");
-//
-//    responseAware.invokePutActionsActionIdFeedbackEndpoint(actionId, properties);
-//  }
+    if (actionid == null || actionid.length() == 0) {
+    	actionIdExist = true;
+    	properties.put("id",actionid);
+    }
+    properties.put("situaion", postValues.get(1));
+    properties.put("outcome", postValues.get(2));
+
+    responseAware.invokePutActionsActionIdFeedbackEndpoint(properties,actionIdExist);
+  }
+
+  
+  /**
+   * Test invalid post request for /actions
+   *
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the POST call to the actionservice actions endpoint with invalid input$")
+  public void i_make_the_POST_call_to_the_actionservice_actions_endpoint_with_invalid_input() throws Throwable {
+    Properties properties = new Properties();
+    properties.put("input", "invalid input value");
+
+    responseAware.invokePostActionsEndpoint(properties);
+  }
+
+  /**
+   * Test put request for /actions/{actionId}/feedback
+   *
+   * @param actionId action id
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the PUT call to the actionservice actions feedback endpoint for actionId \"(.*?)\"$")
+  public void i_make_the_PUT_call_to_the_actionservice_actions_feedback_endpoint_for_actionId(String actionId)
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("actionId", actionId);
+    properties.put("situation", "CI Test Run");
+    properties.put("outcome", "REQUEST_COMPLETED");
+
+   // responseAware.invokePutActionsActionIdFeedbackEndpoint(actionId, properties);
+  }
+
+  /**
+   * Test invalid put request for /actions/{actionId}/feedback
+   *
+   * @param actionId action id
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the PUT call to the actionservice actions feedback endpoint with invalid input \"(.*?)\"$")
+  public void i_make_the_PUT_call_to_the_actionservice_actions_feedback_endpoint_with_invalid_input(String actionId)
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("input", "invalid input value");
+
+   // responseAware.invokePutActionsActionIdFeedbackEndpoint(actionId, properties);
+  }
 
 
 

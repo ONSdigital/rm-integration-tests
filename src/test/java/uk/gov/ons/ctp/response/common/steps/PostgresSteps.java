@@ -88,7 +88,7 @@ public class PostgresSteps {
     check_sequence_in_DB_equal("collectionexercise.sampleunitgrouppkseq", 1);
     check_sequence_in_DB_equal("collectionexercise.sampleunitpkseq", 1);
 
-    check_records_in_DB_equal_for("collectionexercise.collectionexercise", 3, "statefk = 'INIT'");
+    check_records_in_DB_equal_for("collectionexercise.collectionexercise", 1, "statefk = 'INIT'");
   }
 
   /**
@@ -248,7 +248,7 @@ public class PostgresSteps {
   @Given("^the case start date is adjusted to trigger action plan$")
   public void the_case_start_date_is_adjusted_to_trigger_action_plan(DataTable data) throws Throwable {
     List<String> adjustmentData = data.asList(String.class);
-
+    System.out.println(adjustmentData);
     int adjustment = getActionPlanDaysOffset(adjustmentData.get(4), adjustmentData.get(5), adjustmentData.get(6));
 
     adjustment = -adjustment;

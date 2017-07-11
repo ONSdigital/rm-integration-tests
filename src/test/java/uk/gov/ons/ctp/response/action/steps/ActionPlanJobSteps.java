@@ -32,6 +32,18 @@ public class ActionPlanJobSteps {
       String actionPlanJobId) throws Throwable {
     responseAware.invokeActionPlanJobEndpoints(actionPlanJobId);
   }
+  
+  /**
+   * Test get request for /actionplans/jobs/{actionPlanJobId}
+   *
+   * @param actionPlanJobId action plan job id
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the GET call to the actionservice actionplans endpoint for specific plan job UUID$")
+  public void i_make_the_GET_call_to_the_actionservice_actionplans_endpoint_for_specific_plan_job_UUID() 
+		  throws Throwable {
+    responseAware.invokeActionPlanJobEndpointsUUID();
+  }
 
   /**
    * Test get request for /actionplans/{actionPlanId}/jobs
@@ -51,13 +63,13 @@ public class ActionPlanJobSteps {
    * @param postValues values to be posted using JSON
    * @throws Throwable pass the exception
    */
-  @When("^I make the POST call to the actionservice actionplans endpoint for jobs with specific plan$")
+  @When("^I make the POST call to the actionservice actionplans endpoint for jobs with specific plan \"(.*?)\"$")
   public void i_make_the_POST_call_to_the_actionservice_actionplans_endpoint_for_jobs_with_specific_plan(
-      List<String> postValues) throws Throwable {
+     String actionPlanId, List<String> postValues) throws Throwable {
     Properties properties = new Properties();
     properties.put("createdBy", postValues.get(1));
 
-    responseAware.invokeExecuteActionPlanJobEndpoints(postValues.get(0), properties);
+    responseAware.invokeExecuteActionPlanJobEndpoints(actionPlanId, properties);
   }
 
   /**

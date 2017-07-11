@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 import com.jayway.jsonpath.JsonPath;

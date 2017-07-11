@@ -14,7 +14,8 @@ import org.junit.runner.RunWith;
             "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
             "uk.gov.ons.ctp.ui.steps",
             "uk.gov.ons.ctp.response.casesvc.steps",
-            "uk.gov.ons.ctp.response.common.steps"},
+            "uk.gov.ons.ctp.response.common.steps",
+            "uk.gov.ons.ctp.response.samplesvc.steps"},
         plugin = {"pretty", "html:build/action-cucumber-html-report", "json:build/jenkins/action.json"}
 )
 public class ActionTest {

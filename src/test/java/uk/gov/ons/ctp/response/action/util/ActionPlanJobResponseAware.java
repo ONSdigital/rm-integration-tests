@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.apache.http.auth.AuthenticationException;
 
 import uk.gov.ons.ctp.util.HTTPResponseAware;
+import uk.gov.ons.ctp.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -14,6 +15,7 @@ import uk.gov.ons.ctp.util.World;
 public class ActionPlanJobResponseAware {
   private World world;
   private HTTPResponseAware responseAware;
+  private PostgresResponseAware postgresResponseAware;
 
   /**
    * Constructor - also gets singleton of http request runner
@@ -38,9 +40,22 @@ public class ActionPlanJobResponseAware {
    */
   public void invokeActionPlanJobEndpoints(String actionPlanJobId) throws IOException, AuthenticationException {
     final String url = String.format("/actionplans/jobs/%s", actionPlanJobId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url,"actionsvc"));
   }
 
+  /**
+   * @actionplanjob Service - /actionplans/jobs/{actionPlanJobId} get endpoints.
+   *
+   * @param actionPlanJobId action plan job id
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeActionPlanJobEndpointsUUID() throws IOException, AuthenticationException {
+    String actionPlanJobId = world.getIdFromDB("id", "actionsvc.actionplanjob", "1", postgresResponseAware);
+    final String url = String.format("/actionplans/jobs/%s", actionPlanJobId);
+    responseAware.invokeGet(world.getUrl(url,"actionsvc"));
+  }
+  
   /**
    * @actionplanjob Service - /actionplans/{actionPlanId}/jobs get endpoints.
    *
@@ -50,7 +65,7 @@ public class ActionPlanJobResponseAware {
    */
   public void invokeActionPlanJobListEndpoints(String actionPlanId) throws IOException, AuthenticationException {
     final String url = String.format("/actionplans/%s/jobs", actionPlanId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
   /**
@@ -64,7 +79,7 @@ public class ActionPlanJobResponseAware {
   public void invokeExecuteActionPlanJobEndpoints(String actionPlanId, Properties properties)
       throws IOException, AuthenticationException {
     final String url = String.format("/actionplans/%s/jobs", actionPlanId);
-    responseAware.invokeJsonPost(world.getActionServiceEndpoint(url), properties);
+    responseAware.invokeJsonPost(world.getUrl(url, "actionsvc"), properties);
   }
 
 }

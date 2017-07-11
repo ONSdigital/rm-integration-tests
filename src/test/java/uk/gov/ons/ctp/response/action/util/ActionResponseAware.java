@@ -7,6 +7,7 @@ import org.apache.http.auth.AuthenticationException;
 import org.apache.http.entity.ContentType;
 
 import uk.gov.ons.ctp.util.HTTPResponseAware;
+import uk.gov.ons.ctp.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -16,6 +17,7 @@ public class ActionResponseAware {
 
   private World world;
   private HTTPResponseAware responseAware;
+  private PostgresResponseAware postgresResponseAware;
 
   /**
    * Constructor - also gets singleton of http request runner
@@ -41,7 +43,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsEndpoint(String filter) throws IOException, AuthenticationException {
     final String url = String.format("/actions%s", filter);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
 //  public String invokeActionsEndpointReturnCaseId(String filter) throws IOException, AuthenticationException {
@@ -70,9 +72,9 @@ public class ActionResponseAware {
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePostActionsEndpoint(Properties properties) throws IOException, AuthenticationException {
-    final String url = "/actions";
-    responseAware.invokeJsonPost(world.getActionServiceEndpoint(url), properties);
+  public void invokePostActionsEndpoint(Properties properties) throws IOException, AuthenticationException {  
+	final String url = "/actions" ;
+    responseAware.invokeJsonPost(world.getUrl(url, "actionsvc"), properties);
   }
 
   /**
@@ -83,10 +85,16 @@ public class ActionResponseAware {
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePutActionsActionIdFeedbackEndpoint(String actionId, Properties properties)
+  public void invokePutActionsActionIdFeedbackEndpoint(Properties properties, Boolean action)
       throws IOException, AuthenticationException {
+	  String actionId = null ;
+	if (!action){
+      actionId = world.getIdFromDB("id", "actionsvc.action", "1", postgresResponseAware);
+	  properties.put("id",actionId);
+	}
+	
     final String url = String.format("/actions/%s/feedback", actionId);
-    responseAware.invokeJsonPut(world.getActionServiceEndpoint(url), properties);
+    responseAware.invokeJsonPut(world.getUrl(url,"actionsvc"), properties);
   }
 
   /**
@@ -98,7 +106,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsIdEndpoint(String actionId) throws IOException, AuthenticationException {
     final String url = String.format("/actions/%s", actionId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
   /**
@@ -124,7 +132,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsCaseIdEndpoint(String caseId) throws IOException, AuthenticationException {
     final String url = String.format("/actions/case/%s", caseId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
   /**

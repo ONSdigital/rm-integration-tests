@@ -37,7 +37,7 @@ public class ActionPlanResponseAware {
    */
   public void invokeActionPlansEndpoint() throws IOException, AuthenticationException {
     final String url = "/actionplans";
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
   /**
@@ -61,7 +61,7 @@ public class ActionPlanResponseAware {
    */
   public void invokeActionPlanIdEndpoint(String actionPlanId) throws IOException, AuthenticationException {
     final String url = String.format("/actionplans/%s", actionPlanId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
   /**
@@ -75,18 +75,6 @@ public class ActionPlanResponseAware {
   public void invokePutActionPlanIdEndpoint(String actionPlanId, Properties properties)
       throws IOException, AuthenticationException {
     final String url = String.format("/actionplans/%s", actionPlanId);
-    responseAware.invokeJsonPut(world.getActionServiceEndpoint(url), properties);
-  }
-
-  /**
-   * @actionplan Service - /actionplans/{actionPlanId}/rules get endpoints.
-   *
-   * @param actionPlanId action plan id
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeActionPlanRuleEndpoint(String actionPlanId) throws IOException, AuthenticationException {
-    final String url = String.format("/actionplans/%s/rules", actionPlanId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+    responseAware.invokeJsonPut(world.getUrl(url,"actionsvc"), properties);
   }
 }
