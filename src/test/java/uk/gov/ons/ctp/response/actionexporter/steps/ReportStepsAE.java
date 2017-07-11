@@ -117,7 +117,7 @@ public class ReportStepsAE {
   }
 
   /**
-   * Test get request for /actionrequests/{actionId} for actionexporter
+   * Test get request for /templates/{templateName} for actionexporter
    *
    * @param templateName the name of the template to be retrieved
    * @throws Throwable pass the exception
@@ -129,7 +129,7 @@ public class ReportStepsAE {
   }
 
   /**
-   * Test post request for /actionplans/{actionPlanId}/jobs
+   * Test post request for /templates/{templateName}
    *
    * @param postValues values to be posted using JSON
    * @throws Throwable pass the exception
@@ -147,17 +147,15 @@ public class ReportStepsAE {
     responseAware.invokeTemplateEndpoint(postValues.get(0), multipartFile);
   }
 
-  //TODO: TEMPLATE MAPPING STARTS HERE
-
   /**
    * Test get request for /templatemappings for actionexporter
    *
    * @throws Throwable pass the exception
    */
-  @When("^I make the GET call to the actionexporter template mappings endpoint for all template mappings$")
-  public void I_make_the_GET_call_to_the_actionexporter_template_mappings_endpoint_for_all_template_mappings()
+  @When("^I make the GET call to the actionexporter template mapping endpoint for all template mappings$")
+  public void I_make_the_GET_call_to_the_actionexporter_template_mapping_endpoint_for_all_template_mappings()
           throws Throwable {
-    responseAware.invokeActionExporterAllTemplateMappingsEndpoint();
+    responseAware.invokeActionExporterAllTemplateMappingEndpoint();
   }
 
   /**
@@ -166,21 +164,19 @@ public class ReportStepsAE {
    * @param actionType the action type of the template to be retrieved
    * @throws Throwable pass the exception
    */
-  @When("^I make the GET call to the actionexporter template mappings endpoint for the action type \"(.*?)\"$")
-  public void I_make_the_GET_call_to_the_actionexporter_template_mappings_endpoint_for_the_action_type(String actionType)
+  @When("^I make the GET call to the actionexporter template mapping endpoint for the action type \"(.*?)\"$")
+  public void I_make_the_GET_call_to_the_actionexporter_template_mapping_endpoint_for_the_action_type(String actionType)
           throws Throwable {
-    responseAware.invokeActionExporterTemplateMappingsEndpoint(actionType);
+    responseAware.invokeActionExporterTemplateMappingEndpoint(actionType);
   }
 
   /**
-   * Test post request for /actionplans/{actionPlanId}/jobs
+   * Test post request for /templatemappings
    *
-   * @param postValues values to be posted using JSON
    * @throws Throwable pass the exception
    */
-  @When("^I make the POST call to the actionexporter template mappings endpoint$")
-  public void i_make_the_POST_call_to_the_actionexporter_template_mappings_endpoint(
-          List<String> postValues) throws Throwable {
+  @When("^I make the POST call to the actionexporter template mapping endpoint$")
+  public void i_make_the_POST_call_to_the_actionexporter_template_mapping_endpoint() throws Throwable {
 
     File file = new File(world.getProperty(FTL_LOCATION_KEY) + "action_exporter_template_mappings_test.ftl");
 

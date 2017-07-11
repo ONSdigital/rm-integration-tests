@@ -12,7 +12,7 @@
 # Feature Tag:  @actionexporter
 #               @actionExporterTemplateMapping
 
-@actionExporter @actionExporterTemplate
+@actionExporter @actionExporterTemplateMapping
 Feature: action exporter template end points
 
 	Scenario: Reset actionexporter database to pre test condition
@@ -21,26 +21,25 @@ Feature: action exporter template end points
 
 	Scenario: Get all template mappings
 		Given after a delay of 30 seconds
-		When I make the GET call to the actionexporter template mappings endpoint for all template mappings
+		When I make the GET call to the actionexporter template mapping endpoint for all template mappings
 		Then the response status should be 200
 		And the response should contain a JSON array of size 2
 		And one element of the JSON array must be "actionType":"BRESEL",
         And one element of the JSON array must be "template":"initialPrint",
 		And one element of the JSON array must be "file":"BRESEL",
-		And one element of the JSON array must be "dateModified":1499696370711
+		And one element of the JSON array must be "dateModified":
 
 	Scenario: Get the template mapping information for the specified action type
 		Given after a delay of 30 seconds
-		When I make the GET call to the actionexporter template mappings endpoint for the action type "BRESEL"
+		When I make the GET call to the actionexporter template mapping endpoint for the action type "BRESEL"
 		Then the response status should be 200
 		And the response should contain the field "actionType"
 		And the response should contain the field "template"
 		And the response should contain the field "file"
         And the response should contain the field "dateModified"
 
-   # POST /templates/{templateName}
+   # POST /templatemappings
    # 201
     Scenario: Post request to actionexporter to store a specific template mapping
-        When I make the POST call to the actionexporter template mappings endpoint
-          | CucumberTest |
+        When I make the POST call to the actionexporter template mapping endpoint
         Then  the response status should be 201

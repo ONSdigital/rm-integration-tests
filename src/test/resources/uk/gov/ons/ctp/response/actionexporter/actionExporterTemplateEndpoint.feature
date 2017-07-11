@@ -23,7 +23,7 @@ Feature: action exporter template end points
 		Given after a delay of 30 seconds
 		When I make the GET call to the actionexporter template endpoint for all templates
 		Then the response status should be 200
-		And the response should contain a JSON array of size 2
+		And the response should contain a JSON array of size 1
 		And one element of the JSON array must be {"name":"initialPrint"
         And one element of the JSON array must be ,"dateModified":
 		And one element of the JSON array must be ,"content":"<#list actionRequests as actionRequest>\n  ${(actionRequest.address.sampleUnitRef)!}|${actionRequest.iac?trim}|${(actionRequest.contact.forename?trim)!}|${(actionRequest.contact.emailaddress)!}\n  <\/#list>"

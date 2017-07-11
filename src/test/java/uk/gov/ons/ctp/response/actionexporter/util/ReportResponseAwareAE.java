@@ -117,20 +117,6 @@ public class ReportResponseAwareAE {
   }
 
   /**
-   * @actionplanjob Service - /actionplans/{actionPlanId}/jobs post endpoints.
-   *
-   * @param actionPlanId action plan id
-   * @param properties for JSON payload
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeExecuteActionPlanJobEndpoints(String actionPlanId, Properties properties)
-          throws IOException, AuthenticationException {
-    final String url = String.format("/actionplans/%s/jobs", actionPlanId);
-    responseAware.invokeJsonPost(world.getActionServiceEndpoint(url), properties);
-  }
-
-  /**
    * /actionrequests/{actionId} get endpoints for actionexporter
    *
    * @param templateName the templateName to be checked for
@@ -161,7 +147,7 @@ public class ReportResponseAwareAE {
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeActionExporterAllTemplateMappingsEndpoint() throws IOException, AuthenticationException {
+  public void invokeActionExporterAllTemplateMappingEndpoint() throws IOException, AuthenticationException {
     responseAware.invokeGet(world.getUrl("/templatemappings", "actionexp"));
   }
 
@@ -172,7 +158,7 @@ public class ReportResponseAwareAE {
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeActionExporterTemplateMappingsEndpoint(String actionType) throws IOException, AuthenticationException {
+  public void invokeActionExporterTemplateMappingEndpoint(String actionType) throws IOException, AuthenticationException {
     final String url = String.format("/templatemappings/%s", actionType);
     responseAware.invokeGet(world.getUrl(url, "actionexp"));
   }
