@@ -9,9 +9,9 @@
 #                                     Get the template mapping information for the specified action type
 #                                     Post request to actionexporter to store a specific template mapping
 #
-# Feature Tag:  @actionexporter
+# Feature Tag:  @actionExporter
 #               @actionExporterTemplateMapping
-
+#
 @actionExporter @actionExporterTemplateMapping
 Feature: action exporter template end points
 
@@ -38,8 +38,8 @@ Feature: action exporter template end points
 		And the response should contain the field "file"
         And the response should contain the field "dateModified"
 
-   # POST /templatemappings
-   # 201
-    Scenario: Post request to actionexporter to store a specific template mapping
-        When I make the POST call to the actionexporter template mapping endpoint
-        Then  the response status should be 201
+  # POST /templatemappings
+  # 201
+  Scenario: Post request to actionexporter to store a specific template mapping
+    When I make the POST call to the actionexporter template mapping endpoint
+    Then  the response status should be 201
