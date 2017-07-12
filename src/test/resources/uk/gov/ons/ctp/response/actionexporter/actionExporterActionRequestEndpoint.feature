@@ -14,7 +14,7 @@ Feature: action exporter end points
 	Scenario: Reset actionexporter database to pre test condition
 		When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
 		Then the actionexporter database has been reset
-    And for the "actionexporter" run the "actionexporterseed.sql" postgres DB script
+    	And for the "actionexporter" run the "actionexporterseed.sql" postgres DB script
 
 	Scenario: Get the action requests information for all action requests
 		Given after a delay of 30 seconds
