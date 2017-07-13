@@ -1,5 +1,6 @@
 package uk.gov.ons.ctp.response.actionexporter.steps;
 
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.mock.web.MockMultipartFile;
@@ -97,21 +98,18 @@ public class ActionExporterSteps {
   /**
    * Test post request for /templates/{templateName}
    *
-   * @param postValues values to be posted using JSON
+   * @param template name of template to post
    * @throws Throwable pass the exception
    */
-  @When("^I make the POST call to the actionexporter template endpoint for template with specific name$")
+  @Given("^I make the POST call to the actionexporter template endpoint for template with specific name \"(.*?)\"$")
   public void i_make_the_POST_call_to_the_actionexporter_template_endpoint_for_template_with_specific_name(
-          List<String> postValues) throws Throwable {
-
-    File file = new File(world.getProperty(FTL_LOCATION_KEY) + "action_exporter_template_test.ftl");
-
+        String template) throws Throwable {
+    File file = new File(world.getProperty(FTL_LOCATION_KEY) + template + ".ftl");
     FileInputStream input = new FileInputStream(file);
+    MultipartFile multipartFile = new MockMultipartFile(template, file.getName(),
+        "text/plain", IOUtils.toByteArray(input));
 
-    MultipartFile multipartFile = new MockMultipartFile("action_exporter_template_test", file.getName(),
-            "text/plain", IOUtils.toByteArray(input));
-
-    responseAware.invokePostActionExporterTemplateEndpoint(postValues.get(0), multipartFile);
+    responseAware.invokePostActionExporterTemplateEndpoint(template, multipartFile);
   }
 
   /**
@@ -144,13 +142,10 @@ public class ActionExporterSteps {
    */
   @When("^I make the POST call to the actionexporter template mapping endpoint$")
   public void i_make_the_POST_call_to_the_actionexporter_template_mapping_endpoint() throws Throwable {
-
     File file = new File(world.getProperty(FTL_LOCATION_KEY) + "action_exporter_template_mappings_test.ftl");
-
     FileInputStream input = new FileInputStream(file);
-
     MultipartFile multipartFile = new MockMultipartFile("action_exporter_template_mappings_test", file.getName(),
-            "text/plain", IOUtils.toByteArray(input));
+        "text/plain", IOUtils.toByteArray(input));
 
     responseAware.invokePostActionExporterTemplateMappingsEndpoint(multipartFile);
   }

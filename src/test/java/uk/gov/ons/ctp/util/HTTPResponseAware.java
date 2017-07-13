@@ -236,7 +236,7 @@ public class HTTPResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeMultipartFilePost(final String endpoint, MultipartFile file) throws IOException,
-          AuthenticationException {
+        AuthenticationException {
     final HttpPost post = new HttpPost(URI.create(endpoint));
 
     MultipartEntityBuilder builder = MultipartEntityBuilder.create();
