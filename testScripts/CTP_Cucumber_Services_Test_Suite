@@ -17,4 +17,7 @@ echo Case Service
 ./CTP_Cucumber_Casesvc $1
 
 echo Action Service
-./CTP_Cucumber_Actionsvc $1
+echo ./CTP_Cucumber_Actionsvc $1
+
+echo Action Exporter
+./CTP_Cucumber_ActionExporter $1

@@ -1,5 +1,5 @@
-echo Endpoint tests for the case service - details are in the swagger spec https://github.com/ONSdigital/response-management-service/blob/master/actionexportersvc/swagger.yml
-echo Running @actionexporter ...
+echo Endpoint tests for the action exporter - details are in the swagger spec https://github.com/ONSdigital/response-management-service/blob/master/actionexportersvc/swagger.yml
+echo Running @actionExporter ...
 
 cd ../
-mvn clean install -Dcucumber.options="--tags @actionexporter" -Dcuc.env=$1
+mvn clean install -Dcucumber.options="--tags @actionExporter" -Dcuc.env=$1

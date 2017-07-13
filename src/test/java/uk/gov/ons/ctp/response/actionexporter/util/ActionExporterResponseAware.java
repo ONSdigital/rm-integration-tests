@@ -1,18 +1,29 @@
 package uk.gov.ons.ctp.response.actionexporter.util;
 
 import org.apache.http.auth.AuthenticationException;
-import org.apache.http.entity.ContentType;
+import org.springframework.web.multipart.MultipartFile;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * Created by Stephen Goddard on 03/05/16.
  */
 public class ActionExporterResponseAware {
 
+  private static final String GET_ACTION_REQUESTS_ALL_URL = "/actionrequests";
+  private static final String GET_ACTION_REQUESTS_URL = "/actionrequests/%s";
+  private static final String POST_ACTION_REQUESTS_URL = "/actionrequests/%s";
+  private static final String GET_TEMPLATES_ALL_URL = "/templates";
+  private static final String GET_TEMPLATES_URL = "/templates/%s";
+  private static final String POST_TEMPLATE_URL = "/templates/%s";
+  private static final String GET_TEMPLATE_MAPPINGS_ALL_URL = "/templatemappings";
+  private static final String GET_TEMPLATE_MAPPINGS_URL = "/templatemappings/%s";
+  private static final String POST_TEMPLATE_MAPPINGS_URL = "/templatemappings";
+  private static final String SERVICE = "actionexp";
   private World world;
   private HTTPResponseAware responseAware;
 
@@ -30,92 +41,111 @@ public class ActionExporterResponseAware {
    *
    * Action Exporter Endpoints.
    */
-
   /**
-   * @action Service - /actions get endpoints.
+   * /actionrequests get endpoints for actionexporter
    *
-   * @param filter optional filter value
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeActionExporterEndpoint(String filter) throws IOException, AuthenticationException {
-    final String url = String.format("/actionrequests%s", filter);
-    responseAware.invokeGet(world.getActionExporterEndpoint(url));
+  public void invokeActionExporterAllActionRequestsEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(GET_ACTION_REQUESTS_ALL_URL, SERVICE));
   }
 
   /**
-   * @action Service - /actions post endpoints.
+   * /actionrequests/{actionId} get endpoints for actionexporter
    *
-   * @param properties values to be posted using JSON
+   * @param actionId the Id to be checked for
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePostActionsEndpoint(Properties properties) throws IOException, AuthenticationException {
-    final String url = "/actions";
-    responseAware.invokeJsonPost(world.getActionServiceEndpoint(url), properties);
+  public void invokeActionExporterEndpoint(UUID actionId) throws IOException, AuthenticationException {
+    final String url = String.format(GET_ACTION_REQUESTS_URL, actionId);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
-   * @action Service - /actions/{actionId}/feedback post endpoints.
-   *
-   * @param actionId for action to have feedback added
-   * @param properties values to be posted using JSON
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokePutActionsActionIdFeedbackEndpoint(String actionId, Properties properties)
-      throws IOException, AuthenticationException {
-    final String url = String.format("/actions/%s/feedback", actionId);
-    responseAware.invokeJsonPut(world.getActionServiceEndpoint(url), properties);
-  }
-
-  /**
-   * @action Service - /actions/{actionId} get endpoints.
+   * /actionrequests/{actionId} post endpoints.
    *
    * @param actionId action id
+   * @param properties for JSON payload
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeActionsIdEndpoint(String actionId) throws IOException, AuthenticationException {
-    final String url = String.format("/actions/%s", actionId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+  public void invokeExecuteActionExporterEndpoints(String actionId, Properties properties)
+          throws IOException, AuthenticationException {
+    final String url = String.format(POST_ACTION_REQUESTS_URL, actionId);
+    responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
   }
 
   /**
-   * @action Service - /actions/{actionId} put endpoints.
+   * /templates get endpoints for actionexporter
    *
-   * @param actionId action id
-   * @param properties values to be posted using JSON
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePutActionsIdEndpoint(String actionId, Properties properties)
-      throws IOException, AuthenticationException {
-    final String url = String.format("/actions/%s", actionId);
-    responseAware.invokeJsonPut(world.getActionServiceEndpoint(url), properties);
+  public void invokeActionExporterTemplatesAllEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(GET_TEMPLATES_ALL_URL, SERVICE));
+  }
+
+
+  /**
+   * /templates/{templateName} get endpoints for actionexporter
+   *
+   * @param templateName the templateName to be checked for
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeActionExporterTemplateEndpoint(String templateName) throws IOException, AuthenticationException {
+    final String url = String.format(GET_TEMPLATES_URL, templateName);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
-   * @action Service - /actions/case/{caseId} get endpoints.
+   * /templates/{templateName} post endpoint.
    *
-   * @param caseId case id
+   * @param templateName template name
+   * @param file to be sent to ActionExporter Template Endpoint
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokeActionsCaseIdEndpoint(String caseId) throws IOException, AuthenticationException {
-    final String url = String.format("/actions/case/%s", caseId);
-    responseAware.invokeGet(world.getActionServiceEndpoint(url));
+  public void invokePostActionExporterTemplateEndpoint(String templateName, MultipartFile file) throws IOException,
+          AuthenticationException {
+    final String url = String.format(POST_TEMPLATE_URL, templateName);
+    responseAware.invokeMultipartFilePost(world.getUrl(url, SERVICE), file);
   }
 
   /**
-   * @action Service - /actions/case/{caseId}/cancel put endpoints.
+   * /templatemappings get endpoint for actionexporter
    *
-   * @param caseId case id
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePutActionsCancelEndpoint(String caseId) throws IOException, AuthenticationException {
-    final String url = String.format("/actions/case/%s/cancel", caseId);
-    responseAware.invokePut(world.getActionServiceEndpoint(url), "", ContentType.APPLICATION_JSON);
+  public void invokeActionExporterTemplateMappingsAllEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(GET_TEMPLATE_MAPPINGS_ALL_URL, SERVICE));
+  }
+
+  /**
+   * /templatemappings/{actionType} get endpoint for actionexporter
+   *
+   * @param actionType the action type to be checked for
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeActionExporterTemplateMappingsEndpoint(String actionType) throws IOException,
+          AuthenticationException {
+    final String url = String.format(GET_TEMPLATE_MAPPINGS_URL, actionType);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
+  }
+
+  /**
+   * /templatemappings post endpoint.
+   *
+   * @param file to be sent to ActionExporter Template Mappings Endpoint
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePostActionExporterTemplateMappingsEndpoint(MultipartFile file) throws IOException,
+          AuthenticationException {
+    responseAware.invokeMultipartFilePost(world.getUrl(POST_TEMPLATE_MAPPINGS_URL, SERVICE), file);
   }
 }

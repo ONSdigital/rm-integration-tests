@@ -155,19 +155,6 @@ public class AbstractPropertyLoader {
     return url.toString();
   }
 
-  public final String getActionExporterEndpoint(final String name) {
-    final StringBuilder url = new StringBuilder();
-    url.append(getProperty("cuc.protocol")).append("://").append(getProperty("cuc.server")).append(":")
-            .append(getProperty("cuc.collect.actionexp.port"));
-    final String ep = getProperty("cuc.endpoint." + name, name);
-    if (!ep.startsWith("/")) {
-      url.append("/");
-    }
-    url.append(ep);
-    System.out.format("For endpoint '%s', constructed URL '%s'.\n", name, url.toString());
-    return url.toString();
-  }
-
   /**
    * Constructs the URL of UI from environment specific components
    * gleaned from property files.
