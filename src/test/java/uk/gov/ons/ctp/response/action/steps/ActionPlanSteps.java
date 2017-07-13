@@ -69,13 +69,15 @@ public class ActionPlanSteps {
    * @param putValues values to be posted using JSON
    * @throws Throwable pass the exception
    */
-  @When("^I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId$")
+  @When("^I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId \"(.*?)\"$")
   public void i_make_the_PUT_call_to_the_actionservice_actionplans_endpoint_for_specified_actionPlanId(
-      List<String> putValues) throws Throwable {
+      String actionPlanId,List<String> putValues) throws Throwable {
     Properties properties = new Properties();
     String description = putValues.get(1);
     String lastRunDateTime = putValues.get(2);
-
+    properties.put("id", actionPlanId);
+    
+    
     if (description != null && description.length() > 0) {
       properties.put("description", description);
     }

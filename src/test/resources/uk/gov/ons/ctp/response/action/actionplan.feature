@@ -54,7 +54,7 @@ Feature: Validating actionPlan requests
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Hotel - England/online/no field"
+		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		
 	# 404
@@ -68,57 +68,57 @@ Feature: Validating actionPlan requests
 
 	# PUT /actionplans/{actionPlanId}
 	# 200
-	
+
     Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Hotel Action Plan - Cucumber Test One |  |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+		| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test One |  |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Hotel Action Plan - Cucumber Test One"
+		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "lastGoodRunDateTime" with a null value
 
 
 
 	# 200
+	@actionPlan1
     Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  |  |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a  | Cucumber Test One |  |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a" 
 		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Hotel Action Plan - Cucumber Test One"
+		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "lastGoodRunDateTime" with a null value
-		And the response should contain the field "lastRunDateTime"
-
+		
 	# 200
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Hotel Action Plan - Cucumber Test Two | |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test Two | |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Hotel Action Plan - Cucumber Test Two"
+		And the response should contain the field "description" with value "Cucumber Test Two"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "lastGoodRunDateTime" with a null value
 
 	# 200 - Reset description to avoid subsequent test failures
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Hotel - England/online/no field |  |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test One|  |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Hotel - England/online/no field"
+		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "lastGoodRunDateTime" with a null value
 
 	# 404
 	
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "00000000-0932-463b-a2a1-b45cb3ffcb2a"
 					| 00000000-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test |  |
 		Then the response status should be 404
 		And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
@@ -132,15 +132,4 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json is incorrect."
 		And the response should contain the field "error.timestamp"
-
-	# GET /actionplans/{actionPlanId}/rules
-	# 200
-	Scenario: Get request to actionplans rules for actionPlanId
-		When I make the GET call to the actionservice actionplans rules endpoint for actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-		Then the response status should be 200
-		And the response should contain a JSON array of size 2
-		And one element of the JSON array must be {"actionPlanId":
-    And one element of the JSON array must be ,"priority":3,"daysOffset":0,"actionTypeName":"BRESEL","name":"BRESEL+0","description":"Enrolment Letter(+0 days)"}
-    And one element of the JSON array must be {"actionPlanId":
-    And one element of the JSON array must be ,"priority":3,"daysOffset":82,"actionTypeName":"BRESERL","name":"BRESERL+82","description":"Enrolment Reminder Letter(+82 days)"}
 
