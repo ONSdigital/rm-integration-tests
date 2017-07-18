@@ -31,7 +31,7 @@
 # Feature Tags: @sendEnrolement
 #
 @sendEnrolment
-Feature: Tests the publish collection exercise
+Feature: Tests the enrolment letter and reminder letters are sent
 
   # Pre Test Set Up
 
@@ -118,7 +118,7 @@ Feature: Tests the publish collection exercise
 
   Scenario: Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BRESEL"
+    When get the contents of the print files where the filename begins "BSNOT"
     And the sftp exit status should be "-1"
     Then each line should start with an iac
     And the contents should contain "||"
