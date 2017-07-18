@@ -44,7 +44,7 @@ Feature: action exporter template end points
 		And the response should contain the field "content"
 		And the response should contain the field "dateModified"
 
-#  # 404 TODO: Commented out as endpoing currently returns empty instead of 404
+#  # 404 TODO: Commented out as endpoing currently returns empty 200 instead of 404
 #  Scenario: Get the template information for the specified template name
 #    Given I make the GET call to the actionexporter template endpoint for the template name "invalidName"
 #    When the response status should be 404

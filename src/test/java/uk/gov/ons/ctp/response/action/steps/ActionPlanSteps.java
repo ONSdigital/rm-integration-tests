@@ -82,7 +82,7 @@ public class ActionPlanSteps {
     if (lastRunDateTime != null && lastRunDateTime.length() > 0) {
       SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
       String strDate = sdfDate.format(new Date());
-      properties.put("lastRunDateTime", strDate);
+      properties.put("lastGoodRunDateTime", strDate);
     }
 
     responseAware.invokePutActionPlanIdEndpoint(putValues.get(0), properties);

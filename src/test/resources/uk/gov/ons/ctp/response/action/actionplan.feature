@@ -1,11 +1,10 @@
 # Author: Stephen Goddard 29/04/2016
 #
 # Keywords Summary : This feature file contains the scenario tests for the action service - actionPlan endpoints - details are in the swagger spec
-# 									 https://github.com/ONSdigital/response-management-service/blob/master/actionsvc-api/swagger.yml
+# 									 https://github.com/ONSdigital/rm-action-service/blob/master/API.md
 #										 Note: Assuption DB has been preloaded with action plan data
 #
 # Feature: List of action plan scenarios: Get action plans
-#																					Post action plans - not implemented
 #																					Get action plans by valid action plan id
 #																					Get action plans by invalid action plan id
 #																					Put action plans by valid action plan id with updated description
@@ -17,10 +16,10 @@
 #																					Get action plan rules by valid action plan id
 #																					Get action plan rules by invalid action plan id
 #
-# Feature Tags: @actionsvc
-#							  @actionplan
+# Feature Tags: @actionSvc
+#							  @actionPlan
 #
-@actionsvc @actionPlan
+@actionSvc @actionPlan
 Feature: Validating actionPlan requests
 
 	# Endpoint Tests -----
@@ -37,24 +36,22 @@ Feature: Validating actionPlan requests
 		And one element of the JSON array must be "createdBy":"SYSTEM"
 		And one element of the JSON array must be "lastGoodRunDateTime":
 		And one element of the JSON array must be {"id":
-        And one element of the JSON array must be "name":"Enrolment"
-        And one element of the JSON array must be "description":
-        And one element of the JSON array must be "createdBy":"SYSTEM"
-        And one element of the JSON array must be "lastGoodRunDateTime":
+    And one element of the JSON array must be "name":"Enrolment"
+    And one element of the JSON array must be "description":
+    And one element of the JSON array must be "createdBy":"SYSTEM"
+    And one element of the JSON array must be "lastGoodRunDateTime":
 
-	# 204
-	# Not tested as action plans already preloaded
+	# 204 Not tested as action plans already preloaded
 
 
 	# GET /actionplans/{actionPlanId}
 	# 200
 	Scenario: Get request to actionplans for actionPlanId
-
 		When I make the GET call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Hotel - England/online/no field"
+		And the response should contain the field "description" with value "BRES"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		
 	# 404
@@ -68,10 +65,10 @@ Feature: Validating actionPlan requests
 
 	# PUT /actionplans/{actionPlanId}
 	# 200
-	
-    Scenario: Put request to actionplans for actionPlanId
+	@put
+  Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Hotel Action Plan - Cucumber Test One |  |
+					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Hotel Action Plan - Cucumber Test One | date |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
@@ -79,10 +76,8 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "lastGoodRunDateTime" with a null value
 
-
-
 	# 200
-    Scenario: Put request to actionplans for actionPlanId
+  Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
 					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  |  |
 		Then the response status should be 200
@@ -116,7 +111,6 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "lastGoodRunDateTime" with a null value
 
 	# 404
-	
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
 					| 00000000-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test |  |
@@ -125,7 +119,6 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "error.timestamp"
 
 	# 400
-
 	Scenario: Put request to actionplans for actionPlanId with invalid input
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "00000000-0932-463b-a2a1-b45cb3ffcb2a" with invalid input
 		Then the response status should be 400
