@@ -29,7 +29,7 @@ Feature: Runs the survey service endpoints
     Given I make the GET call to the survey service endpoint for surveys
     When the response status should be 200
     Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":"cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87","name":"BRES"}
+    And one element of the JSON array must be {"id":"cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87","shortName":"BRES"}
 
   # 204 Not tested as surveys pre loaded
 
@@ -40,7 +40,7 @@ Feature: Runs the survey service endpoints
     Given I make the GET call to the survey service endpoint for survey by id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     When the response status should be 200
     Then the response should contain the field "id" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
-    And the response should contain the field "name" with value "BRES"
+    And the response should contain the field "shortName" with value "BRES"
 
   # 404
   Scenario: Get request to survey service for surveys by invalid id
@@ -55,7 +55,7 @@ Feature: Runs the survey service endpoints
     Given I make the GET call to the survey service endpoint for name "BRES"
     When the response status should be 200
     Then the response should contain the field "id" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
-    And the response should contain the field "name" with value "BRES"
+    And the response should contain the field "shortName" with value "BRES"
     And the response should contain the field "surveyRef" with value "221"
 
   # 404
@@ -71,7 +71,7 @@ Feature: Runs the survey service endpoints
     Given I make the GET call to the survey service endpoint for survey ref "221"
     When the response status should be 200
     Then the response should contain the field "id" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
-    And the response should contain the field "name" with value "BRES"
+    And the response should contain the field "shortName" with value "BRES"
     And the response should contain the field "surveyRef" with value "221"
 
   # 404

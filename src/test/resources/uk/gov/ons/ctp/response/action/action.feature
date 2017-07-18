@@ -1,18 +1,20 @@
 # Author: Stephen Goddard 29/04/2016
 # Keywords Summary : This feature file contains the scenario tests for the action service - action endpoints - details are in the swagger spec
-#										 https://github.com/ONSdigital/response-management-service/blob/master/actionsvc-api/swagger.yml
-#										 Note: Assuption DB has been preloaded with action plan data, samples have been created and actions run
-# Feature: List of action scenarios: Post to run jobs for action plan 1
-#																							Post to run jobs for action plan 2
-#																							Post to run jobs for action plan 3
-#																							Post to run jobs for action plan 3 with invalid json
-#																							Post to run jobs for action plan 101 not found
-#																							Get action plan jobs by action plan job id
-#																							Get action plan jobs by action plan job id not found
-#																							Get action plan jobs by action plan id
-#																							Get action plan jobs by action plan id not found
-# Feature Tags: @postIACHandlersTest
-#							  @actionsvc
+#										 https://github.com/ONSdigital/rm-action-service/blob/master/API.md
+#
+# Feature: List of action scenarios: Get actions with no filters
+#                                    Get actions with action type filter
+#                                    Get actions with status filter
+#                                    Get actions with action type and status filter
+#                                    Get actions with action type and status filter when no actions exist
+#                                    Get actions for case by case id
+#                                    Get actions for case by case id which does not exist
+#                                    Get actions by action id
+#                                    Get actions by action id which does not exist
+#																		 Put action feedback by action id (Commented out as currently unable to generate the conditions to run)
+#																     Put action feedback by action id with invalid input
+#
+# Feature Tags: @actionSvc
 #							  @action
 #
 @actionSvc @action
@@ -57,7 +59,7 @@ Feature: Validating action requests
 
   # Pre Test Case Service Environment Set Up -----
   Scenario: Test casesvc case DB state
-    Given after a delay of 200 seconds
+    Given after a delay of 210 seconds
     When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
 
@@ -72,7 +74,7 @@ Feature: Validating action requests
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 500   |
-    When after a delay of 60 seconds
+    When after a delay of 90 seconds
     Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
     When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Invitation Letter'"
 
@@ -84,12 +86,6 @@ Feature: Validating action requests
   Scenario: Get request to actionswith no filters
     Given I make the GET call to the actionservice actions endpoint
         |  |  |
-    Then the response status should be 200
-#    And the response should contain a JSON array of size 500
-  
-  Scenario: Get request to actions filtered by actionType
-    Given I make the GET call to the actionservice actions endpoint
-        | BRESEL |  |
     When the response status should be 200
     Then the response should contain a JSON array of size 500
     # Not complete record checked due to dynamic values which change for each test
@@ -97,7 +93,7 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BRESEL"
+    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -106,7 +102,27 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"state":"COMPLETED"
     And one element of the JSON array must be ,"updatedDateTime":
 
+  # 200
+  Scenario: Get request to actions filtered by actionType
+    Given I make the GET call to the actionservice actions endpoint
+        | BSNOT |  |
+    When the response status should be 200
+    Then the response should contain a JSON array of size 500
+    # Not complete record checked due to dynamic values which change for each test
+    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be ,"caseId":
+    And one element of the JSON array must be ,"actionPlanId":
+    And one element of the JSON array must be ,"actionRuleId":
+    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    And one element of the JSON array must be ,"createdBy":"SYSTEM"
+    And one element of the JSON array must be ,"manuallyCreated":false
+    And one element of the JSON array must be ,"situation":
+    And one element of the JSON array must be ,"priority":3
+    And one element of the JSON array must be ,"createdDateTime":
+    And one element of the JSON array must be ,"state":"COMPLETED"
+    And one element of the JSON array must be ,"updatedDateTime":
 
+  # 200
   Scenario: Get request to actions filtered by status
     Given I make the GET call to the actionservice actions endpoint
         |  | COMPLETED |
@@ -117,7 +133,7 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BRESEL"
+    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -126,9 +142,10 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"state":"COMPLETED"
     And one element of the JSON array must be ,"updatedDateTime":
 
+  # 200
   Scenario: Get request to actions filtered by actionType and status
     Given I make the GET call to the actionservice actions endpoint
-        | BRESEL | COMPLETED |
+        | BSNOT | COMPLETED |
     When the response status should be 200
     Then the response should contain a JSON array of size 500
     # Not complete record checked due to dynamic values which change for each test
@@ -136,7 +153,7 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BRESEL"
+    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -145,6 +162,7 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"state":"COMPLETED"
     And one element of the JSON array must be ,"updatedDateTime":
 
+  # 204
   Scenario: Get request to actions filtered by actionType and status when no actions exist
     Given I make the GET call to the actionservice actions endpoint
         | BRESSNE | SUBMITTED |
@@ -160,7 +178,7 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BRESEL"
+    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -184,7 +202,7 @@ Feature: Validating action requests
     And the response should contain the field "caseId"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "actionRuleId" with a null value
-    And the response should contain the field "actionTypeName" with value "BRESEL"
+    And the response should contain the field "actionTypeName" with value "BSNOT"
     And the response should contain the field "createdBy" with value "SYSTEM"
     And the response should contain the field "manuallyCreated" with boolean value "false"
     And the response should contain the field "priority" with an integer value of 3
@@ -202,40 +220,31 @@ Feature: Validating action requests
     And the response should contain the field "error.timestamp"
 
 
-# PUT /actions/{actionId}/feedback
-    # 200
-    #TODO: do this when feed back is required for an event that doesn't go straight to completed
-   # @action1
-   # Scenario: Post request to actions with invalid input
-   #     Given I make the PUT call to the actionservice feedback endpoint
-   #              | e71002ac-3575-47eb-b87f-cd9db92bf9a7  | QGPOL | cucumberTest |
-   #     And the response status should be 201
-        #When I make the PUT call to the actionservice actions feedback endpoint for actionId "12"
-        #Then the response status should be 200
-        #And the response should contain the field "actionId" with an integer value of 12
-        #And the response should contain the field "caseId" with an integer value of 1
-        #And the response should contain the field "actionPlanId" with a null value
-        #And the response should contain the field "actionRuleId" with a null value
-        #And the response should contain the field "actionTypeName" with value "QGPOL"
-        #And the response should contain the field "createdBy" with value "cucumberTest"
-        #And the response should contain the field "manuallyCreated" with boolean value "true"
-        #And the response should contain the field "priority" with an integer value of 3
-        #And the response should contain the field "situation" with value "CI Test Run"
-        #And the response should contain the field "state" with value "COMPLETED"
-        #And the response should contain the field "createdDateTime"
-        #And the response should contain the field "updatedDateTime"
+  # PUT /actions/{actionId}/feedback
+  # 200
+  # TODO: do this when feed back is required for an event that doesn't go straight to completed
+#  Scenario: Put request to actions with invalid input
+#    Given I make the PUT call to the actionservice feedback endpoint
+#      | e71002ac-3575-47eb-b87f-cd9db92bf9a7  | QGPOL | cucumberTest |
+#    And the response status should be 201
+#    When I make the PUT call to the actionservice actions feedback endpoint for actionId "12"
+#    Then the response status should be 200
+#    And the response should contain the field "actionId" with an integer value of 12
+#    And the response should contain the field "caseId" with an integer value of 1
+#    And the response should contain the field "actionPlanId" with a null value
+#    And the response should contain the field "actionRuleId" with a null value
+#    And the response should contain the field "actionTypeName" with value "QGPOL"
+#    And the response should contain the field "createdBy" with value "cucumberTest"
+#    And the response should contain the field "manuallyCreated" with boolean value "true"
+#    And the response should contain the field "priority" with an integer value of 3
+#    And the response should contain the field "situation" with value "CI Test Run"
+#    And the response should contain the field "state" with value "COMPLETED"
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "updatedDateTime"
 
+  # 404 TODO write 404 test
 
-    # 400
-    #@action2
-    #Scenario: Post request to actions with invalid input
-    #    When I make the PUT call to the actionservice actions feedback endpoint with invalid input "1"
-    #    Then the response status should be 400
-
-
-
-
-
-
-
-
+  # 400
+  Scenario: Put request to actions with invalid input
+    When I make the PUT call to the actionservice actions feedback endpoint with invalid input
+    Then the response status should be 400

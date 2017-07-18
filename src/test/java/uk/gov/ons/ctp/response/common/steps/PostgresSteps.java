@@ -88,7 +88,7 @@ public class PostgresSteps {
     checkSequenceInDBEqual("collectionexercise.sampleunitgrouppkseq", 1);
     checkSequenceInDBEqual("collectionexercise.sampleunitpkseq", 1);
 
-    check_records_in_DB_equal_for("collectionexercise.collectionexercise", 1, "statefk = 'INIT'");
+    check_records_in_DB_equal_for("collectionexercise.collectionexercise", 3, "statefk = 'INIT'");
   }
 
   /**

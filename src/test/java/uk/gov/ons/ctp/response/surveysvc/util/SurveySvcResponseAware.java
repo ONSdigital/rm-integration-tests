@@ -13,7 +13,7 @@ import uk.gov.ons.ctp.util.World;
 public class SurveySvcResponseAware {
   private static final String GET_SURVEYS_URL = "/surveys";
   private static final String GET_SURVEY_URL = "/surveys/%s";
-  private static final String GET_NAME_URL = "/surveys/name/%s";
+  private static final String GET_NAME_URL = "/surveys/shortname/%s";
   private static final String GET_SURVEYREF_URL = "/surveys/ref/%s";
   private static final String GET_CLASSIFIERS_URL = "/surveys/%s/classifiertypeselectors";
   private static final String GET_CLASSIFIER_URL = "/surveys/%s/classifiertypeselectors/%s";

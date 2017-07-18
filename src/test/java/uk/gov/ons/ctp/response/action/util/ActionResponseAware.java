@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
-import org.apache.http.entity.ContentType;
 
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.PostgresResponseAware;
@@ -14,6 +13,11 @@ import uk.gov.ons.ctp.util.World;
  * Created by Stephen Goddard on 03/05/16.
  */
 public class ActionResponseAware {
+  private static final String GET_ACTIONS_FILTER_URL = "/actions%s";
+  private static final String PUT_FEEDBACK_FILTER_URL = "/actions/%s/feedback";
+  private static final String GET_ACTIONS_ACTIONID_URL = "/actions/%s";
+  private static final String GET_ACTIONS_CASEID_URL = "/actions/case/%s";
+  private static final String SERVICE = "actionsvc";
 
   private World world;
   private HTTPResponseAware responseAware;
@@ -23,10 +27,12 @@ public class ActionResponseAware {
    * Constructor - also gets singleton of http request runner
    *
    * @param newWorld class with application and environment properties
+   * @param dbResponseAware DB runner
    */
-  public ActionResponseAware(final World newWorld) {
+  public ActionResponseAware(final World newWorld, PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -42,39 +48,8 @@ public class ActionResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeActionsEndpoint(String filter) throws IOException, AuthenticationException {
-    final String url = String.format("/actions%s", filter);
-    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
-  }
-
-//  public String invokeActionsEndpointReturnCaseId(String filter) throws IOException, AuthenticationException {
-//    final String url = String.format("/actions%s", filter);
-//    responseAware.invokeGet(world.getActionServiceEndpoint(url));
-//
-//    String id = getIdFromString(responseAware.getBody(), "caseId\":", 9);
-//
-//    return id;
-//  }
-
-//  private String getIdFromString(String body, String startStr, int offset) {
-//    int start = body.indexOf(startStr);
-//    String tempStr = body.substring(start + offset);
-//
-//    int end = tempStr.indexOf("\"");
-//    String id = tempStr.substring(0, end);
-//
-//    return id;
-//  }
-
-  /**
-   * @action Service - /actions post endpoints.
-   *
-   * @param properties values to be posted using JSON
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokePostActionsEndpoint(Properties properties) throws IOException, AuthenticationException {  
-	final String url = "/actions" ;
-    responseAware.invokeJsonPost(world.getUrl(url, "actionsvc"), properties);
+    final String url = String.format(GET_ACTIONS_FILTER_URL, filter);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
@@ -85,16 +60,15 @@ public class ActionResponseAware {
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePutActionsActionIdFeedbackEndpoint(Properties properties, Boolean action)
+  public void invokePutActionsActionIdFeedbackEndpoint(String actionId, Properties properties)
       throws IOException, AuthenticationException {
-	  String actionId = null ;
-	if (!action){
-      actionId = world.getIdFromDB("id", "actionsvc.action", "1", postgresResponseAware);
-	  properties.put("id",actionId);
-	}
-	
-    final String url = String.format("/actions/%s/feedback", actionId);
-    responseAware.invokeJsonPut(world.getUrl(url,"actionsvc"), properties);
+    if (actionId == null || actionId.length() == 0) {
+      actionId = world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
+      properties.put("id", actionId);
+    }
+
+    final String url = String.format(PUT_FEEDBACK_FILTER_URL, actionId);
+    responseAware.invokeJsonPut(world.getUrl(url, SERVICE), properties);
   }
 
   /**
@@ -105,22 +79,12 @@ public class ActionResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeActionsIdEndpoint(String actionId) throws IOException, AuthenticationException {
-    final String url = String.format("/actions/%s", actionId);
-    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
-  }
+    if (actionId == null || actionId.length() == 0) {
+      actionId = world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
+    }
 
-  /**
-   * @action Service - /actions/{actionId} put endpoints.
-   *
-   * @param actionId action id
-   * @param properties values to be posted using JSON
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokePutActionsIdEndpoint(String actionId, Properties properties)
-      throws IOException, AuthenticationException {
-    final String url = String.format("/actions/%s", actionId);
-    responseAware.invokeJsonPut(world.getActionServiceEndpoint(url), properties);
+    final String url = String.format(GET_ACTIONS_ACTIONID_URL, actionId);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
   /**
@@ -131,19 +95,11 @@ public class ActionResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeActionsCaseIdEndpoint(String caseId) throws IOException, AuthenticationException {
-    final String url = String.format("/actions/case/%s", caseId);
-    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
-  }
+    if (caseId == null || caseId.length() == 0) {
+      caseId = world.getIdFromDB("caseid", "action.action", "1", postgresResponseAware);
+    }
 
-  /**
-   * @action Service - /actions/case/{caseId}/cancel put endpoints.
-   *
-   * @param caseId case id
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokePutActionsCancelEndpoint(String caseId) throws IOException, AuthenticationException {
-    final String url = String.format("/actions/case/%s/cancel", caseId);
-    responseAware.invokePut(world.getActionServiceEndpoint(url), "", ContentType.APPLICATION_JSON);
+    final String url = String.format(GET_ACTIONS_CASEID_URL, caseId);
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 }

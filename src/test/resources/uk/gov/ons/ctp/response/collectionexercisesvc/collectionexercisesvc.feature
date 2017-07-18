@@ -114,12 +114,12 @@ Feature: Runs the Collection Exercise endpoints
     And the response should contain the field "name" with value "BRES_2016"
     And the response should contain the field "actualExecutionDateTime"
     And the response should contain the field "scheduledExecutionDateTime" with a null value
-    And the response should contain the field "scheduledStartDateTime" with a long value of 1504047600000
+    And the response should contain the field "scheduledStartDateTime" with value "2017-08-30T00:00:00.000+0100"
     And the response should contain the field "actualPublishDateTime"
-    And the response should contain the field "periodStartDateTime" with a long value of 1504825200000
-    And the response should contain the field "periodEndDateTime" with a long value of 1504825200000
+    And the response should contain the field "periodStartDateTime" with value "2017-09-08T00:00:00.000+0100"
+    And the response should contain the field "periodEndDateTime" with value "2017-09-08T23:59:59.000+0100"
     And the response should contain the field "scheduledReturnDateTime" with a null value
-    And the response should contain the field "scheduledEndDateTime" with a long value of 4070908800000
+    And the response should contain the field "scheduledEndDateTime" with value "2099-01-01T00:00:00.000+0000"
     And the response should contain the field "executedBy" with a null value
     And the response should contain the field "state" with value "PENDING"
     And the response should contain the field "caseTypes" with one element of the JSON array must be [{"actionPlanId":"e71002ac-3575-47eb-b87f-cd9db92bf9a7","sampleUnitType":"B"}
