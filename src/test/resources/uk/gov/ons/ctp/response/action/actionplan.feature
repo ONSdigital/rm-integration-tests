@@ -65,62 +65,63 @@ Feature: Validating actionPlan requests
 
 	# PUT /actionplans/{actionPlanId}
 	# 200
+	@plantest
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-		| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test One |  |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
+		  | 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test One |  |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
 		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastGoodRunDateTime" with a null value
+		And the response should contain the field "lastGoodRunDateTime"
 
 	# 200
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  |  |
+      | 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  | 2017-12-25T12:00:00.000+0100 |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a" 
 		And the response should contain the field "name" with value "BRES"
 		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastGoodRunDateTime" with a null value
+		And the response should contain the field "lastGoodRunDateTime"
 		
 	# 200
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test Two | |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
+			| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test Two | 2017-12-25T12:00:00.000+0100 |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
 		And the response should contain the field "description" with value "Cucumber Test Two"
 		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastGoodRunDateTime" with a null value
+		And the response should contain the field "lastGoodRunDateTime"
 
-	# 200 - Reset description to avoid subsequent test failures
+  # Reset record to pre test state
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-					| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test One|  |
-		Then the response status should be 200
-		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-		And the response should contain the field "name" with value "BRES"
-		And the response should contain the field "description" with value "Cucumber Test One"
-		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastGoodRunDateTime" with a null value
+    When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
+      | 0009e978-0932-463b-a2a1-b45cb3ffcb2a | BRES |  |
+    Then the response status should be 200
+    And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+    And the response should contain the field "name" with value "BRES"
+    And the response should contain the field "description" with value "BRES"
+    And the response should contain the field "createdBy" with value "SYSTEM"
+    And the response should contain the field "lastGoodRunDateTime"
 
 	# 404
   Scenario: Put request to actionplans for actionPlanId
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "00000000-0932-463b-a2a1-b45cb3ffcb2a"
-					| 00000000-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test |  |
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
+			| 10100000-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test |  |
 		Then the response status should be 404
 		And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+		And the response should contain the field "error.message" with value "ActionPlan not found for id 10100000-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "error.timestamp"
 
 	# 400
 	Scenario: Put request to actionplans for actionPlanId with invalid input
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "00000000-0932-463b-a2a1-b45cb3ffcb2a" with invalid input
+		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "10100000-0932-463b-a2a1-b45cb3ffcb2a" with invalid input
 		Then the response status should be 400
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json is incorrect."
 		And the response should contain the field "error.timestamp"
-

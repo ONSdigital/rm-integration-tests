@@ -1,7 +1,5 @@
 package uk.gov.ons.ctp.response.action.steps;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -35,23 +33,6 @@ public class ActionPlanSteps {
   }
 
   /**
-   * Test post request for /actionplans
-   *
-   * @param postValues values to be posted using JSON
-   * @throws Throwable pass the exception
-   */
-  @When("^I make the POST call to the actionservice actionplans endpoint$")
-  public void i_make_the_POST_call_to_the_actionservice_actionplans_endpoint(List<String> postValues) throws Throwable {
-    Properties properties = new Properties();
-    properties.put("surveyId", postValues.get(0));
-    properties.put("name", postValues.get(1));
-    properties.put("description", postValues.get(2));
-    properties.put("createdBy", postValues.get(3));
-
-    responseAware.invokePostActionPlansEndpoint(properties);
-  }
-
-  /**
    * Test get request for /actionplans/{actionPlanId}
    *
    * @param actionPlanId action plan id
@@ -69,25 +50,22 @@ public class ActionPlanSteps {
    * @param putValues values to be posted using JSON
    * @throws Throwable pass the exception
    */
-  @When("^I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId \"(.*?)\"$")
+  @When("^I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId$")
   public void i_make_the_PUT_call_to_the_actionservice_actionplans_endpoint_for_specified_actionPlanId(
-      String actionPlanId,List<String> putValues) throws Throwable {
+      List<String> putValues) throws Throwable {
     Properties properties = new Properties();
+    properties.put("id", putValues.get(0));
+
     String description = putValues.get(1);
-    String lastRunDateTime = putValues.get(2);
-    properties.put("id", actionPlanId);
-    
-    
     if (description != null && description.length() > 0) {
       properties.put("description", description);
     }
-    if (lastRunDateTime != null && lastRunDateTime.length() > 0) {
-      SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-      String strDate = sdfDate.format(new Date());
-      properties.put("lastGoodRunDateTime", strDate);
+    String dateTime = putValues.get(2);
+    if (dateTime != null && dateTime.length() > 0) {
+      properties.put("lastGoodRunDateTime", dateTime);
     }
 
-    responseAware.invokePutActionPlanIdEndpoint(putValues.get(0), properties);
+    responseAware.invokePutActionPlanIdEndpoint(properties);
   }
 
   /**
@@ -102,8 +80,9 @@ public class ActionPlanSteps {
     i_make_the_PUT_call_to_the_actionservice_actionplans_endpoint_for_specified_actionPlanId_with_invalid_input(
       String actionPlanId) throws Throwable {
     Properties properties = new Properties();
+    properties.put("id", actionPlanId);
     properties.put("input", "invalid input value");
 
-    responseAware.invokePutActionPlanIdEndpoint(actionPlanId, properties);
+    responseAware.invokePutActionPlanIdEndpoint(properties);
   }
 }

@@ -41,18 +41,6 @@ public class ActionPlanResponseAware {
   }
 
   /**
-   * @actionplan Service - /actionplans post endpoints.
-   *
-   * @param properties values to be posted using JSON
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokePostActionPlansEndpoint(Properties properties) throws IOException, AuthenticationException {
-    final String url = "/actionplans";
-    responseAware.invokeJsonPost(world.getActionServiceEndpoint(url), properties);
-  }
-
-  /**
    * @actionplan Service - /actionplans/{actionPlanId} get endpoints.
    *
    * @param actionPlanId action plan id
@@ -67,14 +55,13 @@ public class ActionPlanResponseAware {
   /**
    * @actionplan Service - /actionplans/{actionPlanId} put endpoints.
    *
-   * @param actionPlanId action plan id
    * @param properties values to be posted using JSON
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePutActionPlanIdEndpoint(String actionPlanId, Properties properties)
+  public void invokePutActionPlanIdEndpoint(Properties properties)
       throws IOException, AuthenticationException {
-    final String url = String.format("/actionplans/%s", actionPlanId);
-    responseAware.invokeJsonPut(world.getUrl(url,"actionsvc"), properties);
+    final String url = String.format("/actionplans/%s", properties.get("id"));
+    responseAware.invokeJsonPut(world.getUrl(url, "actionsvc"), properties);
   }
 }
