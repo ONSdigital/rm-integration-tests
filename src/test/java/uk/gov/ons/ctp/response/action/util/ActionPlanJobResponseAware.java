@@ -21,10 +21,12 @@ public class ActionPlanJobResponseAware {
    * Constructor - also gets singleton of http request runner
    *
    * @param newWorld class with application and environment properties
+   * @param dbResponseAware DB runner
    */
-  public ActionPlanJobResponseAware(final World newWorld) {
+  public ActionPlanJobResponseAware(final World newWorld, PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -39,23 +41,13 @@ public class ActionPlanJobResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeActionPlanJobEndpoints(String actionPlanJobId) throws IOException, AuthenticationException {
+    if (actionPlanJobId == null || actionPlanJobId.length() == 0) {
+      actionPlanJobId = world.getIdFromDB("id", "action.actionplanjob", "1", postgresResponseAware);
+    }
     final String url = String.format("/actionplans/jobs/%s", actionPlanJobId);
-    responseAware.invokeGet(world.getUrl(url,"actionsvc"));
+    responseAware.invokeGet(world.getUrl(url, "actionsvc"));
   }
 
-  /**
-   * @actionplanjob Service - /actionplans/jobs/{actionPlanJobId} get endpoints.
-   *
-   * @param actionPlanJobId action plan job id
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeActionPlanJobEndpointsUUID() throws IOException, AuthenticationException {
-    String actionPlanJobId = world.getIdFromDB("id", "actionsvc.actionplanjob", "1", postgresResponseAware);
-    final String url = String.format("/actionplans/jobs/%s", actionPlanJobId);
-    responseAware.invokeGet(world.getUrl(url,"actionsvc"));
-  }
-  
   /**
    * @actionplanjob Service - /actionplans/{actionPlanId}/jobs get endpoints.
    *
@@ -78,6 +70,9 @@ public class ActionPlanJobResponseAware {
    */
   public void invokeExecuteActionPlanJobEndpoints(String actionPlanId, Properties properties)
       throws IOException, AuthenticationException {
+    if (actionPlanId == null || actionPlanId.length() == 0) {
+      actionPlanId = world.getIdFromDB("id", "action.actionplanjob", "1", postgresResponseAware);
+    }
     final String url = String.format("/actionplans/%s/jobs", actionPlanId);
     responseAware.invokeJsonPost(world.getUrl(url, "actionsvc"), properties);
   }

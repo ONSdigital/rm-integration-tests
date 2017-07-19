@@ -2,7 +2,17 @@
 # Keywords Summary : This feature file contains the scenario tests for the action service - action endpoints - details are in the swagger spec
 #										 https://github.com/ONSdigital/rm-action-service/blob/master/API.md
 #
-# Feature: List of action scenarios: Get actions with no filters
+# Feature: List of action scenarios: Pre test DB clean of sample service
+#                                    Pre test load of business sample file into sample service
+#                                    Pre test DB clean of collection exercise
+#                                    Pre test DB clean of case exercise
+#                                    Pre test DB clean of action exercise
+#                                    Pre test DB clean of actionexporter
+#                                    Pre test previous print file clean of actionexporter
+#                                    Generate cases
+#                                    Test case generation
+#                                    Test action case created
+#                                    Get actions with no filters
 #                                    Get actions with action type filter
 #                                    Get actions with status filter
 #                                    Get actions with action type and status filter

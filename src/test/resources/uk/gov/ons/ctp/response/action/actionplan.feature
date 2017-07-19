@@ -2,7 +2,6 @@
 #
 # Keywords Summary : This feature file contains the scenario tests for the action service - actionPlan endpoints - details are in the swagger spec
 # 									 https://github.com/ONSdigital/rm-action-service/blob/master/API.md
-#										 Note: Assuption DB has been preloaded with action plan data
 #
 # Feature: List of action plan scenarios: Get action plans
 #																					Get action plans by valid action plan id
