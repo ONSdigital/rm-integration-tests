@@ -30,7 +30,9 @@ Feature: action exporter template end points
 		Then the response should contain a JSON array of size 1
 		And one element of the JSON array must be {"name":"initialPrint"
     And one element of the JSON array must be ,"dateModified":
-		And one element of the JSON array must be ,"content":"<#list actionRequests as actionRequest>\n  ${(actionRequest.address.sampleUnitRef)!}|${actionRequest.iac?trim}|${(actionRequest.contact.forename?trim)!}|${(actionRequest.contact.emailaddress)!}\n  <\/#list>"
+    And one element of the JSON array must be ,"content":"<#list actionRequests as actionRequest>
+    And one element of the JSON array must be ${(actionRequest.address.sampleUnitRef?trim)!}:${actionRequest.iac?trim}:${(actionRequest.contact.forename?trim)!}:${(actionRequest.contact.emailaddress)!}
+    And one element of the JSON array must be <\/#list>"
 
   # 204 Not tested as templates pre loaded
 
@@ -48,6 +50,9 @@ Feature: action exporter template end points
   Scenario: Get the template information for the specified template name
     Given I make the GET call to the actionexporter template endpoint for the template name "invalidName"
     When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Template not found for name invalidName"
+    And the response should contain the field "error.timestamp"
 
 
   # POST /templates/{templateName}
@@ -55,5 +60,8 @@ Feature: action exporter template end points
   Scenario: Post request to actionexporter to store a specific template
     Given I make the POST call to the actionexporter template endpoint for template with specific name "action_exporter_template_test"
     When  the response status should be 201
+    Then the response should contain the field "name" with value "action_exporter_template_test"
+    And the response should contain the field "content"
+    And the response should contain the field "dateModified"
 
   # TODO Add test for invalid input 400

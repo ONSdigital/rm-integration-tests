@@ -10,7 +10,7 @@
 #
 @actionExporter @actionExporterEndpoints
 Feature: action exporter end points
-
+@test
 	Scenario: Reset actionexporter database to pre test condition
 		When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
 		Then the actionexporter database has been reset
@@ -26,7 +26,8 @@ Feature: action exporter end points
 		When the response status should be 200
 		Then the response should contain a JSON array of size 1
 		And one element of the JSON array must be {"actionId":
-		And one element of the JSON array must be ,"responseRequired":true,"actionPlan":"BRES","actionType":"BRESEL","questionSet":"QUESTONSET","caseId":"7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1","caseRef":"CASEREF","iac":"IAC","dateStored":1492473600000,"dateSent":1492473600000}]
+		And one element of the JSON array must be ,"responseRequired":true,"actionPlan":"BRES","actionType":"BSNOT","questionSet":"QUESTONSET","caseId":"8bc5d41b-0549-40b3-ba76-42f6d4cf3fd1","caseRef":"CASEREF","iac":"IAC","dateStored":
+    And one element of the JSON array must be ,"dateSent": 
 
 
   # GET /actionrequests/{actionid}
@@ -34,21 +35,24 @@ Feature: action exporter end points
 	Scenario: Get the action requests information for the specified action id
 		Given I make the GET call to the actionexporter endpoint for the action id "7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1"
 		When the response status should be 200
-		Then the response should contain the field "actionId"
-		And the response should contain the field "responseRequired"
-		And the response should contain the field "actionPlan"
-		And the response should contain the field "actionType"
-		And the response should contain the field "questionSet"
-		And the response should contain the field "caseId"
-		And the response should contain the field "caseRef"
-		And the response should contain the field "iac"
+		Then the response should contain the field "actionId" with value "7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1"
+		And the response should contain the field "responseRequired" with boolean value "true"
+		And the response should contain the field "actionPlan" with value "BRES"
+		And the response should contain the field "actionType" with value "BSNOT"
+		And the response should contain the field "questionSet" with value "QUESTONSET"
+		And the response should contain the field "caseId" with value "8bc5d41b-0549-40b3-ba76-42f6d4cf3fd1"
+		And the response should contain the field "caseRef" with value "CASEREF"
+		And the response should contain the field "iac" with value "IAC"
 		And the response should contain the field "dateStored"
 		And the response should contain the field "dateSent"
 
-#  # 404 TODO Currently returns 500 for action id not found rather than 404
-#  Scenario: Get the action requests information for the specified action id
-#    Given I make the GET call to the actionexporter endpoint for the action id "7bc5d41b-1019-40b3-ba76-42f6d4cf3fd1"
-#    When the response status should be 404
+  # 404
+  Scenario: Get the action requests information for the specified action id
+    Given I make the GET call to the actionexporter endpoint for the action id "7bc5d41b-1019-40b3-ba76-42f6d4cf3fd1"
+    When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "ActionRequest not found for actionId 7bc5d41b-1019-40b3-ba76-42f6d4cf3fd1"
+    And the response should contain the field "error.timestamp"
 
 
   # POST /actionrequests/{actionId}
@@ -57,13 +61,13 @@ Feature: action exporter end points
     Given I make the POST call to the actionexporter actionrequests endpoint for actionrequest with specific id
       | 7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1 | CucumberTest |
     When the response status should be 201
-    Then the response should contain the field "actionId"
-    And the response should contain the field "responseRequired"
-    And the response should contain the field "actionPlan"
-    And the response should contain the field "actionType"
-    And the response should contain the field "questionSet"
-    And the response should contain the field "caseId"
-    And the response should contain the field "caseRef"
-    And the response should contain the field "iac"
+    Then the response should contain the field "actionId" with value "7bc5d41b-0549-40b3-ba76-42f6d4cf3fd1"
+    And the response should contain the field "responseRequired" with boolean value "true"
+    And the response should contain the field "actionPlan" with value "BRES"
+    And the response should contain the field "actionType" with value "BSNOT"
+    And the response should contain the field "questionSet" with value "QUESTONSET"
+    And the response should contain the field "caseId" with value "8bc5d41b-0549-40b3-ba76-42f6d4cf3fd1"
+    And the response should contain the field "caseRef" with value "CASEREF"
+    And the response should contain the field "iac" with value "IAC"
     And the response should contain the field "dateStored"
     And the response should contain the field "dateSent"
