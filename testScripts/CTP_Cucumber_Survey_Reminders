@@ -1,0 +1,7 @@
+echo This script runs the tests which test send survey reminders letters journeys.
+echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo or https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+8+-+Send+Survey+Reminders
+echo Running @sendSurveyReminders .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @sendSurveyReminders" -Dcuc.env=$1

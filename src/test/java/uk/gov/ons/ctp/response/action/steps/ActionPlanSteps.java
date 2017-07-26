@@ -62,7 +62,7 @@ public class ActionPlanSteps {
     }
     String dateTime = putValues.get(2);
     if (dateTime != null && dateTime.length() > 0) {
-      properties.put("lastGoodRunDateTime", dateTime);
+      properties.put("lastRunDateTime", dateTime);
     }
 
     responseAware.invokePutActionPlanIdEndpoint(properties);

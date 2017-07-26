@@ -120,8 +120,8 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BSNOT"
     And the sftp exit status should be "-1"
-    Then each line should start with an iac
-    And the contents should contain "||"
+    Then each line should contain an iac
+    And the contents should contain "::"
     And the contents should contain 500 lines
 
   # Report not developed so not tested (Journey steps: 3.9)
@@ -154,10 +154,10 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BRESERL"
+    When get the contents of the print files where the filename begins "BSREM"
     And the sftp exit status should be "-1"
-    Then each line should start with an iac
-    And the contents should contain "||"
+    Then each line should contain an iac
+    And the contents should contain "::"
     And the contents should contain 500 lines
 
   # Report not developed so not tested (Journey steps: 4.9)
@@ -190,10 +190,10 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BRESERL"
+    When get the contents of the print files where the filename begins "BSREM"
     And the sftp exit status should be "-1"
-    Then each line should start with an iac
-    And the contents should contain "||"
+    Then each line should contain an iac
+    And the contents should contain "::"
     And the contents should contain 500 lines
 
   # Report not developed so not tested (Journey steps: 4.9)

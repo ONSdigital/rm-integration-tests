@@ -61,7 +61,7 @@ public class ActionPlanResponseAware {
    */
   public void invokePutActionPlanIdEndpoint(Properties properties)
       throws IOException, AuthenticationException {
-    final String url = String.format("/actionplans/%s", properties.get("id"));
+    final String url = String.format("/actionplans/%s", properties.remove("id"));
     responseAware.invokeJsonPut(world.getUrl(url, "actionsvc"), properties);
   }
 }

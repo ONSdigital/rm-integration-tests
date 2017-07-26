@@ -60,13 +60,13 @@ public class ActionExporterSFTPSteps {
    *
    * @throws Throwable pass the exception
    */
-  @When("^each line should start with an iac$")
-  public void each_line_should_start_with_an_iac() throws Throwable {
+  @When("^each line should contain an iac$")
+  public void each_line_should_contain_an_iac() throws Throwable {
     String[] lines = responseAware.getBody().split(System.lineSeparator());
 
     for (String line: lines) {
-      if (line.contains("|")) {
-        String[] fields = line.split("\\|");
+      if (line.contains(":")) {
+        String[] fields = line.split("\\:");
         String iac = fields[1];
         assertTrue("iac not found: " + iac, iac.length() == IAC_SIZE);
       }

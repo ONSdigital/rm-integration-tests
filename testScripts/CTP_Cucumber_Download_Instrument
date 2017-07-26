@@ -1,0 +1,7 @@
+echo This script runs the tests which test download collection instrument journeys.
+echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo or https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+9+-+Download+Collection+Instrument
+echo Running @downloadCollection .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @downloadCollection" -Dcuc.env=$1

@@ -67,7 +67,7 @@ Feature: Validating Case Group requests
 		Then the response should contain the field "collectionExerciseId"
 		And the response should contain the field "id"
 		And the response should contain the field "partyId"
-		And the response should contain the field "sampleUnitRef" with value "50000066526"
+		And the response should contain the field "sampleUnitRef" with value "50000065975"
 		And the response should contain the field "sampleUnitType" with value "B"
 
 	# 404

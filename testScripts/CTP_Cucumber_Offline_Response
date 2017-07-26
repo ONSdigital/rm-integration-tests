@@ -1,0 +1,7 @@
+echo This script runs the tests which test offline response journeys.
+echo The journeys are specified in: https://collaborate2.ons.gov.uk/confluence/pages/viewpage.action?pageId=5190519
+echo or https://collaborate2.ons.gov.uk/confluence/display/SDC/Test+Scenario+11+-+Process+Offline+Response
+echo Running @offlineResponse .....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @offlineResponse" -Dcuc.env=$1
