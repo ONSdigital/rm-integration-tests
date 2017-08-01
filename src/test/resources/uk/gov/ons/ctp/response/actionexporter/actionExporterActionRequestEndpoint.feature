@@ -10,7 +10,7 @@
 #
 @actionExporter @actionExporterEndpoints
 Feature: action exporter end points
-@test
+
 	Scenario: Reset actionexporter database to pre test condition
 		When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
 		Then the actionexporter database has been reset
