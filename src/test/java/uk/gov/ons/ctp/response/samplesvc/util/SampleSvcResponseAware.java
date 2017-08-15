@@ -13,6 +13,7 @@ import uk.gov.ons.ctp.util.World;
  */
 public class SampleSvcResponseAware {
   private static final String POST_URL = "/samples/sampleunitrequests";
+  private static final String INFO_URL = "/info";
   private static final String SERVICE = "samplesvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -36,5 +37,14 @@ public class SampleSvcResponseAware {
    */
   public void invokePostEndpoint(Properties properties) throws IOException, AuthenticationException {
     responseAware.invokeJsonPost(world.getUrl(POST_URL, SERVICE), properties);
+  }
+
+  /**
+   * Test post request for /info response
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 }

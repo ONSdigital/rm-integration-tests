@@ -16,6 +16,7 @@ public class IacsvcResponseAware {
   private static final String POST_IAC_URL = "/iacs";
   private static final String GET_IAC_URL = "/iacs/%s";
   private static final String PUT_IAC_URL = "/iacs/%s";
+  private static final String INFO_URL = "/info";
   private static final String SERVICE = "iacsvc";
 
   private World world;
@@ -83,5 +84,14 @@ public class IacsvcResponseAware {
     responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
         world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeJsonPut(world.getUrl(url, SERVICE), properties);
+  }
+
+  /**
+   * Test post request for /info response
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 }

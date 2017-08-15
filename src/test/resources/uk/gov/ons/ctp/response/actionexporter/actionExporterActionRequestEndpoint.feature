@@ -71,3 +71,12 @@ Feature: action exporter end points
     And the response should contain the field "iac" with value "IAC"
     And the response should contain the field "dateStored"
     And the response should contain the field "dateSent"
+    
+  # INFO /info
+  # 200
+  @sampleEndpointsInfo
+  Scenario: Info request to action service for current verison number
+    Given I make the call to the actionexporter endpoint for info
+    When the response status should be 200
+    Then the response should contain the field "name" with value "actionexportersvc"
+

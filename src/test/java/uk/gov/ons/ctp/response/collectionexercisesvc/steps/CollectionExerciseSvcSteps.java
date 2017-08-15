@@ -56,4 +56,13 @@ public class CollectionExerciseSvcSteps {
     responseAware.invokeGetCollectionExerciseId(exerciseId);
   }
 
+  /**
+   * Test post request for /info
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the call to the collection exercise endpoint for info")
+  public void i_make_the_call_to_the_sample_service_endpoint_for_info() throws Throwable {
+    responseAware.invokeInfoEndpoint();
+  }
+
 }

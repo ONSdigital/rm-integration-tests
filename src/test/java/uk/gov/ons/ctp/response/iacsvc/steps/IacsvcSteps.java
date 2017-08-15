@@ -2,6 +2,7 @@ package uk.gov.ons.ctp.response.iacsvc.steps;
 
 import java.util.Properties;
 
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.iacsvc.util.IacsvcResponseAware;
@@ -100,4 +101,14 @@ public class IacsvcSteps {
 
     responseAware.invokePutIacEndpoint(null, properties);
   }
+
+  /**
+   * Test post request for /info
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the call to the IAC service endpoint for info")
+  public void i_make_the_call_to_the_iacsvc_endpoint_for_info() throws Throwable {
+    responseAware.invokeInfoEndpoint();
+  }
+
 }

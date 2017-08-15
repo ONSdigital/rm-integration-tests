@@ -126,4 +126,11 @@ Feature: Validating iacsvc requests
 		Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json fails validation."
 		And the response should contain the field "error.timestamp"
+		
+  # INFO /info
+  # 200
+  Scenario: Info request to sample service for current verison number
+    Given I make the call to the IAC service endpoint for info
+    When the response status should be 200
+    Then the response should contain the field "name" with value "iacsvc"
   

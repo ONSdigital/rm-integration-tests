@@ -17,6 +17,7 @@ public class ActionResponseAware {
   private static final String PUT_FEEDBACK_FILTER_URL = "/actions/%s/feedback";
   private static final String GET_ACTIONS_ACTIONID_URL = "/actions/%s";
   private static final String GET_ACTIONS_CASEID_URL = "/actions/case/%s";
+  private static final String INFO_URL = "/info";
   private static final String SERVICE = "actionsvc";
 
   private World world;
@@ -101,5 +102,14 @@ public class ActionResponseAware {
 
     final String url = String.format(GET_ACTIONS_CASEID_URL, caseId);
     responseAware.invokeGet(world.getUrl(url, "actionsvc"));
+  }
+
+  /**
+   * Test post request for /info response
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 }

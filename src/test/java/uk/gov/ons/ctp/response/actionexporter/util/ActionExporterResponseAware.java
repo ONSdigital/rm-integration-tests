@@ -23,6 +23,7 @@ public class ActionExporterResponseAware {
   private static final String GET_TEMPLATE_MAPPINGS_ALL_URL = "/templatemappings";
   private static final String GET_TEMPLATE_MAPPINGS_URL = "/templatemappings/%s";
   private static final String POST_TEMPLATE_MAPPINGS_URL = "/templatemappings";
+  private static final String INFO_URL = "/info";
   private static final String SERVICE = "actionexp";
   private World world;
   private HTTPResponseAware responseAware;
@@ -147,5 +148,14 @@ public class ActionExporterResponseAware {
   public void invokePostActionExporterTemplateMappingsEndpoint(MultipartFile file) throws IOException,
           AuthenticationException {
     responseAware.invokeMultipartFilePost(world.getUrl(POST_TEMPLATE_MAPPINGS_URL, SERVICE), file);
+  }
+
+  /**
+   * Test post request for /info response
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 }

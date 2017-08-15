@@ -258,3 +258,10 @@ Feature: Validating action requests
   Scenario: Put request to actions with invalid input
     When I make the PUT call to the actionservice actions feedback endpoint with invalid input
     Then the response status should be 400
+  
+  # INFO /info
+  # 200
+  Scenario: Info request to action service for current verison number
+    Given I make the call to the actionservice endpoint for info
+    When the response status should be 200
+    Then the response should contain the field "name" with value "actionsvc"
