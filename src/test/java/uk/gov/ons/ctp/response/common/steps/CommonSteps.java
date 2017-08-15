@@ -116,6 +116,17 @@ public class CommonSteps {
   }
 
   /**
+   * Test response should contain the field with any potential value including null from feature
+   *
+   * @param field from scenario in feature
+   * @throws Throwable pass the exception
+   */
+  @Then("^the response should contain the field \"(.*?)\" with or without a null value$")
+  public void the_response_should_contain_the_field_with_or_without_a_null_value(String field) throws Throwable {
+    assertTrue("Field not found", responseAware.getBody().contains(field));
+  }
+
+  /**
    * Test response should contain the field with regex from feature
    *
    * @param field from scenario in feature

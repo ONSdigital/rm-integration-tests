@@ -75,8 +75,3 @@ Feature: Runs the sample service endpoints
     Given I make the call to the sample service endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "samplesvc"
-    
-
-
-
-

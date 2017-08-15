@@ -114,10 +114,10 @@ Feature: Runs the Collection Exercise endpoints
     And the response should contain the field "id" with value "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     And the response should contain the field "surveyId" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response should contain the field "name" with value "BRES_2016"
-    And the response should contain the field "actualExecutionDateTime"
+    And the response should contain the field "actualExecutionDateTime" with or without a null value
     And the response should contain the field "scheduledExecutionDateTime" with a null value
     And the response should contain the field "scheduledStartDateTime" with value "2017-08-30T00:00:00.000+0100"
-    And the response should contain the field "actualPublishDateTime"
+    And the response should contain the field "actualPublishDateTime" with or without a null value
     And the response should contain the field "periodStartDateTime" with value "2017-09-08T00:00:00.000+0100"
     And the response should contain the field "periodEndDateTime" with value "2017-09-08T23:59:59.000+0100"
     And the response should contain the field "scheduledReturnDateTime" with a null value

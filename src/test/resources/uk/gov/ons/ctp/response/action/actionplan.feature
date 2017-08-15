@@ -64,7 +64,6 @@ Feature: Validating actionPlan requests
 
 	# PUT /actionplans/{actionPlanId}
 	# 200
-	@test
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
 		  | 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test One |  |
@@ -73,10 +72,9 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "name" with value "BRES"
 		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastRunDateTime"
+		And the response should contain the field "lastRunDateTime" with or without a null value
 
 	# 200
-	@test
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
       | 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  | 2017-12-25T12:00:00.000+0100 |
@@ -85,7 +83,7 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "name" with value "BRES"
 		And the response should contain the field "description" with value "Cucumber Test One"
 		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastRunDateTime"
+		And the response should contain the field "lastRunDateTime" with or without a null value
 		
 	# 200
   Scenario: Put request to actionplans for actionPlanId
@@ -96,7 +94,7 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "name" with value "BRES"
 		And the response should contain the field "description" with value "Cucumber Test Two"
 		And the response should contain the field "createdBy" with value "SYSTEM"
-		And the response should contain the field "lastRunDateTime"
+		And the response should contain the field "lastRunDateTime" with or without a null value
 
   # Reset record to pre test state
   Scenario: Put request to actionplans for actionPlanId
@@ -107,7 +105,7 @@ Feature: Validating actionPlan requests
     And the response should contain the field "name" with value "BRES"
     And the response should contain the field "description" with value "BRES"
     And the response should contain the field "createdBy" with value "SYSTEM"
-    And the response should contain the field "lastRunDateTime"
+    And the response should contain the field "lastRunDateTime" with or without a null value
 
 	# 404
   Scenario: Put request to actionplans for actionPlanId

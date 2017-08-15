@@ -8,7 +8,9 @@
 #
 # Feature Tag: @actionExporter
 #
-@actionExporter @actionExporterEndpoints
+# REMOVE AS NO LONGER AS ENDPOINTS HAVE BEEN REMOVED
+#
+@actionExporterREMOVE @actionExporterEndpoints
 Feature: action exporter end points
 
 	Scenario: Reset actionexporter database to pre test condition
