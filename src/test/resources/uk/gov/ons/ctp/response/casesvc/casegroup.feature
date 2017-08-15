@@ -37,7 +37,7 @@ Feature: Validating Case Group requests
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 50 seconds
+    And after a delay of 80 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -52,9 +52,9 @@ Feature: Validating Case Group requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state (Journey steps: 2.3)
-    Given after a delay of 210 seconds
-    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
-    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
+    Given after a delay of 270 seconds
+    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
 
 	# Endpoint Tests -----

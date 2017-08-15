@@ -59,7 +59,7 @@ Feature: Validating cases requests
     And the sftp exit status should be "-1" 
     When for the "business" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 50 seconds 
+    And after a delay of 80 seconds 
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
@@ -75,9 +75,9 @@ Feature: Validating cases requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 210 seconds
-    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
-    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
+    Given after a delay of 300 seconds
+    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
 
 	# Endpoint Tests -----
@@ -204,7 +204,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be ,"responses":[],"caseGroup":{
     And one element of the JSON array must be },"caseEvents":null}
 
-  # 404
+  # 204
   Scenario: Get request to the cases endpoint for a non existing case id
     Given I make the GET call to the caseservice cases endpoint for party "87c8b602-aabd-4fc3-8676-bb875f4ce101"
     When the response status should be 204

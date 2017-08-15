@@ -68,5 +68,3 @@ Feature: Runs the sample service endpoints
     Then the response should contain the field "error.code" with value "BAD_REQUEST"
 		And the response should contain the field "error.message" with value "CollectionExerciseId c6467711-21eb-4e78-804c-1db8392f93fb already exists in the collectionexercisejob table"
 		And the response should contain the field "error.timestamp"
-
-

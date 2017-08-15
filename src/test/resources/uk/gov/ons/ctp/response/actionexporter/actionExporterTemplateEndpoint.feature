@@ -31,7 +31,7 @@ Feature: action exporter template end points
 		And one element of the JSON array must be {"name":"initialPrint"
     And one element of the JSON array must be ,"dateModified":
     And one element of the JSON array must be ,"content":"<#list actionRequests as actionRequest>
-    And one element of the JSON array must be ${(actionRequest.address.sampleUnitRef?trim)!}:${actionRequest.iac?trim}:${(actionRequest.contact.forename?trim)!}:${(actionRequest.contact.emailaddress)!}
+    And one element of the JSON array must be ${(actionRequest.address.sampleUnitRef?trim)!}:${actionRequest.iac?trim}:${(actionRequest.contact.forename?trim)!\"null\"}:${(actionRequest.contact.emailAddress)!
     And one element of the JSON array must be <\/#list>"
 
   # 204 Not tested as templates pre loaded
