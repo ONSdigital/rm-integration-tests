@@ -332,4 +332,11 @@ Feature: Validating cases requests
     Then the response status should be 400
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
     And the response should contain the field "error.message" with value "Provided json is incorrect."
-    And the response should contain the field "error.timestamp"
+    And the response should contain the field "error.timestamp"   
+    
+  # INFO /info
+  # 200
+  Scenario: Info request to case service for current verison number
+    Given I make the call to the caseservice endpoint for info
+    When the response status should be 200
+    Then the response should contain the field "name" with value "casesvc"

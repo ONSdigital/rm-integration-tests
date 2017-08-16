@@ -134,3 +134,11 @@ Feature: Runs the Collection Exercise endpoints
     Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
     And the response should contain the field "error.message" with value "Collection Exercise not found for collection exercise Id 87c8b602-aabd-4fc3-8676-bb875f4ce101"
     And the response should contain the field "error.timestamp"
+    
+  # INFO /info
+  # 200
+  Scenario: Info request to collection excerise for current verison number
+    Given I make the call to the collection exercise endpoint for info
+    When the response status should be 200
+    Then the response should contain the field "name" with value "collectionexercisesvc"
+    

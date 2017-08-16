@@ -208,4 +208,14 @@ public class CasesSteps {
   public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_new_case() throws Throwable {
     responseAware.invokeCasesEndpointForNewUnknownCase("?caseevents=true&iac=true");
   }
+
+  /**
+   * Test post request for /info
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the call to the caseservice endpoint for info")
+  public void i_make_the_call_to_the_caseservice_endpoint_for_info() throws Throwable {
+    responseAware.invokeInfoEndpoint();
+  }
+
 }

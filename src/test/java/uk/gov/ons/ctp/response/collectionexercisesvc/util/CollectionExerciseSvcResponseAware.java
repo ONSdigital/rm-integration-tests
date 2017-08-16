@@ -15,6 +15,7 @@ public class CollectionExerciseSvcResponseAware {
   private static final String PUT_EXERCISE_URL = "/collectionexercises/%s";
   private static final String GET_SURVEY_URL = "/collectionexercises/survey/%s";
   private static final String GET_EXERCISE_URL = "/collectionexercises/%s";
+  private static final String INFO_URL = "/info";
   private static final String SERVICE = "collectionexercisesvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -65,5 +66,14 @@ public class CollectionExerciseSvcResponseAware {
     System.out.println("Get exercise");
     final String url = String.format(world.getUrl(GET_EXERCISE_URL, SERVICE), exerciseId);
     responseAware.invokeGet(url);
+  }
+
+  /**
+   * Test post request for /info response
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 }

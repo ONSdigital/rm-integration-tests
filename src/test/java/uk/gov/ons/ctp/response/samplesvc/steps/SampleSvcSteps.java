@@ -42,4 +42,13 @@ public class SampleSvcSteps {
 
     responseAware.invokePostEndpoint(properties);
   }
+
+  /**
+   * Test post request for /info
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the call to the sample service endpoint for info")
+  public void i_make_the_call_to_the_sample_service_endpoint_for_info() throws Throwable {
+    responseAware.invokeInfoEndpoint();
+  }
 }

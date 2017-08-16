@@ -25,6 +25,7 @@ public class CaseResponseAware {
   private static final String POST_EVENTS_URL = "/cases/%s/events";
   private static final String GET_CATEGORIES_URL = "/categories";
   private static final String GET_CATEGORY_NAME_URL = "/categories/name/%s";
+  private static final String INFO_URL = "/info";
   private static final String SERVICE = "casesvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -206,5 +207,14 @@ public class CaseResponseAware {
     String sql = String.format(WHERE_SQL, "id", "casesvc.case", "casepk = 501");
     List<Object> result = postgresResponseAware.dbSelect(sql);
     invokeCasesEndpoint(result.get(0).toString(), params);
+  }
+
+  /**
+   * Test post request for /info response
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 }
