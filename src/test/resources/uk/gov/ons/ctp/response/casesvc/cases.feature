@@ -340,3 +340,4 @@ Feature: Validating cases requests
     Given I make the call to the caseservice endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "casesvc"
+        And the response should contain the field "version"

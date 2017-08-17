@@ -133,4 +133,5 @@ Feature: Validating iacsvc requests
     Given I make the call to the IAC service endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "iacsvc"
+          And the response should contain the field "version"
   
