@@ -93,9 +93,9 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 210 seconds
-    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
-    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
+    Given after a delay of 270 seconds
+    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
@@ -121,7 +121,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
     When get the contents of the print files where the filename begins "BSNOT"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
-    And the contents should contain "::"
+    And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
   # Report not developed so not tested (Journey steps: 3.9)
@@ -157,7 +157,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
     When get the contents of the print files where the filename begins "BSREM"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
-    And the contents should contain "::"
+    And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
   # Report not developed so not tested (Journey steps: 4.9)
@@ -193,7 +193,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
     When get the contents of the print files where the filename begins "BSREM"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
-    And the contents should contain "::"
+    And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
   # Report not developed so not tested (Journey steps: 4.9)

@@ -33,5 +33,5 @@ Feature: Tests the load of business sample
     And the sftp exit status should be "-1"
   
   Scenario: Test sample DB state (Journey steps: 1.5)
-    When check "sample.samplesummary" records in DB equal 1 for "state = 'ACTIVE' AND surveyref = '221'"
-    Then check "sample.sampleunit" records in DB equal 500 for "state = 'PERSISTED' AND samplesummaryfk = 1"
+    When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
+    Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"

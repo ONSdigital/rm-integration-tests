@@ -152,8 +152,8 @@ Feature: Smoke Test
 
   Scenario: Test casesvc case DB state
     Given after a delay of 210 seconds
-    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
-    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
+    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
 
   # Action Service Smoke Tests -----
@@ -178,5 +178,5 @@ Feature: Smoke Test
     When get the contents of the print files where the filename begins "BSNOT"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
-    And the contents should contain "::"
+    And the contents should contain ":null:null"
     And the contents should contain 500 lines

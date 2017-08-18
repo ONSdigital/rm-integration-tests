@@ -79,8 +79,8 @@ Feature: Verify and Create Account
 
   Scenario: Test casesvc case DB state
     Given after a delay of 210 seconds
-    When check "casesvc.case" records in DB equal 500 for "state = 'ACTIONABLE'"
-    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "state = 'ACTIONABLE'"
+    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds

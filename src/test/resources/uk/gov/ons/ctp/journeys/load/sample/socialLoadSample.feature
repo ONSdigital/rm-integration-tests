@@ -34,5 +34,5 @@ Feature: Tests the load of census sample
 
   Scenario: Test sample DB state (Journey steps: 1.5)
     # Remains in INIT state as seed data/party svc does not work for Social
-    When check "sample.samplesummary" records in DB equal 1 for "state = 'INIT' AND surveyref = 'SOCIAL'"
-    Then check "sample.sampleunit" records in DB equal 1 for "state = 'INIT' AND samplesummaryfk = 1"
+    When check "sample.samplesummary" records in DB equal 1 for "statefk = 'INIT' AND surveyref = 'SOCIAL'"
+    Then check "sample.sampleunit" records in DB equal 1 for "statefk = 'INIT' AND samplesummaryfk = 1"
