@@ -40,4 +40,4 @@ Feature: Tests the load of business sample
   Scenario: Test service report viewed (Test scenario PO1)
     Given the "test" user has logged in using "chrome"
     Then permissions should be verified for user "test"
-    
+

@@ -38,5 +38,5 @@ Feature: Tests the load validation failure for census sample
     And the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid."
 
   Scenario: Test sample DB state - nothing loaded (Journey steps: 1.5)
-    When check "sample.samplesummary" records in DB equal 0 for "state = 'ACTIVE' AND surveyref = 'CENSUS'"
-    Then check "sample.sampleunit" records in DB equal 0 for "state = 'INIT' AND samplesummaryfk = 1"
+    When check "sample.samplesummary" records in DB equal 0 for "statefk = 'ACTIVE' AND surveyref = 'CENSUS'"
+    Then check "sample.sampleunit" records in DB equal 0 for "statefk = 'INIT' AND samplesummaryfk = 1"

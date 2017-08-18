@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 import org.apache.http.auth.AuthenticationException;
 
@@ -170,8 +171,29 @@ public class CaseResponseAware {
   }
 
   /**
-   * @caseresponse Service - /categories get end points.
+   * @caseresponse Service - /cases/{caseId}/events post end points for BI.
    *
+   * @param unitType sample unit type
+   * @param properties required to pass
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   * @throws SQLException sql exception
+   * @throws ClassNotFoundException class not found exception
+   */
+  public void invokePostCasesEventsEndpointForBI(String unitType, Properties properties)
+      throws IOException, AuthenticationException, ClassNotFoundException, SQLException {
+    String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "sampleunittype = 'BI'");
+    List<Object> result = postgresResponseAware.dbSelect(sql);
+    UUID caseId = (UUID) result.get(0);
+    UUID partyId = (UUID) result.get(1);
+    properties.put("partyId", partyId.toString());
+
+    final String url = String.format(POST_EVENTS_URL, caseId.toString());
+    responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
+  }
+
+  /**
+   * @caseresponse Service - /categories get end points.
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */

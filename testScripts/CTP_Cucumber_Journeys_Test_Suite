@@ -12,3 +12,12 @@ echo Send Enrolment Letters
 
 echo Verify, Create & Enrol Account
 ./CTP_Cucumber_Enrol_Account $1
+
+echo Send Survey Reminders
+./CTP_Cucumber_Survey_Reminders $1
+
+echo Download Collection Instrument
+./CTP_Cucumber_Download_Instrument $1
+
+echo Upload Collection Instrument
+./CTP_Cucumber_Upload_Response $1
