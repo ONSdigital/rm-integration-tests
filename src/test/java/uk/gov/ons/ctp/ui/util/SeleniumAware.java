@@ -9,13 +9,19 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
-import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
+import uk.gov.ons.ctp.ui.rm.ro.pom.SignInPom;
+//import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.World;
 
 /**
  * Created by Stephen Goddard on 02/06/16.
  */
 public abstract class SeleniumAware {
+  private static final String CHROME_DRIVER_LOC_KEY = "cuc.collect.ui.chrome.driver.location";
+  private static final String USERNAME_KEY = "integration.test.username";
+  private static final String PASSWORD_KEY = "integration.test.password";
+  private static final String SIGNIN_URL = "/signin";
+  private static final String SERVICE = "ui";
   private World world;
   private static WebDriver webDriver;
 
@@ -63,6 +69,7 @@ public abstract class SeleniumAware {
       webDriver = new FirefoxDriver();
       break;
     case "chromehead":
+      System.setProperty("webdriver.chrome.driver", world.getProperty(CHROME_DRIVER_LOC_KEY));
       webDriver = new ChromeDriver();
       break;
     default:
@@ -77,44 +84,14 @@ public abstract class SeleniumAware {
    * @param browser string representation of the browser to be used
    */
   public void invokeUILogin(String user, String browser) {
-    String username = "";
-    String password = "";
-
-    switch (user.toLowerCase()) {
-      case "test":
-        username = getWorld().getProperty("integration.test.username");
-        password = getWorld().getProperty("integration.test.password");
-        break;
-      case "cso":
-        username = getWorld().getProperty("integration.test.cso.username");
-        password = getWorld().getProperty("integration.test.cso.password");
-        break;
-      case "general":
-        username = getWorld().getProperty("integration.test.general.username");
-        password = getWorld().getProperty("integration.test.general.password");
-        break;
-      case "field":
-        username = getWorld().getProperty("integration.test.field.username");
-        password = getWorld().getProperty("integration.test.field.password");
-        break;
-      case "report":
-        username = getWorld().getProperty("integration.test.report.username");
-        password = getWorld().getProperty("integration.test.report.password");
-        break;
-      case "error":
-        username = getWorld().getProperty("integration.test.error.username");
-        password = getWorld().getProperty("integration.test.error.password");
-        break;
-      default:
-        username = getWorld().getProperty("integration.test.username");
-        password = getWorld().getProperty("integration.test.password");
-    }
+    String username = getWorld().getProperty(USERNAME_KEY);
+    String password = getWorld().getProperty(PASSWORD_KEY);
 
     initialiseWebDriver(browser);
 
-    invokeNavigateToPage(getWorld().getUiUrl("/signin"));
+    invokeNavigateToPage(world.getUrl(SIGNIN_URL, SERVICE));
 
-    SignInResponseOperation signIn = new SignInResponseOperation(webDriver);
+    SignInPom signIn = new SignInPom(webDriver);
     signIn.login(username, password);
   }
 

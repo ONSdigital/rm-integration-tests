@@ -22,8 +22,8 @@ Feature: Runs the sample service endpoints
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
-
-  Scenario: Load Census example survey
+@sftp
+  Scenario: Load Business example survey
     Given clean sftp folders of all previous ingestions for "business" surveys
     And the sftp exit status should be "-1"
     When for the "business" survey move the "valid" file to trigger ingestion
@@ -31,8 +31,8 @@ Feature: Runs the sample service endpoints
     And after a delay of 70 seconds
     Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
-    
-  Scenario: Load empty Business example survey
+
+  Scenario: Load empty Census example survey
     Given clean sftp folders of all previous ingestions for "census" surveys
     And the sftp exit status should be "-1"
     When for the "census" survey move the "min" file to trigger ingestion
