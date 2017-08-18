@@ -81,4 +81,5 @@ Feature: action exporter end points
     Given I make the call to the actionexporter endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "actionexportersvc"
+        And the response should contain the field "version"
 

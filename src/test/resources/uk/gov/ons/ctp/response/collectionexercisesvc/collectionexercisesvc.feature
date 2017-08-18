@@ -141,4 +141,5 @@ Feature: Runs the Collection Exercise endpoints
     Given I make the call to the collection exercise endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "collectionexercisesvc"
+        And the response should contain the field "version"
     
