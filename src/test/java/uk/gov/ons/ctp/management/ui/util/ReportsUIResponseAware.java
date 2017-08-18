@@ -1,14 +1,14 @@
-package uk.gov.ons.ctp.ui.util;
+package uk.gov.ons.ctp.management.ui.util;
 
 import java.util.List;
 
-import uk.gov.ons.ctp.ui.util.reports.pom.ReportDetailsReports;
-import uk.gov.ons.ctp.ui.util.reports.pom.ReportListReports;
-import uk.gov.ons.ctp.ui.util.reports.pom.ViewReports;
+import uk.gov.ons.ctp.management.ui.util.reports.pom.ReportDetailsReports;
+import uk.gov.ons.ctp.management.ui.util.reports.pom.ReportListReports;
+import uk.gov.ons.ctp.management.ui.util.reports.pom.ViewReports;
 import uk.gov.ons.ctp.util.World;
 
 /**
- * Created by Stephen Goddard on 23/03/17.
+ * Created  Chris Hardman on 18/08/17
  */
 public class ReportsUIResponseAware extends SeleniumAware {
 

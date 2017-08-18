@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util;
+package uk.gov.ons.ctp.management.ui.util;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.openqa.selenium.By;
@@ -9,11 +9,11 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
-import uk.gov.ons.ctp.ui.util.ro.pom.SignInResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.SignInResponseOperation;
 import uk.gov.ons.ctp.util.World;
 
 /**
- * Created by Stephen Goddard on 02/06/16.
+ * Created  Chris Hardman on 18/08/17
  */
 public abstract class SeleniumAware {
   private World world;

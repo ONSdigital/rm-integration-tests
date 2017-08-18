@@ -1,21 +1,19 @@
-package uk.gov.ons.ctp.ui.util;
+package uk.gov.ons.ctp.management.ui.util;
 
 import java.util.List;
 
-import uk.gov.ons.ctp.ui.util.ro.pom.AddressesResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.CasesResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.CreateEventResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.EscalatedCasesResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.EventsResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.ManageResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.PostcodeResponseOperation;
-import uk.gov.ons.ctp.ui.util.ro.pom.TranslationResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.AddressesResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.CasesResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.CreateEventResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.EscalatedCasesResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.EventsResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.ManageResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.RUResponseOperation;
+import uk.gov.ons.ctp.management.ui.util.ro.pom.TranslationResponseOperation;
 import uk.gov.ons.ctp.util.World;
 
 /**
- * Created by Stephen Goddard on 24/05/16.
- * Edited by Chris Hardman on 17/11/16
- *
+ * Created  Chris Hardman on 18/08/17
  */
 public class ResponseOperationUIResponseAware extends SeleniumAware {
 
@@ -34,8 +32,8 @@ public class ResponseOperationUIResponseAware extends SeleniumAware {
    * @return string login message
    */
   public String invokeGetUserLoginMessage() {
-    PostcodeResponseOperation postcodeRO = new PostcodeResponseOperation(getWebDriver());
-    return postcodeRO.getLoginMsg();
+    RUResponseOperation responseURO = new RUResponseOperation(getWebDriver());
+    return responseURO.getLoginMsg();
   }
 
   /**
@@ -224,7 +222,7 @@ public class ResponseOperationUIResponseAware extends SeleniumAware {
    * Navigate to the given page
    */
   public void invokeUIClickAdditionalFuctionLink() {
-    PostcodeResponseOperation postcodeRO = new PostcodeResponseOperation(getWebDriver());
+    RUResponseOperation postcodeRO = new RUResponseOperation(getWebDriver());
     postcodeRO.clickAdditionalFuctionLink();
   }
 

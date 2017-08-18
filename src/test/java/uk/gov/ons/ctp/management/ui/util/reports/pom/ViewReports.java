@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util.reports.pom;
+package uk.gov.ons.ctp.management.ui.util.reports.pom;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import uk.gov.ons.ctp.ui.util.TableHelper;
+import uk.gov.ons.ctp.management.ui.util.TableHelper;
 
 /**
  * Created by Stephen Goddard on 27/03/17.

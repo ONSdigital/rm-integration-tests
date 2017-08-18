@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util;
+package uk.gov.ons.ctp.management.ui.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
- * Created by Stephen Goddard on 20/03/17.
+ * Created  Chris Hardman on 18/08/17
  */
 public class TableHelper {
 
