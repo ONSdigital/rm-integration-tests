@@ -189,6 +189,25 @@ public class CasesSteps {
   /* Journey test steps */
 
   /**
+   * Test post request for /cases/{caseId}/events for BI sample unit type
+   *
+   * @param unitType sample unit type
+   * @param getValues to be in json
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the POST call to the caseservice cases events for \"(.*?)\"$")
+  public void i_make_the_POST_call_to_the_caseservice_cases_events_for(String unitType, List<String> getValues)
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("description", getValues.get(0));
+    properties.put("category", getValues.get(1));
+    properties.put("subCategory", getValues.get(2));
+    properties.put("createdBy", getValues.get(3));
+
+    responseAware.invokePostCasesEventsEndpointForBI(unitType, properties);
+  }
+
+  /**
    * Get the caseId from the previous run against post request for /cases/{caseId}/events
    *
    * @throws Throwable pass the exception
