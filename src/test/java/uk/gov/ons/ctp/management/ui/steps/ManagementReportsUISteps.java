@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.steps;
+package uk.gov.ons.ctp.management.ui.steps;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,13 +9,12 @@ import java.util.List;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import uk.gov.ons.ctp.ui.util.ReportsUIResponseAware;
+import uk.gov.ons.ctp.management.ui.util.ReportsUIResponseAware;
 
 /**
- * Created by Stephen Goddard on 23/03/17.
+ * Created  Chris Hardman on 18/08/17
  */
-public class ReportsUISteps {
+public class ManagementReportsUISteps {
   private final ReportsUIResponseAware responseAware;
 
   /**
@@ -23,7 +22,7 @@ public class ReportsUISteps {
    *
    * @param uiResponseAware ui runner
    */
-  public ReportsUISteps(ReportsUIResponseAware uiResponseAware) {
+  public ManagementReportsUISteps(ReportsUIResponseAware uiResponseAware) {
     this.responseAware = uiResponseAware;
   }
 

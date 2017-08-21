@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util;
+package uk.gov.ons.ctp.management.ui.util;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.openqa.selenium.By;
@@ -13,7 +13,7 @@ import uk.gov.ons.ctp.ui.rm.ro.pom.SignInPom;
 import uk.gov.ons.ctp.util.World;
 
 /**
- * Created by Stephen Goddard on 02/06/16.
+ * Created  Chris Hardman on 18/08/17
  */
 public abstract class SeleniumAware {
   private static final String CHROME_DRIVER_LOC_KEY = "cuc.collect.ui.chrome.driver.location";

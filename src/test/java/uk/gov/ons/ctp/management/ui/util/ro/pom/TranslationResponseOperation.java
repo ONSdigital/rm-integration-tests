@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util.ro.pom;
+package uk.gov.ons.ctp.management.ui.util.ro.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

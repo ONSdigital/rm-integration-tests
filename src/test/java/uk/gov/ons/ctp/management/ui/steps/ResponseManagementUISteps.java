@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.steps;
+package uk.gov.ons.ctp.management.ui.steps;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,13 +10,12 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import uk.gov.ons.ctp.ui.util.ResponseOperationUIResponseAware;
+import uk.gov.ons.ctp.management.ui.util.ResponseOperationUIResponseAware;
 
 /**
- * Created by Stephen Goddard on 24/05/16.
- * Edited by Chris Hardman on 18/11/16
+ * Created  Chris Hardman on 18/08/17
  */
-public class ResponseOperationUISteps {
+public class ResponseManagementUISteps {
   private final ResponseOperationUIResponseAware responseAware;
 
   /**
@@ -24,7 +23,7 @@ public class ResponseOperationUISteps {
    *
    * @param uiResponseAware ui runner
    */
-  public ResponseOperationUISteps(ResponseOperationUIResponseAware uiResponseAware) {
+  public ResponseManagementUISteps(ResponseOperationUIResponseAware uiResponseAware) {
     this.responseAware = uiResponseAware;
   }
 
@@ -59,7 +58,9 @@ public class ResponseOperationUISteps {
       result = true;
     } else if (msg.equals("Welcome back Collect Reports user.") && user.equals("report")) {
       result = true;
-    } else if (msg.equals("You could not be signed in. Did you enter the correct credentials?")
+    } else if (msg.equals("Welcome back Integration Tester") && user.equals("test")) {
+        result = true;
+    }else if (msg.equals("You could not be signed in. Did you enter the correct credentials?")
         && user.equals("error")) {
       result = true;
     }

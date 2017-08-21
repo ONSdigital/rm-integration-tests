@@ -76,3 +76,6 @@ Feature: Runs the sample service endpoints
     When the response status should be 200
     Then the response should contain the field "name" with value "samplesvc"
         And the response should contain the field "version"
+        And the response should contain the field "origin"
+        And the response should contain the field "commit"
+        And the response should contain the field "branch"

@@ -82,4 +82,6 @@ Feature: action exporter end points
     When the response status should be 200
     Then the response should contain the field "name" with value "actionexportersvc"
         And the response should contain the field "version"
-
+        And the response should contain the field "origin"
+        And the response should contain the field "commit"
+        And the response should contain the field "branch"

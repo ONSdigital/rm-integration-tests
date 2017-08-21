@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util.ro.pom;
+package uk.gov.ons.ctp.management.ui.util.ro.pom;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Created by Stephen Goddard on 22/03/17.
  */
-public class PostcodeResponseOperation {
-  @FindBy(className = "message")
+public class RUResponseOperation {
+  @FindBy(className = "subhead")
   private WebElement loginMsg;
 
   @FindBy(xpath = "//*[@id=\"menu\"]/li[2]/a")
@@ -20,7 +20,7 @@ public class PostcodeResponseOperation {
    *
    * @param webDriver Selenium web driver
    */
-  public PostcodeResponseOperation(WebDriver webDriver) {
+  public RUResponseOperation(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
   }
 

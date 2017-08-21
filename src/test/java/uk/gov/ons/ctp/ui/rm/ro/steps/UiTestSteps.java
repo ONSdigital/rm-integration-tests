@@ -30,7 +30,7 @@ public class UiTestSteps {
     responseAware.invokeLogout();
     responseAware.closeWebDriver();
   }
-  
+
   @When("^the user navigates to the reports page and selects \"(.*?)\" reports$")
   public void the_user_navigates_to_the_reports_page_and_selects_reports(String report) throws Throwable {
     responseAware.invokeReportSelection(report);

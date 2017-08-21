@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.ui.util.ro.pom;
+package uk.gov.ons.ctp.management.ui.util.ro.pom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import uk.gov.ons.ctp.ui.util.TableHelper;
+import uk.gov.ons.ctp.management.ui.util.TableHelper;
 
 /**
  * Created by Stephen Goddard on 17/03/17.

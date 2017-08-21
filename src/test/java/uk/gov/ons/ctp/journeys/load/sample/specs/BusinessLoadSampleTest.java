@@ -11,7 +11,8 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/load/sample/businessLoadSample.feature"},
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
-          "uk.gov.ons.ctp.response.common.steps"},
+          "uk.gov.ons.ctp.response.common.steps",
+          "uk.gov.ons.ctp.management.ui.steps"},
   plugin = {"pretty", "html:build/busLoadSample-cuc-html-report", "json:build/jenkins/busLoadSample.json"}
 )
 public class BusinessLoadSampleTest {
