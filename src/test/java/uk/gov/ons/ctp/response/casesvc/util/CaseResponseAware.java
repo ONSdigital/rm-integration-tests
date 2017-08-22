@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.apache.http.auth.AuthenticationException;
 
 import uk.gov.ons.ctp.util.HTTPResponseAware;
-import uk.gov.ons.ctp.util.PostgresResponseAware;
+//import uk.gov.ons.ctp.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -30,7 +30,7 @@ public class CaseResponseAware {
   private static final String SERVICE = "casesvc";
   private World world;
   private HTTPResponseAware responseAware;
-  private final PostgresResponseAware postgresResponseAware;
+//  private final PostgresResponseAware postgresResponseAware;
 
 
   /**
@@ -39,10 +39,10 @@ public class CaseResponseAware {
    * @param newWorld class with application and environment properties
    * @param dbResponseAware DB runner
    */
-  public CaseResponseAware(final World newWorld, PostgresResponseAware dbResponseAware) {
+  public CaseResponseAware(final World newWorld) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
-    this.postgresResponseAware = dbResponseAware;
+//    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -64,7 +64,7 @@ public class CaseResponseAware {
    */
   public void invokeCasegroupIdEndpoint(String caseGroupId) throws IOException, AuthenticationException {
     if (caseGroupId == null || caseGroupId.length() == 0) {
-      caseGroupId = world.getIdFromDB("id", "casesvc.casegroup", "1", postgresResponseAware);
+      caseGroupId = "";//world.getIdFromDB("id", "casesvc.casegroup", "1", postgresResponseAware);
     }
 
     final String url = String.format(GET_CASEGROUP_URL, caseGroupId);
@@ -80,7 +80,7 @@ public class CaseResponseAware {
    */
   public void invokeCasesCasegroupEndpoint(String caseGroupId) throws IOException, AuthenticationException {
     if (caseGroupId == null || caseGroupId.length() == 0) {
-      caseGroupId = world.getIdFromDB("id", "casesvc.casegroup", "1", postgresResponseAware);
+      caseGroupId = "";//world.getIdFromDB("id", "casesvc.casegroup", "1", postgresResponseAware);
     }
 
     final String url = String.format(GET_CASE_CASEGROUP_URL, caseGroupId);
@@ -97,7 +97,7 @@ public class CaseResponseAware {
    */
   public void invokeCaseIACEndpoint(String iac, String parameters) throws IOException, AuthenticationException {
     if (iac == null || iac.length() == 0) {
-      iac = world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
+      iac = "";//world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
     }
 
     final String url = String.format(GET_IAC_URL, iac, parameters);
@@ -114,7 +114,7 @@ public class CaseResponseAware {
    */
   public void invokeCasesEndpoint(String caseId, String parameters) throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      caseId = world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
+      caseId = "";//world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
     }
     final String url = String.format(GET_CASEID_URL, caseId, parameters);
     responseAware.invokeGet(world.getUrl(url, SERVICE));
@@ -130,7 +130,7 @@ public class CaseResponseAware {
    */
   public void invokePartyEndpoint(String caseId, String parameters) throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      caseId = world.getIdFromDB("partyid", "casesvc.case", "1", postgresResponseAware);
+      caseId = "";//world.getIdFromDB("partyid", "casesvc.case", "1", postgresResponseAware);
     }
     final String url = String.format(GET_PARTYID_URL, caseId, parameters);
     responseAware.invokeGet(world.getUrl(url, SERVICE));
@@ -145,7 +145,7 @@ public class CaseResponseAware {
    */
   public void invokeCasesEventsEndpoint(String caseId) throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      caseId = world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
+      caseId = "";//world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
     }
     final String url = String.format(GET_EVENTS_URL, caseId);
     responseAware.invokeGet(world.getUrl(url, SERVICE));
@@ -162,9 +162,9 @@ public class CaseResponseAware {
   public void invokePostCasesEventsEndpoint(String caseId, Properties properties)
       throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      caseId = world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
+      caseId = "";//world.getIdFromDB("id", "casesvc.case", "1", postgresResponseAware);
     }
-    properties.put("partyId", world.getIdFromDB("partyid", "casesvc.case", "1", postgresResponseAware));
+//    properties.put("partyId", world.getIdFromDB("partyid", "casesvc.case", "1", postgresResponseAware));
 
     final String url = String.format(POST_EVENTS_URL, caseId);
     responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
@@ -182,14 +182,14 @@ public class CaseResponseAware {
    */
   public void invokePostCasesEventsEndpointForBI(String unitType, Properties properties)
       throws IOException, AuthenticationException, ClassNotFoundException, SQLException {
-    String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "sampleunittype = 'BI'");
-    List<Object> result = postgresResponseAware.dbSelect(sql);
-    UUID caseId = (UUID) result.get(0);
-    UUID partyId = (UUID) result.get(1);
-    properties.put("partyId", partyId.toString());
-
-    final String url = String.format(POST_EVENTS_URL, caseId.toString());
-    responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
+//    String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "sampleunittype = 'BI'");
+//    List<Object> result = postgresResponseAware.dbSelect(sql);
+//    UUID caseId = (UUID) result.get(0);
+//    UUID partyId = (UUID) result.get(1);
+//    properties.put("partyId", partyId.toString());
+//
+//    final String url = String.format(POST_EVENTS_URL, caseId.toString());
+//    responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
   }
 
   /**
@@ -227,8 +227,8 @@ public class CaseResponseAware {
   public void invokeCasesEndpointForNewUnknownCase(String params) throws IOException, AuthenticationException,
       SQLException, ClassNotFoundException {
     String sql = String.format(WHERE_SQL, "id", "casesvc.case", "casepk = 501");
-    List<Object> result = postgresResponseAware.dbSelect(sql);
-    invokeCasesEndpoint(result.get(0).toString(), params);
+//    List<Object> result = postgresResponseAware.dbSelect(sql);
+//    invokeCasesEndpoint(result.get(0).toString(), params);
   }
 
   /**

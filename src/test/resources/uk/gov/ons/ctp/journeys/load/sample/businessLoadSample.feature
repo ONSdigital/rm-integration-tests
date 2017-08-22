@@ -24,20 +24,19 @@ Feature: Tests the load of business sample
   # Business Sample Load Tests -----
 
   Scenario: Test load of business sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1"
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
   
   Scenario: Test sample DB state (Journey steps: 1.5)
-    When check "sample.samplesummary" records in DB equal 1 for "state = 'ACTIVE' AND surveyref = '221'"
-    Then check "sample.sampleunit" records in DB equal 500 for "state = 'PERSISTED' AND samplesummaryfk = 1"
+    When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
+    Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
 
-  @businessLoadSample  
-  Scenario: Test service report viewed (Test scenario PO1)
-    Given the "test" user has logged in using "chrome"
-    Then permissions should be verified for user "test"
-
+#  @businessLoadSample  
+#  Scenario: Test service report viewed (Test scenario PO1)
+#    Given the "test" user has logged in using "chrome"
+#    Then permissions should be verified for user "test"

@@ -5,8 +5,9 @@ import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
 
+import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
-import uk.gov.ons.ctp.util.PostgresResponseAware;
+//import uk.gov.ons.ctp.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -58,7 +59,7 @@ public class IacsvcResponseAware {
    */
   public void invokeGetIacEndpoint(String testIac) throws IOException, AuthenticationException {
     if (testIac == null || testIac.length() == 0) {
-      testIac = world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
+      testIac = "";//world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
     }
 
     final String url = String.format(GET_IAC_URL, testIac);
@@ -77,7 +78,7 @@ public class IacsvcResponseAware {
    */
   public void invokePutIacEndpoint(String testIac, Properties properties) throws IOException, AuthenticationException {
     if (testIac == null || testIac.length() == 0) {
-      testIac = world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
+      testIac = "";//world.getIdFromDB("iac", "casesvc.case", "1", postgresResponseAware);
     }
 
     final String url = String.format(PUT_IAC_URL, testIac);

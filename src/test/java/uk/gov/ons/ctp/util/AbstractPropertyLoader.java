@@ -108,18 +108,19 @@ public class AbstractPropertyLoader {
    * @param dbResponseAware database runner
    * @return string UUID
    */
-  public final String getIdFromDB(String id, String table, String quantity, PostgresResponseAware dbResponseAware) {
-    List<Object> result = new ArrayList<Object>();
-
-    String sql = String.format(LIMIT_SQL, id, table, quantity);
-    try {
-      result = (ArrayList<Object>) dbResponseAware.dbSelect(sql);
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
-    }
-
-    return result.get(0).toString();
-  }
+  // TODO refactor with new db tool
+//  public final String getIdFromDB(String id, String table, String quantity, PostgresResponseAware dbResponseAware) {
+//    List<Object> result = new ArrayList<Object>();
+//
+//    String sql = String.format(LIMIT_SQL, id, table, quantity);
+//    try {
+//      result = (ArrayList<Object>) dbResponseAware.dbSelect(sql);
+//    } catch (ClassNotFoundException | SQLException e) {
+//      e.printStackTrace();
+//    }
+//
+//    return result.get(0).toString();
+//  }
 
 //  /**
 //   * Constructs the URL of an endpoint from environment specific components

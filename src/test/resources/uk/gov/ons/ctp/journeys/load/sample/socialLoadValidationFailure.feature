@@ -24,13 +24,13 @@ Feature: Tests the load validation failure for census sample
   # Social Sample Load Tests -----
 
   Scenario: Test fail validation for social sample file (Journey steps: 1.1, 1.2.1, 1.2.2)
-    Given clean sftp folders of all previous ingestions for "social" surveys 
+    Given clean sftp folders of all previous ingestions for "SSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "social" survey move the "invalid" file to trigger ingestion 
+    When for the "SSD" survey move the "invalid" file to trigger ingestion 
     And after a delay of 15 seconds 
-    Then for the "social" survey confirm processed file "social-survey-invalid*.error" is found 
+    Then for the "SSD" survey confirm processed file "SSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
-    Then for the "social" survey get the contents of the file "social-survey-invalid*error.txt" 
+    Then for the "SSD" survey get the contents of the file "SSD-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
     And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 

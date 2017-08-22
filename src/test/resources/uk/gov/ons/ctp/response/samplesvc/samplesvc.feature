@@ -18,27 +18,27 @@
 Feature: Runs the sample service endpoints
 
   # Pre Test Environment Set Up -----
-
+@tool
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
 @sftp
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "business" surveys
+    Given clean sftp folders of all previous ingestions for "BSD" surveys
     And the sftp exit status should be "-1"
-    When for the "business" survey move the "valid" file to trigger ingestion
+    When for the "BSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 70 seconds
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
   Scenario: Load empty Census example survey
-    Given clean sftp folders of all previous ingestions for "census" surveys
+    Given clean sftp folders of all previous ingestions for "CTP" surveys
     And the sftp exit status should be "-1"
-    When for the "census" survey move the "min" file to trigger ingestion
+    When for the "CTP" survey move the "min" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 05 seconds
-    Then for the "census" survey confirm processed file "census-survey-min*.xml.processed" is found
+    And after a delay of 10 seconds
+    Then for the "CTP" survey confirm processed file "CTP-survey-min*.xml.processed" is found
     And the sftp exit status should be "-1"
 
 
@@ -75,7 +75,7 @@ Feature: Runs the sample service endpoints
     Given I make the call to the sample service endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "samplesvc"
-        And the response should contain the field "version"
-        And the response should contain the field "origin"
-        And the response should contain the field "commit"
-        And the response should contain the field "branch"
+    And the response should contain the field "version"
+    And the response should contain the field "origin"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch"

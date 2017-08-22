@@ -22,10 +22,10 @@ import com.jcraft.jsch.SftpException;
  */
 public class SFTPResponseAware {
   /* Property keys */
-  private static final String SFTP_PORT = "cuc.collect.sftp.port";
+  private static final String SFTP_PORT = "cuc.sftp.port";
   private static final String SFTP_SERVER = "cuc.sftp.server";
-  private static final String SFTP_USERNAME = "cuc.collect.sftp.username";
-  private static final String SFTP_PASSWORD = "cuc.collect.sftp.password";
+//  private static final String SFTP_USERNAME = "cuc.collect.sftp.username";
+//  private static final String SFTP_PASSWORD = "cuc.collect.sftp.password";
 
   private World world;
   private int port;
@@ -48,8 +48,8 @@ public class SFTPResponseAware {
     this.world = newWorld;
     this.port = Integer.parseInt(world.getProperty(SFTP_PORT));
     this.sftpServer = world.getProperty(SFTP_SERVER);
-    this.username = world.getProperty(SFTP_USERNAME);
-    this.password = world.getProperty(SFTP_PASSWORD);
+//    this.username = world.getProperty(SFTP_USERNAME);
+//    this.password = world.getProperty(SFTP_PASSWORD);
   }
 
   /**
@@ -68,6 +68,17 @@ public class SFTPResponseAware {
    */
   public String getBody() {
     return body;
+  }
+
+  /**
+   * Set credentials for sftp as per service.
+   *
+   * @param user user name as string
+   * @param pw password as string
+   */
+  public void setCredentials(String user, String pw) {
+    this.username = user;
+    this.password = pw;
   }
 
   /**
@@ -228,8 +239,6 @@ public class SFTPResponseAware {
   public void getContentsOfFile(String workingDir, String filename) throws JSchException, SftpException, IOException {
     StringBuffer buffer = new StringBuffer();
     connect(workingDir);
-
-//    List<LsEntry> files = getListFilesInDirectory(filename);//findFilesInDirectory(workingDir, filename);
 
     try {
       List<LsEntry> files = getListFilesInDirectory(filename);
