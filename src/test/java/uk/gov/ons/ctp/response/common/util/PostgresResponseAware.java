@@ -1,7 +1,8 @@
 package uk.gov.ons.ctp.response.common.util;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.entity.ContentType;
@@ -42,7 +43,7 @@ public class PostgresResponseAware {
   /**
    * Run DB query to get row count commands
    *
-   * @param sql to be run
+   * @param countSql to be run
    * @return long to indicate result of running sql
    * @throws AuthenticationException pass the exception
    * @throws IOException pass the exception
@@ -58,16 +59,38 @@ public class PostgresResponseAware {
   /**
    * Run DB commands where integer is expected as result
    *
-   * @param sql to be run
+   * @param updateSql to be run
    * @return integer to indicate result of running sql
-   * @throws ClassNotFoundException pass the exception
-   * @throws SQLException pass the exception
+   * @throws AuthenticationException pass the exception
+   * @throws IOException pass the exception
    */
   public int dbRunSqlReturnInt(String updateSql) throws AuthenticationException, IOException {
     responseAware.invokePost(world.getUrl(POST_URL, SERVICE), updateSql, ContentType.TEXT_PLAIN);
     String result = responseAware.getBody();
     String[] resultArr = result.split("\n");
-    
+
     return Integer.parseInt(resultArr[1]);
+  }
+
+  /**
+   * Run DB commands where integer is expected as result
+   *
+   * @param sql to be run
+   * @return List of strings result from db
+   * @throws AuthenticationException pass the exception
+   * @throws IOException pass the exception
+   */
+  public List<String> dbRunSqlReturnList(String sql) throws AuthenticationException, IOException {
+    List<String> resultList = new ArrayList<String>();
+
+    responseAware.invokePost(world.getUrl(POST_URL, SERVICE), sql, ContentType.TEXT_PLAIN);
+    String result = responseAware.getBody();
+    String[] resultArr = result.split("\n");
+
+    for (int i = 1; i < resultArr.length; i++) {
+      resultList.add(resultArr[i]);
+    }
+
+    return resultList;
   }
 }

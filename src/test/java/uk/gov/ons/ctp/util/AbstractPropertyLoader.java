@@ -2,14 +2,7 @@ package uk.gov.ons.ctp.util;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-
-//import org.apache.http.auth.AuthenticationException;
-
-//import uk.gov.ons.ctp.response.common.steps.PostgresSteps;
 
 /**
  * This class ensures that only one instance of the application properties is
@@ -19,7 +12,7 @@ import java.util.Properties;
  */
 public class AbstractPropertyLoader {
   private static final Properties PROPERTIES = new Properties();
-  private static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
+//  private static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
 
   // Load the properties once. Reads system property 'profile' and defaults to 'local'.
   static {
@@ -198,13 +191,13 @@ public class AbstractPropertyLoader {
    *
    * @return constructed URL
    */
-  public final String getPostgresUrl() {
-    final String postgresUrl = getProperty("cuc.postgres.url");
-    String url = String.format(postgresUrl, getProperty("cuc.postgres.server"), getProperty("cuc.postgres.port"),
-        getProperty("cuc.postgres.db"));
-    System.out.format("Postgres DB, constructed URL '%s'.\n", url);
-    return url;
-  }
+//  public final String getPostgresUrl() {
+//    final String postgresUrl = getProperty("cuc.postgres.url");
+//    String url = String.format(postgresUrl, getProperty("cuc.postgres.server"), getProperty("cuc.postgres.port"),
+//        getProperty("cuc.postgres.db"));
+//    System.out.format("Postgres DB, constructed URL '%s'.\n", url);
+//    return url;
+//  }
 
   /**
    * Constructs the URL of SDX Gateway from environment specific components

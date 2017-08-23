@@ -121,7 +121,6 @@ public class SampleSvcSFTPResponseAware {
    *
    * @param surveyType survey area to run
    * @param fileType currently either valid or invalid
-   * @param env NOTE ci running UTC so needs a UCT ingest file otherwise BST
    * @return constructed filename
    */
   private String constructFilename(String surveyType, String fileType) {

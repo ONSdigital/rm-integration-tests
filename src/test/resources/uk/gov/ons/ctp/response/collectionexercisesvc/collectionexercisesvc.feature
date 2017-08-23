@@ -2,7 +2,7 @@
 #
 # Keywords Summary : This feature file contains the scenario tests for the collection exercise service endpoints - details are in the swagger spec
 #                    https://github.com/ONSdigital/rm-collection-exercise-service/blob/master/API.md
-#                    http://localhost:8145/swagger-ui.html#/sample-endpoint
+#                    http://localhost:8145/swagger-ui.html#/collection45exercise45endpoint
 #
 # Feature: List of cases scenarios: Clean sample service DB to pre test condition
 #                                   Put collection exercise by valid exerciseid
@@ -25,30 +25,30 @@ Feature: Runs the Collection Exercise endpoints
     Then the samplesvc database has been reset
 
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "business" surveys
+    Given clean sftp folders of all previous ingestions for "BSD" surveys
     And the sftp exit status should be "-1"
-    When for the "business" survey move the "valid" file to trigger ingestion
+    When for the "BSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
   Scenario: Load Census example survey
-    Given clean sftp folders of all previous ingestions for "census" surveys
+    Given clean sftp folders of all previous ingestions for "CTP" surveys
     And the sftp exit status should be "-1"
-    When for the "census" survey move the "valid" file to trigger ingestion
+    When for the "CTP" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found
+    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
   Scenario: Load Social example survey
-    Given clean sftp folders of all previous ingestions for "social" surveys
+    Given clean sftp folders of all previous ingestions for "SSD" surveys
     And the sftp exit status should be "-1"
-    When for the "social" survey move the "valid" file to trigger ingestion
+    When for the "SSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "social" survey confirm processed file "social-survey-full*.xml.processed" is found
+    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
 
@@ -116,12 +116,12 @@ Feature: Runs the Collection Exercise endpoints
     And the response should contain the field "name" with value "BRES_2016"
     And the response should contain the field "actualExecutionDateTime" with or without a null value
     And the response should contain the field "scheduledExecutionDateTime" with a null value
-    And the response should contain the field "scheduledStartDateTime" with value "2017-08-30T00:00:00.000+0100"
+    And the response should contain the field "scheduledStartDateTime"
     And the response should contain the field "actualPublishDateTime" with or without a null value
-    And the response should contain the field "periodStartDateTime" with value "2017-09-08T00:00:00.000+0100"
-    And the response should contain the field "periodEndDateTime" with value "2017-09-08T23:59:59.000+0100"
+    And the response should contain the field "periodStartDateTime"
+    And the response should contain the field "periodEndDateTime"
     And the response should contain the field "scheduledReturnDateTime" with a null value
-    And the response should contain the field "scheduledEndDateTime" with value "2099-01-01T00:00:00.000+0000"
+    And the response should contain the field "scheduledEndDateTime"
     And the response should contain the field "executedBy" with a null value
     And the response should contain the field "state" with value "PENDING"
     And the response should contain the field "caseTypes" with one element of the JSON array must be [{"actionPlanId":"e71002ac-3575-47eb-b87f-cd9db92bf9a7","sampleUnitType":"B"}
@@ -134,14 +134,16 @@ Feature: Runs the Collection Exercise endpoints
     Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
     And the response should contain the field "error.message" with value "Collection Exercise not found for collection exercise Id 87c8b602-aabd-4fc3-8676-bb875f4ce101"
     And the response should contain the field "error.timestamp"
-    
-  # INFO /info
+
+
+  # GET /info
   # 200
   Scenario: Info request to collection excerise for current verison number
     Given I make the call to the collection exercise endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "collectionexercisesvc"
-        And the response should contain the field "version"
-        And the response should contain the field "origin"
-        And the response should contain the field "commit"
-        And the response should contain the field "branch"
+    And the response should contain the field "version"
+    And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-collection-exercise-service.git"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch" with value "master"
+    And the response should contain the field "built"

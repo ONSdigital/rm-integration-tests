@@ -18,11 +18,11 @@
 Feature: Runs the sample service endpoints
 
   # Pre Test Environment Set Up -----
-@tool
+
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
-@sftp
+
   Scenario: Load Business example survey
     Given clean sftp folders of all previous ingestions for "BSD" surveys
     And the sftp exit status should be "-1"
@@ -69,13 +69,15 @@ Feature: Runs the sample service endpoints
 		And the response should contain the field "error.message" with value "CollectionExerciseId c6467711-21eb-4e78-804c-1db8392f93fb already exists in the collectionexercisejob table"
 		And the response should contain the field "error.timestamp"
 
-  # INFO /info
+
+  # GET /info
   # 200
   Scenario: Info request to sample service for current verison number
     Given I make the call to the sample service endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "samplesvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin"
+    And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-sample-service.git"
     And the response should contain the field "commit"
-    And the response should contain the field "branch"
+    And the response should contain the field "branch" with value "master"
+    And the response should contain the field "built"
