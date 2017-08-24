@@ -5,8 +5,8 @@ import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
 
+import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
-
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -22,7 +22,7 @@ public class ActionResponseAware {
 
   private World world;
   private HTTPResponseAware responseAware;
-//  private PostgresResponseAware postgresResponseAware;
+  private PostgresResponseAware postgresResponseAware;
 
   /**
    * Constructor - also gets singleton of http request runner
@@ -30,10 +30,10 @@ public class ActionResponseAware {
    * @param newWorld class with application and environment properties
    * @param dbResponseAware DB runner
    */
-  public ActionResponseAware(final World newWorld) {
+  public ActionResponseAware(final World newWorld, final PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
-//    this.postgresResponseAware = dbResponseAware;
+    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -64,7 +64,7 @@ public class ActionResponseAware {
   public void invokePutActionsActionIdFeedbackEndpoint(String actionId, Properties properties)
       throws IOException, AuthenticationException {
     if (actionId == null || actionId.length() == 0) {
-      actionId = "";//world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
+      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");//world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
       properties.put("id", actionId);
     }
 
@@ -81,7 +81,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsIdEndpoint(String actionId) throws IOException, AuthenticationException {
     if (actionId == null || actionId.length() == 0) {
-      actionId = "";//world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
+      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");//world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
     }
 
     final String url = String.format(GET_ACTIONS_ACTIONID_URL, actionId);
@@ -97,7 +97,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsCaseIdEndpoint(String caseId) throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      caseId = "";//world.getIdFromDB("caseid", "action.action", "1", postgresResponseAware);
+      caseId = postgresResponseAware.getFieldFromRecord("caseid", "action.action");//world.getIdFromDB("caseid", "action.action", "1", postgresResponseAware);
     }
 
     final String url = String.format(GET_ACTIONS_CASEID_URL, caseId);

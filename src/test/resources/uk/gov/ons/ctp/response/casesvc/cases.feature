@@ -55,12 +55,12 @@ Feature: Validating cases requests
   # Pre Test Sample Service Environment Set Up -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 80 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
 
@@ -205,7 +205,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be },"caseEvents":null}
 
   # 204
-  Scenario: Get request to the cases endpoint for a non existing case id
+  Scenario: Get request to the cases endpoint for a non existing party id
     Given I make the GET call to the caseservice cases endpoint for party "87c8b602-aabd-4fc3-8676-bb875f4ce101"
     When the response status should be 204
 

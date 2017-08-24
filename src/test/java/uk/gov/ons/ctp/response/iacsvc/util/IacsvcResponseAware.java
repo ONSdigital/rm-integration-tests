@@ -1,6 +1,5 @@
 package uk.gov.ons.ctp.response.iacsvc.util;
 
-import java.util.List;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -18,7 +17,6 @@ public class IacsvcResponseAware {
   private static final String GET_IAC_URL = "/iacs/%s";
   private static final String PUT_IAC_URL = "/iacs/%s";
   private static final String INFO_URL = "/info";
-  private static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
   private static final String SERVICE = "iacsvc";
 
   private World world;
@@ -60,10 +58,7 @@ public class IacsvcResponseAware {
    */
   public void invokeGetIacEndpoint(String testIac) throws IOException, AuthenticationException {
     if (testIac == null || testIac.length() == 0) {
-//      String url = String.format(LIMIT_SQL, "iac", "casesvc.case", "1");
-//      List<String> iacList = postgresResponseAware.dbRunSqlReturnList(url);
-//      testIac = iacList.get(0);
-      testIac = getIacFromDB();
+      testIac = postgresResponseAware.getFieldFromRecord("iac", "casesvc.case");
     }
 
     final String url = String.format(GET_IAC_URL, testIac);
@@ -82,10 +77,7 @@ public class IacsvcResponseAware {
    */
   public void invokePutIacEndpoint(String testIac, Properties properties) throws IOException, AuthenticationException {
     if (testIac == null || testIac.length() == 0) {
-//      String url = String.format(LIMIT_SQL, "iac", "casesvc.case", "1");
-//      List<String> iacList = postgresResponseAware.dbRunSqlReturnList(url);
-//      testIac = iacList.get(0);
-      testIac = getIacFromDB();
+      testIac = postgresResponseAware.getFieldFromRecord("iac", "casesvc.case");
     }
 
     final String url = String.format(PUT_IAC_URL, testIac);
@@ -102,18 +94,5 @@ public class IacsvcResponseAware {
    */
   public void invokeInfoEndpoint() throws IOException, AuthenticationException {
     responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
-  }
-
-  /**
-   * Get single iac from database
-   *
-   * @return String iac
-   * @throws IOException pass the exception
-   * @throws AuthenticationException pass the exception
-   */
-  private String getIacFromDB() throws IOException, AuthenticationException {
-    String url = String.format(LIMIT_SQL, "iac", "casesvc.case", "1");
-    List<String> iacList = postgresResponseAware.dbRunSqlReturnList(url);
-    return iacList.get(0);
   }
 }

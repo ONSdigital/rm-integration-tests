@@ -44,7 +44,7 @@ public class PostgresSteps {
   /* Select SQL */
   private static final String SELECT_WHERE = "SELECT %s FROM %s WHERE %s";
   private static final String UPDATE_WHERE = "UPDATE %s SET %s WHERE %s";
-  public static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
+//  public static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
 
   /**
    * Constructor
@@ -194,7 +194,6 @@ public class PostgresSteps {
    */
   @Then("^check \"(.*?)\" records in DB equal (\\d+) for \"(.*?)\"$")
   public void check_records_in_DB_equal_for(String table, int total, String whereSearch) throws Throwable {
-//    System.out.println(String.format(COUNT_WHERE, table, whereSearch));
     long result = responseAware.rowCount(String.format(COUNT_WHERE, table, whereSearch));
     assertTrue(table + " found " + whereSearch + " in DB equal to: " + result, result == total);
   }
@@ -293,7 +292,7 @@ public class PostgresSteps {
         "actionplanfk = %s and actionrulepk = %s and actiontypefk = %s", actionPlanId, actionRuleId, actionTypeId);
     String adjustmentSql = String.format(SELECT_WHERE, "daysoffset", "action.actionrule", whereCriteria);
 
-    return responseAware.dbRunSqlReturnInt(adjustmentSql);
+    return responseAware.runSqlReturnInt(adjustmentSql);
 //    daysOffset = (ArrayList<Object>) responseAware.dbRunSqlReturnInt(adjustmentSql);
 //    offset = (Integer) daysOffset.get(0);
 //
@@ -311,7 +310,7 @@ public class PostgresSteps {
   private int adjustActionCaseSurveyStartDate(String adjustedTime, String actionPlanId) throws Throwable {
     String updateSql = String.format(UPDATE_WHERE, "action.case",
         "actionplanstartdate = '" + adjustedTime + "'", "actionplanfk = " + actionPlanId);
-    int result = responseAware.dbRunSqlReturnInt(updateSql);
+    int result = responseAware.runUpdateSql(updateSql);
 
     return result;
   }

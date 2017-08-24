@@ -51,12 +51,12 @@ Feature: Validating action requests
   # Pre Test Sample Service Environment Set Up -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 80 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
 

@@ -49,12 +49,12 @@ Feature: Validating actionPlanJob requests
   # Pre Test Sample Service Environment Set Up -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 80 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
 
@@ -77,7 +77,7 @@ Feature: Validating actionPlanJob requests
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
     When check "action.case" records in DB equal 500 for "actionplanfk = 1"
-
+@uptest
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
