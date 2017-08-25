@@ -64,7 +64,7 @@ public class ActionResponseAware {
   public void invokePutActionsActionIdFeedbackEndpoint(String actionId, Properties properties)
       throws IOException, AuthenticationException {
     if (actionId == null || actionId.length() == 0) {
-      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");//world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
+      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");
       properties.put("id", actionId);
     }
 
@@ -81,7 +81,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsIdEndpoint(String actionId) throws IOException, AuthenticationException {
     if (actionId == null || actionId.length() == 0) {
-      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");//world.getIdFromDB("id", "action.action", "1", postgresResponseAware);
+      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");
     }
 
     final String url = String.format(GET_ACTIONS_ACTIONID_URL, actionId);
@@ -97,7 +97,7 @@ public class ActionResponseAware {
    */
   public void invokeActionsCaseIdEndpoint(String caseId) throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      caseId = postgresResponseAware.getFieldFromRecord("caseid", "action.action");//world.getIdFromDB("caseid", "action.action", "1", postgresResponseAware);
+      caseId = postgresResponseAware.getFieldFromRecord("caseid", "action.action");
     }
 
     final String url = String.format(GET_ACTIONS_CASEID_URL, caseId);

@@ -79,9 +79,9 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then the actionexporter database has been reset
 
   Scenario: Clean old print files from directory
-    Given create test directory "previousTests"
+    Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
-    When move print files to "previousTests/"
+    When move print files to "previousTests/" for "BSD"
     Then the sftp exit status should be "-1"
 
 
@@ -118,7 +118,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   Scenario: Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BSNOT"
+    When get the contents of the print files where the filename begins "BSNOT" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
@@ -134,9 +134,9 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then the actionexporter database has been reset
 
   Scenario: Clean old print files from directory
-    Given create test directory "previousTests"
+    Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
-    When move print files to "previousTests/"
+    When move print files to "previousTests/" for "BSD"
     Then the sftp exit status should be "-1"
 
 
@@ -154,7 +154,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BSREM"
+    When get the contents of the print files where the filename begins "BSREM" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
@@ -170,9 +170,9 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then the actionexporter database has been reset
 
   Scenario: Clean old print files from directory
-    Given create test directory "previousTests"
+    Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
-    When move print files to "previousTests/"
+    When move print files to "previousTests/" for "BSD"
     Then the sftp exit status should be "-1"
 
 
@@ -190,7 +190,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BSREM"
+    When get the contents of the print files where the filename begins "BSREM" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
