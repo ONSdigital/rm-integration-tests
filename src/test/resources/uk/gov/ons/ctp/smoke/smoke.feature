@@ -114,7 +114,7 @@ Feature: Smoke Test
     And the sftp exit status should be "-1" 
 
   Scenario: Test social sample load validation failure
-    Given clean sftp folders of all previous ingestions for "social" surveys 
+    Given clean sftp folders of all previous ingestions for "SSD" surveys 
     And the sftp exit status should be "-1" 
     When for the "SSD" survey move the "invalid" file to trigger ingestion 
     And after a delay of 15 seconds 
