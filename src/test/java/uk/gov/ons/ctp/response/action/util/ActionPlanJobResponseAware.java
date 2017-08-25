@@ -43,7 +43,7 @@ public class ActionPlanJobResponseAware {
    */
   public void invokeActionPlanJobEndpoints(String actionPlanJobId) throws IOException, AuthenticationException {
     if (actionPlanJobId == null || actionPlanJobId.length() == 0) {
-      actionPlanJobId = postgresResponseAware.getFieldFromRecord("id", "action.actionplanjob");//world.getIdFromDB("id", "action.actionplanjob", "1", postgresResponseAware);
+      actionPlanJobId = postgresResponseAware.getFieldFromRecord("id", "action.actionplanjob");
     }
     final String url = String.format("/actionplans/jobs/%s", actionPlanJobId);
     responseAware.invokeGet(world.getUrl(url, "actionsvc"));
@@ -72,7 +72,7 @@ public class ActionPlanJobResponseAware {
   public void invokeExecuteActionPlanJobEndpoints(String actionPlanId, Properties properties)
       throws IOException, AuthenticationException {
     if (actionPlanId == null || actionPlanId.length() == 0) {
-      actionPlanId = postgresResponseAware.getFieldFromRecord("id", "action.actionplanjob");//world.getIdFromDB("id", "action.actionplanjob", "1", postgresResponseAware);
+      actionPlanId = postgresResponseAware.getFieldFromRecord("id", "action.actionplanjob");
     }
     final String url = String.format("/actionplans/%s/jobs", actionPlanId);
     responseAware.invokeJsonPost(world.getUrl(url, "actionsvc"), properties);

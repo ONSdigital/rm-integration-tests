@@ -77,7 +77,7 @@ Feature: Validating actionPlanJob requests
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
     When check "action.case" records in DB equal 500 for "actionplanfk = 1"
-@uptest
+
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
