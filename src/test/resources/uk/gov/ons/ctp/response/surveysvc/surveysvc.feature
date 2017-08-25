@@ -120,7 +120,7 @@ Feature: Runs the survey service endpoints
     When the response status should be 200
     Then the response should contain the field "name" with value "surveysvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-survey-service.git"
+    And the response should contain the field "origin" with value "https://github.com/ONSdigital/rm-survey-service.git"
     And the response should contain the field "commit"
     And the response should contain the field "branch" with value "master"
     And the response should contain the field "built"
