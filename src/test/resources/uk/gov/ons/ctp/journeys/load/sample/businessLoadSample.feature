@@ -28,7 +28,7 @@ Feature: Tests the load of business sample
     And the sftp exit status should be "-1"
     When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1"
-    And after a delay of 50 seconds 
+    And after a delay of 70 seconds 
     Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
   

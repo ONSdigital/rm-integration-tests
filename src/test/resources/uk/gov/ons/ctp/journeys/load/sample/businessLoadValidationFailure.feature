@@ -27,7 +27,7 @@ Feature: Tests the load validation failure for business sample
     Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
     When for the "BSD" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
+    And after a delay of 20 seconds 
     Then for the "BSD" survey confirm processed file "BSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
     Then for the "BSD" survey get the contents of the file "BSD-survey-invalid*error.txt" 
