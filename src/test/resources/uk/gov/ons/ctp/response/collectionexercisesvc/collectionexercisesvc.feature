@@ -95,7 +95,7 @@ Feature: Runs the Collection Exercise endpoints
     Given I make the GET call to the collection exercise endpoint for survey by survey id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response status should be 200
     And the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2016","scheduledExecutionDateTime":null}
+    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2017","scheduledExecutionDateTime":"2017-09-11T00:00:00.000+0100"}
 
   # 404
   Scenario: Get request to collection exercise by invalid survey id
@@ -113,17 +113,18 @@ Feature: Runs the Collection Exercise endpoints
     And the response status should be 200
     And the response should contain the field "id" with value "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     And the response should contain the field "surveyId" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
-    And the response should contain the field "name" with value "BRES_2016"
+    And the response should contain the field "name" with value "BRES_2017"
     And the response should contain the field "actualExecutionDateTime" with or without a null value
-    And the response should contain the field "scheduledExecutionDateTime" with a null value
-    And the response should contain the field "scheduledStartDateTime"
+    And the response should contain the field "scheduledExecutionDateTime" with value "2017-09-11T00:00:00.000+0100"
+    And the response should contain the field "scheduledStartDateTime" with value "2017-09-12T00:00:00.000+0100"
     And the response should contain the field "actualPublishDateTime" with or without a null value
-    And the response should contain the field "periodStartDateTime"
-    And the response should contain the field "periodEndDateTime"
+    And the response should contain the field "periodStartDateTime" with value "2017-09-15T00:00:00.000+0100"
+    And the response should contain the field "periodEndDateTime" with value "2017-09-15T23:59:59.000+0100"
     And the response should contain the field "scheduledReturnDateTime" with a null value
-    And the response should contain the field "scheduledEndDateTime"
+    And the response should contain the field "scheduledEndDateTime" with value "2018-04-01T00:00:00.000+0100"
     And the response should contain the field "executedBy" with a null value
     And the response should contain the field "state" with value "PENDING"
+    And the response should contain the field "exerciseRef" with value "221_201712"
     And the response should contain the field "caseTypes" with one element of the JSON array must be [{"actionPlanId":"e71002ac-3575-47eb-b87f-cd9db92bf9a7","sampleUnitType":"B"}
     And the response should contain the field "caseTypes" with one element of the JSON array must be {"actionPlanId":"0009e978-0932-463b-a2a1-b45cb3ffcb2a","sampleUnitType":"BI"}]
 

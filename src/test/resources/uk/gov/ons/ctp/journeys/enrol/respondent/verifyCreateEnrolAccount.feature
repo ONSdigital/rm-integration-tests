@@ -78,7 +78,7 @@ Feature: Verify and Create Account
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 210 seconds
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 

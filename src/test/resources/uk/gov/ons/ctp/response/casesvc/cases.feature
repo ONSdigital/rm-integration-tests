@@ -92,7 +92,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be ,"state":"ACTIONABLE","actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"caseRef":null,"createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
+    And one element of the JSON array must be ,"caseRef":"1000000000000001","createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
     And one element of the JSON array must be ,"responses":[]}
 
   # 404
@@ -333,14 +333,15 @@ Feature: Validating cases requests
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
     And the response should contain the field "error.message" with value "Provided json is incorrect."
     And the response should contain the field "error.timestamp"   
-    
+
+
   # INFO /info
   # 200
   Scenario: Info request to case service for current verison number
     Given I make the call to the caseservice endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "casesvc"
-        And the response should contain the field "version"
-        And the response should contain the field "origin"
-        And the response should contain the field "commit"
-        And the response should contain the field "branch"
+    And the response should contain the field "version"
+    And the response should contain the field "origin"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch"
