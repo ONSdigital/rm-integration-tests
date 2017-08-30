@@ -71,7 +71,7 @@ Feature: Smoke Test
     Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
     When for the "BSD" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
+    And after a delay of 20 seconds 
     Then for the "BSD" survey confirm processed file "BSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
     Then for the "BSD" survey get the contents of the file "BSD-survey-invalid*error.txt" 
@@ -94,7 +94,7 @@ Feature: Smoke Test
     Given clean sftp folders of all previous ingestions for "CTP" surveys 
     And the sftp exit status should be "-1" 
     When for the "CTP" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
+    And after a delay of 20 seconds 
     Then for the "CTP" survey confirm processed file "CTP-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
     Then for the "CTP" survey get the contents of the file "CTP-survey-invalid*error.txt" 
@@ -117,7 +117,7 @@ Feature: Smoke Test
     Given clean sftp folders of all previous ingestions for "SSD" surveys 
     And the sftp exit status should be "-1" 
     When for the "SSD" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
+    And after a delay of 20 seconds 
     Then for the "SSD" survey confirm processed file "SSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
     Then for the "SSD" survey get the contents of the file "SSD-survey-invalid*error.txt" 
@@ -151,7 +151,7 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 210 seconds
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 

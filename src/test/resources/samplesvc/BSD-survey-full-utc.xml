@@ -3,7 +3,7 @@
 	<surveyRef>221</surveyRef>
 	<collectionExerciseRef>BRES_2017</collectionExerciseRef>
 	<effectiveStartDateTime>2017-09-11T23:00:00.000</effectiveStartDateTime>
-	<effectiveEndDateTime>2017-10-01T00:00:00.000</effectiveEndDateTime>
+	<effectiveEndDateTime>2018-03-31T23:00:00.000</effectiveEndDateTime>
 	<sampleUnits>
 		<businessSampleUnit>
 			<sampleUnitRef>49900000001</sampleUnitRef>
