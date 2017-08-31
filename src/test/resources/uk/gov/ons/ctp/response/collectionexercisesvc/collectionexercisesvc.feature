@@ -38,7 +38,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "CTP" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 50 seconds
+    And after a delay of 40 seconds
     Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -47,7 +47,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "SSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 50 seconds
+    And after a delay of 40 seconds
     Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -95,7 +95,7 @@ Feature: Runs the Collection Exercise endpoints
     Given I make the GET call to the collection exercise endpoint for survey by survey id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response status should be 200
     And the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2017","scheduledExecutionDateTime":"2017-09-11T00:00:00.000+0100"}
+    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2017","scheduledExecutionDateTime":
 
   # 404
   Scenario: Get request to collection exercise by invalid survey id
@@ -115,13 +115,13 @@ Feature: Runs the Collection Exercise endpoints
     And the response should contain the field "surveyId" with value "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response should contain the field "name" with value "BRES_2017"
     And the response should contain the field "actualExecutionDateTime" with or without a null value
-    And the response should contain the field "scheduledExecutionDateTime" with value "2017-09-11T00:00:00.000+0100"
-    And the response should contain the field "scheduledStartDateTime" with value "2017-09-12T00:00:00.000+0100"
+    And the response should contain the field "scheduledExecutionDateTime"
+    And the response should contain the field "scheduledStartDateTime"
     And the response should contain the field "actualPublishDateTime" with or without a null value
-    And the response should contain the field "periodStartDateTime" with value "2017-09-15T00:00:00.000+0100"
-    And the response should contain the field "periodEndDateTime" with value "2017-09-15T23:59:59.000+0100"
+    And the response should contain the field "periodStartDateTime"
+    And the response should contain the field "periodEndDateTime"
     And the response should contain the field "scheduledReturnDateTime" with a null value
-    And the response should contain the field "scheduledEndDateTime" with value "2018-04-01T00:00:00.000+0100"
+    And the response should contain the field "scheduledEndDateTime"
     And the response should contain the field "executedBy" with a null value
     And the response should contain the field "state" with value "PENDING"
     And the response should contain the field "exerciseRef" with value "221_201712"
