@@ -77,7 +77,7 @@ Feature: Validating actionPlan requests
 	# 200
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-      | 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  | 2017-12-25T12:00:00.000+0100 |
+      | 0009e978-0932-463b-a2a1-b45cb3ffcb2a  |  | 2016-12-25T12:00:00.000+0100 |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a" 
 		And the response should contain the field "name" with value "BRES"
@@ -88,7 +88,7 @@ Feature: Validating actionPlan requests
 	# 200
   Scenario: Put request to actionplans for actionPlanId
 		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId
-			| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test Two | 2017-12-25T12:00:00.000+0100 |
+			| 0009e978-0932-463b-a2a1-b45cb3ffcb2a | Cucumber Test Two | 2016-12-25T12:00:00.000+0100 |
 		Then the response status should be 200
 		And the response should contain the field "id" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
 		And the response should contain the field "name" with value "BRES"
