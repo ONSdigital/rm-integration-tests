@@ -7,7 +7,10 @@ import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
 
+import com.jayway.jsonpath.JsonPath;
+
 import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
+import uk.gov.ons.ctp.response.iacsvc.util.IacsvcResponseAware;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -16,6 +19,7 @@ import uk.gov.ons.ctp.util.World;
  */
 public class CaseResponseAware {
   private static final String WHERE_SQL = "SELECT %s FROM %s WHERE %s;";
+  private static final String SELECT_SQL = "SELECT %s FROM %s;";
   private static final String GET_CASEGROUP_URL = "/casegroups/%s";
   private static final String GET_CASE_CASEGROUP_URL = "/cases/casegroupid/%s";
   private static final String GET_IAC_URL = "/cases/iac/%s%s";
@@ -237,5 +241,20 @@ public class CaseResponseAware {
     String sql = String.format(WHERE_SQL, "id", "casesvc.case", "sampleunittype = 'BI'");
     List<String> result = postgresResponseAware.getRecord(sql);
     invokeCasesEndpoint(result.get(0).toString(), params);
+  }
+
+  /**
+   * @iac Service - /iacs/{iac} get endoints. Get iac from previous call to get caseid.
+   *
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeGetIACEndpointForCase() throws IOException, AuthenticationException {
+    String testCaseid = JsonPath.read(responseAware.getBody(), "$." + "caseId");
+    String sql = String.format(WHERE_SQL, "iac", "casesvc.case", "id = '" + testCaseid + "'");
+    List<String> result = postgresResponseAware.getRecord(sql);
+
+    IacsvcResponseAware iacService = new IacsvcResponseAware(world, postgresResponseAware);
+    iacService.invokeGetIacEndpoint(result.get(0));
   }
 }

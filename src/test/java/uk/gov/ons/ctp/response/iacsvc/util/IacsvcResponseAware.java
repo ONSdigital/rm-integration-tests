@@ -17,6 +17,8 @@ public class IacsvcResponseAware {
   private static final String GET_IAC_URL = "/iacs/%s";
   private static final String PUT_IAC_URL = "/iacs/%s";
   private static final String INFO_URL = "/info";
+  private static final String IAC_USER = "cuc.collect.iacsvc.username";
+  private static final String IAC_PASSWORD = "cuc.collect.iacsvc.password";
   private static final String SERVICE = "iacsvc";
 
   private World world;
@@ -32,6 +34,7 @@ public class IacsvcResponseAware {
   public IacsvcResponseAware(final World newWorld, PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    responseAware.enableBasicAuth(world.getProperty(IAC_USER), world.getProperty(IAC_PASSWORD));
     this.postgresResponseAware = dbResponseAware;
   }
 
@@ -44,8 +47,8 @@ public class IacsvcResponseAware {
    */
   public void invokePostIacEndpoint(Properties properties) throws IOException, AuthenticationException {
     final String url = POST_IAC_URL;
-    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
-        world.getProperty("cuc.collect.iacsvc.password"));
+//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
+//        world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
   }
 
@@ -62,8 +65,8 @@ public class IacsvcResponseAware {
     }
 
     final String url = String.format(GET_IAC_URL, testIac);
-    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
-        world.getProperty("cuc.collect.iacsvc.password"));
+//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
+//        world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
@@ -81,8 +84,8 @@ public class IacsvcResponseAware {
     }
 
     final String url = String.format(PUT_IAC_URL, testIac);
-    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
-        world.getProperty("cuc.collect.iacsvc.password"));
+//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
+//        world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeJsonPut(world.getUrl(url, SERVICE), properties);
   }
 

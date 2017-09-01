@@ -93,9 +93,9 @@ public class CasesSteps {
    * @param caseid case id
    * @throws Throwable pass the exception
    */
-  @When("^I make the GET call to the caseservice cases endpoint for case \"(.*?)\"$")
-  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_case(String caseid) throws Throwable {
-    responseAware.invokeCasesEndpoint(caseid, "");
+  @Then("^I make the GET call to the IAC service endpoint for caseid$")
+  public void i_make_the_GET_call_to_the_IAC_service_endpoint_for_caseid() throws Throwable {
+    responseAware.invokeGetIACEndpointForCase();//.invokeCasesEndpoint(caseid, "");
   }
 
   /**

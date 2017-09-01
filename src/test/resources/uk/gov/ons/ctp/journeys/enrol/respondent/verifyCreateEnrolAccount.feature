@@ -44,7 +44,7 @@ Feature: Verify and Create Account
     And the sftp exit status should be "-1"
     When for the "BSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 50 seconds
+    And after a delay of 60 seconds
     Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
@@ -123,7 +123,8 @@ Feature: Verify and Create Account
 
   # RAS 6.1, 6.2
 
-  Scenario: Verify event created for account created (Journey steps: 6.3)
+
+  Scenario: Verify event created for account created (Journey steps: 6.3, 6.4)
     Given I make the POST call to the caseservice cases events
       | Created by cucumber test | RESPONDENT_ACCOUNT_CREATED | test | Cucumber Test |  |
     When the response status should be 201
@@ -134,16 +135,15 @@ Feature: Verify and Create Account
     And the response should contain the field "subCategory" with value "test"
     And the response should contain the field "createdBy" with value "Cucumber Test"
     And the response should contain the field "description" with value "Created by cucumber test"
-
-  Scenario: Verify access code had been disabled (Journey steps: 6.4)
-    Given I make the GET call to the IAC service endpoint
-    When the response status should be 200
+    Then I make the GET call to the IAC service endpoint for caseid
+    And the response status should be 200
     Then the response should contain the field "caseId"
     And the response should contain the field "caseRef" with a null value
     And the response should contain the field "iac"
     And the response should contain the field "active" with boolean value "false"
     And the response should contain the field "questionSet" with a null value
     And the response should contain the field "lastUsedDateTime"
+
 
   # Report 6.5
 
