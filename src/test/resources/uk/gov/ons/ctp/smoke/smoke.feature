@@ -86,7 +86,7 @@ Feature: Smoke Test
     And the sftp exit status should be "-1" 
     When for the "CTP" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 50 seconds 
+    And after a delay of 55 seconds 
     Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
   
@@ -109,7 +109,7 @@ Feature: Smoke Test
     And the sftp exit status should be "-1" 
     When for the "SSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 50 seconds 
+    And after a delay of 55 seconds 
     Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
 
