@@ -47,8 +47,6 @@ public class IacsvcResponseAware {
    */
   public void invokePostIacEndpoint(Properties properties) throws IOException, AuthenticationException {
     final String url = POST_IAC_URL;
-//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
-//        world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
   }
 
@@ -65,8 +63,6 @@ public class IacsvcResponseAware {
     }
 
     final String url = String.format(GET_IAC_URL, testIac);
-//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
-//        world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
@@ -84,8 +80,6 @@ public class IacsvcResponseAware {
     }
 
     final String url = String.format(PUT_IAC_URL, testIac);
-//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.iacsvc.username"),
-//        world.getProperty("cuc.collect.iacsvc.password"));
     responseAware.invokeJsonPut(world.getUrl(url, SERVICE), properties);
   }
 

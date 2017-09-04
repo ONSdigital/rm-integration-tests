@@ -76,7 +76,7 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/{caseId} invalid iac with parameters
+   * Test get request for /cases/{caseId} Optional parameters are passed from the feature file to the url
    *
    * @param params Url parameters
    * @throws Throwable pass the exception
@@ -88,18 +88,17 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/{caseId} invalid iac with no parameters
+   * Test get request for /cases/{caseId} invalid case id with no parameters
    *
-   * @param caseid case id
    * @throws Throwable pass the exception
    */
   @Then("^I make the GET call to the IAC service endpoint for caseid$")
   public void i_make_the_GET_call_to_the_IAC_service_endpoint_for_caseid() throws Throwable {
-    responseAware.invokeGetIACEndpointForCase();//.invokeCasesEndpoint(caseid, "");
+    responseAware.invokeGetIACEndpointForCase();
   }
 
   /**
-   * Test get request for /cases/partyid/{partyid} invalid iac with parameters
+   * Test get request for /cases/partyid/{partyid} Optional parameters are passed from the feature file to the url
    *
    * @param params Url parameters
    * @throws Throwable pass the exception
@@ -111,7 +110,7 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/partyid/{partyid} invalid partyid with no parameters
+   * Test get request for /cases/partyid/{partyid} invalid party id with no parameters
    *
    * @param partyId case id
    * @throws Throwable pass the exception
@@ -130,17 +129,6 @@ public class CasesSteps {
   public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events() throws Throwable {
     responseAware.invokeCasesEventsEndpoint(null);
   }
-
-//  /**
-//   * Test get request for /cases/caseevents/{caseid} invalid caseid
-//   *
-//   * @param caseId case id
-//   * @throws Throwable pass the exception
-//   */
-//  @Given("^I make the GET call to the caseservice cases endpoint for events for \"(.*?)\"$")
-//  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_events_for(String caseId) throws Throwable {
-//    responseAware.invokeCasesEventsEndpoint(caseId);
-//  }
 
   /**
    * Test get request for /cases/{caseId}/events for invalid caseId
@@ -186,6 +174,17 @@ public class CasesSteps {
     responseAware.invokePostCasesEventsEndpoint(getValues.get(4), properties);
   }
 
+  /**
+   * Test post request for /info
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the call to the caseservice endpoint for info")
+  public void i_make_the_call_to_the_caseservice_endpoint_for_info() throws Throwable {
+    responseAware.invokeInfoEndpoint();
+  }
+
+
   /* Journey test steps */
 
   /**
@@ -229,12 +228,12 @@ public class CasesSteps {
   }
 
   /**
-   * Test post request for /info
+   * Test get request for /cases/partyid/{partyid} from a previously new BI case
+   *
    * @throws Throwable pass the exception
    */
-  @Given("^I make the call to the caseservice endpoint for info")
-  public void i_make_the_call_to_the_caseservice_endpoint_for_info() throws Throwable {
-    responseAware.invokeInfoEndpoint();
+  @Given("^I make the GET call to the caseservice cases endpoint for case by party$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_case_by_party() throws Throwable {
+    responseAware.invokeCasesEndpointForNewCaseParty();
   }
-
 }

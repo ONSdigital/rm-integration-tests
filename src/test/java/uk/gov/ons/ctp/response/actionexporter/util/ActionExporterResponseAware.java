@@ -152,6 +152,7 @@ public class ActionExporterResponseAware {
 
   /**
    * Test post request for /info response
+   *
    * @throws IOException pass the exception
    * @throws AuthenticationException pass the exception
    */

@@ -48,8 +48,6 @@ public class SFTPResponseAware {
     this.world = newWorld;
     this.port = Integer.parseInt(world.getProperty(SFTP_PORT));
     this.sftpServer = world.getProperty(SFTP_SERVER);
-//    this.username = world.getProperty(SFTP_USERNAME);
-//    this.password = world.getProperty(SFTP_PASSWORD);
   }
 
   /**

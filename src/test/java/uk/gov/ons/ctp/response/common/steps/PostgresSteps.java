@@ -44,7 +44,6 @@ public class PostgresSteps {
   /* Select SQL */
   private static final String SELECT_WHERE = "SELECT %s FROM %s WHERE %s";
   private static final String UPDATE_WHERE = "UPDATE %s SET %s WHERE %s";
-//  public static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
 
   /**
    * Constructor
@@ -285,18 +284,11 @@ public class PostgresSteps {
    * @throws Throwable pass the exception
    */
   private int getActionPlanDaysOffset(String actionPlanId, String actionRuleId, String actionTypeId) throws Throwable {
-//    List<Object> daysOffset = new ArrayList<Object>();
-//    int offset = 0;
-
     String whereCriteria = String.format(
         "actionplanfk = %s and actionrulepk = %s and actiontypefk = %s", actionPlanId, actionRuleId, actionTypeId);
     String adjustmentSql = String.format(SELECT_WHERE, "daysoffset", "action.actionrule", whereCriteria);
 
     return responseAware.runSqlReturnInt(adjustmentSql);
-//    daysOffset = (ArrayList<Object>) responseAware.dbRunSqlReturnInt(adjustmentSql);
-//    offset = (Integer) daysOffset.get(0);
-//
-//    return offset;
   }
 
   /**

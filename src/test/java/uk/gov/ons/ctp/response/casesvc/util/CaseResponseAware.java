@@ -19,7 +19,6 @@ import uk.gov.ons.ctp.util.World;
  */
 public class CaseResponseAware {
   private static final String WHERE_SQL = "SELECT %s FROM %s WHERE %s;";
-  private static final String SELECT_SQL = "SELECT %s FROM %s;";
   private static final String GET_CASEGROUP_URL = "/casegroups/%s";
   private static final String GET_CASE_CASEGROUP_URL = "/cases/casegroupid/%s";
   private static final String GET_IAC_URL = "/cases/iac/%s%s";
@@ -234,8 +233,6 @@ public class CaseResponseAware {
    * @param params URL parameters
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
-   * @throws SQLException sql exception
-   * @throws ClassNotFoundException class not found exception
    */
   public void invokeCasesEndpointForNewUnknownCase(String params) throws IOException, AuthenticationException {
     String sql = String.format(WHERE_SQL, "id", "casesvc.case", "sampleunittype = 'BI'");
@@ -256,5 +253,17 @@ public class CaseResponseAware {
 
     IacsvcResponseAware iacService = new IacsvcResponseAware(world, postgresResponseAware);
     iacService.invokeGetIacEndpoint(result.get(0));
+  }
+
+  /**
+   * @caseresponse Get new case using - /cases/partyid/{partyid}{parameters} Get partyId from DB first.
+   *
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeCasesEndpointForNewCaseParty() throws IOException, AuthenticationException {
+    String sql = String.format(WHERE_SQL, "partyid", "casesvc.case", "sampleunittype = 'BI'");
+    List<String> result = postgresResponseAware.getRecord(sql);
+    invokePartyEndpoint(result.get(0).toString(), "");
   }
 }

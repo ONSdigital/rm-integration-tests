@@ -121,9 +121,9 @@ Feature: Tests the collection instrument is downloaded (RM)
 
 
   # Return Open Cases for respondent 9.3 ----- partyid
-  
+  @testparty
   Scenario: Get request to cases for specific case id to test case state for partyid
-    Given I make the GET call to the caseservice cases endpoint for party with parameters ""
+    Given I make the GET call to the caseservice cases endpoint for case by party
     When the response status should be 200
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be {"id":
