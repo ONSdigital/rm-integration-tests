@@ -40,7 +40,8 @@ public class SampleSvcResponseAware {
   }
 
   /**
-   * Test post request for /info response
+   * Test get request for /info response
+   *
    * @throws IOException pass the exception
    * @throws AuthenticationException pass the exception
    */

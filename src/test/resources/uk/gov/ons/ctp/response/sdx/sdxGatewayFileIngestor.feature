@@ -7,8 +7,8 @@
 #								@sdxGateway
 #
 # Scenario Tags: @paperQuestionnaireReceipts
-
-@sdxGateway @sdxGatewayFileIngestor
+#
+@sdxGatewayOld @sdxGatewayFileIngestor
 Feature: validate sdx paper response ingestor
 
 	@paperQuestionnaireReceipts
