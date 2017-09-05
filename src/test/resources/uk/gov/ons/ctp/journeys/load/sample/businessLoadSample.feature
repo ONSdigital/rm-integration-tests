@@ -28,11 +28,12 @@ Feature: Tests the load of business sample
     And the sftp exit status should be "-1"
     When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1"
-    And after a delay of 70 seconds 
+    And after a delay of 60 seconds 
     Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
   
   Scenario: Test sample DB state (Journey steps: 1.5)
+    Given after a delay of 30 seconds
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
     Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
 

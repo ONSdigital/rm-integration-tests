@@ -27,7 +27,7 @@ Feature: Tests the load validation failure for census sample
     Given clean sftp folders of all previous ingestions for "CTP" surveys 
     And the sftp exit status should be "-1" 
     When for the "CTP" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
+    And after a delay of 20 seconds 
     Then for the "CTP" survey confirm processed file "CTP-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
     Then for the "CTP" survey get the contents of the file "CTP-survey-invalid*error.txt" 
