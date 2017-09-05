@@ -91,4 +91,14 @@ public class SurveySvcSteps {
       throws Throwable {
     responseAware.invokeGetClassifier(sid, cid);
   }
+
+  /**
+   * Test get request for /info response
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the call to the survey service endpoint for info$")
+  public void i_make_the_call_to_the_survey_service_endpoint_for_info() throws Throwable {
+    responseAware.invokeGetInfo();
+  }
 }

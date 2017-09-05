@@ -19,6 +19,8 @@ public class SampleSvcSFTPResponseAware {
   private static final String SSVC_FILENAME_VALID_KEY = "cuc.collect.samplesvc.valid.filename";
   private static final String SSVC_FILENAME_INVALID_KEY = "cuc.collect.samplesvc.invalid.filename";
   private static final String SSVC_FILENAME_MIN_KEY = "cuc.collect.samplesvc.min.filename";
+  private static final String SFTP_USERNAME = "cuc.sftp.samplesvc.username";
+  private static final String SFTP_PASSWORD = "cuc.sftp.samplesvc.password";
 
   private World world;
   private final SFTPResponseAware responseAware;
@@ -63,6 +65,7 @@ public class SampleSvcSFTPResponseAware {
    */
   public void invokeCleanSurveyFolders(String surveyType) throws JSchException, SftpException {
     final String surveyLocation = String.format(world.getProperty(SFTP_SURVEY_LOCATION_KEY), surveyType);
+    responseAware.setCredentials(world.getProperty(SFTP_USERNAME), world.getProperty(SFTP_PASSWORD));
     responseAware.deleteAllFilesInDirectory(surveyLocation);
   }
 
@@ -76,7 +79,8 @@ public class SampleSvcSFTPResponseAware {
    */
   public void invokeSurveyFileTransfer(String surveyType, String fileType) throws JSchException, SftpException {
     final String surveyLocation = String.format(world.getProperty(SFTP_SURVEY_LOCATION_KEY), surveyType);
-    String filename = constructFilename(surveyType, fileType, "");
+    String filename = constructFilename(surveyType, fileType);
+    responseAware.setCredentials(world.getProperty(SFTP_USERNAME), world.getProperty(SFTP_PASSWORD));
     responseAware.copyFileFromLocalToRemote(surveyLocation, world.getProperty(XML_LOCATION_KEY), filename);
   }
 
@@ -92,6 +96,7 @@ public class SampleSvcSFTPResponseAware {
   public List<String>  invokeConfirmSurveyProcessedFileExists(String surveyType, String filename)
       throws JSchException, SftpException {
     final String surveyLocation = String.format(world.getProperty(SFTP_SURVEY_LOCATION_KEY), surveyType);
+    responseAware.setCredentials(world.getProperty(SFTP_USERNAME), world.getProperty(SFTP_PASSWORD));
     return responseAware.findFilesInDirectory(surveyLocation, filename);
   }
 
@@ -107,6 +112,7 @@ public class SampleSvcSFTPResponseAware {
   public void invokeGetFileContents(String surveyType, String filename)
       throws JSchException, SftpException, IOException {
     final String surveyLocation = String.format(world.getProperty(SFTP_SURVEY_LOCATION_KEY), surveyType);
+    responseAware.setCredentials(world.getProperty(SFTP_USERNAME), world.getProperty(SFTP_PASSWORD));
     responseAware.getContentsOfFile(surveyLocation, filename);
   }
 
@@ -115,17 +121,23 @@ public class SampleSvcSFTPResponseAware {
    *
    * @param surveyType survey area to run
    * @param fileType currently either valid or invalid
-   * @param timestamp date time to make the file unique
    * @return constructed filename
    */
-  private String constructFilename(String surveyType, String fileType, String timestamp) {
+  private String constructFilename(String surveyType, String fileType) {
     String filename = "";
+
     if (fileType.equalsIgnoreCase("valid")) {
-      filename = String.format(world.getProperty(SSVC_FILENAME_VALID_KEY), surveyType, timestamp);
+      String timezone = "";
+      if (System.getProperty("cuc.env").equalsIgnoreCase("local") && surveyType.equalsIgnoreCase("BSD")) {
+        timezone = "-local";
+      } else if (surveyType.equalsIgnoreCase("BSD")) {
+        timezone = "-utc";
+      }
+      filename = String.format(world.getProperty(SSVC_FILENAME_VALID_KEY), surveyType, timezone);
     } else if (fileType.equalsIgnoreCase("invalid")) {
-      filename = String.format(world.getProperty(SSVC_FILENAME_INVALID_KEY), surveyType, timestamp);
+      filename = String.format(world.getProperty(SSVC_FILENAME_INVALID_KEY), surveyType);
     } else if (fileType.equalsIgnoreCase("min")) {
-      filename = String.format(world.getProperty(SSVC_FILENAME_MIN_KEY), surveyType, timestamp);
+      filename = String.format(world.getProperty(SSVC_FILENAME_MIN_KEY), surveyType);
     }
     return filename;
   }

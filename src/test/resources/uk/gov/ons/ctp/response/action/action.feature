@@ -51,12 +51,12 @@ Feature: Validating action requests
   # Pre Test Sample Service Environment Set Up -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 80 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
 
@@ -69,7 +69,7 @@ Feature: Validating action requests
 
   # Pre Test Case Service Environment Set Up -----
   Scenario: Test casesvc case DB state
-    Given after a delay of 270 seconds
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -265,8 +265,8 @@ Feature: Validating action requests
     Given I make the call to the actionservice endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "actionsvc"
-        And the response should contain the field "version"
-        And the response should contain the field "origin"
-        And the response should contain the field "commit"
-        And the response should contain the field "branch"
+    And the response should contain the field "version"
+    And the response should contain the field "origin"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch"
         

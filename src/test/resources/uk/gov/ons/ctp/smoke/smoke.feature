@@ -50,31 +50,31 @@ Feature: Smoke Test
     Then the actionexporter database has been reset
 
   Scenario: Clean old print files from directory
-    Given create test directory "previousTests"
+    Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
-    When move print files to "previousTests/"
+    When move print files to "previousTests/" for "BSD"
     Then the sftp exit status should be "-1"
 
 
   # Sample Service Smoke Tests -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 70 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    And after a delay of 80 seconds 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
   
   Scenario: Test business sample load validation failure 
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
-    Then for the "business" survey confirm processed file "business-survey-invalid*.error" is found 
+    When for the "BSD" survey move the "invalid" file to trigger ingestion 
+    And after a delay of 25 seconds 
+    Then for the "BSD" survey confirm processed file "BSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
-    Then for the "business" survey get the contents of the file "business-survey-invalid*error.txt" 
+    Then for the "BSD" survey get the contents of the file "BSD-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
     And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 
@@ -82,22 +82,22 @@ Feature: Smoke Test
     And the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
   
   Scenario: Test census sample load
-    Given clean sftp folders of all previous ingestions for "census" surveys 
+    Given clean sftp folders of all previous ingestions for "CTP" surveys 
     And the sftp exit status should be "-1" 
-    When for the "census" survey move the "valid" file to trigger ingestion 
+    When for the "CTP" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 50 seconds 
-    Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found 
+    And after a delay of 55 seconds 
+    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
   
   Scenario: Test census sample load validation failure
-    Given clean sftp folders of all previous ingestions for "census" surveys 
+    Given clean sftp folders of all previous ingestions for "CTP" surveys 
     And the sftp exit status should be "-1" 
-    When for the "census" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
-    Then for the "census" survey confirm processed file "census-survey-invalid*.error" is found 
+    When for the "CTP" survey move the "invalid" file to trigger ingestion 
+    And after a delay of 25 seconds 
+    Then for the "CTP" survey confirm processed file "CTP-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
-    Then for the "census" survey get the contents of the file "census-survey-invalid*error.txt" 
+    Then for the "CTP" survey get the contents of the file "CTP-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
     And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 
@@ -105,22 +105,22 @@ Feature: Smoke Test
     And the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
 
   Scenario: Test social sample load
-    Given clean sftp folders of all previous ingestions for "social" surveys 
+    Given clean sftp folders of all previous ingestions for "SSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "social" survey move the "valid" file to trigger ingestion 
+    When for the "SSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
-    And after a delay of 50 seconds 
-    Then for the "social" survey confirm processed file "social-survey-full*.xml.processed" is found 
+    And after a delay of 55 seconds 
+    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
 
   Scenario: Test social sample load validation failure
-    Given clean sftp folders of all previous ingestions for "social" surveys 
+    Given clean sftp folders of all previous ingestions for "SSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "social" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
-    Then for the "social" survey confirm processed file "social-survey-invalid*.error" is found 
+    When for the "SSD" survey move the "invalid" file to trigger ingestion 
+    And after a delay of 25 seconds 
+    Then for the "SSD" survey confirm processed file "SSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
-    Then for the "social" survey get the contents of the file "social-survey-invalid*error.txt" 
+    Then for the "SSD" survey get the contents of the file "SSD-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
     And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 
@@ -151,7 +151,7 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 210 seconds
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -175,7 +175,7 @@ Feature: Smoke Test
 
   Scenario: Test print file generation and confirm contents
     Given after a delay of 90 seconds
-    When get the contents of the print files where the filename begins "BSNOT"
+    When get the contents of the print files where the filename begins "BSNOT" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"

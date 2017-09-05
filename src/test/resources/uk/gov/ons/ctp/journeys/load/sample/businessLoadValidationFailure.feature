@@ -24,13 +24,13 @@ Feature: Tests the load validation failure for business sample
   # Business Sample Load Tests -----
 
   Scenario: Test fail validation for business sample file (Journey steps: 1.1, 1.2.1, 1.2.2) 
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
-    Then for the "business" survey confirm processed file "business-survey-invalid*.error" is found 
+    When for the "BSD" survey move the "invalid" file to trigger ingestion 
+    And after a delay of 20 seconds 
+    Then for the "BSD" survey confirm processed file "BSD-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
-    Then for the "business" survey get the contents of the file "business-survey-invalid*error.txt" 
+    Then for the "BSD" survey get the contents of the file "BSD-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
     And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 

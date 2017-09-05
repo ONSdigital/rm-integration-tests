@@ -24,13 +24,13 @@ Feature: Tests the load validation failure for census sample
   # Census Sample Load Tests -----
 
   Scenario: Test fail validation for census sample file (Journey steps: 1.1, 1.2.1, 1.2.2) 
-    Given clean sftp folders of all previous ingestions for "census" surveys 
+    Given clean sftp folders of all previous ingestions for "CTP" surveys 
     And the sftp exit status should be "-1" 
-    When for the "census" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 15 seconds 
-    Then for the "census" survey confirm processed file "census-survey-invalid*.error" is found 
+    When for the "CTP" survey move the "invalid" file to trigger ingestion 
+    And after a delay of 20 seconds 
+    Then for the "CTP" survey confirm processed file "CTP-survey-invalid*.error" is found 
     And the sftp exit status should be "-1" 
-    Then for the "census" survey get the contents of the file "census-survey-invalid*error.txt" 
+    Then for the "CTP" survey get the contents of the file "CTP-survey-invalid*error.txt" 
     And the sftp exit status should be "-1" 
     And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
     And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 

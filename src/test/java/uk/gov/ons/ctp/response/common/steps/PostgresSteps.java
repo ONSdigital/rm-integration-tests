@@ -10,18 +10,16 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
-
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import uk.gov.ons.ctp.util.PostgresResponseAware;
+import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.World;
 
 /**
@@ -46,7 +44,6 @@ public class PostgresSteps {
   /* Select SQL */
   private static final String SELECT_WHERE = "SELECT %s FROM %s WHERE %s";
   private static final String UPDATE_WHERE = "UPDATE %s SET %s WHERE %s";
-  public static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
 
   /**
    * Constructor
@@ -159,7 +156,7 @@ public class PostgresSteps {
     for (String line:lines) {
       strbuffer.append(line);
     }
-    responseAware.dbUpdateInsert(strbuffer.toString());
+    responseAware.dbRunSql(strbuffer.toString());
   }
 
   /**
@@ -169,8 +166,6 @@ public class PostgresSteps {
    * @param total expected value to be tested
    * @throws Throwable pass the exception
    */
-//  @Then("^check \"(.*?)\" records in DB equal (\\d+)$")
-//  public void check_records_in_DB_equal(String table, long total) throws Throwable {
   private void checkRecordsInDBEqual(String table, long total) throws Throwable {
     long result = responseAware.rowCount(String.format(COUNT_SQL, table));
     assertTrue(table + " found in DB equal to: " + result, result == total);
@@ -198,7 +193,6 @@ public class PostgresSteps {
    */
   @Then("^check \"(.*?)\" records in DB equal (\\d+) for \"(.*?)\"$")
   public void check_records_in_DB_equal_for(String table, int total, String whereSearch) throws Throwable {
-    System.out.println(String.format(COUNT_WHERE, table, whereSearch));
     long result = responseAware.rowCount(String.format(COUNT_WHERE, table, whereSearch));
     assertTrue(table + " found " + whereSearch + " in DB equal to: " + result, result == total);
   }
@@ -230,8 +224,6 @@ public class PostgresSteps {
    * @param total expected value to be tested
    * @throws Throwable pass the exception
    */
-//  @Then("^check \"(.*?)\" sequence in DB equal (\\d+)$")
-//  public void check_sequence_in_DB_equal(String sequence, long total) throws Throwable {
   public void checkSequenceInDBEqual(String sequence, long total) throws Throwable {
     long result = responseAware.rowCount(String.format(CURRVAL_SQL, sequence));
     assertTrue(sequence + " found in DB equal to: " + result + " Not = : " + total, result == total);
@@ -292,16 +284,11 @@ public class PostgresSteps {
    * @throws Throwable pass the exception
    */
   private int getActionPlanDaysOffset(String actionPlanId, String actionRuleId, String actionTypeId) throws Throwable {
-    List<Object> daysOffset = new ArrayList<Object>();
-    int offset = 0;
-
     String whereCriteria = String.format(
         "actionplanfk = %s and actionrulepk = %s and actiontypefk = %s", actionPlanId, actionRuleId, actionTypeId);
     String adjustmentSql = String.format(SELECT_WHERE, "daysoffset", "action.actionrule", whereCriteria);
-    daysOffset = (ArrayList<Object>) responseAware.dbSelect(adjustmentSql);
-    offset = (Integer) daysOffset.get(0);
 
-    return offset;
+    return responseAware.runSqlReturnInt(adjustmentSql);
   }
 
   /**
@@ -315,7 +302,7 @@ public class PostgresSteps {
   private int adjustActionCaseSurveyStartDate(String adjustedTime, String actionPlanId) throws Throwable {
     String updateSql = String.format(UPDATE_WHERE, "action.case",
         "actionplanstartdate = '" + adjustedTime + "'", "actionplanfk = " + actionPlanId);
-    int result = responseAware.dbUpdateInsert(updateSql);
+    int result = responseAware.runUpdateSql(updateSql);
 
     return result;
   }

@@ -1,8 +1,8 @@
 package uk.gov.ons.ctp.response.sdx.util;
 
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
+//import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
 
@@ -13,6 +13,9 @@ import uk.gov.ons.ctp.util.World;
  * Created by Stephen Goddard on 30/9/16.
  */
 public class SdxGatewayResponseAware {
+  private static final String INFO_URL = "/info";
+  private static final String SERVICE = "sdxgateway";
+
   private World world;
   private HTTPResponseAware responseAware;
 
@@ -27,30 +30,40 @@ public class SdxGatewayResponseAware {
   }
 
   /**
-   * sdx gateway - /questionnairereceipts post endpoint.
+   * Test get request for /info response
    *
-   * @param properties to construct JSON from
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
    */
-  public void invokeSdxReceiptEndpoint(Properties properties) throws IOException, AuthenticationException {
-    final String url = "/questionnairereceipts";
-    responseAware.enableBasicAuth(world.getProperty("cuc.collect.sdxgateway.username"),
-        world.getProperty("cuc.collect.sdxgateway.password"));
-    responseAware.invokeJsonPost(world.getSdxGatewayUrl(url), properties);
+  public void invokeInfoEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
   }
 
-  /**
-   * sdx gateway - /paperquestionnairereceipts post endpoint.
-   *
-   * @param file to be sent to SDX Gateway
-   * @throws IOException IO exception
-   * @throws AuthenticationException authentication exception
-   */
-  public void invokeSdxPaperReceiptEndpoint(File file) throws IOException, AuthenticationException {
-    final String url = "/paperquestionnairereceipts";
-    responseAware.enableBasicAuth(world.getProperty("cuc.collect.sdxgateway.username"),
-        world.getProperty("cuc.collect.sdxgateway.password"));
-    responseAware.invokeFilePost(world.getSdxGatewayUrl(url), file);
-  }
+//  /**
+//   * sdx gateway - /questionnairereceipts post endpoint.
+//   *
+//   * @param properties to construct JSON from
+//   * @throws IOException IO exception
+//   * @throws AuthenticationException authentication exception
+//   */
+//  public void invokeSdxReceiptEndpoint(Properties properties) throws IOException, AuthenticationException {
+//    final String url = "/questionnairereceipts";
+//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.sdxgateway.username"),
+//        world.getProperty("cuc.collect.sdxgateway.password"));
+//    responseAware.invokeJsonPost(world.getSdxGatewayUrl(url), properties);
+//  }
+//
+//  /**
+//   * sdx gateway - /paperquestionnairereceipts post endpoint.
+//   *
+//   * @param file to be sent to SDX Gateway
+//   * @throws IOException IO exception
+//   * @throws AuthenticationException authentication exception
+//   */
+//  public void invokeSdxPaperReceiptEndpoint(File file) throws IOException, AuthenticationException {
+//    final String url = "/paperquestionnairereceipts";
+//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.sdxgateway.username"),
+//        world.getProperty("cuc.collect.sdxgateway.password"));
+//    responseAware.invokeFilePost(world.getSdxGatewayUrl(url), file);
+//  }
 }

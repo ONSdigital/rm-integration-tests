@@ -24,15 +24,16 @@ Feature: Tests the load of census sample
   # Census Sample Load Tests -----
 
   Scenario: Test load of census sample file (Journey steps: 1.1, 1.2, 1.3, 1.4) 
-    Given clean sftp folders of all previous ingestions for "census" surveys 
+    Given clean sftp folders of all previous ingestions for "CTP" surveys 
     And the sftp exit status should be "-1" 
-    When for the "census" survey move the "valid" file to trigger ingestion 
+    When for the "CTP" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 50 seconds 
-    Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found 
+    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
 
   Scenario: Test sample DB state (Journey steps: 1.5)
+    Given after a delay of 20 seconds
     # Remains in INIT state as seed data/party svc does not work for Census
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'INIT' AND surveyref = 'CENSUS'"
     Then check "sample.sampleunit" records in DB equal 1 for "statefk = 'INIT' AND samplesummaryfk = 1"

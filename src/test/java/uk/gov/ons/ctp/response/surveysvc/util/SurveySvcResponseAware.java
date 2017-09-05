@@ -17,6 +17,7 @@ public class SurveySvcResponseAware {
   private static final String GET_SURVEYREF_URL = "/surveys/ref/%s";
   private static final String GET_CLASSIFIERS_URL = "/surveys/%s/classifiertypeselectors";
   private static final String GET_CLASSIFIER_URL = "/surveys/%s/classifiertypeselectors/%s";
+  private static final String GET_INFO_URL = "/info";
   private static final String SERVICE = "surveysvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -102,4 +103,13 @@ public class SurveySvcResponseAware {
     responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 
+  /**
+   * Test get request for /info response
+   *
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeGetInfo() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(GET_INFO_URL, SERVICE));
+  }
 }

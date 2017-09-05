@@ -55,12 +55,12 @@ Feature: Validating cases requests
   # Pre Test Sample Service Environment Set Up -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "business" surveys 
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "business" survey move the "valid" file to trigger ingestion 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 80 seconds 
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1"
 
 
@@ -92,7 +92,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be ,"state":"ACTIONABLE","actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"caseRef":null,"createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
+    And one element of the JSON array must be ,"caseRef":"1000000000000001","createdBy":"SYSTEM","sampleUnitType":"B","createdDateTime":
     And one element of the JSON array must be ,"responses":[]}
 
   # 404
@@ -205,7 +205,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be },"caseEvents":null}
 
   # 204
-  Scenario: Get request to the cases endpoint for a non existing case id
+  Scenario: Get request to the cases endpoint for a non existing party id
     Given I make the GET call to the caseservice cases endpoint for party "87c8b602-aabd-4fc3-8676-bb875f4ce101"
     When the response status should be 204
 
@@ -333,14 +333,15 @@ Feature: Validating cases requests
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
     And the response should contain the field "error.message" with value "Provided json is incorrect."
     And the response should contain the field "error.timestamp"   
-    
+
+
   # INFO /info
   # 200
   Scenario: Info request to case service for current verison number
     Given I make the call to the caseservice endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "casesvc"
-        And the response should contain the field "version"
-        And the response should contain the field "origin"
-        And the response should contain the field "commit"
-        And the response should contain the field "branch"
+    And the response should contain the field "version"
+    And the response should contain the field "origin"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch"

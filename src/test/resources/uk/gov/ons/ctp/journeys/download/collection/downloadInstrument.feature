@@ -28,12 +28,12 @@ Feature: Tests the collection instrument is downloaded (RM)
     Then the samplesvc database has been reset
 
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "business" surveys
+    Given clean sftp folders of all previous ingestions for "BSD" surveys
     And the sftp exit status should be "-1"
-    When for the "business" survey move the "valid" file to trigger ingestion
+    When for the "BSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
 
@@ -66,7 +66,7 @@ Feature: Tests the collection instrument is downloaded (RM)
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Test casesvc case for business survey DB state (Journey steps: 2.4, 2.5, 2.8)
-    Given after a delay of 270 seconds
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
     
@@ -121,9 +121,9 @@ Feature: Tests the collection instrument is downloaded (RM)
 
 
   # Return Open Cases for respondent 9.3 ----- partyid
-  
+  @testparty
   Scenario: Get request to cases for specific case id to test case state for partyid
-    Given I make the GET call to the caseservice cases endpoint for party with parameters ""
+    Given I make the GET call to the caseservice cases endpoint for case by party
     When the response status should be 200
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be {"id":

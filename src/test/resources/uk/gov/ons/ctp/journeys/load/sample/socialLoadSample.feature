@@ -24,15 +24,16 @@ Feature: Tests the load of census sample
   # Social Sample Load Tests -----
 
   Scenario: Test load of social sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
-    Given clean sftp folders of all previous ingestions for "social" surveys 
+    Given clean sftp folders of all previous ingestions for "SSD" surveys 
     And the sftp exit status should be "-1" 
-    When for the "social" survey move the "valid" file to trigger ingestion 
+    When for the "SSD" survey move the "valid" file to trigger ingestion 
     And the sftp exit status should be "-1" 
     And after a delay of 50 seconds 
-    Then for the "social" survey confirm processed file "social-survey-full*.xml.processed" is found 
+    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found 
     And the sftp exit status should be "-1" 
 
   Scenario: Test sample DB state (Journey steps: 1.5)
+    Given after a delay of 20 seconds
     # Remains in INIT state as seed data/party svc does not work for Social
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'INIT' AND surveyref = 'SOCIAL'"
     Then check "sample.sampleunit" records in DB equal 1 for "statefk = 'INIT' AND samplesummaryfk = 1"

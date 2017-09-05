@@ -1,5 +1,5 @@
 echo Sample Service - Endpoint details are in the swagger spec https://github.com/ONSdigital/rm-collection-exercise-service/blob/master/API.md
-echo or http://localhost:8145/swagger-ui.html#/sample-endpoint
+echo or http://localhost:8145/swagger-ui.html#/collection45exercise45endpoint
 echo Running @collectionexercisesvc ...
 
 cd ../

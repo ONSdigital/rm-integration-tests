@@ -1,7 +1,7 @@
 # Author: Edward Stevens 29/06/2017
 #
 # Keywords Summary : This feature file contains the scenario tests for the action exporter endpoints - details are in the swagger spec
-#										 https://github.com/ONSdigital/response-management-service/blob/master/actionexportersvc/swagger.yml (old project) TODO copy to current project
+#										 https://github.com/ONSdigital/rm-actionexporter-service/blob/master/API.md
 #										 Note: Assuption DB has been preloaded with action plan data, samples have been created and actions run
 #
 # Feature: List of action scenarios: Get the action requests information for the specified action id

@@ -31,30 +31,30 @@ Feature: Tests the publish collection exercise
     Then the samplesvc database has been reset
 
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "business" surveys
+    Given clean sftp folders of all previous ingestions for "BSD" surveys
     And the sftp exit status should be "-1"
-    When for the "business" survey move the "valid" file to trigger ingestion
+    When for the "BSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "business" survey confirm processed file "business-survey-full*.xml.processed" is found
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
   Scenario: Load Census example survey
-    Given clean sftp folders of all previous ingestions for "census" surveys
+    Given clean sftp folders of all previous ingestions for "CTP" surveys
     And the sftp exit status should be "-1"
-    When for the "census" survey move the "valid" file to trigger ingestion
+    When for the "CTP" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "census" survey confirm processed file "census-survey-full*.xml.processed" is found
+    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
   Scenario: Load Social example survey
-    Given clean sftp folders of all previous ingestions for "social" surveys
+    Given clean sftp folders of all previous ingestions for "SSD" surveys
     And the sftp exit status should be "-1"
-    When for the "social" survey move the "valid" file to trigger ingestion
+    When for the "SSD" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
     And after a delay of 50 seconds
-    Then for the "social" survey confirm processed file "social-survey-full*.xml.processed" is found
+    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 
 
@@ -101,7 +101,7 @@ Feature: Tests the publish collection exercise
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
   Scenario: Test casesvc case for business survey DB state (Journey steps: 2.4, 2.5, 2.8)
-    Given after a delay of 270 seconds
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
     

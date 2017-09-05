@@ -14,6 +14,8 @@ import uk.gov.ons.ctp.util.World;
 public class ActionExporterSFTPResponseAware {
   /* Property keys */
   private static final String PRINT_FILE_LOCATION_KEY = "cuc.collect.actionexp.print.file";
+  private static final String SFTP_USERNAME = "cuc.sftp.actionexp.username";
+  private static final String SFTP_PASSWORD = "cuc.sftp.actionexp.password";
 
   private World world;
   private final SFTPResponseAware responseAware;
@@ -27,6 +29,7 @@ public class ActionExporterSFTPResponseAware {
   public ActionExporterSFTPResponseAware(final World newWorld, SFTPResponseAware sftpResponseAware) {
     this.world = newWorld;
     this.responseAware = sftpResponseAware;
+    responseAware.setCredentials(world.getProperty(SFTP_USERNAME), world.getProperty(SFTP_PASSWORD));
   }
 
   /**
@@ -51,46 +54,43 @@ public class ActionExporterSFTPResponseAware {
    * Get contents of print file(s)
    *
    * @param copyLocation directory to be created
+   * @param surveyType to navigate to correct folder
    * @throws JSchException JSch exception
    * @throws SftpException SFTP exception
    * @throws IOException IO exception
    */
-  public void invokeMkdir(String copyLocation) throws JSchException, SftpException, IOException {
-    responseAware.makeDir(world.getProperty(PRINT_FILE_LOCATION_KEY), copyLocation);
+  public void invokeMkdir(String copyLocation, String surveyType) throws JSchException, SftpException, IOException {
+    final String surveyLocation = String.format(world.getProperty(PRINT_FILE_LOCATION_KEY), surveyType);
+    responseAware.makeDir(surveyLocation, copyLocation);
   }
 
   /**
    * Get contents of print file(s)
    *
    * @param copyLocation directory where file(s) are to be moved to
+   * @param surveyType to navigate to correct folder
    * @throws JSchException JSch exception
    * @throws SftpException SFTP exception
    * @throws IOException IO exception
    */
-  public void moveFilesToTempDir(String copyLocation) throws JSchException, SftpException, IOException {
-    responseAware.moveFiles(world.getProperty(PRINT_FILE_LOCATION_KEY), copyLocation);
+  public void moveFilesToTempDir(String copyLocation, String surveyType)
+      throws JSchException, SftpException, IOException {
+    final String surveyLocation = String.format(world.getProperty(PRINT_FILE_LOCATION_KEY), surveyType);
+    responseAware.moveFiles(surveyLocation, copyLocation);
   }
 
   /**
    * Get contents of print file(s)
    *
    * @param filename or part name to be found and contents extracted
+   * @param surveyType to navigate to correct folder
    * @throws JSchException JSch exception
    * @throws SftpException SFTP exception
    * @throws IOException IO exception
    */
-  public void invokeGetPrintFileContents(String filename) throws JSchException, SftpException, IOException {
-    responseAware.getContentsOfFile(world.getProperty(PRINT_FILE_LOCATION_KEY), filename);
-  }
-
-  /**
-   * Clean print files from directory from previous test run
-   *
-   * @throws JSchException JSch exception
-   * @throws SftpException SFTP exception
-   * @throws IOException IO exception
-   */
-  public void invokeCleanOldPrintFolders() throws JSchException, SftpException, IOException {
-    responseAware.deleteAllFilesInDirectory(world.getProperty(PRINT_FILE_LOCATION_KEY));
+  public void invokeGetPrintFileContents(String filename, String surveyType)
+      throws JSchException, SftpException, IOException {
+    final String surveyLocation = String.format(world.getProperty(PRINT_FILE_LOCATION_KEY), surveyType);
+    responseAware.getContentsOfFile(surveyLocation, filename);
   }
 }
