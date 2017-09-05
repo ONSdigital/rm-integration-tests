@@ -13,7 +13,8 @@ import cucumber.api.junit.Cucumber;
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
       "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
       "uk.gov.ons.ctp.response.actionexporter.steps",
-      "uk.gov.ons.ctp.response.common.steps"},
+      "uk.gov.ons.ctp.response.common.steps",
+      "uk.gov.ons.ctp.ui.rm.ro.steps"},
   plugin = {"pretty", "html:build/sendEnrole-cuc-html-report", "json:build/jenkins/sendEnrole.json"}
 )
 public class LettersAndRemindersTest {

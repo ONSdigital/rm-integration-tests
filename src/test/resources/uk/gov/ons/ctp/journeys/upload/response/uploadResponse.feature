@@ -202,4 +202,31 @@ Feature: Tests the response has been uploaded (RM)
 
 
   # Report not developed so not tested (Journey steps: 10.8)
-
+  # Report 
+  Scenario: Service report viewed (PO9.04)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "unsuccessfulResponse" with value "0"
+    #should be 1 
+    Then the user logs out
+    
+  Scenario: Case data viewed (PO9.05)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "successful response upload" appears
+    Then the user logs out
+    
+  Scenario: Service report viewed (PO9.08)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "successfulResponse" with value "0"
+    #should be 1 
+    Then the user logs out
+    
+  Scenario: Case data viewed (PO9.09)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "unsuccessful response upload" appears
+    Then the user logs out

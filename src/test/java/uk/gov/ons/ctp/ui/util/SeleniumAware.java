@@ -68,6 +68,7 @@ public abstract class SeleniumAware {
       webDriver = new FirefoxDriver();
       break;
     case "chromehead":
+    	System.out.println(world.getProperty(CHROME_DRIVER_LOC_KEY));
       System.setProperty("webdriver.chrome.driver", world.getProperty(CHROME_DRIVER_LOC_KEY));
       webDriver = new ChromeDriver();
       break;

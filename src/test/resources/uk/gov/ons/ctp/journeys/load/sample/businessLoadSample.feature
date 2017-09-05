@@ -36,8 +36,10 @@ Feature: Tests the load of business sample
     When check "sample.samplesummary" records in DB equal 1 for "state = 'ACTIVE' AND surveyref = '221'"
     Then check "sample.sampleunit" records in DB equal 500 for "state = 'PERSISTED' AND samplesummaryfk = 1"
 
-  @businessLoadSample  
-  Scenario: Test service report viewed (Test scenario PO1)
-    Given the "test" user has logged in using "chrome"
-    Then permissions should be verified for user "test"
+  Scenario: Test service report viewed (Test scenario PO1.10)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "sample" reports
+    When the user goes to view the most recent report
+    Then checks sample unit for column name "formType" with value "0015"
+    Then the user logs out
 

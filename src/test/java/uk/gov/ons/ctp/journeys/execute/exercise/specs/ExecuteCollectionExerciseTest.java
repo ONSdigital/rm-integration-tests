@@ -12,7 +12,8 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/execute/exercise/executeCollectionExercise.feature"},
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
           "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
-          "uk.gov.ons.ctp.response.common.steps"},
+          "uk.gov.ons.ctp.response.common.steps",
+          "uk.gov.ons.ctp.ui.rm.ro.steps"},
   plugin = {"pretty", "html:build/executeExercise-cuc-html-report", "json:build/jenkins/executeExercise.json"}
 )
 public class ExecuteCollectionExerciseTest {

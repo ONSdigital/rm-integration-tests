@@ -136,5 +136,31 @@ Feature: Tests the response has been uploaded (RM)
     And the response should contain the field "description" with value "Offline Response"
     And check "casesvc.caseevent" records in DB equal 1 for "description = 'Offline Response'"
 
-  # Report not developed so not tested (Journey steps: 11.5)
+  # Report 
+  Scenario: Service report viewed (PO8.03)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "downloaded" with value "0"
+    #should be 1 
+    Then the user logs out
 
+  Scenario: Case data viewed (Test scenario PO8.04)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "collect instrument downloaded" appears
+    Then the user logs out
+
+  Scenario: Service report viewed (P11.03)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "offlineResponse" with value "0"
+    #should be 1 
+    Then the user logs out
+
+  Scenario: Case data viewed (Test scenario P11.04)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "offline response processed" appears
+    Then the user logs out

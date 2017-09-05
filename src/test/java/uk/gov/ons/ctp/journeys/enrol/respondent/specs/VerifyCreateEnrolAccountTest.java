@@ -14,7 +14,8 @@ import cucumber.api.junit.Cucumber;
       "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
       "uk.gov.ons.ctp.response.iacsvc.steps",
       "uk.gov.ons.ctp.response.casesvc.steps",
-      "uk.gov.ons.ctp.response.common.steps"},
+      "uk.gov.ons.ctp.response.common.steps",
+      "uk.gov.ons.ctp.ui.rm.ro.steps"},
   plugin = {"pretty", "html:build/enrol-cuc-html-report", "json:build/jenkins/enrol.json"}
 )
 public class VerifyCreateEnrolAccountTest {

@@ -196,4 +196,5 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
-  # Report not developed so not tested (Journey steps: 4.9)
+  # checks enrolment letterreports
+  

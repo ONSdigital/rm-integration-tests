@@ -117,8 +117,7 @@ Feature: Verify and Create Account
     And one element of the JSON array must be {"createdDateTime":
     And one element of the JSON array must be ,"category":"ACCESS_CODE_AUTHENTICATION_ATTEMPT","subCategory":null,"createdBy":"SYSTEM","description":"Access Code authentication attempted"}
     And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
-
-
+    
   # Create Account -----
 
   # RAS 6.1, 6.2
@@ -190,3 +189,47 @@ Feature: Verify and Create Account
     Then check "action.case" records in DB equal 1 for "actionplanfk = 2"
 
   # Report 7.10
+  # Report to show enrolment event
+  Scenario: Service report viewed (PO4.03)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "authentication" with value "0"
+    #should be 1 
+    Then the user logs out
+  
+  @test04
+  Scenario: Case data viewed (PO4.04)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "Access Code Authentication Attempt" appears
+    # should be enrolment event
+    Then the user logs out
+
+  Scenario: Respondent Account Created (PO5.04)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "accountCreated" with value "0"
+    #should be 1 
+    Then the user logs out
+ 
+  Scenario: Case data viewed (PO5.05)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "Respondent account created" appears
+    Then the user logs out
+    
+
+  Scenario: Case event report respondent enrolled count (PO6.05-6)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "accountEnrolled" with value "0"
+    #should be 1 
+    And checks case event for column name "sampleType" with value "BI"
+    Then the user logs out
+    
+
+  
+  
