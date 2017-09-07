@@ -29,6 +29,8 @@ public class CaseResponseAware {
   private static final String GET_CATEGORIES_URL = "/categories";
   private static final String GET_CATEGORY_NAME_URL = "/categories/name/%s";
   private static final String INFO_URL = "/info";
+  private static final String USERNAME = "cuc.collect.username";
+  private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "casesvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -44,6 +46,7 @@ public class CaseResponseAware {
   public CaseResponseAware(final World newWorld, final PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
     this.postgresResponseAware = dbResponseAware;
   }
 

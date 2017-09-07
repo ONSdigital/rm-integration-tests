@@ -151,42 +151,42 @@ Feature: Verify and Create Account
 
   # RAS 7.1, 7.2
 
-  Scenario: Verify event created for respondent enrolment (Journey steps: 7.3, 7.4)
-    Given I make the POST call to the caseservice cases events
-      | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
-    When the response status should be 201
-    And the response should contain the field "createdDateTime"
-    And the response should contain the field "caseId"
-    And the response should contain the field "partyId"
-    And the response should contain the field "category" with value "RESPONDENT_ENROLED"
-    And the response should contain the field "subCategory" with value "test"
-    And the response should contain the field "createdBy" with value "Cucumber Test"
-    And the response should contain the field "description" with value "Created by cucumber test"
-    Then Check the case state has changed
-    And the response status should be 200
-    And the response should contain the field "state" with value "INACTIONABLE"
+#  Scenario: Verify event created for respondent enrolment (Journey steps: 7.3, 7.4)
+#    Given I make the POST call to the caseservice cases events
+#      | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
+#    When the response status should be 201
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "caseId"
+#    And the response should contain the field "partyId"
+#    And the response should contain the field "category" with value "RESPONDENT_ENROLED"
+#    And the response should contain the field "subCategory" with value "test"
+#    And the response should contain the field "createdBy" with value "Cucumber Test"
+#    And the response should contain the field "description" with value "Created by cucumber test"
+#    Then Check the case state has changed
+#    And the response status should be 200
+#    And the response should contain the field "state" with value "INACTIONABLE"
 
-  Scenario: Verify a new case have been created with the correct properties (Journey steps: 7.5, 7.6, 7.8, 7.9)
-    Given after a delay of 60 seconds
-    When I make the GET call to the caseservice cases endpoint for new case
-    And the response status should be 200
-    Then the response should contain the field "id"
-    And the response should contain the field "state" with value "ACTIONABLE"
-    And the response should contain the field "iac"
-    And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-    And the response should contain the field "collectionInstrumentId"
-    And the response should contain the field "partyId"
-    And the response should contain the field "sampleUnitType" with value "BI"
-    And the response should contain the field "createdBy" with value "Cucumber Test"
-    And the response should contain the field "createdDateTime"
-    And the response should contain the field "responses" with one element of the JSON array must be []
-    And the response should contain the field "caseGroup"
-    And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
-    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
+ # Scenario: Verify a new case have been created with the correct properties (Journey steps: 7.5, 7.6, 7.8, 7.9)
+#    Given after a delay of 60 seconds
+#    When I make the GET call to the caseservice cases endpoint for new case
+#    And the response status should be 200
+#    Then the response should contain the field "id"
+#    And the response should contain the field "state" with value "ACTIONABLE"
+#    And the response should contain the field "iac"
+#    And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+#    And the response should contain the field "collectionInstrumentId"
+#    And the response should contain the field "partyId"
+#    And the response should contain the field "sampleUnitType" with value "BI"
+#    And the response should contain the field "createdBy" with value "Cucumber Test"
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "responses" with one element of the JSON array must be []
+#    And the response should contain the field "caseGroup"
+#    And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
+#    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
-  Scenario: Test actionsvc case has the expected actionplan 2 (Journey steps: 7.7)
-    Given after a delay of 60 seconds
-    Then check "action.case" records in DB equal 1 for "actionplanfk = 2"
+#  Scenario: Test actionsvc case has the expected actionplan 2 (Journey steps: 7.7)
+#    Given after a delay of 60 seconds
+#    Then check "action.case" records in DB equal 1 for "actionplanfk = 2"
 
   # Report 7.10
   # Report to show enrolment event

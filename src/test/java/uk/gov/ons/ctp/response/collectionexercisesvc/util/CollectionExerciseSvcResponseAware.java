@@ -16,6 +16,8 @@ public class CollectionExerciseSvcResponseAware {
   private static final String GET_SURVEY_URL = "/collectionexercises/survey/%s";
   private static final String GET_EXERCISE_URL = "/collectionexercises/%s";
   private static final String INFO_URL = "/info";
+  private static final String USERNAME = "cuc.collect.username";
+  private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "collectionexercisesvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -28,6 +30,7 @@ public class CollectionExerciseSvcResponseAware {
   public CollectionExerciseSvcResponseAware(final World newWorld) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
   }
 
   /**

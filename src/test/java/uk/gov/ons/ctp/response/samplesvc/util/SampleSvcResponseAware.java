@@ -14,6 +14,8 @@ import uk.gov.ons.ctp.util.World;
 public class SampleSvcResponseAware {
   private static final String POST_URL = "/samples/sampleunitrequests";
   private static final String INFO_URL = "/info";
+  private static final String USERNAME = "cuc.collect.username";
+  private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "samplesvc";
   private World world;
   private HTTPResponseAware responseAware;
@@ -26,6 +28,7 @@ public class SampleSvcResponseAware {
   public SampleSvcResponseAware(final World newWorld) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
   }
 
   /**

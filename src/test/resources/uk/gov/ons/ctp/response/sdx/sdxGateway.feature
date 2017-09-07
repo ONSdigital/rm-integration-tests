@@ -85,3 +85,30 @@ Feature: Validating action requests
     And the response should contain the field "commit"
     And the response should contain the field "branch" with value "master"
     And the response should contain the field "built"
+
+
+  # POST /questionnairereceipts
+  # 201
+  @questionnaireReceipts
+  Scenario: Post request for SDX Gateway endpoint for responses specific caseref
+    When I make the POST call to the SDX Gateway online receipt for caseref "1000000000000001"
+    Then the response status should be 201
+    And the response should contain the field "caseRef" with value "1000000000000001"
+
+  # 400
+  @questionnaireReceipts
+  Scenario: Post request for SDX Gateway endpoint for missing caseref
+    When I make the POST call to the SDX Gateway online receipt for missing caseref
+    Then the response status should be 400
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json fails validation."
+    And the response should contain the field "error.timestamp"
+
+  # 400
+  @questionnaireReceipts
+  Scenario: Post request for SDX Gateway endpoint for invalid input
+    When I make the POST call to the SDX Gateway online receipt for invalid input
+    Then the response status should be 400
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json is incorrect."
+    And the response should contain the field "error.timestamp"

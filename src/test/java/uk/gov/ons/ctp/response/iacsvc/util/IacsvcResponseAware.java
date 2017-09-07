@@ -17,8 +17,8 @@ public class IacsvcResponseAware {
   private static final String GET_IAC_URL = "/iacs/%s";
   private static final String PUT_IAC_URL = "/iacs/%s";
   private static final String INFO_URL = "/info";
-  private static final String IAC_USER = "cuc.collect.iacsvc.username";
-  private static final String IAC_PASSWORD = "cuc.collect.iacsvc.password";
+  private static final String USERNAME = "cuc.collect.username";
+  private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "iacsvc";
 
   private World world;
@@ -34,7 +34,7 @@ public class IacsvcResponseAware {
   public IacsvcResponseAware(final World newWorld, PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
-    responseAware.enableBasicAuth(world.getProperty(IAC_USER), world.getProperty(IAC_PASSWORD));
+    responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
     this.postgresResponseAware = dbResponseAware;
   }
 
