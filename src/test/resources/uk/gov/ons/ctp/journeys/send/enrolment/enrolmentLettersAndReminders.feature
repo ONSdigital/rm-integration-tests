@@ -197,4 +197,48 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain 500 lines
 
   # checks enrolment letterreports
+  Scenario: Test report for print volumes (Test scenario PO3.03-5)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "print" reports
+    When the user goes to view the most recent report
+    And checks print volume for column name "fileName" with value "BSNOT_221"
+    And checks print volume for column name "row" with value "500"
+    When the user navigates to the reports page and selects "action" reports
+    When the user goes to view the most recent report
+    And checks action status for column name "enrolmentLetter" with value "Enrolment Invitation Letter"
+    And checks action status for column name "enrolmentAction" with value "500"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks case event for column name "actioncompleted" with value "0"
+       #should be 1 
+    Then the user logs out
+    
+    Scenario: Case data viewed (Test scenario PO3.06)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "Enrolment Invitation Letter" appears
+    Then the user logs out
+ 
+    
+  # checks reminder enroment letter reports
+  Scenario: Test report for print volumes (Test scenario PO7.04-5)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "print" reports
+    When the user goes to view the most recent report
+    And checks print volume for column name "fileName" with value "BSREM_221"
+    And checks print volume for column name "row" with value "500"
+    When the user navigates to the reports page and selects "action" reports
+    When the user goes to view the most recent report
+    And checks action status for column name "reminderLetter" with value "Enrolment Reminder Letter"
+    And checks action status for column name "reminderAction" with value "500"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And checks values of column number 6 against value "1" and should appear 500 times
+    Then the user logs out
+
+  Scenario: Case data viewed (Test scenario PO7.06)
+    Given the "test" user has logged in using "chromehead"
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "Enrolment reminder Letter" appears
+    Then the user logs out
   

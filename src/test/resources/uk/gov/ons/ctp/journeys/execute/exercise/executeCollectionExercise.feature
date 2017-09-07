@@ -111,6 +111,7 @@ Feature: Tests the publish collection exercise
     Then check "casesvc.caseevent" records in DB equal 500 for "description = 'Case created when Initial creation of case'"
 
   # Report (P02)
+  @executeExerciseP02
   Scenario: Test report for collection excercise (Test scenario PO2.05)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "case" reports
