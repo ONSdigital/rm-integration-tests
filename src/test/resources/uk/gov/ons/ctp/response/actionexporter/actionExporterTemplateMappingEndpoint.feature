@@ -46,7 +46,7 @@ Feature: action exporter template end points
 		And the response should contain the field "file" with value "BSNOT"
     And the response should contain the field "dateModified"
 
-  # 404 TODO Currently returns 500 for action type not found rather than 404
+  # 404
   Scenario: Get the template mapping information for the specified action type
     Given I make the GET call to the actionexporter template mapping endpoint for the action type "ACTION_TYPE"
     When the response status should be 404

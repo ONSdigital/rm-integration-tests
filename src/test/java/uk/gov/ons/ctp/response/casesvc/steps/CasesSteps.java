@@ -5,9 +5,6 @@ import java.util.Properties;
 
 import com.jayway.jsonpath.JsonPath;
 
-//import org.json.JSONObject;
-//
-//import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -88,13 +85,14 @@ public class CasesSteps {
   }
 
   /**
-   * Test get request for /cases/{caseId} invalid case id with no parameters
+   * Test get request for /cases/{caseId} for invalid caseId
    *
+   * @param caseid invalid case id
    * @throws Throwable pass the exception
    */
-  @Then("^I make the GET call to the IAC service endpoint for caseid$")
-  public void i_make_the_GET_call_to_the_IAC_service_endpoint_for_caseid() throws Throwable {
-    responseAware.invokeGetIACEndpointForCase();
+  @Given("^I make the GET call to the caseservice cases endpoint for case \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_case(String caseid) throws Throwable {
+    responseAware.invokeCasesEndpoint(caseid, "");
   }
 
   /**

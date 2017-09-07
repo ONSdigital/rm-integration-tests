@@ -177,6 +177,9 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         | BRESSNE | SUBMITTED |
     When the response status should be 204
+    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "ActionPlan not found for id 10100000-dd82-4a40-ab3c-4e0df626fb54"
+    And the response should contain the field "error.timestamp"
 
 
   # GET /actions/caseid/{caseId}
@@ -201,6 +204,9 @@ Feature: Validating action requests
   Scenario: Get request to actions for invalid case id
     Given I make the GET call to the actionservice actions endpoint for caseId "87c8b602-aabd-4fc3-8676-bb875f4ce101"
     When the response status should be 204
+    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "ActionPlan not found for id 10100000-dd82-4a40-ab3c-4e0df626fb54"
+    And the response should contain the field "error.timestamp"
 
 
   # GET /actions/{actionId}
@@ -252,13 +258,17 @@ Feature: Validating action requests
 #    And the response should contain the field "createdDateTime"
 #    And the response should contain the field "updatedDateTime"
 
-  # 404 TODO write 404 test
-
   # 400
   Scenario: Put request to actions with invalid input
     When I make the PUT call to the actionservice actions feedback endpoint with invalid input
     Then the response status should be 400
-  
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Action not found for id 88c8b602-aabd-4fc3-8676-bb875f4ce101"
+    And the response should contain the field "error.timestamp"
+
+  # 404 TODO write 404 test
+
+
   # INFO /info
   # 200
   Scenario: Info request to action service for current verison number
