@@ -71,7 +71,7 @@ public class UiTestSteps {
     responseAware.viewActionStatus(field, value);
   }
   
-  @Then("^checks values of column number \"(.*?)\" against value \"(.*?)\" and should appear \"(.*?)\" times$")
+  @Then("^checks values of column number (\\d+) against value \"(.*?)\" and should appear (\\d+) times$")
   public void checks_values_of_column_number_against_value (int column, String value, int number) throws Throwable {
     responseAware.checksColumnValues(column, value, number);
   }

@@ -34,10 +34,10 @@ public class ReportsPom {
   
   @FindBy(xpath = "//*[@id=\"main\"]/table/tbody/tr[1]/td[2]/a")
   private WebElement viewReport;
-  
-  @FindBy(xpath = "//*[@id=\"main\"]/table")
-  private WebElement reportTable;
 
+  @FindBy(id = "main")
+  private WebElement reportTable;
+  
   /**
    * Constructor
    *
@@ -77,7 +77,8 @@ public class ReportsPom {
   }
   
   public void checksColumnValues(int column, String value, int number) {
-    int count = 0;
+
+	int count = 0;
     TableHelper table = new TableHelper();
     List<String> contents = table.extractColumnValuesFromTable(reportTable, column);
     for (int i = 0; i<contents.size(); i++){
@@ -85,6 +86,6 @@ public class ReportsPom {
 	    count = count + 1;
 	  }
     }
-    assertEquals(count, number);
+    assertEquals(number, count);
   }
 }

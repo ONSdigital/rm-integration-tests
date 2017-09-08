@@ -69,12 +69,15 @@ public class TableHelper {
   public List<String> extractColumnValuesFromTable(WebElement table, int columnNumber) {
     List<String> columnValues = new ArrayList<String>();
 
-    WebElement tableBody = table.findElement(By.tagName("tbody"));
-    List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
+    List<WebElement> tableBody = table.findElements(By.tagName("tr"));
 
-    for (WebElement row: rows) {
+    
+    for (WebElement row: tableBody) {
       List<WebElement> values = row.findElements(By.tagName("td"));
-      columnValues.add(values.get(columnNumber - 1).getText());
+      if(values.size()!=0){
+		WebElement rowContent = values.get(columnNumber-1);
+        columnValues.add(rowContent.getText());
+      }
     }
     return columnValues;
   }
