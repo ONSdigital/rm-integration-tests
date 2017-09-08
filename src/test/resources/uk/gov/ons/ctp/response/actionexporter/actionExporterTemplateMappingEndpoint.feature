@@ -55,7 +55,7 @@ Feature: action exporter template end points
     And the response should contain the field "error.timestamp"
 
 
-  # POST /templatemappings
+  # POST /templatemappings/{actionType} TO DO Rewrite
   # 201
   Scenario: Post request to actionexporter to store a specific template mapping
     Given I make the POST call to the actionexporter template mapping endpoint

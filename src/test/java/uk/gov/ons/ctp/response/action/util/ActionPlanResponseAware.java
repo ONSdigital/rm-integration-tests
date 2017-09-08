@@ -12,6 +12,9 @@ import uk.gov.ons.ctp.util.World;
  * Created by Stephen Goddard on 03/05/16.
  */
 public class ActionPlanResponseAware {
+  private static final String USERNAME = "cuc.collect.username";
+  private static final String PASSWORD = "cuc.collect.password";
+
   private World world;
   private HTTPResponseAware responseAware;
 
@@ -23,6 +26,7 @@ public class ActionPlanResponseAware {
   public ActionPlanResponseAware(final World newWorld) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
   }
 
   /**

@@ -71,11 +71,46 @@ Feature: Validating action requests
     When check "action.case" records in DB equal 500 for "actionplanfk = 1"
 
 
+  # Generate Cases BI -----
+
+  Scenario: Verify event created for respondent enrolment
+    Given I make the POST call to the caseservice cases events
+      | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
+    When the response status should be 201
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "caseId"
+    And the response should contain the field "partyId"
+    And the response should contain the field "category" with value "RESPONDENT_ENROLED"
+    And the response should contain the field "subCategory" with value "test"
+    And the response should contain the field "createdBy" with value "Cucumber Test"
+    And the response should contain the field "description" with value "Created by cucumber test"
+    Then Check the case state has changed
+    And the response status should be 200
+    And the response should contain the field "state" with value "INACTIONABLE"
+
+  Scenario: Verify a new case have been created with the correct properties
+    Given after a delay of 60 seconds
+    When I make the GET call to the caseservice cases endpoint for new case
+    And the response status should be 200
+    Then the response should contain the field "id"
+    And the response should contain the field "state" with value "ACTIONABLE"
+    And the response should contain the field "iac"
+    And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+    And the response should contain the field "collectionInstrumentId"
+    And the response should contain the field "partyId"
+    And the response should contain the field "sampleUnitType" with value "BI"
+    And the response should contain the field "createdBy" with value "Cucumber Test"
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "responses" with one element of the JSON array must be []
+    And the response should contain the field "caseGroup"
+    And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
+    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
+
+
   # Endpoint Tests -----
 
   # GET /info
   # 200
-  @sdx
   Scenario: Info request to SDX gateway for current verison number
     Given I make the call to the SDX gateway endpoint for info
     When the response status should be 200
@@ -87,28 +122,38 @@ Feature: Validating action requests
     And the response should contain the field "built"
 
 
-  # POST /questionnairereceipts
+  # POST /receipts
   # 201
-  @questionnaireReceipts
-  Scenario: Post request for SDX Gateway endpoint for responses specific caseref
-    When I make the POST call to the SDX Gateway online receipt for caseref "1000000000000001"
-    Then the response status should be 201
-    And the response should contain the field "caseRef" with value "1000000000000001"
+  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+    Given I make the POST call to the SDX Gateway online receipt for "B" case with caseref
+    When the response status should be 201
+    And the response should contain the field "caseId"
+    And the response should contain the field "caseRef"
+    And after a delay of 5 seconds
+    Then check "casesvc.response" records in DB equal 0
+
+  # 201
+  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+    Given I make the POST call to the SDX Gateway online receipt for "BI" case with caseref
+    When the response status should be 201
+    And the response should contain the field "caseId"
+    And the response should contain the field "caseRef"
+    And after a delay of 5 seconds
+    Then check "casesvc.response" records in DB equal 1
+
+  # 201
+  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+    Given I make the POST call to the SDX Gateway online receipt for "BI" case without caseref
+    When the response status should be 201
+    And the response should contain the field "caseId"
+    And the response should contain the field "caseRef"
+    And after a delay of 5 seconds
+    Then check "casesvc.response" records in DB equal 2
 
   # 400
-  @questionnaireReceipts
-  Scenario: Post request for SDX Gateway endpoint for missing caseref
-    When I make the POST call to the SDX Gateway online receipt for missing caseref
+  Scenario: Post request for SDX Gateway endpoint for missing caseid
+    When I make the POST call to the SDX Gateway online receipt for missing caseid
     Then the response status should be 400
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
     And the response should contain the field "error.message" with value "Provided json fails validation."
-    And the response should contain the field "error.timestamp"
-
-  # 400
-  @questionnaireReceipts
-  Scenario: Post request for SDX Gateway endpoint for invalid input
-    When I make the POST call to the SDX Gateway online receipt for invalid input
-    Then the response status should be 400
-    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json is incorrect."
     And the response should contain the field "error.timestamp"

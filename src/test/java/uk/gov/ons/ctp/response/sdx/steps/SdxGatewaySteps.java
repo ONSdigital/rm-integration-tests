@@ -1,28 +1,10 @@
 package uk.gov.ons.ctp.response.sdx.steps;
 
-//import java.io.IOException;
-//
-//import org.apache.http.auth.AuthenticationException;
+import java.util.List;
+import java.util.Properties;
 
 import cucumber.api.java.en.Given;
-//import java.io.File;
-//import java.io.PrintWriter;
-//import java.sql.Timestamp;
-//import java.util.ArrayList;
-//import java.util.Calendar;
-//import java.util.Date;
-//import java.util.List;
-//import java.util.Properties;
-//
-//import org.apache.commons.io.FileUtils;
-//
-//import com.jayway.jsonpath.JsonPath;
-//
-//import cucumber.api.DataTable;
-//import cucumber.api.java.en.Given;
-//import cucumber.api.java.en.Then;
-//import cucumber.api.java.en.When;
-//import uk.gov.ons.ctp.response.casesvc.util.CaseResponseAware;
+import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.sdx.util.SdxGatewayResponseAware;
 
 /**
@@ -30,16 +12,14 @@ import uk.gov.ons.ctp.response.sdx.util.SdxGatewayResponseAware;
  */
 public class SdxGatewaySteps {
   private final SdxGatewayResponseAware responseAware;
-//  private final CaseResponseAware caseResponseAware;
 
   /**
    * Constructor
    *
    * @param sdxResponseAware SDX Gateway end point runner
    */
-  public SdxGatewaySteps(SdxGatewayResponseAware sdxResponseAware) {//, CaseResponseAware caseSvcResponseAware) {
+  public SdxGatewaySteps(SdxGatewayResponseAware sdxResponseAware) {
     this.responseAware = sdxResponseAware;
-//    this.caseResponseAware = caseSvcResponseAware;
   }
 
   /**
@@ -51,118 +31,48 @@ public class SdxGatewaySteps {
   public void i_make_the_call_to_the_SDX_gateway_endpoint_for_info() throws Throwable {
     responseAware.invokeInfoEndpoint();
   }
-//  /**
-//   * Test post request for /questionnairereceipts
-//   *
-//   * @param caseRef case reference
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the SDX Gateway online receipt for caseref \"(.*?)\"$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_caseref(String caseRef) throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("caseRef", caseRef);
-//    responseAware.invokeSdxReceiptEndpoint(properties);
-//  }
-//
-//  /**
-//   * Test post request for /questionnairereceipts where caseRef is taken from a previous get
-//   *
-//   * @throws Throwable pass the exception
-//   */
-//  @Then("^I make the POST call to the SDX Gateway online receipt for current case$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_current_case() throws Throwable {
-//    String caseRef = JsonPath.read(caseResponseAware.getBody(), "$." + "caseRef");
-//    System.out.println(caseRef);
-//
-//    Properties properties = new Properties();
-//    properties.put("caseRef", caseRef);
-//    responseAware.invokeSdxReceiptEndpoint(properties);
-//  }
-//
-//  /**
-//   * Test post request for /questionnairereceipts - missing caseref
-//   *
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the SDX Gateway online receipt for missing caseref$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_missing_caseref() throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("caseRef", "");
-//    responseAware.invokeSdxReceiptEndpoint(properties);
-//  }
-//
-//  /**
-//   * Test post request for /questionnairereceipts - invalid input
-//   *
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the SDX Gateway online receipt for invalid input$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_invalid_input() throws Throwable {
-//    Properties properties = new Properties();
-//    properties.put("input", "invalid input value");
-//    responseAware.invokeSdxReceiptEndpoint(properties);
-//  }
-//
-//  /**
-//   * Test post request for /paperQuestionnairereceipts
-//   *
-//   * @param content to be in csv file
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the SDX Gateway paper receipt for$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_paper_receipt_for(DataTable content) throws Throwable {
-//    List<String> formContent = content.asList(String.class);
-//
-//    File file = new File("cucumberTest.csv");
-//    List<String> lines = new ArrayList<String>();
-//    for (int i = 0; i < formContent.size(); i++) {
-//      lines.add(formContent.get(i));
-//    }
-//    FileUtils.writeLines(file, lines);
-//
-//    responseAware.invokeSdxPaperReceiptEndpoint(file);
-//
-//    FileUtils.deleteQuietly(file);
-//  }
-//
-//  /**
-//   * Test post request for /paperQuestionnairereceipts with an empty file.
-//   * NOTE: when java creates a file it contains a single character so this is removed.
-//   *
-//   * @throws Throwable pass the exception
-//   */
-//  @When("^I make the POST call to the SDX Gateway paper receipt for empty file$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_paper_receipt_for_empty_file() throws Throwable {
-//    File file = new File("cucumberTest.csv");
-//    PrintWriter writer = new PrintWriter(file);
-//    writer.print("");
-//    writer.close();
-//
-//    responseAware.invokeSdxPaperReceiptEndpoint(file);
-//
-//    FileUtils.deleteQuietly(file);
-//  }
-//
-//  /**
-//   * Test post request for /paperQuestionnairereceipts
-//   *
-//   * @param caseRef case reference
-//   * @throws Throwable pass the exception
-//   */
-//  @Given("^I make the POST call to the SDX Gateway paper receipt for caseref \"(.*?)\"$")
-//  public void i_make_the_POST_call_to_the_SDX_Gateway_paper_receipt_for_caseref(String caseRef) throws Throwable {
-//    File file = new File("cucumberTest.csv");
-//    List<String> lines = new ArrayList<String>();
-//
-//    Calendar cal = Calendar.getInstance();
-//    cal.setTime(new Date());
-//    Timestamp time = new Timestamp(cal.getTime().getTime());
-//    lines.add(time + "," + caseRef);
-//
-//    FileUtils.writeLines(file, lines);
-//
-//    responseAware.invokeSdxPaperReceiptEndpoint(file);
-//
-//    FileUtils.deleteQuietly(file);
-//  }
+
+  /**
+   * Test post request for /receipts with caseref
+   *
+   * @param caseType case type to receipt
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the POST call to the SDX Gateway online receipt for \"(.*?)\" case with caseref$")
+  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_case_with_caseref(String caseType) throws Throwable {
+    List<String> result = responseAware.getCaseForType(caseType);
+    
+    Properties properties = new Properties();
+    properties.put("caseId", result.get(0));
+    properties.put("caseRef", result.get(1));
+    responseAware.invokeSdxReceiptEndpoint(properties);
+  }
+
+  /**
+   * Test post request for /receipts without caseref
+   *
+   * @param caseType case type to receipt
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the POST call to the SDX Gateway online receipt for \"(.*?)\" case without caseref$")
+  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_case_without_caseref(String caseType) throws Throwable {
+    List<String> result = responseAware.getCaseForType(caseType);
+
+    Properties properties = new Properties();
+    properties.put("caseId", result.get(0));
+    properties.put("caseRef", "");
+    responseAware.invokeSdxReceiptEndpoint(properties);
+  }
+
+  /**
+   * Test post request for /receipts - missing caseid
+   *
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the POST call to the SDX Gateway online receipt for missing caseid$")
+  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_missing_caseid() throws Throwable {
+    Properties properties = new Properties();
+    properties.put("caseRef", "");
+    responseAware.invokeSdxReceiptEndpoint(properties);
+  }
 }

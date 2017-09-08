@@ -24,6 +24,8 @@ public class ActionExporterResponseAware {
   private static final String GET_TEMPLATE_MAPPINGS_URL = "/templatemappings/%s";
   private static final String POST_TEMPLATE_MAPPINGS_URL = "/templatemappings";
   private static final String INFO_URL = "/info";
+  private static final String USERNAME = "cuc.collect.username";
+  private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "actionexp";
   private World world;
   private HTTPResponseAware responseAware;
@@ -36,6 +38,7 @@ public class ActionExporterResponseAware {
   public ActionExporterResponseAware(final World newWorld) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
   }
 
   /**

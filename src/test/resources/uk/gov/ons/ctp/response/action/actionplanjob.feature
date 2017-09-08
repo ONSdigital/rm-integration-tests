@@ -121,7 +121,13 @@ Feature: Validating actionPlanJob requests
 		And one element of the JSON array must be ,"state":"COMPLETED"
     And one element of the JSON array must be ,"createdDateTime":
 		And one element of the JSON array must be ,"updatedDateTime":
-			
+
+  #204
+  @try
+  Scenario: Get request to actionplans for list of all jobs for specified action plan
+    When I make the GET call to the actionservice actionplans endpoint for jobs with specific plan "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+    Then the response status should be 204
+
 	# 404
 	Scenario: Get request to actionplans for list of all jobs for specified action plan not found
 		When I make the GET call to the actionservice actionplans endpoint for jobs with specific plan "10100000-dd82-4a40-ab3c-4e0df626fb54"

@@ -112,6 +112,7 @@ Feature: Validating cases requests
 		Then the response should contain the field "id"
 		And the response should contain the field "state" with value "ACTIONABLE"
 		And the response should contain the field "iac" with a null value
+		And the response should contain the field "caseRef" with value "1000000000000001"
 		And the response should contain the field "actionPlanId"
 		And the response should contain the field "collectionInstrumentId"
 		And the response should contain the field "partyId"
@@ -128,6 +129,7 @@ Feature: Validating cases requests
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac" with a null value
+    And the response should contain the field "caseRef" with value "1000000000000001"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"
@@ -145,6 +147,7 @@ Feature: Validating cases requests
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac"
+    And the response should contain the field "caseRef" with value "1000000000000001"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"
@@ -171,7 +174,7 @@ Feature: Validating cases requests
     When the response status should be 200
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be {"id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":"1000000000000001","actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
@@ -183,7 +186,7 @@ Feature: Validating cases requests
     When the response status should be 200
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be {"id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":"1000000000000001","actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
@@ -198,6 +201,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"state":"ACTIONABLE","iac":
     And one element of the JSON array must be ,"actionPlanId":
+    And one element of the JSON array must be ,"caseRef":"1000000000000001"
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
@@ -218,6 +222,7 @@ Feature: Validating cases requests
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac" with a null value
+    And the response should contain the field "caseRef" with value "1000000000000001"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"
@@ -234,6 +239,7 @@ Feature: Validating cases requests
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac" with a null value
+    And the response should contain the field "caseRef" with value "1000000000000001"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"
@@ -252,6 +258,7 @@ Feature: Validating cases requests
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac"
+    And the response should contain the field "caseRef" with value "1000000000000001"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"

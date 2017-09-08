@@ -267,6 +267,11 @@ Feature: Validating action requests
     And the response should contain the field "error.timestamp"
 
   # 404 TODO write 404 test
+  @test
+  Scenario: Put request to actions with invalid input
+    Given I make the PUT call to the actionservice feedback endpoint
+      | e71012ac-3575-47eb-b87f-cd9db92bf9a7  | cucumberTest | REQUEST_COMPLETED |
+    And the response status should be 404
 
 
   # INFO /info

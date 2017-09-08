@@ -45,7 +45,7 @@ public class CaseResponseAware {
    */
   public CaseResponseAware(final World newWorld, final PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
-    this.responseAware = HTTPResponseAware.getInstance();
+    this.responseAware = HTTPResponseAware.getInstance();System.out.println(world.getProperty(USERNAME));System.out.println(world.getProperty(PASSWORD));
     responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
     this.postgresResponseAware = dbResponseAware;
   }

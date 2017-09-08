@@ -217,6 +217,12 @@ public class PostgresSteps {
     assertTrue("Found " + whereCriteria + " in DB equal to: " + result, result == Integer.parseInt(testData.get(9)));
   }
 
+  @Then("^check \"(.*?)\" records in DB equal (\\d+)$")
+  public void check_records_in_DB_equal(String table, int total) throws Throwable {
+    long result = responseAware.rowCount(String.format(COUNT_SQL, table));
+    assertTrue(table + " found count in DB equal to: " + result, result == total);
+  }
+
   /**
    * Test sequence number is as expected
    *

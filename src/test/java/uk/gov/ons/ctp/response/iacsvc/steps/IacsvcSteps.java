@@ -2,9 +2,12 @@ package uk.gov.ons.ctp.response.iacsvc.steps;
 
 import java.util.Properties;
 
+import com.jayway.jsonpath.JsonPath;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import uk.gov.ons.ctp.response.casesvc.util.CaseResponseAware;
 import uk.gov.ons.ctp.response.iacsvc.util.IacsvcResponseAware;
 
 /**
@@ -12,14 +15,16 @@ import uk.gov.ons.ctp.response.iacsvc.util.IacsvcResponseAware;
  */
 public class IacsvcSteps {
   private final IacsvcResponseAware responseAware;
+  private final CaseResponseAware caseResponseAware;
 
   /**
    * Constructor
    *
    * @param iacsvcResponseAware iac service end point runner
    */
-  public IacsvcSteps(IacsvcResponseAware iacsvcResponseAware) {
+  public IacsvcSteps(IacsvcResponseAware iacsvcResponseAware, CaseResponseAware caseResponseAware) {
     this.responseAware = iacsvcResponseAware;
+    this.caseResponseAware = caseResponseAware;
   }
 
   /* End point steps */
@@ -126,4 +131,11 @@ public class IacsvcSteps {
     responseAware.invokeInfoEndpoint();
   }
 
+  @Then("^I make the GET call to the IAC service endpoint for caseid$")
+  public void i_make_the_GET_call_to_the_IAC_service_endpoint_for_caseid() throws Throwable {
+    String caseId = JsonPath.read(responseAware.getBody(), "$." + "caseId");
+    caseResponseAware.invokeCasesEndpoint(caseId, "");
+    String iac = JsonPath.read(responseAware.getBody(), "$." + "iac");
+    responseAware.invokeGetIacEndpoint(iac);
+  }
 }

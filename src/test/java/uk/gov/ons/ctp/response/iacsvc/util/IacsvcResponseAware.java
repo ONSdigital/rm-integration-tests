@@ -39,6 +39,16 @@ public class IacsvcResponseAware {
   }
 
   /**
+   * Get body of response from run end point.
+   *
+   * @return String value of body
+   * @throws Throwable pass the exception
+   */
+  public String getBody() {
+    return responseAware.getBody();
+  }
+
+  /**
    * @iac Service - /iacs post endoints.
    *
    * @param properties to construct JSON from
