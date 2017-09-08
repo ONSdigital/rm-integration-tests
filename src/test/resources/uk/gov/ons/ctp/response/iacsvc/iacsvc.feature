@@ -86,12 +86,11 @@ Feature: Validating iacsvc requests
 
   # GET /iacs/{iac}
 	# 200
-	@citest
   Scenario: Get request to the IAC endpoint
   	Given I make the GET call to the IAC service endpoint
   	When the response status should be 200
   	Then the response should contain the field "caseId"
-  	And the response should contain the field "caseRef" with a null value
+  	And the response should contain the field "caseRef"
   	And the response should contain the field "iac"
     And the response should contain the field "active" with boolean value "true"
     And the response should contain the field "questionSet" with a null value
@@ -127,15 +126,24 @@ Feature: Validating iacsvc requests
 		Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json fails validation."
 		And the response should contain the field "error.timestamp"
-		
+
+  #404
+  Scenario: Put request to the IAC endpoint for iac not found
+    Given I make the PUT call to the IAC service endpoint "237hblnxs101"
+    When the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "IAC not found for code 237hblnxs101"
+    And the response should contain the field "error.timestamp"
+
+
   # INFO /info
   # 200
   Scenario: Info request to sample service for current verison number
     Given I make the call to the IAC service endpoint for info
     When the response status should be 200
     Then the response should contain the field "name" with value "iacsvc"
-       And the response should contain the field "version"
-       And the response should contain the field "origin" with value "git@github.com:ONSdigital/iac-service.git"
-       And the response should contain the field "commit"
-       And the response should contain the field "branch" with value "master"
-       And the response should contain the field "built"
+    And the response should contain the field "version"
+    And the response should contain the field "origin" with value "git@github.com:ONSdigital/iac-service.git"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch" with value "master"
+    And the response should contain the field "built"

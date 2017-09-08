@@ -65,3 +65,15 @@ Feature: action exporter template end points
     And the response should contain the field "dateModified"
 
   # TODO Add test for invalid input 400
+
+
+  # INFO /info
+  # 200
+  Scenario: Info request to action service for current verison number
+    Given I make the call to the actionexporter endpoint for info
+    When the response status should be 200
+    Then the response should contain the field "name" with value "actionexportersvc"
+    And the response should contain the field "version"
+    And the response should contain the field "origin"
+    And the response should contain the field "commit"
+    And the response should contain the field "branch"

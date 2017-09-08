@@ -49,7 +49,7 @@ Feature: Runs the survey service endpoints
     Then the response should contain "Survey not found"
 
 
-  # GET /surveys/name/{name}
+  # GET /surveys/shortname/{name}
   # 200
   Scenario: Get request to survey service for surveys by valid id
     Given I make the GET call to the survey service endpoint for name "BRES"
@@ -81,7 +81,7 @@ Feature: Runs the survey service endpoints
     Then the response should contain "Survey not found"
 
 
-  # GET /surveys/{id}/classifiertypeselectors
+  # GET /surveys/{surveyid}/classifiertypeselectors
   # 200
   Scenario: Get request to survey service for classifiers by valid survey id
     Given I make the GET call to the survey service endpoint for classifiers by id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
@@ -89,6 +89,8 @@ Feature: Runs the survey service endpoints
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be {"id":"efa868fb-fb80-44c7-9f33-d6800a17c4da","name":"COLLECTION_INSTRUMENT"}
     And one element of the JSON array must be {"id":"e119ffd6-6fc1-426c-ae81-67a96f9a71ba","name":"COMMUNICATION_TEMPLATE"}
+
+  # 204 Not tested as surveys pre loaded
 
   # 404
   Scenario: Get request to survey service for classifiers by invalid survey id

@@ -103,6 +103,21 @@ public class IacsvcSteps {
   }
 
   /**
+   * Test put request for /iacs/{iacs} response for invalid iac
+   *
+   * @param iac invalid iac
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the PUT call to the IAC service endpoint \"(.*?)\"$")
+  public void i_make_the_PUT_call_to_the_IAC_service_endpoint(String iac) throws Throwable {
+    Properties properties = new Properties();
+    properties.put("updatedBy", "Cucumber Test");
+    System.out.println("Properties: " + properties);
+
+    responseAware.invokePutIacEndpoint(iac, properties);
+  }
+
+  /**
    * Test post request for /info
    * @throws Throwable pass the exception
    */
