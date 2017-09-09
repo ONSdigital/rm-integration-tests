@@ -100,6 +100,7 @@ Feature: Tests the collection instrument is downloaded (RM)
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac"
+    And the response should contain the field "caseRef"
     And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"
@@ -121,20 +122,21 @@ Feature: Tests the collection instrument is downloaded (RM)
 
 
   # Return Open Cases for respondent 9.3 ----- partyid
-  @testparty
+
   Scenario: Get request to cases for specific case id to test case state for partyid
     Given I make the GET call to the caseservice cases endpoint for case by party
     When the response status should be 200
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be {"id":
-    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"caseRef":
+    And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
     And one element of the JSON array must be ,"responses":[],"caseGroup":{
     And one element of the JSON array must be },"caseEvents":null}
     # BI unit
-    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":"1000000000000501","actionPlanId":
     And one element of the JSON array must be ,"sampleUnitType":"BI","createdBy":"Cucumber Test","createdDateTime":
 
 
