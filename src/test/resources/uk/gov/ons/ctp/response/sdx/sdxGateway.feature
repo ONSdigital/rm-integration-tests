@@ -133,7 +133,7 @@ Feature: Validating action requests
     Then check "casesvc.response" records in DB equal 0
 
   # 201
-  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+  Scenario: Post request for SDX Gateway endpoint for BI case receiptable
     Given I make the POST call to the SDX Gateway online receipt for "BI" case with caseref
     When the response status should be 201
     And the response should contain the field "caseId"
@@ -142,7 +142,7 @@ Feature: Validating action requests
     Then check "casesvc.response" records in DB equal 1
 
   # 201
-  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+  Scenario: Post request for SDX Gateway endpoint for BI case receiptable
     Given I make the POST call to the SDX Gateway online receipt for "BI" case without caseref
     When the response status should be 201
     And the response should contain the field "caseId"

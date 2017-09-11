@@ -120,7 +120,7 @@ Feature: Runs the Collection Exercise endpoints
     And the response should contain the field "actualPublishDateTime" with or without a null value
     And the response should contain the field "periodStartDateTime"
     And the response should contain the field "periodEndDateTime"
-    And the response should contain the field "scheduledReturnDateTime" with a null value
+    And the response should contain the field "scheduledReturnDateTime"
     And the response should contain the field "scheduledEndDateTime"
     And the response should contain the field "executedBy" with a null value
     And the response should contain the field "state" with value "PENDING"
