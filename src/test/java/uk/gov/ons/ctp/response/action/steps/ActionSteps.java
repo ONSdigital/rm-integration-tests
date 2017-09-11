@@ -101,10 +101,10 @@ public class ActionSteps {
     Properties properties = new Properties();
     String actionId = postValues.get(0);
 
-    if (actionId != null && actionId.length() > 0) {
-      properties.put("id", actionId);
-    }
-    properties.put("situaion", postValues.get(1));
+//    if (actionId != null && actionId.length() > 0) {
+//      properties.put("id", actionId);
+//    }
+    properties.put("situation", postValues.get(1));
     properties.put("outcome", postValues.get(2));
 
     responseAware.invokePutActionsActionIdFeedbackEndpoint(actionId, properties);

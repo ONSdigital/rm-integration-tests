@@ -104,6 +104,7 @@ Feature: Tests the response has been uploaded (RM)
     Then the response should contain the field "id"
     And the response should contain the field "state" with value "ACTIONABLE"
     And the response should contain the field "iac"
+    And the response should contain the field "caseRef"
     And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
     And the response should contain the field "collectionInstrumentId"
     And the response should contain the field "partyId"
@@ -131,14 +132,15 @@ Feature: Tests the response has been uploaded (RM)
     When the response status should be 200
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be {"id":
-    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"caseRef":
+    And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
     And one element of the JSON array must be ,"responses":[],"caseGroup":{
     And one element of the JSON array must be },"caseEvents":null}
     # BI unit
-    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":"1000000000000501","actionPlanId":
     And one element of the JSON array must be ,"sampleUnitType":"BI","createdBy":"Cucumber Test","createdDateTime":
 
 
@@ -189,13 +191,14 @@ Feature: Tests the response has been uploaded (RM)
     When the response status should be 200
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be {"id":
-    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"caseRef":
+    And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
     And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
     And one element of the JSON array must be ,"responses":[],"caseGroup":{
     # BI unit
-    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"actionPlanId":
+    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"caseRef":"1000000000000501","actionPlanId":
     And one element of the JSON array must be ,"sampleUnitType":"BI","createdBy":"Cucumber Test","createdDateTime":
     And one element of the JSON array must be ,"category":"UNSUCCESSFUL_RESPONSE_UPLOAD","subCategory":"","createdBy":"Cucumber Test","description":"Unsuccessful Upload"}
     And one element of the JSON array must be ,"category":"SUCCESSFUL_RESPONSE_UPLOAD","subCategory":"","createdBy":"Cucumber Test","description":"Collection Instrument Uploaded"}
