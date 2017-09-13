@@ -124,9 +124,9 @@ Feature: Tests the response has been uploaded (RM)
   # Create case event for offline response 11.4 -----
 
   Scenario: Post request for cases events endpoint for case id
-    When I make the POST call to the caseservice cases events for "BI"
+    Given I make the POST call to the caseservice cases events for "BI"
       | Offline Response | OFFLINE_RESPONSE_PROCESSED |  | Cucumber Test |  |
-    Then the response status should be 201
+    When the response status should be 201
     Then the response should contain the field "createdDateTime"
     And the response should contain the field "caseId"
     And the response should contain the field "partyId"
@@ -135,6 +135,8 @@ Feature: Tests the response has been uploaded (RM)
     And the response should contain the field "createdBy" with value "Cucumber Test"
     And the response should contain the field "description" with value "Offline Response"
     And check "casesvc.caseevent" records in DB equal 1 for "description = 'Offline Response'"
+    And check "casesvc.response" records in DB equal 1
+
 
   # Report not developed so not tested (Journey steps: 11.5)
 

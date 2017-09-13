@@ -72,7 +72,7 @@ Feature: Validating action requests
 
 
   # Generate Cases BI -----
-
+@test1
   Scenario: Verify event created for respondent enrolment
     Given I make the POST call to the caseservice cases events
       | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
@@ -87,7 +87,7 @@ Feature: Validating action requests
     Then Check the case state has changed
     And the response status should be 200
     And the response should contain the field "state" with value "INACTIONABLE"
-
+@test1
   Scenario: Verify a new case have been created with the correct properties
     Given after a delay of 60 seconds
     When I make the GET call to the caseservice cases endpoint for new case
@@ -124,15 +124,16 @@ Feature: Validating action requests
 
   # POST /receipts
   # 201
-  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
-    Given I make the POST call to the SDX Gateway online receipt for "B" case with caseref
-    When the response status should be 201
-    And the response should contain the field "caseId"
-    And the response should contain the field "caseRef"
-    And after a delay of 5 seconds
-    Then check "casesvc.response" records in DB equal 0
+#  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+#    Given I make the POST call to the SDX Gateway online receipt for "B" case with caseref
+#    When the response status should be 201
+#    And the response should contain the field "caseId"
+#    And the response should contain the field "caseRef"
+#    And after a delay of 5 seconds
+#    Then check "casesvc.response" records in DB equal 0
 
   # 201
+  @test1
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
     Given I make the POST call to the SDX Gateway online receipt for "BI" case with caseref
     When the response status should be 201
@@ -142,6 +143,7 @@ Feature: Validating action requests
     Then check "casesvc.response" records in DB equal 1
 
   # 201
+  @test1
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
     Given I make the POST call to the SDX Gateway online receipt for "BI" case without caseref
     When the response status should be 201
@@ -151,9 +153,9 @@ Feature: Validating action requests
     Then check "casesvc.response" records in DB equal 2
 
   # 400
-  Scenario: Post request for SDX Gateway endpoint for missing caseid
-    When I make the POST call to the SDX Gateway online receipt for missing caseid
-    Then the response status should be 400
-    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json fails validation."
-    And the response should contain the field "error.timestamp"
+#  Scenario: Post request for SDX Gateway endpoint for missing caseid
+#    When I make the POST call to the SDX Gateway online receipt for missing caseid
+#    Then the response status should be 400
+#    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+#    And the response should contain the field "error.message" with value "Provided json fails validation."
+#    And the response should contain the field "error.timestamp"
