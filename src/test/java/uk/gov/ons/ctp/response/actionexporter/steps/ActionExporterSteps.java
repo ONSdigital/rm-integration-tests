@@ -8,11 +8,15 @@ import org.springframework.web.multipart.MultipartFile;
 import uk.gov.ons.ctp.response.actionexporter.util.ActionExporterResponseAware;
 import uk.gov.ons.ctp.util.World;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+
+import javax.validation.constraints.AssertTrue;
 
 /**
  * Created by Edward Stevens on 12/07/17.
@@ -157,6 +161,27 @@ public class ActionExporterSteps {
   @Given("^I make the call to the actionexporter endpoint for info")
   public void i_make_the_call_to_the_actionexporter_endpoint_for_info() throws Throwable {
     responseAware.invokeInfoEndpoint();
+  }
+
+
+  @Given("^I make the GET call to the actionexporter reports endpoint for all types$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_all_types() throws Throwable {
+    assertTrue(false);
+  }
+
+  @Given("^I make the GET call to the actionexporter reports endpoint for type \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_type(String arg1) throws Throwable {
+    assertTrue(false);
+  }
+
+  @Given("^I make the GET call to the actionexporter reports endpoint for id$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_id() throws Throwable {
+    assertTrue(false);
+  }
+
+  @Given("^I make the GET call to the actionexporter reports endpoint for id \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_id(String arg1) throws Throwable {
+    assertTrue(false);
   }
 
 }
