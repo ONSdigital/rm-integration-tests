@@ -1,5 +1,6 @@
 package uk.gov.ons.ctp.response.action.steps;
 
+//import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -69,6 +70,22 @@ public class ActionSteps {
     responseAware.invokeActionsCaseIdEndpoint(caseId);
   }
 
+  
+  
+  @Given("^I make the PUT call to the actionservice actions endpoint for caseId$")
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_for_caseId(List<String> putValues) throws Throwable {
+    Properties properties = new Properties();
+    String caseId = putValues.get(0);
+
+    properties.put("situation", putValues.get(1));
+    properties.put("outcome", putValues.get(2));
+    
+    responseAware.invokePutActionsCaseIdEndpoint(caseId, properties);
+  }
+  
+
+
+  
   /**
   * Test get request for /actions/{actionId}
   *
@@ -90,6 +107,63 @@ public class ActionSteps {
     responseAware.invokeActionsIdEndpoint(actionId);
   }
 
+
+  @When("^I make the POST call to the actionservice actions endpoint$")
+  public void i_make_the_POST_call_to_the_actionservice_actions_endpoint(List<String> postValues) throws Throwable {
+    Properties properties = new Properties();
+//    properties.put("caseId", postValues.get(0));
+    properties.put("actionTypeName", postValues.get(1));
+    properties.put("createdBy", postValues.get(2));
+    properties.put("priority", postValues.get(3));
+//    
+//    responseAware.invokePutActionsCaseIdEndpoint(caseId, properties);
+    responseAware.invokePostActionsEndpoint(postValues.get(0), properties);
+  }
+
+  @When("^I make the POST call to the actionservice actions endpoint with invalid input$")
+  public void i_make_the_POST_call_to_the_actionservice_actions_endpoint_with_invalid_input() throws Throwable {
+    Properties properties = new Properties();
+//    String caseId = putValues.get(0);
+
+    properties.put("invalid", "input");
+//    properties.put("outcome", putValues.get(2));
+    
+    responseAware.invokePostActionsEndpoint(null, properties);
+//    List<String> properties = new ArrayList<String>();
+//    i_make_the_POST_call_to_the_actionservice_actions_endpoint(List<String> postValues)
+  }
+  
+
+
+  /**
+   * Test put request for /actions/{actionid}
+   *
+   * @param putValues values to be posted using JSON
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the PUT call to the actionservice actions endpoint by actionId$")
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_by_actionId(List<String> putValues) throws Throwable {
+    Properties properties = new Properties();
+    properties.put("situation", putValues.get(1));
+    properties.put("priority", putValues.get(2));
+    responseAware.invokePutActionsEndpoint(putValues.get(0), properties);
+  }
+
+  /**
+   * Test put request for /actions/{actionid}
+   *
+   * @param actionId to be put
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the PUT call to the actionservice actions endpoint by actionId with invalid input \"(.*?)\"$")
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_by_actionId_with_invalid_input(String actionId) throws Throwable {
+    Properties properties = new Properties();
+    properties.put("invalid", "input");
+    responseAware.invokePutActionsEndpoint(actionId, properties);
+  }
+  
+  
+  
   /**
    * Test post request for /actions
    *
@@ -97,13 +171,9 @@ public class ActionSteps {
    * @throws Throwable pass the exception
    */
   @When("^I make the PUT call to the actionservice feedback endpoint$")
-  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint(List<String> postValues) throws Throwable {
+  public void i_make_the_PUT_call_to_the_actionservice_feedback_endpoint(List<String> postValues) throws Throwable {
     Properties properties = new Properties();
     String actionId = postValues.get(0);
-
-//    if (actionId != null && actionId.length() > 0) {
-//      properties.put("id", actionId);
-//    }
     properties.put("situation", postValues.get(1));
     properties.put("outcome", postValues.get(2));
 
