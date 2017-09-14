@@ -11,7 +11,7 @@
 # Feature Tag:  @actionExporter
 #               @@actionExporterReport
 #
-@actionExporter @actionExporterReport
+@actionExporter2 @actionExporterReport
 Feature: action exporter template end points
 
 

@@ -13,7 +13,7 @@
 #               @actionExporterTemplateMapping
 #
 @actionExporter @actionExporterTemplateMapping
-Feature: action exporter template end points
+Feature: action exporter template mappings end points
 
 	Scenario: Reset actionexporter database to pre test condition
 		When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
