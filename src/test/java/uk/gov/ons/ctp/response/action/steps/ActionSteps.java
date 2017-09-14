@@ -70,22 +70,22 @@ public class ActionSteps {
     responseAware.invokeActionsCaseIdEndpoint(caseId);
   }
 
-  
-  
+  /**
+   * Test put request for /actions/case/{caseId}
+   *
+   * @param putValues values to be posted using JSON
+   * @throws Throwable pass the exception
+   */
   @Given("^I make the PUT call to the actionservice actions endpoint for caseId$")
-  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_for_caseId(List<String> putValues) throws Throwable {
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_for_caseId(List<String> putValues)
+      throws Throwable {
     Properties properties = new Properties();
     String caseId = putValues.get(0);
-
     properties.put("situation", putValues.get(1));
     properties.put("outcome", putValues.get(2));
-    
     responseAware.invokePutActionsCaseIdEndpoint(caseId, properties);
   }
-  
 
-
-  
   /**
   * Test get request for /actions/{actionId}
   *
@@ -107,33 +107,32 @@ public class ActionSteps {
     responseAware.invokeActionsIdEndpoint(actionId);
   }
 
-
+  /**
+   * Test post request for /actions
+   *
+   * @param postValues values to be posted using JSON
+   * @throws Throwable pass the exception
+   */
   @When("^I make the POST call to the actionservice actions endpoint$")
   public void i_make_the_POST_call_to_the_actionservice_actions_endpoint(List<String> postValues) throws Throwable {
     Properties properties = new Properties();
-//    properties.put("caseId", postValues.get(0));
     properties.put("actionTypeName", postValues.get(1));
     properties.put("createdBy", postValues.get(2));
     properties.put("priority", postValues.get(3));
-//    
-//    responseAware.invokePutActionsCaseIdEndpoint(caseId, properties);
     responseAware.invokePostActionsEndpoint(postValues.get(0), properties);
   }
 
+  /**
+   * Test post request for /actions
+   *
+   * @throws Throwable pass the exception
+   */
   @When("^I make the POST call to the actionservice actions endpoint with invalid input$")
   public void i_make_the_POST_call_to_the_actionservice_actions_endpoint_with_invalid_input() throws Throwable {
     Properties properties = new Properties();
-//    String caseId = putValues.get(0);
-
     properties.put("invalid", "input");
-//    properties.put("outcome", putValues.get(2));
-    
     responseAware.invokePostActionsEndpoint(null, properties);
-//    List<String> properties = new ArrayList<String>();
-//    i_make_the_POST_call_to_the_actionservice_actions_endpoint(List<String> postValues)
   }
-  
-
 
   /**
    * Test put request for /actions/{actionid}
@@ -142,7 +141,8 @@ public class ActionSteps {
    * @throws Throwable pass the exception
    */
   @Given("^I make the PUT call to the actionservice actions endpoint by actionId$")
-  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_by_actionId(List<String> putValues) throws Throwable {
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_by_actionId(List<String> putValues)
+      throws Throwable {
     Properties properties = new Properties();
     properties.put("situation", putValues.get(1));
     properties.put("priority", putValues.get(2));
@@ -156,14 +156,13 @@ public class ActionSteps {
    * @throws Throwable pass the exception
    */
   @Given("^I make the PUT call to the actionservice actions endpoint by actionId with invalid input \"(.*?)\"$")
-  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_by_actionId_with_invalid_input(String actionId) throws Throwable {
+  public void i_make_the_PUT_call_to_the_actionservice_actions_endpoint_by_actionId_with_invalid_input(String actionId)
+      throws Throwable {
     Properties properties = new Properties();
     properties.put("invalid", "input");
     responseAware.invokePutActionsEndpoint(actionId, properties);
   }
-  
-  
-  
+
   /**
    * Test post request for /actions
    *

@@ -106,6 +106,9 @@ Feature: Validating action requests
     And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
     And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
+  Scenario: test new case has been added to the action service cases
+    Given check "action.case" records in DB equal 1 for "actionplanfk = 2"
+
 
   # Endpoint Tests -----
 
@@ -131,6 +134,7 @@ Feature: Validating action requests
 #    And the response should contain the field "caseRef"
 #    And after a delay of 5 seconds
 #    Then check "casesvc.response" records in DB equal 0
+#    And check "action.case" records in DB equal 1 for "actionplanfk = 2"
 
   # 201
   @test1
@@ -141,6 +145,7 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 5 seconds
     Then check "casesvc.response" records in DB equal 1
+    And check "action.case" records in DB equal 0 for "actionplanfk = 2"
 
   # 201
   @test1
@@ -151,11 +156,11 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 5 seconds
     Then check "casesvc.response" records in DB equal 2
+    And check "action.case" records in DB equal 0 for "actionplanfk = 2"
 
   # 400
-#  Scenario: Post request for SDX Gateway endpoint for missing caseid
-#    When I make the POST call to the SDX Gateway online receipt for missing caseid
-#    Then the response status should be 400
-#    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-#    And the response should contain the field "error.message" with value "Provided json fails validation."
-#    And the response should contain the field "error.timestamp"
+  Scenario: Post request for SDX Gateway endpoint for missing caseid
+    When I make the POST call to the SDX Gateway online receipt for missing caseid
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json fails validation."
+    And the response should contain the field "error.timestamp"

@@ -2,6 +2,8 @@ package uk.gov.ons.ctp.response.actionexporter.util;
 
 import org.apache.http.auth.AuthenticationException;
 import org.springframework.web.multipart.MultipartFile;
+
+import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -23,22 +25,28 @@ public class ActionExporterResponseAware {
   private static final String GET_TEMPLATE_MAPPINGS_ALL_URL = "/templatemappings";
   private static final String GET_TEMPLATE_MAPPINGS_URL = "/templatemappings/%s";
   private static final String POST_TEMPLATE_MAPPINGS_URL = "/templatemappings";
+  private static final String GET_REPORTS_URL = "/reports/types";
+  private static final String GET_REPORT_TYPE_URL = "/reports/types/%s";
+  private static final String GET_REPORT_URL = "/reports/%s";
   private static final String INFO_URL = "/info";
   private static final String USERNAME = "cuc.collect.username";
   private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "actionexp";
   private World world;
   private HTTPResponseAware responseAware;
+  private final PostgresResponseAware postgresResponseAware;
 
   /**
    * Constructor - also gets singleton of http request runner
    *
    * @param newWorld class with application and environment properties
+   * @param dbResponseAware DB runner
    */
-  public ActionExporterResponseAware(final World newWorld) {
+  public ActionExporterResponseAware(final World newWorld, final PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
     responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
+    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -161,5 +169,42 @@ public class ActionExporterResponseAware {
    */
   public void invokeInfoEndpoint() throws IOException, AuthenticationException {
     responseAware.invokeGet(world.getUrl(INFO_URL, SERVICE));
+  }
+
+  /**
+   * Test get request for /reports/types
+   *
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeGetAllReportsEndpoint() throws IOException, AuthenticationException {
+    responseAware.invokeGet(world.getUrl(GET_REPORTS_URL, SERVICE));
+  }
+
+  /**
+   * Test get request for /reports/types/{reportTypes}
+   *
+   * @param reportType to be retrieved
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeGetTypeReportsEndpoint(String reportType) throws IOException, AuthenticationException {
+    final String url = String.format(GET_REPORT_TYPE_URL, reportType);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
+  }
+
+  /**
+   * Test get request for /reports/{reportId}
+   *
+   * @param reportId to be retrieved
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public void invokeGetReportsByIdEndpoint(String reportId) throws IOException, AuthenticationException {
+    if (reportId == null || reportId.length() == 0) {
+      reportId = postgresResponseAware.getFieldFromRecord("id", "actionexporter.report");
+    }
+    final String url = String.format(GET_REPORT_URL, reportId);
+    responseAware.invokeGet(world.getUrl(url, SERVICE));
   }
 }

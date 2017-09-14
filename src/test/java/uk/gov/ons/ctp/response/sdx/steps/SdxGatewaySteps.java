@@ -39,9 +39,9 @@ public class SdxGatewaySteps {
    * @throws Throwable pass the exception
    */
   @Given("^I make the POST call to the SDX Gateway online receipt for \"(.*?)\" case with caseref$")
-  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_case_with_caseref(String caseType) throws Throwable {
+  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_case_with_caseref(String caseType)
+      throws Throwable {
     List<String> result = responseAware.getCaseForType(caseType);
-    
     Properties properties = new Properties();
     properties.put("caseId", result.get(0));
     properties.put("caseRef", result.get(1));
@@ -55,7 +55,8 @@ public class SdxGatewaySteps {
    * @throws Throwable pass the exception
    */
   @Given("^I make the POST call to the SDX Gateway online receipt for \"(.*?)\" case without caseref$")
-  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_case_without_caseref(String caseType) throws Throwable {
+  public void i_make_the_POST_call_to_the_SDX_Gateway_online_receipt_for_case_without_caseref(String caseType)
+      throws Throwable {
     List<String> result = responseAware.getCaseForType(caseType);
 
     Properties properties = new Properties();
