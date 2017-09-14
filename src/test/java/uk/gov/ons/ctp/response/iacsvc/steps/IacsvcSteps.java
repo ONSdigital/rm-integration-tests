@@ -134,7 +134,7 @@ public class IacsvcSteps {
   @Then("^I make the GET call to the IAC service endpoint for caseid$")
   public void i_make_the_GET_call_to_the_IAC_service_endpoint_for_caseid() throws Throwable {
     String caseId = JsonPath.read(responseAware.getBody(), "$." + "caseId");
-    caseResponseAware.invokeCasesEndpoint(caseId, "");
+    caseResponseAware.invokeCasesEndpoint(caseId, "?iac=true");
     String iac = JsonPath.read(responseAware.getBody(), "$." + "iac");
     responseAware.invokeGetIacEndpoint(iac);
   }
