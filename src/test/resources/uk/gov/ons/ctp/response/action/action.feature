@@ -250,7 +250,7 @@ Feature: Validating action requests
 
 
   # POST /actions
-  # 201 CTPA-1579
+  # 201 CTPA-1585
 #  @post
 #  Scenario: Post request to actionservice for specified caseId with priority
 #    When I make the POST call to the actionservice actions endpoint
@@ -263,7 +263,7 @@ Feature: Validating action requests
     #And the response should contain the field "createdDateTime"
     #And the response should contain the field "updatedDateTime"
 
-  # 201 CTPA-1579
+  # 201 CTPA-1585
 #  @post
 #  Scenario: Post request to actionservice for specified caseId without priority
 #    When I make the POST call to the actionservice actions endpoint
@@ -275,7 +275,7 @@ Feature: Validating action requests
     #And the response should contain the field "state" with value "SUBMITTED"
     #And the response should contain the field "updatedDateTime"
 
-  # 400 CTPA-1579
+  # 400 CTPA-1585
 #  Scenario: Post request to actionservice with invalid input
 #    When I make the POST call to the actionservice actions endpoint with invalid input
 #    Then the response status should be 400
@@ -283,7 +283,7 @@ Feature: Validating action requests
 #    And the response should contain the field "error.message" with value "Provided json is incorrect."
 #    And the response should contain the field "error.timestamp"
     
-  # 404 CTPA-1579
+  # 404 CTPA-1585
 #  @post
 #  Scenario: Post request to actionservice for specified caseId not found
 #    When I make the POST call to the actionservice actions endpoint
@@ -297,7 +297,6 @@ Feature: Validating action requests
 
   # PUT /actions/{actionid}
   # 200
-  @put
   Scenario: Put request to actionservice for specified actionId with situation and priority
     Given I make the PUT call to the actionservice actions endpoint by actionId
       |  | CucumberTest | 1 |
@@ -316,7 +315,6 @@ Feature: Validating action requests
     And the response should contain the field "updatedDateTime"
 
   # 200
-  @put
   Scenario: Put request to actionservice for specified actionId with situation
     Given I make the PUT call to the actionservice actions endpoint by actionId
       |  | CucumberTest2 |  |
@@ -335,7 +333,6 @@ Feature: Validating action requests
     And the response should contain the field "updatedDateTime"
 
   # 200
-  @put
   Scenario: Put request to actionservice for specified actionId with priority
     Given I make the PUT call to the actionservice actions endpoint by actionId
       |  |  | 2 |
@@ -354,7 +351,6 @@ Feature: Validating action requests
     And the response should contain the field "updatedDateTime"
 
   # 400
-  @put
   Scenario: Put request to actionservice for specified actionId invalid json
     Given I make the PUT call to the actionservice actions endpoint by actionId with invalid input "e71002ac-3575-47eb-b87f-cd9db92bf101"
     When the response status should be 400
@@ -363,7 +359,6 @@ Feature: Validating action requests
     And the response should contain the field "error.timestamp"
 
   # 404
-  @put
   Scenario: Put request to actionservice for specified actionId not found
     Given I make the PUT call to the actionservice actions endpoint by actionId
       | e71002ac-3575-47eb-b87f-cd9db92bf101 | CucumberTest | 1 |
