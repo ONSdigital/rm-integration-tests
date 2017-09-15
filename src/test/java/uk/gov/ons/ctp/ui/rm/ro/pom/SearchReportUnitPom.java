@@ -54,15 +54,15 @@ public class SearchReportUnitPom {
    * 
    * @param event
    */
-  public void checkCaseEvent(String event) {
-    
+  public String checkCaseEvent(String event, int column) {
+ 
     TableHelper table = new TableHelper();
-    List<String> contents = table.extractColumnValuesFromTable(eventsTable,4);
+    List<String> contents = table.extractColumnValuesFromTable(eventsTable,column);
     for (int i = 0; i<contents.size(); i++){
     	if (contents.get(i).equals(event)){
-    		assertEquals(event, contents.get(i));
+    		return contents.get(i);
     	}
     }
-    fail("no Events match, " + event + "within caseevent table");
+    return " ";
   }
 }

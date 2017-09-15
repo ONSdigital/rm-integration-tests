@@ -12,8 +12,10 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/process/offline/offlineResponse.feature"},
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
       "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
+      "uk.gov.ons.ctp.response.iacsvc.steps",
       "uk.gov.ons.ctp.response.casesvc.steps",
-      "uk.gov.ons.ctp.response.common.steps"},
+      "uk.gov.ons.ctp.response.common.steps",
+      "uk.gov.ons.ctp.ui.rm.ro.steps"},
   plugin = {"pretty", "html:build/OfflineResponse-report", "json:build/jenkins/OfflineResponse.json"}
 )
 public class OfflineResponseTest {

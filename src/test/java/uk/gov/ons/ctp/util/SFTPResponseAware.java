@@ -89,19 +89,17 @@ public class SFTPResponseAware {
    * @throws IOException IO exception
    */
   public void makeDir(String workingDir, String newDir) throws JSchException, SftpException, IOException {
-    boolean notFound = true;
+    boolean isFound = false;
     connect(workingDir);
-
     try {
       List<LsEntry> foundFiles = getListDirectoriesInDirectory("*");
-
       for (LsEntry file: foundFiles) {
         if (file.getFilename().equals(newDir)) {
-          notFound = false;
+        	isFound = true;
         }
       }
 
-      if (notFound) {
+      if (!isFound) {
         System.out.println("Creating dir: " + workingDir + newDir);
         sftpChannel.mkdir(newDir);
       }
@@ -313,14 +311,14 @@ public class SFTPResponseAware {
    */
   private void connect(String workingDir) throws JSchException, SftpException {
     JSch jsch = new JSch();
-
+    
     session = jsch.getSession(username, sftpServer, port);
     session.setConfig("StrictHostKeyChecking", "no");
     session.setPassword(password);
     session.connect();
 
     Channel channel = session.openChannel("sftp");
-
+    
     sftpChannel = (ChannelSftp) channel;
     sftpChannel.setPty(true);
     sftpChannel.connect();

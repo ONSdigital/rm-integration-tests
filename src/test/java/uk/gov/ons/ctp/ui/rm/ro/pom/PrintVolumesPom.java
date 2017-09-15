@@ -9,13 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class PrintVolumesPom {
-
-	
-  @FindBy(xpath = "//*[@id=\"main\"]/table/tbody[1]/tr/td[1]")
-  private WebElement fileName;
-
-  @FindBy(xpath = "//*[@id=\"main\"]/table/tbody[1]/tr/td[2]")
-  private WebElement rowCount;
   
   /**
    * Constructor
@@ -24,15 +17,5 @@ public class PrintVolumesPom {
    */
   public PrintVolumesPom(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
-  }
-  
-  public void checkFileName(String name) {	
-    String retrivedFileName = fileName.getText();
-    assertTrue(retrivedFileName.contains(name));
-  }
-  
-  public void checkRowCount(String rows) {	
-    String retrivedRows = rowCount.getText();
-    assertEquals(rows, retrivedRows);
   }
 }

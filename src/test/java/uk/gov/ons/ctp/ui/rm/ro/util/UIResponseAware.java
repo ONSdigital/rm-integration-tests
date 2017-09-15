@@ -1,5 +1,7 @@
 package uk.gov.ons.ctp.ui.rm.ro.util;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 
 import uk.gov.ons.ctp.management.ui.util.TableHelper;
@@ -38,11 +40,10 @@ public class UIResponseAware extends SeleniumAware {
     search.submitReportRef();
   }
   
-  public void checkCaseEventsForCase (String event){
+  public String checkCaseEventsForCase (String event, int column){
 	SearchReportUnitPom search = new SearchReportUnitPom(getWebDriver());
-	search.checkCaseEvent(event);
+	return search.checkCaseEvent(event, column);
   }
-  
   
   public void invokeReportSelection(String reportType) {
     invokeNavigateToPage(getWorld().getUrl(REPORTS_URL, SERVICE));
@@ -55,87 +56,20 @@ public class UIResponseAware extends SeleniumAware {
     ReportsPom reports = new ReportsPom(getWebDriver());
     reports.selectReport();
   }
- 
-  public void viewCaseEvents(String field, String value) {
-    CaseEventsPom caseReport = new CaseEventsPom(getWebDriver());
-    switch (field){
-    case "sampleType":
-      caseReport.checkSampleUnitType(value);
-      break;
-    case "caseCreated":
-      caseReport.checkCaseCreated(value);
-      break;
-    case "actionCompleted":
-      caseReport.checkActionCompleted(value);
-  	  break;
-    case "accountCreated":
-      caseReport.checkAccountCreated(value);
-      break;
-    case "accountEnrolled":
-      caseReport.checkEnrolled(value);
-      break;
-    case "authentication":
-      caseReport.checkAuthentication(value);
-  	  break;
-    case "offlineResponse":
-        caseReport.checkOfflineResponse(value);
-        break;
-    case "downloaded":
-        caseReport.checkCollectionDownload(value);
-        break;
-    case "successfulResponse":
-        caseReport.checkSuccessfulResponse(value);
-        break;
-    case "unsuccessfulResponse":
-        caseReport.checkUnsuccessfulResponse(value);
-        break;
-    }
-  }
   
-  public void viewSampleUnit(String field, String value) {
-    SampleReportPom sampleReport = new SampleReportPom(getWebDriver());
-    switch (field){
-    case "formType":
-	  sampleReport.checkFormType(value);
-	  break;
-    }
-  }
-  
-  public void viewPrintVolume(String field, String value) {
-    PrintVolumesPom printReport = new PrintVolumesPom(getWebDriver());
-    switch (field){
-    case "fileName":
-      printReport.checkFileName(value);
-      break;
-    case "row":
-      printReport.checkRowCount(value);
-      break;
-    }
-  }
-  
-  public void viewActionStatus(String field, String value) {
-    ActionStatusPom actionReport = new ActionStatusPom(getWebDriver());
-    switch (field){
-    case "enrolmentLetter":
-      actionReport.checkEnrolmentLetter(value);
-      break;
-    case "enrolmentAction":
-      actionReport.checkEnrolmentActionCount(value);
-      break;
-    case "reminderLetter":
-      actionReport.checkReminderLetter(value);
-      break;
-    case "reminderAction":
-      actionReport.checkReminderActionCount(value);
-      break;
-    case "surveyReminderNoifcation":
-        actionReport.checkReminderActionCount(value);
-        break;
-    }
-  }
-  
-  public void checksColumnValues(int column, String value, int number) {
+  public String checksSpeficValueFromReport(int column, int row) {
 	  ReportsPom reports = new ReportsPom(getWebDriver());
-	  reports.checksColumnValues(column, value, number);
+	  return reports.checksSpeficValueFromReport(column,row);
   }
+  
+  public int checksColumnValues(int column, String value) {
+	  ReportsPom reports = new ReportsPom(getWebDriver());
+	  return reports.checksColumnValues(column, value);
+  }
+  
+  public  List<String> checksColumnValuesReturnsSampleRef(int column, String value) {
+	  ReportsPom reports = new ReportsPom(getWebDriver());
+	  return reports.checksColumnValuesReturnsSampleRef(column, value);
+  }
+
 }

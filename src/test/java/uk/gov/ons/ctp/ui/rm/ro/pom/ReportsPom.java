@@ -2,6 +2,7 @@ package uk.gov.ons.ctp.ui.rm.ro.pom;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -76,7 +77,7 @@ public class ReportsPom {
 	  viewReport.click();
   }
   
-  public void checksColumnValues(int column, String value, int number) {
+  public int checksColumnValues(int column, String value) {
 
 	int count = 0;
     TableHelper table = new TableHelper();
@@ -86,6 +87,29 @@ public class ReportsPom {
 	    count = count + 1;
 	  }
     }
-    assertEquals(number, count);
+    return count;
   }
+  
+  public String checksSpeficValueFromReport (int column, int row){
+	  TableHelper table = new TableHelper();
+	  return table.extractValueFromTable(reportTable, column, row);
+  }
+  
+  public List<String> checksColumnValuesReturnsSampleRef(int column, String value) {
+	  
+	List<String> results = new ArrayList<String>();
+	
+	int count = 0;
+    TableHelper table = new TableHelper();
+    List<String> contents = table.extractColumnValuesFromTable(reportTable,column);
+    for (int i = 0; i<contents.size(); i++){
+    	if (contents.get(i).equals(value)){
+    		count = count + 1;
+    		results.add(table.extractValueFromTable(reportTable,i+2,1));
+    	}
+    }
+    results.add(Integer.toString(count));
+    return results;
+  }
+  
 }

@@ -50,13 +50,12 @@ public class TableHelper {
    * @return String cell value
    */
   public String extractValueFromTable(WebElement table, int rowNumber, int columnNumber) {
-    WebElement tableBody = table.findElement(By.tagName("tbody"));
+   
 
-    List<WebElement> rows = tableBody.findElements(By.tagName("tr"));
-    WebElement row = rows.get(rowNumber - 1);
+    List<WebElement> rows = table.findElements(By.tagName("tr"));
+    WebElement row = rows.get(rowNumber);
     List<WebElement> values = row.findElements(By.tagName("td"));
-
-    return values.get(columnNumber - 1).getText();
+    return values.get(columnNumber).getText();
   }
 
   /**

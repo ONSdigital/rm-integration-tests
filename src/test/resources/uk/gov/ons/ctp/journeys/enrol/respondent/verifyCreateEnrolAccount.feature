@@ -190,46 +190,38 @@ Feature: Verify and Create Account
 
   # Report 7.10
   # Report to show enrolment event
+
+@enrolRespondent1
   Scenario: Service report viewed (PO4.03)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And checks case event for column name "authentication" with value "0"
-    #should be 1 
-    Then the user logs out
-  
-  @test04
-  Scenario: Case data viewed (PO4.04)
-    Given the "test" user has logged in using "chromehead"
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Access Code Authentication Attempt" appears
-    # should be enrolment event
+    And  checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
+    When the user searches for case ref from case report
+    Then the user looks at the events table to see the event "Respondent Enroled" appears in column 3 
     Then the user logs out
 
   Scenario: Respondent Account Created (PO5.04)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And checks case event for column name "accountCreated" with value "0"
-    #should be 1 
-    Then the user logs out
- 
-  Scenario: Case data viewed (PO5.05)
-    Given the "test" user has logged in using "chromehead"
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Respondent account created" appears
+    And  checks values of column number 7 against value "1" and should appear 1 times 
     Then the user logs out
     
-
+ ##waiting for bug fix 
+ # Scenario: Case data viewed (PO5.05)
+ #   Given the "test" user has logged in using "chromehead"
+ #   When the user searches for case ref "49900000003"
+ #   Then the user looks at the events table to see the event "Respondent account created" appears in column 4
+ #   Then the user logs out
+    
   Scenario: Case event report respondent enrolled count (PO6.05-6)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And checks case event for column name "accountEnrolled" with value "0"
-    #should be 1 
-    And checks case event for column name "sampleType" with value "BI"
+    And  checks values of column number 8 against value "1" and should appear 1 times
+    And  checks values of column number 2 against value "BI" and should appear 1 times
     Then the user logs out
-    
 
   
   

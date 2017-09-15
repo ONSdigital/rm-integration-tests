@@ -144,18 +144,19 @@ Feature: Tests the survey reminders are sent
     And check "casesvc.caseevent" records in DB equal 2 for "description = 'Survey Reminder Notification'"
 
   # Report not developed so not tested (Journey steps: 8.8)
+  @sendSurveyReminders1
   Scenario: Service report viewed (P10.02-3)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
-    And checks action status for column name "Survey reminder notification" with value "500"
+    And checks value for column 6 and row 6 with value "1"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And checks case event for column name "actionCompleted" with value "0"
+    And  checks values of column number 5 against value "2" and should appear 1 times
     Then the user logs out
-    
-  Scenario: Case data viewed (P10.03)
-    Given the "test" user has logged in using "chromehead"
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Survey reminder notification sent" appears
-    Then the user logs out
+
+  #Scenario: Case data viewed (P10.03)
+  #  When the user searches for case ref "49900000001"
+  #  Given the "test" user has logged in using "chromehead"
+  #  Then the user looks at the events table to see the event "Survey reminder notification sent" appears
+  #  Then the user logs out

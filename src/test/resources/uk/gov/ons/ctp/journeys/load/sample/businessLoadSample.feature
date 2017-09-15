@@ -33,18 +33,18 @@ Feature: Tests the load of business sample
     And the sftp exit status should be "-1"
   
   Scenario: Test sample DB state (Journey steps: 1.5)
-    Given after a delay of 60 seconds
-    When check "sample.samplesummary" records in DB equal 1 for "state = 'ACTIVE' AND surveyref = '221'"
-    Then check "sample.sampleunit" records in DB equal 500 for "state = 'PERSISTED' AND samplesummaryfk = 1"
-    Given after a delay of 30 seconds
+    Given after a delay of 80 seconds
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
     Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
+
 
   @businessLoadP01
   Scenario: Test service report viewed (Test scenario PO1.10)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "sample" reports
     When the user goes to view the most recent report
-    Then checks sample unit for column name "formType" with value "0015"
+    And  checks values of column number 2 against value "0015" and should appear 237 times
+    And  checks values of column number 2 against value "0016" and should appear 252 times
+    And  checks values of column number 2 against value "0019" and should appear 7 times
     Then the user logs out
 
