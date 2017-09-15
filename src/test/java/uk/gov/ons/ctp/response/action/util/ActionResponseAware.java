@@ -17,6 +17,9 @@ public class ActionResponseAware {
   private static final String PUT_FEEDBACK_FILTER_URL = "/actions/%s/feedback";
   private static final String GET_ACTIONS_ACTIONID_URL = "/actions/%s";
   private static final String GET_ACTIONS_CASEID_URL = "/actions/case/%s";
+  private static final String PUT_ACTIONS_CASEID_URL = "/actions/caseid/%s";
+  private static final String POST_ACTIONS_URL = "/actions";
+  private static final String PUT_ACTIONS_ACTIONID_URL = "/actions/%s";
   private static final String INFO_URL = "/info";
   private static final String USERNAME = "cuc.collect.username";
   private static final String PASSWORD = "cuc.collect.password";
@@ -105,6 +108,57 @@ public class ActionResponseAware {
 
     final String url = String.format(GET_ACTIONS_CASEID_URL, caseId);
     responseAware.invokeGet(world.getUrl(url, "actionsvc"));
+  }
+
+  /**
+   * @action Service - /actions/case/{caseId} put endpoints.
+   *
+   * @param caseId case id
+   * @param properties values to be put using JSON
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePutActionsCaseIdEndpoint(String caseId, Properties properties)
+      throws IOException, AuthenticationException {
+    if (caseId == null || caseId.length() == 0) {
+      caseId = postgresResponseAware.getFieldFromRecord("caseid", "action.action");
+    }
+    final String url = String.format(PUT_ACTIONS_CASEID_URL, caseId);
+    responseAware.invokeJsonPut(world.getUrl(url, "actionsvc"), properties);
+  }
+
+  /**
+   * @action Service - /actions post endpoints.
+   *
+   * @param caseId to post
+   * @param properties values to be posted using JSON
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePostActionsEndpoint(String caseId, Properties properties)
+      throws IOException, AuthenticationException {
+    if (caseId == null || caseId.length() == 0) {
+      caseId = postgresResponseAware.getFieldFromRecord("caseid", "action.action");
+    }
+    properties.put("caseId", caseId);
+    responseAware.invokeJsonPost(world.getUrl(POST_ACTIONS_URL, "actionsvc"), properties);
+  }
+
+  /**
+   * @action Service - /actions/{actionid} put endpoints.
+   *
+   * @param actionId to be put
+   * @param properties values to be posted using JSON
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePutActionsEndpoint(String actionId, Properties properties)
+      throws IOException, AuthenticationException {
+    if (actionId == null || actionId.length() == 0) {
+      actionId = postgresResponseAware.getFieldFromRecord("id", "action.action");
+    }
+    final String url = String.format(PUT_ACTIONS_ACTIONID_URL, actionId);
+    responseAware.invokeJsonPut(world.getUrl(url, SERVICE), properties);
   }
 
   /**

@@ -64,7 +64,7 @@ Feature: action exporter template end points
     And the response should contain the field "content"
     And the response should contain the field "dateModified"
 
-  # TODO Add test for invalid input 400
+  # 400 Not tested
 
 
   # INFO /info

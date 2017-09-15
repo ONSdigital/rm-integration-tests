@@ -1,18 +1,19 @@
 package uk.gov.ons.ctp.response.actionexporter.steps;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
-import org.apache.commons.compress.utils.IOUtils;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
-import uk.gov.ons.ctp.response.actionexporter.util.ActionExporterResponseAware;
-import uk.gov.ons.ctp.util.World;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
+
+import org.apache.commons.compress.utils.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
+import uk.gov.ons.ctp.response.actionexporter.util.ActionExporterResponseAware;
+import uk.gov.ons.ctp.util.World;
 
 /**
  * Created by Edward Stevens on 12/07/17.
@@ -159,4 +160,45 @@ public class ActionExporterSteps {
     responseAware.invokeInfoEndpoint();
   }
 
+  /**
+   * Test get request for /reports/types
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the actionexporter reports endpoint for all types$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_all_types() throws Throwable {
+    responseAware.invokeGetAllReportsEndpoint();
+  }
+
+  /**
+   * Test get request for /reports/types/{reportTypes}
+   *
+   * @param reportType to be retrieved
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the actionexporter reports endpoint for type \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_type(String reportType) throws Throwable {
+    responseAware.invokeGetTypeReportsEndpoint(reportType);
+  }
+
+  /**
+   * Test get request for /reports/{reportId}
+   *
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the actionexporter reports endpoint for id$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_id() throws Throwable {
+    responseAware.invokeGetReportsByIdEndpoint(null);
+  }
+
+  /**
+   * Test get request for /reports/{reportId}
+   *
+   * @param reportId to be retrieved
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the GET call to the actionexporter reports endpoint for id \"(.*?)\"$")
+  public void i_make_the_GET_call_to_the_actionexporter_reports_endpoint_for_id(String reportId) throws Throwable {
+    responseAware.invokeGetReportsByIdEndpoint(reportId);
+  }
 }

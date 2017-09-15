@@ -286,7 +286,7 @@ Feature: Validating cases requests
   Scenario: Get request for events of a specific case id
     Given I make the GET call to the caseservice cases endpoint for events
     Then the response status should be 200
-    And the response should contain a JSON array of size 4
+    # Array size not tested as it can vary on different runs
     And one element of the JSON array must be {"createdDateTime":
     And one element of the JSON array must be ,"category":"ACCESS_CODE_AUTHENTICATION_ATTEMPT","subCategory":null,"createdBy":"SYSTEM","description":"Access Code authentication attempted"}
     And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}

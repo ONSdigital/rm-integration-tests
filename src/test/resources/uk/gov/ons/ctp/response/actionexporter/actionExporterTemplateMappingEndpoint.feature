@@ -13,7 +13,7 @@
 #               @actionExporterTemplateMapping
 #
 @actionExporter @actionExporterTemplateMapping
-Feature: action exporter template end points
+Feature: action exporter template mappings end points
 
 	Scenario: Reset actionexporter database to pre test condition
 		When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
@@ -81,4 +81,4 @@ Feature: action exporter template end points
     And one element of the JSON array must be {"actionType":"H1_2604Q4","template":"initialPrint","file":"H1_2604Q4","dateModified":
     And one element of the JSON array must be {"actionType":"H1S_OR","template":"initialPrint","file":"H1S_OR","dateModified":
 
-  # TODO Add test for invalid input 400
+  # 400 Not tested

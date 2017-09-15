@@ -112,6 +112,9 @@ Feature: Tests the response has been uploaded (RM)
     And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
     And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
+  Scenario: test new case has been added to the action service cases
+    Given check "action.case" records in DB equal 1 for "actionplanfk = 2"
+
 
   # Journey Test
 
@@ -124,9 +127,9 @@ Feature: Tests the response has been uploaded (RM)
   # Create case event for offline response 11.4 -----
 
   Scenario: Post request for cases events endpoint for case id
-    When I make the POST call to the caseservice cases events for "BI"
+    Given I make the POST call to the caseservice cases events for "BI"
       | Offline Response | OFFLINE_RESPONSE_PROCESSED |  | Cucumber Test |  |
-    Then the response status should be 201
+    When the response status should be 201
     Then the response should contain the field "createdDateTime"
     And the response should contain the field "caseId"
     And the response should contain the field "partyId"
@@ -135,6 +138,9 @@ Feature: Tests the response has been uploaded (RM)
     And the response should contain the field "createdBy" with value "Cucumber Test"
     And the response should contain the field "description" with value "Offline Response"
     And check "casesvc.caseevent" records in DB equal 1 for "description = 'Offline Response'"
+    And check "casesvc.response" records in DB equal 1
+    And check "action.case" records in DB equal 0 for "actionplanfk = 2"
+
 
   # Report 
 

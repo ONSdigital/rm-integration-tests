@@ -177,9 +177,6 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         | BRESSNE | SUBMITTED |
     When the response status should be 204
-    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-    And the response should contain the field "error.message" with value "ActionPlan not found for id 10100000-dd82-4a40-ab3c-4e0df626fb54"
-    And the response should contain the field "error.timestamp"
 
 
   # GET /actions/caseid/{caseId}
@@ -204,9 +201,23 @@ Feature: Validating action requests
   Scenario: Get request to actions for invalid case id
     Given I make the GET call to the actionservice actions endpoint for caseId "87c8b602-aabd-4fc3-8676-bb875f4ce101"
     When the response status should be 204
-    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-    And the response should contain the field "error.message" with value "ActionPlan not found for id 10100000-dd82-4a40-ab3c-4e0df626fb54"
-    And the response should contain the field "error.timestamp"
+    # No response body to check
+
+
+  # PUT /actions/caseid/{caseId}
+  # 200 CTPA-1581
+#  @put
+#  Scenario: Put request to actions for case id reteaved from DB
+#    Given I make the PUT call to the actionservice actions endpoint for caseId
+#      |  | cucumberTest | REQUEST_COMPLETED |
+#    When the response status should be 200
+
+  # 404 CTPA-1581
+#  @put
+#  Scenario: Get request to actions for invalid case id
+#    Given I make the PUT call to the actionservice actions endpoint for caseId
+#      | e71012ac-3575-47eb-b87f-cd9db92bf9a7 | cucumberTest | REQUEST_COMPLETED |
+#    When the response status should be 404
 
 
   # GET /actions/{actionId}
@@ -236,6 +247,127 @@ Feature: Validating action requests
     And the response should contain the field "error.timestamp"
 
 
+
+
+  # POST /actions
+  # 201 CTPA-1585
+#  @post
+#  Scenario: Post request to actionservice for specified caseId with priority
+#    When I make the POST call to the actionservice actions endpoint
+#      |  | actiontypename | CucumberTest | 1 |
+#    Then the response status should be 201
+    #And the response should contain the field "id"
+    #And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
+    #And the response should contain the field "createdBy" with value "CucumberTest"
+    #And the response should contain the field "state" with value "SUBMITTED"
+    #And the response should contain the field "createdDateTime"
+    #And the response should contain the field "updatedDateTime"
+
+  # 201 CTPA-1585
+#  @post
+#  Scenario: Post request to actionservice for specified caseId without priority
+#    When I make the POST call to the actionservice actions endpoint
+#      |  | actiontypename | CucumberTest |  |
+#    Then the response status should be 201
+    #And the response should contain the field "id"
+    #And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
+    #And the response should contain the field "createdBy" with value "CucumberTest"
+    #And the response should contain the field "state" with value "SUBMITTED"
+    #And the response should contain the field "updatedDateTime"
+
+  # 400 CTPA-1585
+#  Scenario: Post request to actionservice with invalid input
+#    When I make the POST call to the actionservice actions endpoint with invalid input
+#    Then the response status should be 400
+#    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+#    And the response should contain the field "error.message" with value "Provided json is incorrect."
+#    And the response should contain the field "error.timestamp"
+    
+  # 404 CTPA-1585
+#  @post
+#  Scenario: Post request to actionservice for specified caseId not found
+#    When I make the POST call to the actionservice actions endpoint
+#      | e71002ac-3575-47eb-b87f-cd9db92bf101 | actiontypename | CucumberTest | 1 |
+#    Then the response status should be 404
+#    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+#    And the response should contain the field "error.message" with value "ActionPlan not found for id e71002ac-3575-47eb-b87f-cd9db92bf101"
+#    And the response should contain the field "error.timestamp"
+
+
+
+  # PUT /actions/{actionid}
+  # 200
+  Scenario: Put request to actionservice for specified actionId with situation and priority
+    Given I make the PUT call to the actionservice actions endpoint by actionId
+      |  | CucumberTest | 1 |
+    When the response status should be 200
+    Then the response should contain the field "id"
+    And the response should contain the field "caseId"
+    And the response should contain the field "actionPlanId"
+    And the response should contain the field "actionRuleId" with a null value
+    And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "createdBy" with value "SYSTEM"
+    And the response should contain the field "manuallyCreated" with boolean value "false"
+    And the response should contain the field "priority" with an integer value of 1
+    And the response should contain the field "situation" with value "CucumberTest"
+    And the response should contain the field "state" with value "COMPLETED"
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime"
+
+  # 200
+  Scenario: Put request to actionservice for specified actionId with situation
+    Given I make the PUT call to the actionservice actions endpoint by actionId
+      |  | CucumberTest2 |  |
+    When the response status should be 200
+    Then the response should contain the field "id"
+    And the response should contain the field "caseId"
+    And the response should contain the field "actionPlanId"
+    And the response should contain the field "actionRuleId" with a null value
+    And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "createdBy" with value "SYSTEM"
+    And the response should contain the field "manuallyCreated" with boolean value "false"
+    And the response should contain the field "priority"
+    And the response should contain the field "situation" with value "CucumberTest2"
+    And the response should contain the field "state" with value "COMPLETED"
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime"
+
+  # 200
+  Scenario: Put request to actionservice for specified actionId with priority
+    Given I make the PUT call to the actionservice actions endpoint by actionId
+      |  |  | 2 |
+    When the response status should be 200
+       Then the response should contain the field "id"
+    And the response should contain the field "caseId"
+    And the response should contain the field "actionPlanId"
+    And the response should contain the field "actionRuleId" with a null value
+    And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "createdBy" with value "SYSTEM"
+    And the response should contain the field "manuallyCreated" with boolean value "false"
+    And the response should contain the field "priority" with an integer value of 2
+    And the response should contain the field "situation"
+    And the response should contain the field "state" with value "COMPLETED"
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime"
+
+  # 400
+  Scenario: Put request to actionservice for specified actionId invalid json
+    Given I make the PUT call to the actionservice actions endpoint by actionId with invalid input "e71002ac-3575-47eb-b87f-cd9db92bf101"
+    When the response status should be 400
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json is incorrect."
+    And the response should contain the field "error.timestamp"
+
+  # 404
+  Scenario: Put request to actionservice for specified actionId not found
+    Given I make the PUT call to the actionservice actions endpoint by actionId
+      | e71002ac-3575-47eb-b87f-cd9db92bf101 | CucumberTest | 1 |
+    When the response status should be 404
+    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Action not updated for id e71002ac-3575-47eb-b87f-cd9db92bf101"
+    And the response should contain the field "error.timestamp"
+
+
   # PUT /actions/{actionId}/feedback
   # 200
   # TODO: do this when feed back is required for an event that doesn't go straight to completed
@@ -262,16 +394,18 @@ Feature: Validating action requests
   Scenario: Put request to actions with invalid input
     When I make the PUT call to the actionservice actions feedback endpoint with invalid input
     Then the response status should be 400
-    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-    And the response should contain the field "error.message" with value "Action not found for id 88c8b602-aabd-4fc3-8676-bb875f4ce101"
+    Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json is incorrect."
     And the response should contain the field "error.timestamp"
 
-  # 404 TODO write 404 test
-  @test
-  Scenario: Put request to actions with invalid input
+  # 404
+  Scenario: Put request to actions with action id not found
     Given I make the PUT call to the actionservice feedback endpoint
       | e71012ac-3575-47eb-b87f-cd9db92bf9a7  | cucumberTest | REQUEST_COMPLETED |
     And the response status should be 404
+    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Action not found for id e71012ac-3575-47eb-b87f-cd9db92bf9a7"
+    And the response should contain the field "error.timestamp"
 
 
   # INFO /info

@@ -31,6 +31,7 @@ public class SdxGatewayResponseAware {
    * Constructor - also gets singleton of http request runner.
    *
    * @param newWorld class with application and environment properties
+   * @param dbResponseAware DB runner
    */
   public SdxGatewayResponseAware(final World newWorld, final PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
@@ -57,28 +58,19 @@ public class SdxGatewayResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeSdxReceiptEndpoint(Properties properties) throws IOException, AuthenticationException {
-//    final String url = "/questionnairereceipts";
-//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.sdxgateway.username"),
-//        world.getProperty("cuc.collect.sdxgateway.password"));
     responseAware.invokeJsonPost(world.getUrl(POST_RECEIPTS, SERVICE), properties);
   }
-//
-//  /**
-//   * sdx gateway - /paperquestionnairereceipts post endpoint.
-//   *
-//   * @param file to be sent to SDX Gateway
-//   * @throws IOException IO exception
-//   * @throws AuthenticationException authentication exception
-//   */
-//  public void invokeSdxPaperReceiptEndpoint(File file) throws IOException, AuthenticationException {
-//    final String url = "/paperquestionnairereceipts";
-//    responseAware.enableBasicAuth(world.getProperty("cuc.collect.sdxgateway.username"),
-//        world.getProperty("cuc.collect.sdxgateway.password"));
-//    responseAware.invokeFilePost(world.getSdxGatewayUrl(url), file);
-//  }
-  
+
   // Utils
-  
+
+  /**
+   * Utility method to get case by case type.
+   *
+   * @param caseType to be use in where clause
+   * @return List of String for retrieved cases
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
   public List<String> getCaseForType(String caseType) throws IOException, AuthenticationException {
     String sql = String.format(LIMIT_SQL, "id, caseref", "casesvc.case", "sampleunittype = '" + caseType + "'", "1");
     return postgresResponseAware.getRecord(sql);
