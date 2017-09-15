@@ -121,21 +121,11 @@ Feature: Validating action requests
     And the response should contain the field "version"
     And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-sdx-gateway.git"
     And the response should contain the field "commit"
-    And the response should contain the field "branch" with value "master"
+    And the response should contain the field "branch"
     And the response should contain the field "built"
 
 
   # POST /receipts
-  # 201
-#  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
-#    Given I make the POST call to the SDX Gateway online receipt for "B" case with caseref
-#    When the response status should be 201
-#    And the response should contain the field "caseId"
-#    And the response should contain the field "caseRef"
-#    And after a delay of 5 seconds
-#    Then check "casesvc.response" records in DB equal 0
-#    And check "action.case" records in DB equal 1 for "actionplanfk = 2"
-
   # 201
   @test1
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
@@ -143,7 +133,7 @@ Feature: Validating action requests
     When the response status should be 201
     And the response should contain the field "caseId"
     And the response should contain the field "caseRef"
-    And after a delay of 5 seconds
+    And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 1
     And check "action.case" records in DB equal 0 for "actionplanfk = 2"
 
@@ -154,9 +144,19 @@ Feature: Validating action requests
     When the response status should be 201
     And the response should contain the field "caseId"
     And the response should contain the field "caseRef"
-    And after a delay of 5 seconds
+    And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
     And check "action.case" records in DB equal 0 for "actionplanfk = 2"
+
+  # 201
+  Scenario: Post request for SDX Gateway endpoint for B case not receiptable
+    Given I make the POST call to the SDX Gateway online receipt for "B" case with caseref
+    When the response status should be 201
+    And the response should contain the field "caseId"
+    And the response should contain the field "caseRef"
+    And after a delay of 10 seconds
+    Then check "casesvc.response" records in DB equal 2
+    And check "action.case" records in DB equal 1 for "actionplanfk = 2"
 
   # 400
   Scenario: Post request for SDX Gateway endpoint for missing caseid
