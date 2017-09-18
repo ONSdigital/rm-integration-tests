@@ -339,9 +339,9 @@ public class SFTPResponseAware {
       sftpChannel.exit();
     }
     if (session != null) {
-      System.out.println("Disconnecting from sftpChannel");
       session.disconnect();
     }
+    System.out.println("Disconnecting from sftpChannel");
   }
 
 }
