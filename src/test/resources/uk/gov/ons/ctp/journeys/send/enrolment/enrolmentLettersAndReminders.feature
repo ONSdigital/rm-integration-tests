@@ -25,8 +25,10 @@
 #                                                         Pre test previous print file clean of actionexporter
 #                                                         Test enrolment reminder letter (second) action creation by change date offset and case event creation (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
 #                                                         Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
-#
-# NOTE: Report not developed so not tested (Journey steps: 3.9, 4.9)
+#                                                         Test report for print volumes (Test scenario PO3.03-5, Journey steps: 3.9)
+#                                                         Case data viewed (Test scenario PO7.06, Journey steps: 3.9)
+#                                                         Test report for print volumes (Test scenario PO7.04-5, Journey steps: 4.9)
+#                                                         Case data viewed (Test scenario PO7.06, Journey steps: 4.9)
 #
 # Feature Tags: @sendEnrolement
 #
@@ -124,8 +126,6 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
-  # Report not developed so not tested (Journey steps: 3.9)
-
 
   # Reset Action Exporter Environment Set Up -----
 
@@ -159,8 +159,6 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then each line should contain an iac
     And the contents should contain ":null:null"
     And the contents should contain 500 lines
-
-  # Report not developed so not tested (Journey steps: 4.9)
 
 
   # Reset Action Exporter Environment Set Up -----
@@ -196,10 +194,11 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
-  # checks enrolment letterreports
-  @sendEnrolmentP03
-  Scenario: Test report for print volumes (Test scenario PO3.03-5)
-    Given the "test" user has logged in using "chromehead"
+
+  # checks enrolment letter reports
+
+  Scenario: Test report for print volumes (Test scenario PO3.03-5, Journey steps: 3.9)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And checks print volume for column name "fileName" with value "BSNOT_221"
@@ -212,19 +211,18 @@ Feature: Tests the enrolment letter and reminder letters are sent
     When the user goes to view the most recent report
     And checks case event for column name "actioncompleted" with value "1"
     Then the user logs out
-    
-    @sendEnrolmentP03
-    Scenario: Case data viewed (Test scenario PO3.06)
-    Given the "test" user has logged in using "chromehead"
+
+    Scenario: Case data viewed (Test scenario PO3.06, Journey steps: 3.9)
+    Given the "test" user has logged in using "chrome"
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Invitation Letter" apppears in column 4
     Then the user logs out
  
     
   # checks reminder enroment letter reports  
-  @sendEnrolmentP04
-  Scenario: Test report for print volumes (Test scenario PO7.04-5)
-    Given the "test" user has logged in using "chromehead"
+
+  Scenario: Test report for print volumes (Test scenario PO7.04-5, Journey steps: 4.9)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And checks print volume for column name "fileName" with value "BSREM_221"
@@ -239,8 +237,8 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then the user logs out
 
  
-  Scenario: Case data viewed (Test scenario PO7.06)
-    Given the "test" user has logged in using "chromehead"
+  Scenario: Case data viewed (Test scenario PO7.06, Journey steps: 4.9)
+    Given the "test" user has logged in using "chrome"
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
     Then the user logs out

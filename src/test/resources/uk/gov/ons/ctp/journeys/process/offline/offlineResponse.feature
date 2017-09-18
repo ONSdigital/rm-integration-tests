@@ -126,7 +126,7 @@ Feature: Tests the response has been uploaded (RM)
   
   # Create case event for offline response 11.4 -----
 
-  Scenario: Post request for cases events endpoint for case id
+  Scenario: Post request for cases events endpoint for case id (Journey steps: 11.4)
     Given I make the POST call to the caseservice cases events for "BI"
       | Offline Response | OFFLINE_RESPONSE_PROCESSED |  | Cucumber Test |  |
     When the response status should be 201
@@ -144,17 +144,10 @@ Feature: Tests the response has been uploaded (RM)
 
   # Report 
 
-@offlineResponse1
-  Scenario: Service report viewed (P11.03)
+  Scenario: Service report viewed (P11.03, Journey steps: 11.4)
     Given after a delay of 60 seconds
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 13 against value "1" and should appear 1 times
     Then the user logs out
-
- # Scenario: Case data viewed (Test scenario P11.04)
- #   Given the "test" user has logged in using "chromehead"
- #   When the user searches for case ref "49900000003"
- #   Then the user looks at the events table to see the event "offline response processed" appears in column 4
- #   Then the user logs out

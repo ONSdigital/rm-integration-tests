@@ -14,6 +14,7 @@
 #                                                         test collect sample units (Journey steps: 2.1, 2.2, 2.3)
 #                                                         test create cases (Journey steps: 2.4, 2.5, 2.8)
 #                                                         test publish collection (Journey steps: 2.6, 2.7)
+#                                                         test report for collection excercise (Test scenario PO2.05, Jouney step: 2.9)
 #
 # NOTE: Report not developed so not tested (Journey steps: 2.9)
 #
@@ -111,9 +112,9 @@ Feature: Tests the publish collection exercise
     Then check "casesvc.caseevent" records in DB equal 500 for "description = 'Case created when Initial creation of case'"
 
   # Report (P02)
-  @executeExerciseP02
-  Scenario: Test report for collection excercise (Test scenario PO2.05)
-    Given the "test" user has logged in using "chromehead"
+
+  Scenario: Test report for collection excercise (Test scenario PO2.05, Jouney step: 2.9)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "B" and should appear 500 times

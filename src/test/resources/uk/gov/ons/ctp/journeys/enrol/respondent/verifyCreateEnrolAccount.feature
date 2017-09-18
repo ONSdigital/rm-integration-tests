@@ -23,8 +23,10 @@
 #                                                         Verify event created for respondent enrolment (Journey steps: 7.3, 7.4)
 #                                                         Verify a new case have been created with the correct properties (Journey steps: 7.5, 7.6, 7.8, 7.9)
 #                                                         Test actionsvc case has the expected actionplan 2 (Journey steps: 7.7)
+#                                                         Service report viewed (PO4.03, Journey steps: 6.5)
+#                                                         Respondent Account Created (PO5.04, Journey steps: 6.5)
+#                                                         Case event report respondent enrolled count (PO6.05-6, Journey steps: 7.10)
 #
-# NOTE: Report not developed so not tested (Journey steps: 6.5, 7.10)
 #
 # Feature Tags: @enroleRespondent
 #
@@ -144,9 +146,6 @@ Feature: Verify and Create Account
     And the response should contain the field "lastUsedDateTime"
 
 
-  # Report 6.5
-
-
   # Enrol Account -----
 
   # RAS 7.1, 7.2
@@ -188,12 +187,11 @@ Feature: Verify and Create Account
     Given after a delay of 60 seconds
     Then check "action.case" records in DB equal 1 for "actionplanfk = 2"
 
-  # Report 7.10
+
   # Report to show enrolment event
 
-@enrolRespondent1
-  Scenario: Service report viewed (PO4.03)
-    Given the "test" user has logged in using "chromehead"
+  Scenario: Service report viewed (PO4.03, Journey steps: 6.5)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
@@ -201,22 +199,15 @@ Feature: Verify and Create Account
     Then the user looks at the events table to see the event "Respondent Enroled" appears in column 3 
     Then the user logs out
 
-  Scenario: Respondent Account Created (PO5.04)
-    Given the "test" user has logged in using "chromehead"
+  Scenario: Respondent Account Created (PO5.04, Journey steps: 6.5)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 7 against value "1" and should appear 1 times 
     Then the user logs out
-    
- ##waiting for bug fix 
- # Scenario: Case data viewed (PO5.05)
- #   Given the "test" user has logged in using "chromehead"
- #   When the user searches for case ref "49900000003"
- #   Then the user looks at the events table to see the event "Respondent account created" appears in column 4
- #   Then the user logs out
-    
-  Scenario: Case event report respondent enrolled count (PO6.05-6)
-    Given the "test" user has logged in using "chromehead"
+  
+  Scenario: Case event report respondent enrolled count (PO6.05-6, Journey steps: 7.10)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 8 against value "1" and should appear 1 times
