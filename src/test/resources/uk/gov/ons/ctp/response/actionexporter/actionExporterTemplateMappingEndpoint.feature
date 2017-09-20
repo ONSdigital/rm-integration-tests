@@ -30,7 +30,7 @@ Feature: action exporter template mappings end points
 		And the response should contain a JSON array of size 2
 		And one element of the JSON array must be "actionType":"BSNOT",
     And one element of the JSON array must be "template":"initialPrint",
-		And one element of the JSON array must be "file":"BSNOT",
+		And one element of the JSON array must be "fileNamePrefix":"BSNOT",
 		And one element of the JSON array must be "dateModified":
 
   # 204 Not tested as templates pre loaded
@@ -43,7 +43,7 @@ Feature: action exporter template mappings end points
 		When the response status should be 200
 		Then the response should contain the field "actionType" with value "BSNOT"
 		And the response should contain the field "template" with value "initialPrint"
-		And the response should contain the field "file" with value "BSNOT"
+		And the response should contain the field "fileNamePrefix" with value "BSNOT"
     And the response should contain the field "dateModified"
 
   # 404
@@ -57,7 +57,6 @@ Feature: action exporter template mappings end points
 
   # POST /templatemappings/{actionType}
   # 201
-  @new
   Scenario: Post request to actionexporter to store a specific template mapping
     Given I make the POST call to the actionexporter template mapping endpoint
       | initialPrint | cucumberTestPrefix |
@@ -66,7 +65,6 @@ Feature: action exporter template mappings end points
     And one element of the JSON array must be {"actionType":"TEST","template":"initialPrint","fileNamePrefix":"cucumberTestPrefix","dateModified":
 
   # 400
-  @new
   Scenario: Post request to actionexporter to store a specific template mapping invalid input
     Given I make the POST call to the actionexporter template mapping endpoint for invalid input
     When  the response status should be 400
