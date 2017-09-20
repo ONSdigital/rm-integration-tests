@@ -1,15 +1,17 @@
 package uk.gov.ons.ctp.response.actionexporter.util;
 
+import java.io.IOException;
+import java.util.Properties;
+import java.util.UUID;
+
 import org.apache.http.auth.AuthenticationException;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
-
-import java.io.IOException;
-import java.util.Properties;
-import java.util.UUID;
 
 /**
  * Created by Stephen Goddard on 03/05/16.
@@ -24,7 +26,7 @@ public class ActionExporterResponseAware {
   private static final String POST_TEMPLATE_URL = "/templates/%s";
   private static final String GET_TEMPLATE_MAPPINGS_ALL_URL = "/templatemappings";
   private static final String GET_TEMPLATE_MAPPINGS_URL = "/templatemappings/%s";
-  private static final String POST_TEMPLATE_MAPPINGS_URL = "/templatemappings";
+  private static final String POST_TEMPLATE_MAPPINGS_URL = "/templatemappings/%s";
   private static final String GET_REPORTS_URL = "/reports/types";
   private static final String GET_REPORT_TYPE_URL = "/reports/types/%s";
   private static final String GET_REPORT_URL = "/reports/%s";
@@ -150,15 +152,21 @@ public class ActionExporterResponseAware {
   }
 
   /**
-   * /templatemappings post endpoint.
+   * /templatemappings/{actiontype} post endpoint.
    *
-   * @param file to be sent to ActionExporter Template Mappings Endpoint
+   * @param actionType for ActionExporter Template Mappings Endpoint
+   * @param properties to be sent to ActionExporter Template Mappings Endpoint
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePostActionExporterTemplateMappingsEndpoint(MultipartFile file) throws IOException,
-          AuthenticationException {
-    responseAware.invokeMultipartFilePost(world.getUrl(POST_TEMPLATE_MAPPINGS_URL, SERVICE), file);
+  public void invokePostActionExporterTemplateMappingsEndpoint(String actionType, Properties properties)
+      throws IOException, AuthenticationException {
+    final String url = String.format(POST_TEMPLATE_MAPPINGS_URL, actionType);
+
+    final ObjectMapper om = new ObjectMapper();
+    String json = "[" + om.writeValueAsString(properties) + "]";
+    System.out.println(json);
+    responseAware.invokeJsonPost(world.getUrl(url, SERVICE), json);
   }
 
   /**

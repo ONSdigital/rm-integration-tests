@@ -95,7 +95,7 @@ public class SFTPResponseAware {
       List<LsEntry> foundFiles = getListDirectoriesInDirectory("*");
       for (LsEntry file: foundFiles) {
         if (file.getFilename().equals(newDir)) {
-        	isFound = true;
+          isFound = true;
         }
       }
 
@@ -317,7 +317,6 @@ public class SFTPResponseAware {
     session.connect();
 
     Channel channel = session.openChannel("sftp");
-    
     sftpChannel = (ChannelSftp) channel;
     sftpChannel.setPty(true);
     sftpChannel.connect();

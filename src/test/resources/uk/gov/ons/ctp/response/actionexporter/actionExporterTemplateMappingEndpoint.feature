@@ -55,30 +55,21 @@ Feature: action exporter template mappings end points
     And the response should contain the field "error.timestamp"
 
 
-  # POST /templatemappings/{actionType} TO DO Rewrite
+  # POST /templatemappings/{actionType}
   # 201
+  @new
   Scenario: Post request to actionexporter to store a specific template mapping
     Given I make the POST call to the actionexporter template mapping endpoint
+      | initialPrint | cucumberTestPrefix |
     When  the response status should be 201
-    Then the response should contain a JSON array of size 19
-    And one element of the JSON array must be {"actionType":"ICL1_2003","template":"initialPrint","file":"ICL1_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"ICL2W_2003","template":"initialPrint","file":"ICL2W_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"ICL1_2703","template":"initialPrint","file":"ICL1_2703","dateModified":
-    And one element of the JSON array must be {"actionType":"ICLAD_2003","template":"initialPrint","file":"ICLAD_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"IRL1_0504","template":"initialPrint","file":"IRL1_0504","dateModified":
-    And one element of the JSON array must be {"actionType":"IRL2W_0504","template":"initialPrint","file":"IRL2W_0504","dateModified":
-    And one element of the JSON array must be {"actionType":"IRLAD_0504","template":"initialPrint","file":"IRLAD_0504","dateModified":
-    And one element of the JSON array must be {"actionType":"2RL1_1804","template":"initialPrint","file":"2RL1_1804","dateModified":
-    And one element of the JSON array must be {"actionType":"2RL2W_1804","template":"initialPrint","file":"2RL2W_1804","dateModified":
-    And one element of the JSON array must be {"actionType":"2RLAD_1804","template":"initialPrint","file":"2RLAD_1804","dateModified":
-    And one element of the JSON array must be {"actionType":"3RL1_2604","template":"initialPrint","file":"3RL1_2604","dateModified":
-    And one element of the JSON array must be {"actionType":"3RL2W_2604","template":"initialPrint","file":"3RL2W_2604","dateModified":
-    And one element of the JSON array must be {"actionType":"3RLAD_2604","template":"initialPrint","file":"3RLAD_2604","dateModified":
-    And one element of the JSON array must be {"actionType":"H1S_2003","template":"initialPrint","file":"H1S_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"H2S_2003","template":"initialPrint","file":"H2S_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"H1_2003","template":"initialPrint","file":"H1_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"H2_2003","template":"initialPrint","file":"H2_2003","dateModified":
-    And one element of the JSON array must be {"actionType":"H1_2604Q4","template":"initialPrint","file":"H1_2604Q4","dateModified":
-    And one element of the JSON array must be {"actionType":"H1S_OR","template":"initialPrint","file":"H1S_OR","dateModified":
+    Then the response should contain a JSON array of size 1
+    And one element of the JSON array must be {"actionType":"TEST","template":"initialPrint","fileNamePrefix":"cucumberTestPrefix","dateModified":
 
-  # 400 Not tested
+  # 400
+  @new
+  Scenario: Post request to actionexporter to store a specific template mapping invalid input
+    Given I make the POST call to the actionexporter template mapping endpoint for invalid input
+    When  the response status should be 400
+    Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json is incorrect."
+    And the response should contain the field "error.timestamp"
