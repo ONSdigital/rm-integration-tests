@@ -74,6 +74,7 @@ public class TableHelper {
     for (WebElement row: tableBody) {
       List<WebElement> values = row.findElements(By.tagName("td"));
       if(values.size()!=0){
+
 		WebElement rowContent = values.get(columnNumber-1);
         columnValues.add(rowContent.getText());
       }

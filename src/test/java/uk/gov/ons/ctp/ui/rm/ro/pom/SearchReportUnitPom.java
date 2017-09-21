@@ -21,7 +21,7 @@ public class SearchReportUnitPom {
   @FindBy(xpath = "//*[@id=\"sampleunitref\"]")
   private WebElement searchBar;
   
-  @FindBy(xpath = "//*[@id=\"ft\"]/table[1]")
+  @FindBy(xpath = "//*[@id=\"ft\"]/table[1]/tbody")
   private WebElement eventsTable;
   
   /**

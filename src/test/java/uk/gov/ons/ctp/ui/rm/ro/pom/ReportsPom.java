@@ -85,6 +85,8 @@ public class ReportsPom {
     for (int i = 0; i<contents.size(); i++){
 	  if (contents.get(i).equals(value)){
 	    count = count + 1;
+	  }else if (contents.get(i).contains(value)){
+	    count = count + 1;
 	  }
     }
     return count;
@@ -105,7 +107,7 @@ public class ReportsPom {
     for (int i = 0; i<contents.size(); i++){
     	if (contents.get(i).equals(value)){
     		count = count + 1;
-    		results.add(table.extractValueFromTable(reportTable,i+2,1));
+    		results.add(table.extractValueFromTable(reportTable,i+2,0));
     	}
     }
     results.add(Integer.toString(count));

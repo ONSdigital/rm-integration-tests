@@ -36,7 +36,6 @@ Feature: Tests the enrolment letter and reminder letters are sent
   # Pre Test Set Up
 
   # Pre Test Sample Service Environment Set Up -----
-
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
@@ -52,28 +51,24 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
 
   # Pre Test Collection Exercise Service Environment Set Up -----
-
   Scenario: Reset collection exercise service database to pre test condition
     When for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     Then the collectionexercisesvc database has been reset
 
 
   # Pre Test Case Service Environment Set Up -----
-
   Scenario: Reset case service database to pre test condition
     When for the "casesvc" run the "casereset.sql" postgres DB script
     Then the casesvc database has been reset
 
 
   # Pre Test Action Service Environment Set Up -----
-
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
 
 
   # Pre Test Action Exporter Environment Set Up -----
-
   Scenario: Reset actionexporter database to pre test condition
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
     Then the actionexporter database has been reset
@@ -105,7 +100,6 @@ Feature: Tests the enrolment letter and reminder letters are sent
   # Journey Tests
 
   # Send Enrolment Letters -----
-
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 3.1, 3.2, 3.3, 3.4, 3.5, 3.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
@@ -115,7 +109,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
       | 1             | 1            | 1            | COMPLETED | 500   |
     And check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Invitation Letter'"
-
+  
   Scenario: Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
     Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BSNOT" for "BSD"
@@ -124,7 +118,24 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain ":null:null"
     And the contents should contain 500 lines
 
-  # Report not developed so not tested (Journey steps: 3.9)
+  # checks enrolment letterreports
+  @sendEnrolment1
+  Scenario: Test report for print volumes (Test scenario PO3.03-6)
+    Given the "test" user has logged in using "chromehead"
+    When the user navigates to the reports page and selects "print" reports
+    When the user goes to view the most recent report
+    And  checks values of column number 1 against value "BSNOT_221" and should appear 1 times
+    And  checks values of column number 2 against value "500" and should appear 1 times
+    When the user navigates to the reports page and selects "action" reports
+    When the user goes to view the most recent report
+    And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
+    And  checks values of column number 7 against value "500" and should appear 3 times
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And  checks values of column number 4 against value "1" and should appear 500 times
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "Enrolment Invitation Letter" appears in column 4 
+    Then the user logs out
 
 
   # Reset Action Exporter Environment Set Up -----
@@ -195,52 +206,22 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then each line should contain an iac
     And the contents should contain ":null:null"
     And the contents should contain 500 lines
-
-  # checks enrolment letterreports
-  @sendEnrolmentP03
-  Scenario: Test report for print volumes (Test scenario PO3.03-5)
-    Given the "test" user has logged in using "chromehead"
-    When the user navigates to the reports page and selects "print" reports
-    When the user goes to view the most recent report
-    And checks print volume for column name "fileName" with value "BSNOT_221"
-    And checks print volume for column name "row" with value "500"
-    When the user navigates to the reports page and selects "action" reports
-    When the user goes to view the most recent report
-    And checks action status for column name "enrolmentLetter" with value "Enrolment Invitation Letter"
-    And checks action status for column name "enrolmentAction" with value "500"
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And checks case event for column name "actioncompleted" with value "1"
-    Then the user logs out
-    
-    @sendEnrolmentP03
-    Scenario: Case data viewed (Test scenario PO3.06)
-    Given the "test" user has logged in using "chromehead"
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Enrolment Invitation Letter" apppears in column 4
-    Then the user logs out
- 
     
   # checks reminder enroment letter reports  
-  @sendEnrolmentP04
-  Scenario: Test report for print volumes (Test scenario PO7.04-5)
+  @sendEnrolmentP03
+  Scenario: Test report for print volumes (Test scenario PO7.04-6)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
-    And checks print volume for column name "fileName" with value "BSREM_221"
-    And checks print volume for column name "row" with value "500"
+    And  checks values of column number 1 against value "BSREM_221" and should appear 1 times
+    And  checks values of column number 2 against value "500" and should appear 1 times
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
-    And checks action status for column name "reminderLetter" with value "Enrolment Reminder Letter"
-    And checks action status for column name "reminderAction" with value "500"
+    And  checks values of column number 7 against value "500" and should appear 3 times
+    And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And checks values of column number 6 against value "1" and should appear 500 times
-    Then the user logs out
-
- 
-  Scenario: Case data viewed (Test scenario PO7.06)
-    Given the "test" user has logged in using "chromehead"
+    And  checks values of column number 5 against value "3" and should appear 500 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
     Then the user logs out
