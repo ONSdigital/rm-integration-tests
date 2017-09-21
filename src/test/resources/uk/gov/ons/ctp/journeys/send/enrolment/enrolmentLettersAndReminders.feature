@@ -119,7 +119,6 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain 500 lines
 
   # checks enrolment letterreports
-  @sendEnrolment1
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports
@@ -208,7 +207,6 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain 500 lines
     
   # checks reminder enroment letter reports  
-  @sendEnrolmentP03
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports

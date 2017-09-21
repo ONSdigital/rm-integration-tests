@@ -15,8 +15,7 @@
 #                                                          Create case event for upload (Journey steps: 10.6)
 #                                                          Create case event for failed upload (Journey steps: 10.6.1)
 #                                                          Change case state (Journey steps: 10.7)
-#
-# NOTE: Report not developed so not tested (Journey steps: 10.8)
+#                                                          Service report viewed (PO9.04, Journey steps: 10.8)
 #
 # Feature Tags: @uploadResponse
 #
@@ -204,27 +203,12 @@ Feature: Tests the response has been uploaded (RM)
     And one element of the JSON array must be ,"category":"SUCCESSFUL_RESPONSE_UPLOAD","subCategory":"","createdBy":"Cucumber Test","description":"Collection Instrument Uploaded"}
 
 
-  # Report not developed so not tested (Journey steps: 10.8)
-  # Report
-  @uploadResponse1
-  Scenario: Service report viewed (PO9.04)
+  # Report (Journey steps: 10.8)
+  Scenario: Service report viewed (PO9.04/08  Journey steps: 10.8))
     Given after a delay of 80 seconds
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 11 against value "1" and should appear 1 times
     And  checks values of column number 12 against value "1" and should appear 1 times
-    #Then the user logs out
-  
-  #Scenario: Case data viewed (PO9.05)
-  #  Given the "test" user has logged in using "chromehead"
-  #  When the user searches for case ref "49900000001"
-  #  Then the user looks at the events table to see the event "successful response upload" appears
-  #  Then the user logs out
-
-    
-  #Scenario: Case data viewed (PO9.09)
-  #  Given the "test" user has logged in using "chromehead"
-  #  Then the user looks at the events table to see the event "unsuccessful response upload" appears
-  #  When the user searches for case ref "49900000001"
-  #  Then the user logs out
+    Then the user logs out

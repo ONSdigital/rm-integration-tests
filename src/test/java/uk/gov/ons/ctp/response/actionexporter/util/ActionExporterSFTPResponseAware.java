@@ -61,7 +61,6 @@ public class ActionExporterSFTPResponseAware {
    */
   public void invokeMkdir(String copyLocation, String surveyType) throws JSchException, SftpException, IOException {
     final String surveyLocation = String.format(world.getProperty(PRINT_FILE_LOCATION_KEY), surveyType);
-    
     responseAware.makeDir(surveyLocation, copyLocation);
   }
 

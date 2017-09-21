@@ -77,7 +77,6 @@ public class SFTPResponseAware {
   public void setCredentials(String user, String pw) {
     this.username = user;
     this.password = pw;
-    System.out.println("Setting user: " + user + " password: " + pw);
   }
 
   /**
@@ -96,12 +95,11 @@ public class SFTPResponseAware {
       List<LsEntry> foundFiles = getListDirectoriesInDirectory("*");
       for (LsEntry file: foundFiles) {
         if (file.getFilename().equals(newDir)) {
-        	isFound = true;
+          isFound = true;
         }
       }
 
       if (!isFound) {
-        System.out.println("Creating dir: " + workingDir + newDir);
         sftpChannel.mkdir(newDir);
       }
 
@@ -185,8 +183,6 @@ public class SFTPResponseAware {
     connect(workingDir);
 
     try {
-      System.out.println("Working Dir " + workingDir);
-      System.out.println("Putting file into " + srcLocation + filename);
       sftpChannel.put(srcLocation + filename, filename);
       System.out.println("File moved to: " + sftpChannel.pwd() + "/" + filename);
 
@@ -314,16 +310,13 @@ public class SFTPResponseAware {
    */
   private void connect(String workingDir) throws JSchException, SftpException {
     JSch jsch = new JSch();
-    System.out.println("Connecting to: " + sftpServer + " : " + port);
-    System.out.println("using: " + username + " : " + password);
-    
+
     session = jsch.getSession(username, sftpServer, port);
     session.setConfig("StrictHostKeyChecking", "no");
     session.setPassword(password);
     session.connect();
 
     Channel channel = session.openChannel("sftp");
-    
     sftpChannel = (ChannelSftp) channel;
     sftpChannel.setPty(true);
     sftpChannel.connect();
@@ -335,13 +328,12 @@ public class SFTPResponseAware {
    */
   private void disconnect() {
     if (sftpChannel != null) {
-      System.out.println("Disconnecting from sftpChannel");
       sftpChannel.exit();
     }
     if (session != null) {
       session.disconnect();
     }
-    System.out.println("Disconnecting from sftpChannel");
+    System.out.println("Disconnecting from session and sftpChannel");
   }
 
 }

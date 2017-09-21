@@ -14,8 +14,7 @@
 #                                              Test action case created
 #                                              Test survey reminder (first) action creation by change date offset and case event creation (Journey steps: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
 #                                              Test survey reminder (second) action creation by change date offset and case event creation (Journey steps: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
-#
-# NOTE: Report not developed so not tested (Journey steps: 8.8)
+#                                              Service report viewed (P10.02-3,Journey steps: 8.8)
 #
 # Feature Tags: @sendSurveyReminders
 #
@@ -143,10 +142,11 @@ Feature: Tests the survey reminders are sent
       | 2             | 5            | 3            | COMPLETED | 1     |
     And check "casesvc.caseevent" records in DB equal 2 for "description = 'Survey Reminder Notification'"
 
-  # Report not developed so not tested (Journey steps: 8.8)
-  @sendSurveyReminders1
-  Scenario: Service report viewed (P10.02-3)
-    Given the "test" user has logged in using "chromehead"
+
+  # Report (Journey steps: 8.8)
+
+  Scenario: Service report viewed (P10.02-3,Journey steps: 8.8)
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
     And checks value for column 6 and row 6 with value "1"
@@ -154,9 +154,3 @@ Feature: Tests the survey reminders are sent
     When the user goes to view the most recent report
     And  checks values of column number 5 against value "2" and should appear 1 times
     Then the user logs out
-
-  #Scenario: Case data viewed (P10.03)
-  #  When the user searches for case ref "49900000001"
-  #  Given the "test" user has logged in using "chromehead"
-  #  Then the user looks at the events table to see the event "Survey reminder notification sent" appears
-  #  Then the user logs out

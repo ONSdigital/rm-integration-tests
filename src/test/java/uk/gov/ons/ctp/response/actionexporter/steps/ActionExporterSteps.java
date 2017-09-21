@@ -137,18 +137,33 @@ public class ActionExporterSteps {
   }
 
   /**
-   * Test post request for /templatemappings
+   * Test post request for /templatemappings/{actiontype}
+   *
+   * @param postValues to be in json
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the POST call to the actionexporter template mapping endpoint$")
+  public void i_make_the_POST_call_to_the_actionexporter_template_mapping_endpoint(List<String> postValues)
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("template", postValues.get(0));
+    properties.put("fileNamePrefix", postValues.get(1));
+
+    responseAware.invokePostActionExporterTemplateMappingsEndpoint("TEST", properties);
+  }
+
+  /**
+   * Test post request for /templatemappings/{actiontype} with invalid input
    *
    * @throws Throwable pass the exception
    */
-  @When("^I make the POST call to the actionexporter template mapping endpoint$")
-  public void i_make_the_POST_call_to_the_actionexporter_template_mapping_endpoint() throws Throwable {
-    File file = new File(world.getProperty(FTL_LOCATION_KEY) + "action_exporter_template_mappings_test.ftl");
-    FileInputStream input = new FileInputStream(file);
-    MultipartFile multipartFile = new MockMultipartFile("action_exporter_template_mappings_test", file.getName(),
-        "text/plain", IOUtils.toByteArray(input));
+  @Given("^I make the POST call to the actionexporter template mapping endpoint for invalid input$")
+  public void i_make_the_POST_call_to_the_actionexporter_template_mapping_endpoint_for_invalid_input()
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("invalid", "input");
 
-    responseAware.invokePostActionExporterTemplateMappingsEndpoint(multipartFile);
+    responseAware.invokePostActionExporterTemplateMappingsEndpoint("TEST", properties);
   }
 
   /**
