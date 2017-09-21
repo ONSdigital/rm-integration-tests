@@ -1,0 +1,5 @@
+echo This test runs the Notify Gateway endpoints as specified in https://github.com/ONSdigital/rm-notify-gateway/blob/master/API.md
+echo Running @notify ....
+
+cd ../
+mvn clean install -Dcucumber.options="--tags @notify" -Dcuc.env=$1
