@@ -2,7 +2,6 @@ package uk.gov.ons.ctp.ui.rm.ro.steps;
 
 
 import static org.junit.Assert.assertEquals;
-
 import java.util.List;
 
 import cucumber.api.java.en.Given;
@@ -83,5 +82,4 @@ public class UiTestSteps {
 	    caseRefRetrieved = result.get(0);
 	    assertEquals(result.get(1), value);
   }
-
 }

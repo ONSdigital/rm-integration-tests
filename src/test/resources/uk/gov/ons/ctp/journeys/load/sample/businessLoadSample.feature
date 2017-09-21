@@ -44,6 +44,7 @@ Feature: Tests the load of business sample
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "0015" and should appear 237 times
     And  checks values of column number 2 against value "0016" and should appear 252 times
+    And  checks values of column number 2 against value "0017" and should appear 4 times
     And  checks values of column number 2 against value "0019" and should appear 7 times
     Then the user logs out
 

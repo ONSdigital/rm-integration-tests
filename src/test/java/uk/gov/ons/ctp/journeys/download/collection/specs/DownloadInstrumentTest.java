@@ -13,7 +13,8 @@ import cucumber.api.junit.Cucumber;
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
       "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
       "uk.gov.ons.ctp.response.casesvc.steps",
-      "uk.gov.ons.ctp.response.common.steps"},
+      "uk.gov.ons.ctp.response.common.steps",
+      "uk.gov.ons.ctp.ui.rm.ro.steps"},
   plugin = {"pretty", "html:build/download-report", "json:build/jenkins/download.json"}
 )
 public class DownloadInstrumentTest {

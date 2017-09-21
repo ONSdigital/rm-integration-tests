@@ -160,3 +160,13 @@ Feature: Tests the collection instrument is downloaded (RM)
     And the response should contain the field "createdBy" with value "Cucumber Test"
     And the response should contain the field "description" with value "Collection Instrument Downloaded"
     And check "casesvc.caseevent" records in DB equal 1 for "description = 'Collection Instrument Downloaded'"
+    
+   @downloadCollection1 
+  Scenario: Case event report respondent enrolled count (PO8.03)
+    Given the "test" user has logged in using "chrome"
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And  checks values of column number 10 against value "1" and should appear 1 times
+    And  checks values of column number 2 against value "BI" and should appear 1 times
+    Then the user logs out
+

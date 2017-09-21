@@ -2,16 +2,8 @@ package uk.gov.ons.ctp.ui.rm.ro.util;
 
 import java.util.List;
 
-import org.openqa.selenium.WebElement;
-
-import uk.gov.ons.ctp.management.ui.util.TableHelper;
-import uk.gov.ons.ctp.ui.rm.ro.pom.ActionStatusPom;
-import uk.gov.ons.ctp.ui.rm.ro.pom.CaseEventsPom;
-import uk.gov.ons.ctp.ui.rm.ro.pom.PrintVolumesPom;
 import uk.gov.ons.ctp.ui.rm.ro.pom.ReportsPom;
-import uk.gov.ons.ctp.ui.rm.ro.pom.SampleReportPom;
 import uk.gov.ons.ctp.ui.rm.ro.pom.SearchReportUnitPom;
-import uk.gov.ons.ctp.ui.rm.ro.pom.SignInPom;
 import uk.gov.ons.ctp.ui.util.SeleniumAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -72,4 +64,13 @@ public class UIResponseAware extends SeleniumAware {
 	  return reports.checksColumnValuesReturnsSampleRef(column, value);
   }
 
+  /**
+   * Click report type
+   *
+   * @param link to click
+   */
+  public void invokeclickReportLink(String link) {
+    ReportsPom viewReports = new ReportsPom(getWebDriver());
+    viewReports.selectReportType(link);
+  }
 }

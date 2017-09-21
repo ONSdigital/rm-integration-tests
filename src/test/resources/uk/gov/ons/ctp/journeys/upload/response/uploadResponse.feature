@@ -16,7 +16,6 @@
 #                                                          Create case event for failed upload (Journey steps: 10.6.1)
 #                                                          Change case state (Journey steps: 10.7)
 #                                                          Service report viewed (PO9.04, Journey steps: 10.8)
-#                                                          Service report viewed (PO9.08, Journey steps: 10.8)
 #
 # Feature Tags: @uploadResponse
 #
@@ -205,17 +204,11 @@ Feature: Tests the response has been uploaded (RM)
 
 
   # Report (Journey steps: 10.8)
-
-  Scenario: Service report viewed (PO9.04, Journey steps: 10.8)
+  Scenario: Service report viewed (PO9.04/08  Journey steps: 10.8))
+    Given after a delay of 80 seconds
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 11 against value "1" and should appear 1 times
-    Then the user logs out
-
-  Scenario: Service report viewed (PO9.08, Journey steps: 10.8)
-    Given the "test" user has logged in using "chrome"
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
     And  checks values of column number 12 against value "1" and should appear 1 times
     Then the user logs out
