@@ -163,7 +163,7 @@ Feature: Tests the collection instrument is downloaded (RM)
     
    @downloadCollection1 
   Scenario: Case event report respondent enrolled count (PO8.03)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 10 against value "1" and should appear 1 times

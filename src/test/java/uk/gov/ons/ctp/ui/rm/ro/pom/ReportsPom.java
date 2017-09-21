@@ -1,7 +1,5 @@
 package uk.gov.ons.ctp.ui.rm.ro.pom;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import uk.gov.ons.ctp.management.ui.util.TableHelper;
+import uk.gov.ons.ctp.ui.util.TableHelper;
 
-
+/**
+ * Created on the 21/09/2017
+ */
 public class ReportsPom {
 
   @FindBy(xpath = "//*[@id=\"main\"]/table/tbody/tr[1]/td/a")
@@ -32,13 +32,13 @@ public class ReportsPom {
 
   @FindBy(xpath = "//*[@id=\"main\"]/table/tbody/tr[6]/td/a")
   private WebElement sammpleUnit;
-  
+
   @FindBy(xpath = "//*[@id=\"main\"]/table/tbody/tr[1]/td[2]/a")
   private WebElement viewReport;
 
   @FindBy(id = "main")
   private WebElement reportTable;
-  
+
   /**
    * Constructor
    *
@@ -47,71 +47,85 @@ public class ReportsPom {
   public ReportsPom(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
   }
-
+/**
+ * Selects report of certain type
+ * 
+ * @param reportType
+ */
   public void selectReportType(String reportType) {
 
-    switch (reportType){
+    switch (reportType) {
     case "action":
-        actionReport.click();
-    	break;
+      actionReport.click();
+      break;
     case "case":
-    	caseReport.click();
-    	break;
+      caseReport.click();
+      break;
     case "collection":
-    	collectionExcercise.click();
-    	break;
+      collectionExcercise.click();
+      break;
     case "print":
-    	printVolumes.click();
-    	break;
+      printVolumes.click();
+      break;
     case "response":
-    	responseReport.click();
-    	break;
+      responseReport.click();
+      break;
     case "sample":
-    	sammpleUnit.click();
-    	break;
-
+      sammpleUnit.click();
+      break;
+    default:
+      break;
     }
   }
-  
+  /**
+   * clicks on the report selected
+   */
   public void selectReport() {
-	  viewReport.click();
+    viewReport.click();
   }
-  
+
+  /**
+   * Checks the value of a column within a report returns the number of times that value appears within that column
+   * 
+   * @param column
+   * @param value
+   * @returns
+   */
   public int checksColumnValues(int column, String value) {
 
 	int count = 0;
     TableHelper table = new TableHelper();
     List<String> contents = table.extractColumnValuesFromTable(reportTable, column);
     for (int i = 0; i<contents.size(); i++){
-	  if (contents.get(i).equals(value)){
-	    count = count + 1;
-	  }else if (contents.get(i).contains(value)){
-	    count = count + 1;
-	  }
+      if (contents.get(i).equals(value)){
+        count = count + 1;
+      }else if (contents.get(i).contains(value)){
+        count = count + 1;
+      }
     }
     return count;
   }
-  
+
   public String checksSpeficValueFromReport (int column, int row){
-	  TableHelper table = new TableHelper();
-	  return table.extractValueFromTable(reportTable, column, row);
+    TableHelper table = new TableHelper();
+    return table.extractValueFromTable(reportTable, column, row);
   }
-  
+
   public List<String> checksColumnValuesReturnsSampleRef(int column, String value) {
-	  
-	List<String> results = new ArrayList<String>();
-	
-	int count = 0;
+
+    List<String> results = new ArrayList<String>();
+
+    int count = 0;
     TableHelper table = new TableHelper();
     List<String> contents = table.extractColumnValuesFromTable(reportTable,column);
     for (int i = 0; i<contents.size(); i++){
-    	if (contents.get(i).equals(value)){
-    		count = count + 1;
-    		results.add(table.extractValueFromTable(reportTable,i+2,0));
-    	}
+      if (contents.get(i).equals(value)){
+        count = count + 1;
+        results.add(table.extractValueFromTable(reportTable,i+2,0));
+      }
     }
     results.add(Integer.toString(count));
     return results;
   }
-  
+
 }

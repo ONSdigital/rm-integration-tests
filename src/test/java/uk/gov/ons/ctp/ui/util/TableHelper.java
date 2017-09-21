@@ -1,4 +1,4 @@
-package uk.gov.ons.ctp.management.ui.util;
+package uk.gov.ons.ctp.ui.util;
 
 import java.util.ArrayList;
 import java.util.List;

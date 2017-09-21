@@ -120,7 +120,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   # checks enrolment letterreports
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And  checks values of column number 1 against value "BSNOT_221" and should appear 1 times
@@ -208,7 +208,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
     
   # checks reminder enroment letter reports  
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And  checks values of column number 1 against value "BSREM_221" and should appear 1 times
