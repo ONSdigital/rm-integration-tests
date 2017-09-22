@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import uk.gov.ons.ctp.ui.util.TableHelper;
 
 /**
- * Created on the 21/09/2017
+ * Created by Chris Hardman on the 21/09/2017
  */
 public class ReportsPom {
 
@@ -49,8 +49,8 @@ public class ReportsPom {
   }
 /**
  * Selects report of certain type
- * 
- * @param reportType
+ *
+ * @param reportType type of report
  */
   public void selectReportType(String reportType) {
 
@@ -86,42 +86,57 @@ public class ReportsPom {
 
   /**
    * Checks the value of a column within a report returns the number of times that value appears within that column
-   * 
-   * @param column
-   * @param value
-   * @returns
+   *
+   * @param column looking at
+   * @param value looking for
+   *
+   * @return count number of values found
    */
   public int checksColumnValues(int column, String value) {
 
-	int count = 0;
+    int count = 0;
     TableHelper table = new TableHelper();
     List<String> contents = table.extractColumnValuesFromTable(reportTable, column);
-    for (int i = 0; i<contents.size(); i++){
-      if (contents.get(i).equals(value)){
+    for (int i = 0; i < contents.size(); i++) {
+      if (contents.get(i).equals(value)) {
         count = count + 1;
-      }else if (contents.get(i).contains(value)){
+      } else if (contents.get(i).contains(value)) {
         count = count + 1;
       }
     }
     return count;
   }
 
-  public String checksSpeficValueFromReport (int column, int row){
+  /**
+   * returns one value from a report
+   *
+   * @param column looking at
+   * @param row looking at
+   * @return value from table
+   */
+  public String checksSpeficValueFromReport(int column, int row) {
     TableHelper table = new TableHelper();
     return table.extractValueFromTable(reportTable, column, row);
   }
 
+  /**
+   * checks the report for specific value then returns the case ref associated with that value.
+   *
+   * @param column looking at
+   * @param value looking for
+   * @return sample ref
+   */
   public List<String> checksColumnValuesReturnsSampleRef(int column, String value) {
 
     List<String> results = new ArrayList<String>();
 
     int count = 0;
     TableHelper table = new TableHelper();
-    List<String> contents = table.extractColumnValuesFromTable(reportTable,column);
-    for (int i = 0; i<contents.size(); i++){
-      if (contents.get(i).equals(value)){
+    List<String> contents = table.extractColumnValuesFromTable(reportTable, column);
+    for (int i = 0; i < contents.size(); i++) {
+      if (contents.get(i).equals(value)) {
         count = count + 1;
-        results.add(table.extractValueFromTable(reportTable,i+2,0));
+        results.add(table.extractValueFromTable(reportTable, i + 2, 0));
       }
     }
     results.add(Integer.toString(count));

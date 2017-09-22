@@ -5,17 +5,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * Created by Chris Hardman on the 21/09/2017
+ */
 public class ResponseReportPom {
-	  @FindBy(xpath = "//*[@id=\"main\"]/table/tbody/tr[1]/td[2]/a")
-	  private WebElement responseReport;
-	  
-	  /**
-	   * Constructor
-	   *
-	   * @param webDriver Selenium web driver
-	   */
-	  public ResponseReportPom(WebDriver webDriver) {
-	    PageFactory.initElements(webDriver, this);
-	  }
-	 
+  @FindBy(xpath = "//*[@id=\"main\"]/table/tbody/tr[1]/td[2]/a")
+  private WebElement responseReport;
+
+  /**
+   *Constructor
+   *
+   *@param webDriver Selenium web driver
+   */
+  public ResponseReportPom(WebDriver webDriver) {
+    PageFactory.initElements(webDriver, this);
+  }
+
 }
