@@ -76,15 +76,17 @@ Feature: Validating actionPlanJob requests
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+
 
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 500   |
+      | 1             | 1            | 1            | 498   |
     When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Invitation Letter'"
+    Then check "action.action" records in DB equal 498 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
 
 
 	# Endpoint Tests -----
@@ -95,7 +97,7 @@ Feature: Validating actionPlanJob requests
 		When I make the GET call to the actionservice actionplans endpoint for specific plan job
 		Then the response status should be 200
 		And the response should contain the field "id"
-		And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
+		And the response should contain the field "actionPlanId"
 		And the response should contain the field "createdBy" with value "SYSTEM"
 		And the response should contain the field "state" with value "COMPLETED"
 		And the response should contain the field "createdDateTime"
@@ -122,10 +124,10 @@ Feature: Validating actionPlanJob requests
     And one element of the JSON array must be ,"createdDateTime":
 		And one element of the JSON array must be ,"updatedDateTime":
 
-  #204
-  Scenario: Get request to actionplans for list of all jobs for specified action plan
-    When I make the GET call to the actionservice actionplans endpoint for jobs with specific plan "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-    Then the response status should be 204
+  #204 - Not Tested as pre existing respondents BI trigger action plan jobs - Revisit when testing party service
+#  Scenario: Get request to actionplans for list of all jobs for specified action plan
+#    When I make the GET call to the actionservice actionplans endpoint for jobs with specific plan "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+#    Then the response status should be 204
 
 	# 404
 	Scenario: Get request to actionplans for list of all jobs for specified action plan not found

@@ -68,11 +68,12 @@ Feature: Validating action requests
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
 
   # Generate Cases BI -----
-@test1
+
   Scenario: Verify event created for respondent enrolment
     Given I make the POST call to the caseservice cases events
       | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
@@ -87,7 +88,7 @@ Feature: Validating action requests
     Then Check the case state has changed
     And the response status should be 200
     And the response should contain the field "state" with value "INACTIONABLE"
-@test1
+
   Scenario: Verify a new case have been created with the correct properties
     Given after a delay of 60 seconds
     When I make the GET call to the caseservice cases endpoint for new case
@@ -107,7 +108,7 @@ Feature: Validating action requests
     And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
   Scenario: test new case has been added to the action service cases
-    Given check "action.case" records in DB equal 1 for "actionplanfk = 2"
+    Given check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   # Endpoint Tests -----
@@ -127,7 +128,6 @@ Feature: Validating action requests
 
   # POST /receipts
   # 201
-  @test1
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
     Given I make the POST call to the SDX Gateway online receipt for "BI" case with caseref
     When the response status should be 201
@@ -135,10 +135,9 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 1
-    And check "action.case" records in DB equal 0 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   # 201
-  @test1
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
     Given I make the POST call to the SDX Gateway online receipt for "BI" case without caseref
     When the response status should be 201
@@ -146,7 +145,7 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
-    And check "action.case" records in DB equal 0 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   # 201
   Scenario: Post request for SDX Gateway endpoint for B case not receiptable
@@ -156,7 +155,7 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
-    And check "action.case" records in DB equal 0 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   # 400
   Scenario: Post request for SDX Gateway endpoint for missing caseid
