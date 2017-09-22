@@ -124,7 +124,7 @@ public class IacsvcSteps {
   }
 
   /**
-   * Test post request for /info
+   * Test get request for /info
    * @throws Throwable pass the exception
    */
   @Given("^I make the call to the IAC service endpoint for info")

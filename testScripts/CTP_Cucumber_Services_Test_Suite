@@ -21,3 +21,9 @@ echo Action Service
 
 echo Action Exporter
 ./CTP_Cucumber_ActionExporter $1
+
+echo SDX Gateway
+./CTP_Cucumber_SDX_Gateway $1
+
+echo Notify Gateway
+./CTP_Cucumber_Notify_Gateway $1
