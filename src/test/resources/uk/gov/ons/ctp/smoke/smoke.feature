@@ -160,15 +160,16 @@ Feature: Smoke Test
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 500   |
+      | 1             | 1            | 1            | 498   |
     When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 500 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 500 for "description = 'Enrolment Invitation Letter'"
+    Then check "action.action" records in DB equal 498 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
 
 
   # Action Exporter Service Smoke Tests -----
@@ -179,4 +180,4 @@ Feature: Smoke Test
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
-    And the contents should contain 500 lines
+    And the contents should contain 498 lines
