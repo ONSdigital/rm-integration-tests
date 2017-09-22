@@ -167,7 +167,7 @@ public class CaseResponseAware {
   public void invokePostCasesEventsEndpoint(String caseId, Properties properties)
       throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "casepk = 1");
+      String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "casepk = 10");
       List<String> result = postgresResponseAware.getRecord(sql);
       caseId = result.get(0);
       properties.put("partyId", result.get(1));

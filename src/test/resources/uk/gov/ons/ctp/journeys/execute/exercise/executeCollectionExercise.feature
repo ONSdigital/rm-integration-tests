@@ -108,7 +108,8 @@ Feature: Tests the publish collection exercise
     
   Scenario: Test actionsvc case for business survey DB state for actionplan 1 (Journey steps: 2.6, 2.7)
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
     Then check "casesvc.caseevent" records in DB equal 500 for "description = 'Case created when Initial creation of case'"
 
   # Report (P02)
@@ -119,4 +120,5 @@ Feature: Tests the publish collection exercise
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "B" and should appear 500 times
     And  checks values of column number 4 against value "1" and should appear 500 times
+    And  checks values of column number 2 against value "BI" and should appear 2 times
     Then the user logs out
