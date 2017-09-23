@@ -75,7 +75,7 @@ Feature: Tests the response has been uploaded (RM)
     
   Scenario: Test actionsvc case for business survey DB state for actionplan 1 (Journey steps: 2.6, 2.7)
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 500 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
     And check "action.case" records in DB equal 2 for "actionplanfk = 2"
     Then check "casesvc.caseevent" records in DB equal 500 for "description = 'Case created when Initial creation of case'"
 
