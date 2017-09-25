@@ -38,7 +38,7 @@ Feature: Tests the load of business sample
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
     Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
 
-  Scenario: Test service report viewed (Test scenario PO1.10)
+  Scenario: Test ui report viewed correct form type - total 500 (Test scenario PO1.10)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "sample" reports
     When the user goes to view the most recent report

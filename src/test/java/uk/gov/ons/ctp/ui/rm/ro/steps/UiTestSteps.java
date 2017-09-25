@@ -129,9 +129,8 @@ public class UiTestSteps {
   @Then("^checks values of column number (\\d+) against value \"(.*?)\" and should appear (\\d+) times$")
   public void checks_values_of_column_number_against_value_and_should_appear_times(int column, String value, int number)
         throws Throwable {
-
     int count = responseAware.checksColumnValues(column, value);
-    assertEquals(count, number);
+    assertEquals("Value in column does not match count", count, number);
   }
   
   /**
@@ -145,8 +144,7 @@ public class UiTestSteps {
  @Then("^checks values of column number (\\d+) contains value \"(.*?)\" and should appear (\\d+) times$")
  public void checks_values_of_column_number_contains_value_and_should_appear_times(int column, String value, int number)
        throws Throwable {
-
-   int count = responseAware.checksColumnValues(column, value);
+   int count = responseAware.checksColumnValuesContains(column, value);
    assertEquals(count, number);
  }
 

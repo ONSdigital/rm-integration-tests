@@ -205,11 +205,12 @@ Feature: Tests the response has been uploaded (RM)
 
 
   # Report (Journey steps: 10.8)
-  Scenario: Service report viewed (PO9.04/08  Journey steps: 10.8))
-    Given after a delay of 80 seconds
-    Given the "test" user has logged in using "chrome"
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 11 against value "1" and should appear 1 times
-    And  checks values of column number 12 against value "1" and should appear 1 times
+
+  Scenario: Test ui report to confirm unsucessfull and sucessfull upload counts (PO9.04/08, Journey steps: 10.8)
+    Given after a delay of 65 seconds
+    When the "test" user has logged in using "chrome"
+    And the user navigates to the reports page and selects "case" reports
+    Then the user goes to view the most recent report
+    And checks values of column number 11 against value "1" and should appear 1 times
+    And checks values of column number 12 against value "1" and should appear 1 times
     Then the user logs out

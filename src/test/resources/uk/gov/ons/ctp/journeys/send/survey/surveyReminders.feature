@@ -146,7 +146,7 @@ Feature: Tests the survey reminders are sent
 
   # Report (Journey steps: 8.8)
 
-  Scenario: Service report viewed (P10.02-3,Journey steps: 8.8)
+  Scenario: Test ui report to confirm the actions count and the case events are viewed (P10.02-3,Journey steps: 8.8)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report

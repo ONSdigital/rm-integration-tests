@@ -119,23 +119,25 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain ":null:null"
     And the contents should contain 498 lines
 
+
   # checks enrolment letter reports
+@report1
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
-    Given the "test" user has logged in using "chrome"
+    Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
-    And  checks values of column number 1 against value "BSNOT_221" and should appear 1 times
+    And  checks values of column number 1 contains value "BSNOT_221" and should appear 1 times
     And  checks values of column number 2 against value "498" and should appear 1 times
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
-    And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
+    And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
     And  checks values of column number 7 against value "498" and should appear 3 times
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 4 against value "1" and should appear 500 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Invitation Letter" appears in column 4 
-    Then the user logs out
+#    Then the user logs out
 
 
   # Reset Action Exporter Environment Set Up -----
@@ -198,7 +200,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
       | 1             | 3            | 2            | COMPLETED | 498   |
     And check "casesvc.caseevent" records in DB equal 996 for "description = 'Enrolment Reminder Letter'"
-
+ 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BSREM" for "BSD"
@@ -206,14 +208,16 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then each line should contain an iac
     And the contents should contain ":null:null"
     And the contents should contain 498 lines
-    
-  # checks reminder enroment letter reports  
+
+
+  # checks reminder enroment letter reports
+@report2
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
-    Given the "test" user has logged in using "chrome"
+    Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And  checks values of column number 1 contains value "BSREM_221" and should appear 1 times
-    And  checks values of column number 2 against value "498" and should appear 1 times
+    And  checks values of column number 2 against value "252" and should appear 1 times
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
     And  checks values of column number 7 against value "498" and should appear 3 times
@@ -223,5 +227,5 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And  checks values of column number 5 against value "3" and should appear 498 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
-    Then the user logs out
+#    Then the user logs out
   
