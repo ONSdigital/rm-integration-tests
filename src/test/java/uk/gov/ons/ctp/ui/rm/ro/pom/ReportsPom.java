@@ -100,13 +100,32 @@ public class ReportsPom {
     for (int i = 0; i < contents.size(); i++) {
       if (contents.get(i).equals(value)) {
         count = count + 1;
-      } else if (contents.get(i).contains(value)) {
-        count = count + 1;
       }
     }
     return count;
   }
 
+  /**
+   * Checks a value is contained within the column in a report returns the number of times that value appears within that column
+   *
+   * @param column looking at
+   * @param value looking for
+   *
+   * @return count number of values found
+   */
+  public int checksColumnValuesContains(int column, String value) {
+
+    int count = 0;
+    TableHelper table = new TableHelper();
+    List<String> contents = table.extractColumnValuesFromTable(reportTable, column);
+    for (int i = 0; i < contents.size(); i++) {
+      if (contents.get(i).contains(value)) {
+        count = count + 1;
+      }
+    }
+    return count;
+  }
+  
   /**
    * returns one value from a report
    *

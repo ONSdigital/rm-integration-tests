@@ -84,6 +84,16 @@ public class UIResponseAware extends SeleniumAware {
     return reports.checksColumnValues(column, value);
   }
   /**
+  *
+  * @param column to look in
+  * @param value to look ups
+  * @return value within columns
+  */
+ public int checksColumnValuesContains(int column, String value) {
+   ReportsPom reports = new ReportsPom(getWebDriver());
+   return reports.checksColumnValuesContains(column, value);
+ }
+  /**
    *
    * @param column to look in
    * @param value to look for

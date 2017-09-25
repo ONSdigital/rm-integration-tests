@@ -133,6 +133,22 @@ public class UiTestSteps {
     int count = responseAware.checksColumnValues(column, value);
     assertEquals(count, number);
   }
+  
+  /**
+  *
+  * @param column to look in
+  * @param value to look up
+  * @param number of times value appears
+  *
+  * @throws Throwable error
+  */
+ @Then("^checks values of column number (\\d+) contains value \"(.*?)\" and should appear (\\d+) times$")
+ public void checks_values_of_column_number_contains_value_and_should_appear_times(int column, String value, int number)
+       throws Throwable {
+
+   int count = responseAware.checksColumnValues(column, value);
+   assertEquals(count, number);
+ }
 
   /**
    *

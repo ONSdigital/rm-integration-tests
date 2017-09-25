@@ -118,7 +118,7 @@ Feature: Tests the publish collection exercise
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 2 against value "B" and should appear 500 times
+    And  checks values of column number 2 against value "B" and should appear 498 times
     And  checks values of column number 4 against value "1" and should appear 500 times
     And  checks values of column number 2 against value "BI" and should appear 2 times
     Then the user logs out
