@@ -217,7 +217,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And  checks values of column number 1 contains value "BSREM_221" and should appear 1 times
-    And  checks values of column number 2 against value "252" and should appear 1 times
+    And  checks values of column number 2 against value "498" and should appear 1 times
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
     And  checks values of column number 7 against value "498" and should appear 3 times
