@@ -192,7 +192,7 @@ Feature: Verify and Create Account
   # Report to show enrolment event
 
   Scenario: Test ui report to confirm respondent enroled, new account created and event viewed (PO4.03, PO5.04, PO6.05-6, Journey steps: 6.5, 7.10)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     And the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     Then checks values of column number 7 against value "1" and should appear 1 times 

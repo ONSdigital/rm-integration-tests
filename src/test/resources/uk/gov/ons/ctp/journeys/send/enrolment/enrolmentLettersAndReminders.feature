@@ -121,9 +121,9 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
 
   # checks enrolment letter reports
-@report1
+
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And  checks values of column number 1 contains value "BSNOT_221" and should appear 1 times
@@ -137,7 +137,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And  checks values of column number 4 against value "1" and should appear 500 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Invitation Letter" appears in column 4 
-#    Then the user logs out
+    Then the user logs out
 
 
   # Reset Action Exporter Environment Set Up -----
@@ -211,9 +211,9 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
 
   # checks reminder enroment letter reports
-@report2
+
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When the user goes to view the most recent report
     And  checks values of column number 1 contains value "BSREM_221" and should appear 1 times
@@ -227,5 +227,5 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And  checks values of column number 5 against value "3" and should appear 498 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
-#    Then the user logs out
+    Then the user logs out
   
