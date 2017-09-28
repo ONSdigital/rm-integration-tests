@@ -4,9 +4,11 @@ TRUNCATE actionexporter.actionrequest CASCADE;
 TRUNCATE actionexporter.address CASCADE;
 TRUNCATE actionexporter.contact CASCADE;
 TRUNCATE actionexporter.filerowcount CASCADE;
+TRUNCATE actionexporter.report CASCADE;
 
 ALTER SEQUENCE actionexporter.actionrequestpkseq RESTART WITH 1;
 ALTER SEQUENCE actionexporter.contactpkseq RESTART WITH 1;
+ALTER SEQUENCE actionexporter.reportpkseq RESTART WITH 1;
 
 /* Delete potential data from previous test runs  */
 

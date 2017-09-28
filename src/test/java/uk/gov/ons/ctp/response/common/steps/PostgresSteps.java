@@ -135,9 +135,11 @@ public class PostgresSteps {
     checkRecordsInDBEqual("actionexporter.address", 0);
     checkRecordsInDBEqual("actionexporter.contact", 0);
     checkRecordsInDBEqual("actionexporter.filerowcount", 0);
+    checkRecordsInDBEqual("actionexporter.report", 0);
 
     checkSequenceInDBEqual("actionexporter.actionrequestpkseq", 1);
     checkSequenceInDBEqual("actionexporter.contactpkseq", 1);
+    checkSequenceInDBEqual("actionexporter.reportpkseq", 1);
   }
 
   /**

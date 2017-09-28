@@ -4,6 +4,10 @@ package uk.gov.ons.ctp.ui.rm.ro.steps;
 import static org.junit.Assert.assertEquals;
 import java.util.List;
 
+import org.jboss.netty.util.internal.SystemPropertyUtil;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,6 +21,10 @@ public class UiTestSteps {
 
 
   private String caseRefRetrieved;
+  
+  private int numberOfReports;
+  
+  private WebElement reportTable;
   /**
    * Constructor
    *
@@ -104,7 +112,49 @@ public class UiTestSteps {
   public void the_user_goes_to_view_the_most_recent_report() throws Throwable {
     responseAware.viewReport();
   }
+  
+  /**
+   * @throws Throwable error
+   */
+  @When("^the user retrives number of reports$")
+  public void the_user_retrives_number_of_report() throws Throwable {
+    numberOfReports = responseAware.retriveNumberOfReports() - 1;
+  }
 
+
+  /**
+   * @throws Throwable error
+   */
+  @When("^retrieves Print Volume reports table$")
+  public void retrives_reports_table() throws Throwable {
+    reportTable = responseAware.getPrintVolumeTable();
+  }
+
+
+  /**
+  *
+  * @param column to look in
+  * @param row to look in
+  * @param value to look up
+  *
+  * @throws Throwable error
+  */
+  @Then("^checks values of print files rows counts matches value (\\d+)$")
+  public void checks_values_of_print_files_rows_counts_matches_value(int value) throws Throwable {
+
+    int reportValue = 0;
+
+    List<WebElement>rows = reportTable.findElements(By.linkText("View"));
+    for (int i = 0; i<rows.size(); i++){
+      rows = reportTable.findElements(By.linkText("View"));
+      rows.get(i).click();
+      String rowcount = responseAware.checksSpeficValueFromReport(1,1);
+      reportValue =+ Integer.parseInt(rowcount);
+      responseAware.invokeReportSelection("print");
+    }
+    assertEquals(value, reportValue);
+  }
+  
   /**
    *
    * @param column to look in

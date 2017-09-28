@@ -36,6 +36,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
   # Pre Test Set Up
 
   # Pre Test Sample Service Environment Set Up -----
+
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
@@ -110,7 +111,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
       | 1             | 1            | 1            | COMPLETED | 498   |
     And check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
-  
+
   Scenario: Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
     Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BSNOT" for "BSD"
@@ -121,11 +122,10 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   # checks enrolment letter reports
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
-    Given the "test" user has logged in using "chrome"
+    Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 1 against value "BSNOT_221" and should appear 1 times
-    And  checks values of column number 2 against value "498" and should appear 1 times
+    When retrieves Print Volume reports table
+    Then checks values of print files rows counts matches value 498
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
@@ -172,7 +172,21 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the contents should contain 498 lines
 
   # Report not developed so not tested (Journey steps: 4.9)
-
+  Scenario: Test report for print volumes (Test scenario PO7.04-6)
+    Given the "test" user has logged in using "chrome"
+    When the user navigates to the reports page and selects "print" reports
+    When retrieves Print Volume reports table
+    Then checks values of print files rows counts matches value 498
+    When the user navigates to the reports page and selects "action" reports
+    When the user goes to view the most recent report
+    And  checks values of column number 7 against value "498" and should appear 3 times
+    And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
+    When the user navigates to the reports page and selects "case" reports
+    When the user goes to view the most recent report
+    And  checks values of column number 5 against value "3" and should appear 498 times
+    When the user searches for case ref "49900000001"
+    Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
+    Then the user logs out
 
   # Reset Action Exporter Environment Set Up -----
 
@@ -211,9 +225,8 @@ Feature: Tests the enrolment letter and reminder letters are sent
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 1 contains value "BSREM_221" and should appear 1 times
-    And  checks values of column number 2 against value "498" and should appear 1 times
+    When retrieves Print Volume reports table
+    Then checks values of print files rows counts matches value 498
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
     And  checks values of column number 7 against value "498" and should appear 3 times

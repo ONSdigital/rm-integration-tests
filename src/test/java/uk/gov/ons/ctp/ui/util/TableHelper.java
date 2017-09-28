@@ -40,6 +40,16 @@ public class TableHelper {
     }
     return element;
   }
+  /**
+   * count number of rows within a table
+   *
+   * @param table to be interrogated
+   * @return int number of rows
+   */
+  public int extractNumberOfRowsFromTable(WebElement table) {
+    List<WebElement> rows = table.findElements(By.tagName("tr"));
+    return rows.size();
+  }
 
   /**
    * Extract a value from first data row of a table

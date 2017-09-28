@@ -83,6 +83,19 @@ public class ReportsPom {
   public void selectReport() {
     viewReport.click();
   }
+  /**
+   * 
+   * @return number of reports
+   */
+  public int getNumberOfReports(){
+    TableHelper table = new TableHelper();
+    return table.extractNumberOfRowsFromTable(reportTable);
+  }
+  
+  public WebElement getTable() {
+    return reportTable;
+  }
+
 
   /**
    * Checks the value of a column within a report returns the number of times that value appears within that column
@@ -161,5 +174,4 @@ public class ReportsPom {
     results.add(Integer.toString(count));
     return results;
   }
-
 }
