@@ -163,10 +163,11 @@ Feature: Tests the collection instrument is downloaded (RM)
     And check "casesvc.caseevent" records in DB equal 1 for "description = 'Collection Instrument Downloaded'"
 
 
-  Scenario: Case event report respondent enrolled count (PO8.03)
-    Given the "test" user has logged in using "chrome"
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 10 against value "1" and should appear 1 times
-    And  checks values of column number 2 against value "BI" and should appear 3 times
+  Scenario: Test ui report to confirm the download count and the BI case count is correct (PO8.03)
+    Given after a delay of 65 seconds
+    When the "test" user has logged in using "chrome"
+    And the user navigates to the reports page and selects "case" reports
+    Then the user goes to view the most recent report
+    And checks values of column number 10 against value "1" and should appear 1 times
+    And checks values of column number 2 against value "BI" and should appear 3 times
     Then the user logs out

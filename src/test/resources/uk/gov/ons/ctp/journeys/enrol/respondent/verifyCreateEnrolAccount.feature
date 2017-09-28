@@ -191,26 +191,13 @@ Feature: Verify and Create Account
 
   # Report to show enrolment event
 
-  Scenario: Service report viewed (PO4.03, Journey steps: 6.5)
+  Scenario: Test ui report to confirm respondent enroled, new account created and event viewed (PO4.03, PO5.04, PO6.05-6, Journey steps: 6.5, 7.10)
     Given the "test" user has logged in using "chrome"
-    When the user navigates to the reports page and selects "case" reports
+    And the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
+    Then checks values of column number 7 against value "1" and should appear 1 times 
+    And checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
+    And  checks values of column number 2 against value "BI" and should appear 3 times
     When the user searches for case ref from case report
     Then the user looks at the events table to see the event "Respondent Enroled" appears in column 3 
-    Then the user logs out
-
-  Scenario: Respondent Account Created (PO5.04, Journey steps: 6.5)
-    Given the "test" user has logged in using "chrome"
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 7 against value "1" and should appear 1 times 
-    Then the user logs out
-  
-  Scenario: Case event report respondent enrolled count (PO6.05-6, Journey steps: 7.10)
-    Given the "test" user has logged in using "chrome"
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 8 against value "1" and should appear 1 times
-    And  checks values of column number 2 against value "BI" and should appear 3 times
-    Then the user logs out
+    And the user logs out

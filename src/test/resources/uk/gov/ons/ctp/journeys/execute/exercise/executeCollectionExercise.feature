@@ -112,13 +112,13 @@ Feature: Tests the publish collection exercise
     And check "action.case" records in DB equal 2 for "actionplanfk = 2"
     Then check "casesvc.caseevent" records in DB equal 500 for "description = 'Case created when Initial creation of case'"
 
-  # Report (P02)
+  # Report (PO2.05, Jouney step: 2.9)
 
-  Scenario: Test report for collection excercise (Test scenario PO2.05, Jouney step: 2.9)
+  Scenario: Test ui report to confirm the right number and type of cases have been created (Test scenario PO2.05, Jouney step: 2.9)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "B" and should appear 498 times
-    And  checks values of column number 4 against value "1" and should appear 500 times
     And  checks values of column number 2 against value "BI" and should appear 2 times
+    And  checks values of column number 4 against value "1" and should appear 500 times
     Then the user logs out

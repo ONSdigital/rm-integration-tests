@@ -238,7 +238,7 @@ public class CaseResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeCasesEndpointForNewUnknownCase(String params) throws IOException, AuthenticationException {
-    String sql = String.format(WHERE_SQL, "id", "casesvc.case", "sampleunittype = 'BI'");
+    String sql = String.format(WHERE_SQL, "id", "casesvc.case", "sampleunittype = 'BI' and casepk = 501");
     List<String> result = postgresResponseAware.getRecord(sql);
     invokeCasesEndpoint(result.get(0).toString(), params);
   }
@@ -265,7 +265,7 @@ public class CaseResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public void invokeCasesEndpointForNewCaseParty() throws IOException, AuthenticationException {
-    String sql = String.format(WHERE_SQL, "partyid", "casesvc.case", "sampleunittype = 'BI'");
+    String sql = String.format(WHERE_SQL, "partyid", "casesvc.case", "sampleunittype = 'BI' and casepk = 501");
     List<String> result = postgresResponseAware.getRecord(sql);
     invokePartyEndpoint(result.get(0).toString(), "");
   }

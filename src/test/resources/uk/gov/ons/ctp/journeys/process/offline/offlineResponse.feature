@@ -145,8 +145,8 @@ Feature: Tests the response has been uploaded (RM)
 
   # Report 
 
-  Scenario: Service report viewed (P11.03, Journey steps: 11.4)
-    Given after a delay of 60 seconds
+  Scenario: Test ui report to confirm offline response count (P11.03, Journey steps: 11.4)
+    Given after a delay of 65 seconds
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
