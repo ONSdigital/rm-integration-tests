@@ -21,6 +21,9 @@ Feature: Tests the load of business sample
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
 
+  Scenario: Set up Queues
+    When set up queue
+    Then resets the queue
 
   # Business Sample Load Tests -----
 
@@ -34,12 +37,12 @@ Feature: Tests the load of business sample
     And the sftp exit status should be "-1"
   
   Scenario: Test sample DB state (Journey steps: 1.5)
-    Given after a delay of 80 seconds
+    Then when a message is received from the queue
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
     Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
 
   Scenario: Test ui report viewed correct form type - total 500 (Test scenario PO1.10)
-    Given the "test" user has logged in using "chrome"
+    Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "sample" reports
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "0015" and should appear 237 times

@@ -14,6 +14,7 @@ import com.jayway.jsonpath.JsonPath;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.minidev.json.JSONArray;
+import uk.gov.ons.ctp.response.springintergration.SampleSvcMessage;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -368,5 +369,58 @@ public class CommonSteps {
   public void after_a_delay_of_seconds(int seconds) throws Throwable {
     System.out.format("About to wait for %d seconds...", seconds);
     Thread.sleep(seconds * MILLI_TO_SECONDS);
+  }
+  
+  /**
+   * Utility which sets up a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^set up queue$")
+  public void set_up_queue() throws Throwable {
+    SampleSvcMessage messageQueue = new SampleSvcMessage();
+    messageQueue.setUpConsumer();
+  }
+  
+  /**
+   * Utility which resets the queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^resets the queue$")
+  public void reset_the_queue() throws Throwable {
+    SampleSvcMessage.resetGotMessage();
+  }
+  
+  /**
+   * Utility which waits for an event from a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^when a message is received from the queue$")
+  public void when_a_message_is_received_from_the_queue() throws Throwable {
+    while (!SampleSvcMessage.getGotMessage()){
+      System.out.println(SampleSvcMessage.getBodyMessage());
+      Thread.sleep(1 * MILLI_TO_SECONDS);
+    }
+    System.out.println(SampleSvcMessage.getBodyMessage());
+    assertTrue(SampleSvcMessage.getGotMessage());
+    
+  }
+  
+  /**
+   * Utility which waits for an event from a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^when (\\d+) messages have been received from the queue$")
+  public void when_messages_have_been_received_from_the_queue(int number) throws Throwable {
+    while (number != SampleSvcMessage.getNumberMessage()){
+      System.out.println(SampleSvcMessage.getNumberMessage());
+      Thread.sleep(1 * MILLI_TO_SECONDS);
+    }
+    System.out.println(SampleSvcMessage.getBodyMessage());
+    assertEquals(number, SampleSvcMessage.getNumberMessage());
+    
   }
 }

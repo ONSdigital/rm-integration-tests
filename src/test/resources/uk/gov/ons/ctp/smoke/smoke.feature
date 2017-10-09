@@ -28,7 +28,6 @@
 Feature: Smoke Test
 
   # Pre Test Environment Set Up -----
-
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
@@ -49,7 +48,11 @@ Feature: Smoke Test
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
     Then the actionexporter database has been reset
 
-  Scenario: Clean old print files from directory
+  Scenario: Set up Queues
+    When set up queue
+    Then resets the queue
+
+    Scenario: Clean old print files from directory
     Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
     When move print files to "previousTests/" for "BSD"
@@ -62,9 +65,10 @@ Feature: Smoke Test
     Given clean sftp folders of all previous ingestions for "BSD" surveys 
     And the sftp exit status should be "-1" 
     When for the "BSD" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
+    And the sftp exit status should be "-1"
     And after a delay of 120 seconds 
-    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
+    #Then when a message is received from the queue
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1" 
   
   Scenario: Test business sample load validation failure 
@@ -151,7 +155,9 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 280 seconds
+    Then resets the queue
+    Then when 500 messages have been received from the queue
+    #Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
