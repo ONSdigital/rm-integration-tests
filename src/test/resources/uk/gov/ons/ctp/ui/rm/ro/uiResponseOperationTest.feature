@@ -23,4 +23,4 @@ Feature: Tests for response operations UI
     And the event entry should be "Case created when Initial creation of case"
     Then the action entry should be "BSNOT"
     And the action entry should be "Completed"
-    #Then the user logs out
+    Then the user logs out
