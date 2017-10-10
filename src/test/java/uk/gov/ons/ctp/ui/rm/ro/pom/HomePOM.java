@@ -62,6 +62,9 @@ public class HomePOM {
     submitSearch();
   }
 
+  /**
+   * Click on reports tab
+   */
   public void selectReportTab() {
     reportsTab.click();
   }

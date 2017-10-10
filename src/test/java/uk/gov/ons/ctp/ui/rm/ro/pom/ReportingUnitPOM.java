@@ -19,6 +19,12 @@ public class ReportingUnitPOM {
   @FindBy(xpath = "//*[@id=\"yui-main\"]/div/dl/dd[3]")
   private WebElement tradingName;
 
+  @FindBy(xpath = "//*[@id=\"ft\"]/table[1]")
+  private WebElement eventTable;
+
+  @FindBy(xpath = "//*[@id=\"ft\"]/table[2]")
+  private WebElement actionTable;
+
   /**
    * Constructor
    *
@@ -53,5 +59,23 @@ public class ReportingUnitPOM {
    */
   public String getTradingName() {
     return tradingName.getText();
+  }
+
+  /**
+   * Get event table from page
+   *
+   * @return event table
+   */
+  public WebElement getEventTable() {
+    return eventTable;
+  }
+
+  /**
+   * Get action table from page
+   *
+   * @return action table
+   */
+  public WebElement getActionTable() {
+    return actionTable;
   }
 }
