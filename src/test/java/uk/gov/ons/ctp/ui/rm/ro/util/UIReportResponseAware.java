@@ -85,8 +85,8 @@ public class UIReportResponseAware extends SeleniumAware {
    * @return table as web element
    */
   public WebElement getPrintVolumeTable() {
-    PrintVolumePom PrintReport = new PrintVolumePom(getWebDriver());
-    return PrintReport.getTable();
+    PrintVolumePom printReport = new PrintVolumePom(getWebDriver());
+    return printReport.getTable();
   }
 
   /**
