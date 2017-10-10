@@ -10,10 +10,10 @@ import cucumber.api.junit.Cucumber;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(
-  features = {"classpath:uk/gov/ons/ctp/ui/rm/ro/uiTest.feature"},
+  features = {"classpath:uk/gov/ons/ctp/ui/rm/ro/uiResponseOperationTest.feature"},
   glue = {"uk.gov.ons.ctp.ui.rm.ro.steps"},
-  plugin = {"pretty", "html:build/toBeNamed-cuc-html-report", "json:build/jenkins/toBeNamed.json"}
+  plugin = {"pretty", "html:build/uiRO-cuc-html-report", "json:build/jenkins/uiRO.json"}
 )
-public class UiTestTest {
+public class UIResponseOperationTestTest {
 
 }
