@@ -18,7 +18,7 @@
 # Feature Tags: @sdxGateway
 #
 @sdxGateway
-Feature: Validating action requests
+Feature: SDX Gateway tests
 
   # Pre Test DB Environment Set Up -----
   Scenario: Reset sample service database to pre test condition
@@ -59,7 +59,7 @@ Feature: Validating action requests
 
   # Pre Test Case Service Environment Set Up -----
   Scenario: Test casesvc case DB state
-    Given after a delay of 360 seconds
+    Given after a delay of 380 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -68,7 +68,7 @@ Feature: Validating action requests
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
     And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
 
@@ -108,7 +108,7 @@ Feature: Validating action requests
     And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
   Scenario: test new case has been added to the action service cases
-    Given check "action.case" records in DB equal 3 for "actionplanfk = 2"
+    Given check "action.case" records in DB equal 4 for "actionplanfk = 2"
 
 
   # Endpoint Tests -----
@@ -135,7 +135,7 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 1
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # 201
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
@@ -145,7 +145,7 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # 201
   Scenario: Post request for SDX Gateway endpoint for B case not receiptable
@@ -155,7 +155,7 @@ Feature: Validating action requests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # 400
   Scenario: Post request for SDX Gateway endpoint for missing caseid
