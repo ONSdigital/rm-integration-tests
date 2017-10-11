@@ -87,8 +87,8 @@ Feature: Validating action requests
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 498 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
+    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
 
   # Endpoint Tests -----
