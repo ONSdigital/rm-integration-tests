@@ -122,7 +122,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   # checks enrolment letter reports
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
     Then checks values of print files rows counts matches value 497

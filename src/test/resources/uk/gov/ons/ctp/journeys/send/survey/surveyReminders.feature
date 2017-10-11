@@ -125,7 +125,7 @@ Feature: Tests the survey reminders are sent
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 4            | 3            | COMPLETED | 4     |
+      | 2             | 4            | 3            | COMPLETED | 3     |
     And check "casesvc.caseevent" records in DB equal 3 for "description = 'Survey Reminder Notification'"
 
   # Report not developed so not tested (Journey steps: 8.8)
@@ -140,7 +140,7 @@ Feature: Tests the survey reminders are sent
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 5            | 3            | COMPLETED | 4     |
+      | 2             | 5            | 3            | COMPLETED | 3     |
     And check "casesvc.caseevent" records in DB equal 6 for "description = 'Survey Reminder Notification'"
 
 
