@@ -78,7 +78,7 @@ Feature: Validating action requests
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
     And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
 
@@ -119,7 +119,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         | BSNOT |  |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -139,7 +139,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         |  | COMPLETED |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -159,7 +159,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         | BSNOT | COMPLETED |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
