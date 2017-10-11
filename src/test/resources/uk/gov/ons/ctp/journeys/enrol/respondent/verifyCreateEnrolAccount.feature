@@ -86,8 +86,8 @@ Feature: Verify and Create Account
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    Then check "action.case" records in DB equal 498 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    Then check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   # Journey Tests
@@ -186,7 +186,7 @@ Feature: Verify and Create Account
 
   Scenario: Test actionsvc case has the expected actionplan 2 (Journey steps: 7.7)
     Given after a delay of 60 seconds
-    Then check "action.case" records in DB equal 3 for "actionplanfk = 2"
+    Then check "action.case" records in DB equal 4 for "actionplanfk = 2"
 
 
   # Report to show enrolment event
@@ -197,7 +197,7 @@ Feature: Verify and Create Account
     When the user goes to view the most recent report
     Then checks values of column number 7 against value "1" and should appear 1 times 
     And checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
-    And  checks values of column number 2 against value "BI" and should appear 3 times
+    And  checks values of column number 2 against value "BI" and should appear 4 times
     When the user searches for case ref from case report
     Then the user looks at the events table to see the event "Respondent Enroled" appears in column 3 
     And the user logs out

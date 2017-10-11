@@ -74,8 +74,8 @@ Feature: Tests the survey reminders are sent
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    Then check "action.case" records in DB equal 498 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    Then check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   # Create respondent case to send survey reminders to
@@ -121,11 +121,11 @@ Feature: Tests the survey reminders are sent
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 2             | 4            | 3            | 3     |
+      | 2             | 4            | 3            | 4     |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 4            | 3            | COMPLETED | 3     |
+      | 2             | 4            | 3            | COMPLETED | 4     |
     And check "casesvc.caseevent" records in DB equal 3 for "description = 'Survey Reminder Notification'"
 
   # Report not developed so not tested (Journey steps: 8.8)
@@ -136,11 +136,11 @@ Feature: Tests the survey reminders are sent
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 2             | 5            | 3            | 3     |
+      | 2             | 5            | 3            | 4     |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 5            | 3            | COMPLETED | 3     |
+      | 2             | 5            | 3            | COMPLETED | 4     |
     And check "casesvc.caseevent" records in DB equal 6 for "description = 'Survey Reminder Notification'"
 
 

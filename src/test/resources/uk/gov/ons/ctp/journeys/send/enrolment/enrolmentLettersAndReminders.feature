@@ -89,14 +89,14 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 360 seconds
+    Given after a delay of 380 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    Then check "action.case" records in DB equal 498 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    Then check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   # Journey Tests
@@ -105,12 +105,12 @@ Feature: Tests the enrolment letter and reminder letters are sent
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 3.1, 3.2, 3.3, 3.4, 3.5, 3.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 498   |
+      | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 1             | 1            | 1            | COMPLETED | 498   |
-    And check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
+      | 1             | 1            | 1            | COMPLETED | 497   |
+    And check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
   Scenario: Test print file generation and confirm contents (Journey steps: 3.6, 3.8)
     Given after a delay of 90 seconds
@@ -118,18 +118,18 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
-    And the contents should contain 498 lines
+    And the contents should contain 497 lines
 
   # checks enrolment letter reports
   Scenario: Test report for print volumes (Test scenario PO3.03-6)
     Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
-    Then checks values of print files rows counts matches value 498
+    Then checks values of print files rows counts matches value 497
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
-    And  checks values of column number 7 against value "498" and should appear 3 times
+    And  checks values of column number 7 against value "497" and should appear 3 times
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 4 against value "1" and should appear 500 times
@@ -156,12 +156,12 @@ Feature: Tests the enrolment letter and reminder letters are sent
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 2            | 2            | 498   |
+      | 1             | 2            | 2            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 1             | 2            | 2            | COMPLETED | 498   |
-    And check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Reminder Letter'"
+      | 1             | 2            | 2            | COMPLETED | 497   |
+    And check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Reminder Letter'"
 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
@@ -169,21 +169,21 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
-    And the contents should contain 498 lines
+    And the contents should contain 497 lines
 
   # Report not developed so not tested (Journey steps: 4.9)
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
-    Then checks values of print files rows counts matches value 498
+    Then checks values of print files rows counts matches value 497
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
-    And  checks values of column number 7 against value "498" and should appear 3 times
+    And  checks values of column number 7 against value "497" and should appear 3 times
     And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 5 against value "3" and should appear 498 times
+    And  checks values of column number 5 against value "3" and should appear 497 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
     Then the user logs out
@@ -206,12 +206,12 @@ Feature: Tests the enrolment letter and reminder letters are sent
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 3            | 2            | 498   |
+      | 1             | 3            | 2            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 1             | 3            | 2            | COMPLETED | 498   |
-    And check "casesvc.caseevent" records in DB equal 996 for "description = 'Enrolment Reminder Letter'"
+      | 1             | 3            | 2            | COMPLETED | 497   |
+    And check "casesvc.caseevent" records in DB equal 994 for "description = 'Enrolment Reminder Letter'"
 
   Scenario: Test print file generation and confirm contents (Journey steps: 4.6, 4.8)
     Given after a delay of 90 seconds
@@ -219,21 +219,21 @@ Feature: Tests the enrolment letter and reminder letters are sent
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
-    And the contents should contain 498 lines
+    And the contents should contain 497 lines
     
   # checks reminder enroment letter reports  
   Scenario: Test report for print volumes (Test scenario PO7.04-6)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
-    Then checks values of print files rows counts matches value 498
+    Then checks values of print files rows counts matches value 497
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
-    And  checks values of column number 7 against value "498" and should appear 3 times
+    And  checks values of column number 7 against value "497" and should appear 3 times
     And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 5 against value "3" and should appear 498 times
+    And  checks values of column number 5 against value "3" and should appear 497 times
     When the user searches for case ref "49900000001"
     Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
     Then the user logs out
