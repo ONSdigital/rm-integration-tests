@@ -77,7 +77,7 @@ Feature: Validating actionPlanJob requests
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
     When check "action.case" records in DB equal 497 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   Scenario: Test action creation by post request to create jobs for specified action plan

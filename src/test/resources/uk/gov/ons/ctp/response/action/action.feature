@@ -79,13 +79,13 @@ Feature: Validating action requests
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
     When check "action.case" records in DB equal 497 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 498   |
+      | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB equal 498 for "statefk = 'COMPLETED'"
     When check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
@@ -99,7 +99,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         |  |  |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
