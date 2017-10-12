@@ -75,7 +75,7 @@ Feature: Validating cases requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 380 seconds
+    Given after a delay of 390 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
