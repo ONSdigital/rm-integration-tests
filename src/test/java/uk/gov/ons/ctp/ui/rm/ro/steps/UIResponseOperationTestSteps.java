@@ -93,4 +93,9 @@ public class UIResponseOperationTestSteps {
     boolean result = responseAware.isValueFoundInActionTable(actionValue);
     assertTrue("Value not found on table: " + actionValue, result);
   }
+
+  @Then("^use pagination to see more events$")
+  public void use_pagination_to_see_more_events() throws Throwable {
+    responseAware.ruRefPaginateEvents();
+  }
 }

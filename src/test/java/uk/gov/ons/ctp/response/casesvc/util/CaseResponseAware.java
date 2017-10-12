@@ -19,6 +19,10 @@ import uk.gov.ons.ctp.util.World;
  */
 public class CaseResponseAware {
   private static final String WHERE_SQL = "SELECT %s FROM %s WHERE %s;";
+  
+  private static final String REPEAT_EVENT_SQL = //"SELECT %s FROM %s WHERE %s;";
+  "select id, caseservice.partyid from casesvc.case caseservice inner join collectionexercise.sampleunit sample on caseservice.partyid = sample.partyid where sample.sampleunitref = '%s'";
+  
   private static final String GET_CASEGROUP_URL = "/casegroups/%s";
   private static final String GET_CASE_CASEGROUP_URL = "/cases/casegroupid/%s";
   private static final String GET_IAC_URL = "/cases/iac/%s%s";
@@ -195,6 +199,21 @@ public class CaseResponseAware {
 
     final String url = String.format(POST_EVENTS_URL, result.get(0));
     responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
+  }
+
+  public void invokePostCasesEventsEndpointRepeated(int repeat, String ruRef, Properties properties)
+      throws IOException, AuthenticationException, ClassNotFoundException, SQLException {
+    System.out.println("Get sample unit ref: " + ruRef);
+    
+    String sql = String.format(REPEAT_EVENT_SQL, ruRef);
+    List<String> result = postgresResponseAware.getRecord(sql);
+    properties.put("partyId", result.get(1));
+    
+    for (int c = 1; c <= repeat; c++) {
+      System.out.println(c + " Create event...");
+      final String url = String.format(POST_EVENTS_URL, result.get(0));
+      responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
+    }
   }
 
   /**

@@ -25,6 +25,9 @@ public class ReportingUnitPOM {
   @FindBy(xpath = "//*[@id=\"ft\"]/table[2]")
   private WebElement actionTable;
 
+  @FindBy(linkText = "Next >")
+  private WebElement nextPage;
+
   /**
    * Constructor
    *
@@ -77,5 +80,9 @@ public class ReportingUnitPOM {
    */
   public WebElement getActionTable() {
     return actionTable;
+  }
+  
+  public void paginateEvents() {
+    nextPage.click();
   }
 }
