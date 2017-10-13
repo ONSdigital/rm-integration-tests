@@ -12,7 +12,7 @@
 #               @@actionExporterReport
 #
 @actionExporter @actionExporterReport
-Feature: action exporter template end points
+Feature: action exporter report end points
 
   # Pre Test Environment Set Up -----
 
