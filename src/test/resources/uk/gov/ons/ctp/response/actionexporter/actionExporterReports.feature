@@ -14,6 +14,89 @@
 @actionExporter @actionExporterReport
 Feature: action exporter template end points
 
+  # Pre Test Environment Set Up -----
+
+  Scenario: Reset sample service database to pre test condition
+    When for the "samplesvc" run the "samplereset.sql" postgres DB script
+    Then the samplesvc database has been reset
+
+  Scenario: Reset collection exercise service database to pre test condition
+    Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
+    When the collectionexercisesvc database has been reset
+
+  Scenario: Reset collection exercise service database to pre test condition
+    When for the "casesvc" run the "casereset.sql" postgres DB script
+    Then the casesvc database has been reset
+
+  Scenario: Reset action service database to pre test condition
+    When for the "actionsvc" run the "actionreset.sql" postgres DB script
+    Then the actionsvc database has been reset
+
+  Scenario: Reset actionexporter database to pre test condition
+    When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
+    Then the actionexporter database has been reset
+
+  Scenario: Clean old print files from directory
+    Given create test directory "previousTests" for "BSD"
+    And the sftp exit status should be "-1"
+    When move print files to "previousTests/" for "BSD"
+    Then the sftp exit status should be "-1"
+
+
+  # Sample Service Set Up -----
+
+  Scenario: Test business sample load
+    Given clean sftp folders of all previous ingestions for "BSD" surveys 
+    And the sftp exit status should be "-1" 
+    When for the "BSD" survey move the "valid" file to trigger ingestion 
+    And the sftp exit status should be "-1" 
+    And after a delay of 120 seconds 
+    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
+    And the sftp exit status should be "-1" 
+
+
+  # Collection Exercise Set Up -----
+
+  Scenario: Put request to collection exercise service for specific business survey by exercise id
+    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
+    When the response status should be 200
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
+
+
+  # Case Service Set Up -----
+
+  Scenario: Test casesvc case DB state
+    Given after a delay of 390 seconds
+    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
+
+
+  # Action Service Set Up -----
+
+  Scenario: Test actionsvc case DB state for actionplan 1
+    Given after a delay of 60 seconds
+    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 3 for "actionplanfk = 2"
+
+  Scenario: Test action creation by post request to create jobs for specified action plan
+    Given the case start date is adjusted to trigger action plan
+      | actionplanfk  | actionrulepk | actiontypefk | total |
+      | 1             | 1            | 1            | 497   |
+    When after a delay of 90 seconds
+    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
+
+
+  # Action Exporter Service Set Up -----
+
+  Scenario: Test print file generation and confirm contents
+    Given after a delay of 90 seconds
+    When get the contents of the print files where the filename begins "BSNOT" for "BSD"
+    And the sftp exit status should be "-1"
+    Then each line should contain an iac
+    And the contents should contain ":null:null"
+    And the contents should contain 497 lines
+
 
   # Endpoint Tests -----
 
