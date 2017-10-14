@@ -117,7 +117,7 @@ Feature: Tests for response operations UI
 
   Scenario: Test CTPA-1591 and CTPA-1617 pagination error
     Given I make the POST call to the caseservice cases events 20 times for sampleunit "49900000021"
-    When the "test" user has logged in using "chromehead"
+    When the "test" user has logged in using "chrome"
     Then the user navigtes to the reporting unit page using "49900000021"
     Then the RU reference is "49900000021"
     And the Name is "ENTNAME1_COMPANY21"
