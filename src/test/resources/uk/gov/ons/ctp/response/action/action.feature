@@ -69,7 +69,7 @@ Feature: Validating action requests
 
   # Pre Test Case Service Environment Set Up -----
   Scenario: Test casesvc case DB state
-    Given after a delay of 390 seconds
+    Given after a delay of 400 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -249,52 +249,59 @@ Feature: Validating action requests
     And the response should contain the field "error.timestamp"
 
 
-
-
   # POST /actions
-  # 201 CTPA-1585
-#  @post
-#  Scenario: Post request to actionservice for specified caseId with priority
-#    When I make the POST call to the actionservice actions endpoint
-#      |  | actiontypename | CucumberTest | 1 |
-#    Then the response status should be 201
-    #And the response should contain the field "id"
-    #And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
-    #And the response should contain the field "createdBy" with value "CucumberTest"
-    #And the response should contain the field "state" with value "SUBMITTED"
-    #And the response should contain the field "createdDateTime"
-    #And the response should contain the field "updatedDateTime"
+  # 201
+  Scenario: Post request to actionservice for specified caseId with priority
+    When I make the POST call to the actionservice actions endpoint
+      |  | BSSNE | CucumberTest | 1 |
+    Then the response status should be 201
+    And the response should contain the field "id"
+    And the response should contain the field "caseId"
+    And the response should contain the field "actionPlanId" with a null value
+    And the response should contain the field "actionRuleId" with a null value
+    And the response should contain the field "actionTypeName" with value "BSSNE"
+    And the response should contain the field "createdBy" with value "CucumberTest"
+    And the response should contain the field "state" with value "SUBMITTED"
+    And the response should contain the field "manuallyCreated" with boolean value "true"
+    And the response should contain the field "priority" with an integer value of 1
+    And the response should contain the field "situation" with a null value
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime" with a null value
 
-  # 201 CTPA-1585
-#  @post
-#  Scenario: Post request to actionservice for specified caseId without priority
-#    When I make the POST call to the actionservice actions endpoint
-#      |  | actiontypename | CucumberTest |  |
-#    Then the response status should be 201
-    #And the response should contain the field "id"
-    #And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
-    #And the response should contain the field "createdBy" with value "CucumberTest"
-    #And the response should contain the field "state" with value "SUBMITTED"
-    #And the response should contain the field "updatedDateTime"
+  # 201
+  Scenario: Post request to actionservice for specified caseId without priority
+    When I make the POST call to the actionservice actions endpoint
+      |  | BSSNE | CucumberTest |  |
+    Then the response status should be 201
+    And the response should contain the field "id"
+    And the response should contain the field "caseId"
+    And the response should contain the field "actionPlanId" with a null value
+    And the response should contain the field "actionRuleId" with a null value
+    And the response should contain the field "actionTypeName" with value "BSSNE"
+    And the response should contain the field "createdBy" with value "CucumberTest"
+    And the response should contain the field "state" with value "SUBMITTED"
+    And the response should contain the field "manuallyCreated" with boolean value "true"
+    And the response should contain the field "priority" with a null value
+    And the response should contain the field "situation" with a null value
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime" with a null value
 
-  # 400 CTPA-1585
-#  Scenario: Post request to actionservice with invalid input
-#    When I make the POST call to the actionservice actions endpoint with invalid input
-#    Then the response status should be 400
-#    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-#    And the response should contain the field "error.message" with value "Provided json is incorrect."
-#    And the response should contain the field "error.timestamp"
+  # 400
+  Scenario: Post request to actionservice with invalid input
+    When I make the POST call to the actionservice actions endpoint with invalid input
+    Then the response status should be 400
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json is incorrect."
+    And the response should contain the field "error.timestamp"
     
-  # 404 CTPA-1585
-#  @post
-#  Scenario: Post request to actionservice for specified caseId not found
-#    When I make the POST call to the actionservice actions endpoint
-#      | e71002ac-3575-47eb-b87f-cd9db92bf101 | actiontypename | CucumberTest | 1 |
-#    Then the response status should be 404
-#    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-#    And the response should contain the field "error.message" with value "ActionPlan not found for id e71002ac-3575-47eb-b87f-cd9db92bf101"
-#    And the response should contain the field "error.timestamp"
-
+  # 404
+  Scenario: Post request to actionservice for specified caseId not found
+    When I make the POST call to the actionservice actions endpoint
+      | e71002ac-3575-47eb-b87f-cd9db92bf101 | BSSNE | CucumberTest | 1 |
+    Then the response status should be 404
+    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "Case not found for id e71002ac-3575-47eb-b87f-cd9db92bf101"
+    And the response should contain the field "error.timestamp"
 
 
   # PUT /actions/{actionid}

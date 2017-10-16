@@ -123,3 +123,32 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
 		And the response should contain the field "error.message" with value "Provided json is incorrect."
 		And the response should contain the field "error.timestamp"
+
+
+  # POST /actionplans/{actionPlanId}/jobs
+  # 200
+  Scenario: Post request to create an action plan job for actionPlanId
+    Given I make the POST call to the actionservice actionplan jobs endpoint for actionPlanId "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
+    When the response status should be 201
+    Then the response should contain the field "id"
+    And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
+    And the response should contain the field "createdBy" with value "CucumberTest"
+    And the response should contain the field "state" with value "SUBMITTED"
+    And the response should contain the field "createdDateTime"
+    And the response should contain the field "updatedDateTime"
+
+  # 400
+  Scenario: Post request to create an action plan job for actionPlanId
+    Given I make the POST call to the actionservice actionplan jobs endpoint for missing parameter for actionPlanId "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
+    When the response status should be 400
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json fails validation."
+    And the response should contain the field "error.timestamp"
+
+  # 404
+  Scenario: Post request to create an action plan job for actionPlanId
+    Given I make the POST call to the actionservice actionplan jobs endpoint for actionPlanId "e71012ac-3575-47eb-b87f-cd9db92bf9a7"
+    When the response status should be 404
+    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+    And the response should contain the field "error.message" with value "ActionPlan not found for id e71012ac-3575-47eb-b87f-cd9db92bf9a7"
+    And the response should contain the field "error.timestamp"
