@@ -94,6 +94,11 @@ public class UIResponseOperationTestSteps {
     assertTrue("Value not found on table: " + actionValue, result);
   }
 
+  /**
+   * Paginate events table from reporting unit page
+   *
+   * @throws Throwable error
+   */
   @Then("^use pagination to see more events$")
   public void use_pagination_to_see_more_events() throws Throwable {
     responseAware.ruRefPaginateEvents();

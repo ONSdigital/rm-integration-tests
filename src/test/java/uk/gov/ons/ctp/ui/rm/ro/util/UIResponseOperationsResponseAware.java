@@ -95,6 +95,9 @@ public class UIResponseOperationsResponseAware extends SeleniumAware {
     return result != null;
   }
 
+  /**
+   * Paginate on the events table
+   */
   public void ruRefPaginateEvents() {
     ReportingUnitPOM ruPage = new ReportingUnitPOM(getWebDriver());
     ruPage.paginateEvents();

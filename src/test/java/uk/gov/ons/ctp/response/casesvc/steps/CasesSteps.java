@@ -235,19 +235,22 @@ public class CasesSteps {
     responseAware.invokeCasesEndpointForNewCaseParty();
   }
 
-//  @Given("^I make the POST call to the caseservice cases events (\\d+) times$")
-//  public void i_make_the_POST_call_to_the_caseservice_cases_events_times(int repeat, List<String> postValues) throws Throwable {
+  /**
+   * Repeatedly call the post request for /cases/{caseId}/events
+   *
+   * @param repeat number of repeats
+   * @param ruRef reference to case to create actions for
+   * @throws Throwable pass the exception
+   */
   @Given("^I make the POST call to the caseservice cases events (\\d+) times for sampleunit \"(.*?)\"$")
-  public void i_make_the_POST_call_to_the_caseservice_cases_events_times_for_sampleunit(int repeat, String ruRef) throws Throwable {
-//    for (int c = 1; c <= repeat; c++) {
-    System.out.println("Create events...");
+  public void i_make_the_POST_call_to_the_caseservice_cases_events_times_for_sampleunit(int repeat, String ruRef)
+      throws Throwable {
     Properties properties = new Properties();
     properties.put("description", "Created by cucumber test");
     properties.put("category", "ACTION_COMPLETED");
     properties.put("subCategory", "Repeated post events");
     properties.put("createdBy", "Cucumber Test");
-    
+
     responseAware.invokePostCasesEventsEndpointRepeated(repeat, ruRef, properties);
-//    }
   }
 }

@@ -81,7 +81,10 @@ public class ReportingUnitPOM {
   public WebElement getActionTable() {
     return actionTable;
   }
-  
+
+  /**
+   * Paginate the events table
+   */
   public void paginateEvents() {
     nextPage.click();
   }
