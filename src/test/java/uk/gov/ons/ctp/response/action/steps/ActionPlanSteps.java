@@ -3,6 +3,7 @@ package uk.gov.ons.ctp.response.action.steps;
 import java.util.List;
 import java.util.Properties;
 
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.action.util.ActionPlanResponseAware;
 
@@ -84,5 +85,33 @@ public class ActionPlanSteps {
     properties.put("input", "invalid input value");
 
     responseAware.invokePutActionPlanIdEndpoint(properties);
+  }
+
+  /**
+   * Test post request for /actionplans/{actionPlanId}/jobs
+   *
+   * @param actionPlanId action plan id
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the POST call to the actionservice actionplan jobs endpoint for actionPlanId \"(.*?)\"$")
+  public void i_make_the_POST_call_to_the_actionservice_actionplan_jobs_endpoint_for_actionPlanId(String actionPlanId)
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("createdBy", "CucumberTest");
+
+    responseAware.invokePostActionPlanIdEndpoint(actionPlanId, properties);
+  }
+
+  /**
+   * Test post request for /actionplans/{actionPlanId}/jobs with missing required parameter
+   *
+   * @param actionPlanId action plan id
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the POST call to the actionservice actionplan jobs endpoint for missing parameter for actionPlanId \"(.*?)\"$")
+  public void i_make_the_POST_call_to_the_actionservice_actionplan_jobs_endpoint_for_missing_parameter_for_actionPlanId
+      (String actionPlanId) throws Throwable {
+    Properties properties = new Properties();
+    responseAware.invokePostActionPlanIdEndpoint(actionPlanId, properties);
   }
 }
