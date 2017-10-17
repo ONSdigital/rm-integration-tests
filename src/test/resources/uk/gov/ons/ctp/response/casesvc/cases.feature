@@ -89,15 +89,15 @@ Feature: Validating cases requests
     When the response status should be 200
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be "id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE"
-    And one element of the JSON array must be ,"actionPlanId":
-    And one element of the JSON array must be ,"collectionInstrumentId":
-    And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"caseRef":
-    And one element of the JSON array must be ,"createdBy":"SYSTEM"
-    And one element of the JSON array must be ,"sampleUnitType":"B"
-    And one element of the JSON array must be ,"createdDateTime":
-    And one element of the JSON array must be ,"responses":[]}
+    And one element of the JSON array must be "state":"ACTIONABLE"
+    And one element of the JSON array must be "actionPlanId":
+    And one element of the JSON array must be "collectionInstrumentId":
+    And one element of the JSON array must be "partyId":
+    And one element of the JSON array must be "caseRef":
+    And one element of the JSON array must be "createdBy":"SYSTEM"
+    And one element of the JSON array must be "sampleUnitType":"B"
+    And one element of the JSON array must be "createdDateTime":
+    And one element of the JSON array must be "responses":[]}
 
   # 404
   Scenario: Get request to cases for non existing casegroupid
@@ -178,17 +178,17 @@ Feature: Validating cases requests
     When the response status should be 200
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be "id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE"
-    And one element of the JSON array must be ,"iac":null
-    And one element of the JSON array must be ,"caseRef":
-    And one element of the JSON array must be ,"actionPlanId":
-    And one element of the JSON array must be ,"collectionInstrumentId":
-    And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"sampleUnitType":"B"
-    And one element of the JSON array must be ,"createdBy":"SYSTEM"
-    And one element of the JSON array must be ,"createdDateTime":
-    And one element of the JSON array must be ,"responses":[]
-    And one element of the JSON array must be ,"caseGroup":{
+    And one element of the JSON array must be "state":"ACTIONABLE"
+    And one element of the JSON array must be "iac":null
+    And one element of the JSON array must be "caseRef":
+    And one element of the JSON array must be "actionPlanId":
+    And one element of the JSON array must be "collectionInstrumentId":
+    And one element of the JSON array must be "partyId":
+    And one element of the JSON array must be "sampleUnitType":"B"
+    And one element of the JSON array must be "createdBy":"SYSTEM"
+    And one element of the JSON array must be "createdDateTime":
+    And one element of the JSON array must be "responses":[]
+    And one element of the JSON array must be "caseGroup":{
     And one element of the JSON array must be },"caseEvents":null}
 
   Scenario: Get request to cases for specific case id
@@ -196,36 +196,36 @@ Feature: Validating cases requests
     When the response status should be 200
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be "id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE"
-    And one element of the JSON array must be ,"iac":null
-    And one element of the JSON array must be ,"caseRef":
-    And one element of the JSON array must be ,"actionPlanId":
-    And one element of the JSON array must be ,"collectionInstrumentId":
-    And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"sampleUnitType":"B"
-    And one element of the JSON array must be ,"createdBy":"SYSTEM"
-    And one element of the JSON array must be ,"createdDateTime":
-    And one element of the JSON array must be ,"responses":[]
-    And one element of the JSON array must be ,"caseGroup":{
+    And one element of the JSON array must be "state":"ACTIONABLE"
+    And one element of the JSON array must be "iac":null
+    And one element of the JSON array must be "caseRef":
+    And one element of the JSON array must be "actionPlanId":
+    And one element of the JSON array must be "collectionInstrumentId":
+    And one element of the JSON array must be "partyId":
+    And one element of the JSON array must be "sampleUnitType":"B"
+    And one element of the JSON array must be "createdBy":"SYSTEM"
+    And one element of the JSON array must be "createdDateTime":
+    And one element of the JSON array must be "responses":[]
+    And one element of the JSON array must be "caseGroup":{
     And one element of the JSON array must be "caseEvents":[{"createdDateTime"
-    And one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
+    And one element of the JSON array must be "category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Initial creation of case"}
 
   Scenario: Get request to cases for specific case id
     Given I make the GET call to the caseservice cases endpoint for party with parameters "?iac=true"
     When the response status should be 200
     Then the response should contain a JSON array of size 1
     And one element of the JSON array must be "id":
-    And one element of the JSON array must be ,"state":"ACTIONABLE"
-    And one element of the JSON array must be ,"iac":
-    And one element of the JSON array must be ,"actionPlanId":
-    And one element of the JSON array must be ,"caseRef":
-    And one element of the JSON array must be ,"collectionInstrumentId":
-    And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"sampleUnitType":"B"
-    And one element of the JSON array must be ,"createdBy":"SYSTEM"
-    And one element of the JSON array must be ,"createdDateTime":
-    And one element of the JSON array must be ,"responses":[]
-    And one element of the JSON array must be ,"caseGroup":{
+    And one element of the JSON array must be "state":"ACTIONABLE"
+    And one element of the JSON array must be "iac":
+    And one element of the JSON array must be "actionPlanId":
+    And one element of the JSON array must be "caseRef":
+    And one element of the JSON array must be "collectionInstrumentId":
+    And one element of the JSON array must be "partyId":
+    And one element of the JSON array must be "sampleUnitType":"B"
+    And one element of the JSON array must be "createdBy":"SYSTEM"
+    And one element of the JSON array must be "createdDateTime":
+    And one element of the JSON array must be "responses":[]
+    And one element of the JSON array must be "caseGroup":{
     And one element of the JSON array must be },"caseEvents":null}
 
   # 204
