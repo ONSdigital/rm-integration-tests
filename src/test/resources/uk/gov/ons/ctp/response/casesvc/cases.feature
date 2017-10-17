@@ -75,7 +75,7 @@ Feature: Validating cases requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 390 seconds
+    Given after a delay of 400 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -88,7 +88,7 @@ Feature: Validating cases requests
     Given I make the GET call to the caseservice cases endpoint for casegroupid
     When the response status should be 200
     Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be "id":
     And one element of the JSON array must be ,"state":"ACTIONABLE","actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
@@ -174,7 +174,7 @@ Feature: Validating cases requests
     Given I make the GET call to the caseservice cases endpoint for party with parameters ""
     When the response status should be 200
     Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be "id":
     And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
@@ -187,7 +187,7 @@ Feature: Validating cases requests
     Given I make the GET call to the caseservice cases endpoint for party with parameters "?caseevents=true"
     When the response status should be 200
     Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be "id":
     And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
@@ -201,7 +201,7 @@ Feature: Validating cases requests
     Given I make the GET call to the caseservice cases endpoint for party with parameters "?iac=true"
     When the response status should be 200
     Then the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be "id":
     And one element of the JSON array must be ,"state":"ACTIONABLE","iac":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"caseRef":

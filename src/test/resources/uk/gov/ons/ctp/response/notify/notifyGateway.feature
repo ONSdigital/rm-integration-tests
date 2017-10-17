@@ -82,7 +82,7 @@ Feature: Validating notify gateway requests
     And the response should contain the field "templateId" with value "290b93f2-04c2-413d-8f9b-93841e684e90"
     And the response should contain the field "fromEmail"
     And the response should contain the field "reference" with value "Test email message"
-@testemail
+
   Scenario: Post request to notify gateway for emails without optional parameters
     Given I make post call to the notify gateway endpoint for emails
       |  |  |
