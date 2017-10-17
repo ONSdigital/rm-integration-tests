@@ -59,6 +59,19 @@ Feature: Tests for response operations UI
     Then the actionsvc database has been reset
 
 
+  # Pre Test Action Exporter Environment Set Up -----
+
+  Scenario: Reset actionexporter database to pre test condition
+    When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
+    Then the actionexporter database has been reset
+
+  Scenario: Clean old print files from directory
+    Given create test directory "previousTests" for "BSD"
+    And the sftp exit status should be "-1"
+    When move print files to "previousTests/" for "BSD"
+    Then the sftp exit status should be "-1"
+
+
   # Execute Collection Exercise -----
 
   Scenario: Test execute from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2, 2.3)

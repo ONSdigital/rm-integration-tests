@@ -128,7 +128,7 @@ Feature: Tests the collection instrument is downloaded (RM)
     Given I make the GET call to the caseservice cases endpoint for case by party
     When the response status should be 200
     Then the response should contain a JSON array of size 2
-    And one element of the JSON array must be {"id":
+    And one element of the JSON array must be "id":
     And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"caseRef":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
