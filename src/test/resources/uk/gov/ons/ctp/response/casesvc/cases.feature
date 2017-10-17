@@ -189,7 +189,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be "createdDateTime":
     And one element of the JSON array must be "responses":[]
     And one element of the JSON array must be "caseGroup":{
-    And one element of the JSON array must be },"caseEvents":null}
+    And one element of the JSON array must be "caseEvents":null}
 
   Scenario: Get request to cases for specific case id
     Given I make the GET call to the caseservice cases endpoint for party with parameters "?caseevents=true"
@@ -226,7 +226,7 @@ Feature: Validating cases requests
     And one element of the JSON array must be "createdDateTime":
     And one element of the JSON array must be "responses":[]
     And one element of the JSON array must be "caseGroup":{
-    And one element of the JSON array must be },"caseEvents":null}
+    And one element of the JSON array must be "caseEvents":null}
 
   # 204
   Scenario: Get request to the cases endpoint for a non existing party id
