@@ -145,7 +145,7 @@ Feature: SDX Gateway tests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
-    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   # 201
   Scenario: Post request for SDX Gateway endpoint for B case not receiptable
@@ -155,7 +155,7 @@ Feature: SDX Gateway tests
     And the response should contain the field "caseRef"
     And after a delay of 10 seconds
     Then check "casesvc.response" records in DB equal 2
-    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   # 400
   Scenario: Post request for SDX Gateway endpoint for missing caseid
