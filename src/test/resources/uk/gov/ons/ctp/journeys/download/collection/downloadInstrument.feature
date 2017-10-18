@@ -129,16 +129,26 @@ Feature: Tests the collection instrument is downloaded (RM)
     When the response status should be 200
     Then the response should contain a JSON array of size 2
     And one element of the JSON array must be "id":
-    And one element of the JSON array must be ,"state":"INACTIONABLE","iac":null,"caseRef":
+    And one element of the JSON array must be "state":"INACTIONABLE"
+    And one element of the JSON array must be "iac":null
+    And one element of the JSON array must be "caseRef":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"collectionInstrumentId":
     And one element of the JSON array must be ,"partyId":
-    And one element of the JSON array must be ,"sampleUnitType":"B","createdBy":"SYSTEM","createdDateTime":
-    And one element of the JSON array must be ,"responses":[],"caseGroup":{
-    And one element of the JSON array must be },"caseEvents":null}
+    And one element of the JSON array must be ,"sampleUnitType":"B"
+    And one element of the JSON array must be "createdBy":"SYSTEM"
+    And one element of the JSON array must be "createdDateTime":
+    And one element of the JSON array must be "responses":[]
+    And one element of the JSON array must be "caseGroup":
+    And one element of the JSON array must be "caseEvents":null
     # BI unit
-    And one element of the JSON array must be ,"state":"ACTIONABLE","iac":null,"caseRef":"1000000000000501","actionPlanId":
-    And one element of the JSON array must be ,"sampleUnitType":"BI","createdBy":"Cucumber Test","createdDateTime":
+    And one element of the JSON array must be "state":"ACTIONABLE"
+    And one element of the JSON array must be "iac":null
+    And one element of the JSON array must be "caseRef":"1000000000000501"
+    And one element of the JSON array must be "actionPlanId":
+    And one element of the JSON array must be "sampleUnitType":"BI"
+    And one element of the JSON array must be "createdBy":"Cucumber Test"
+    And one element of the JSON array must be "createdDateTime":
 
 
   # Return No Open Cases for respondent 9.3.1 ----- partyid

@@ -125,8 +125,8 @@ Feature: Tests the survey reminders are sent
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 4            | 3            | COMPLETED | 3     |
-    And check "casesvc.caseevent" records in DB equal 3 for "description = 'Survey Reminder Notification'"
+      | 2             | 4            | 3            | COMPLETED | 4     |
+    And check "casesvc.caseevent" records in DB equal 4 for "description = 'Survey Reminder Notification'"
 
   # Report not developed so not tested (Journey steps: 8.8)
 
@@ -140,8 +140,8 @@ Feature: Tests the survey reminders are sent
     When after a delay of 90 seconds
     Then check "action.action" records in DB
       | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 5            | 3            | COMPLETED | 3     |
-    And check "casesvc.caseevent" records in DB equal 6 for "description = 'Survey Reminder Notification'"
+      | 2             | 5            | 3            | COMPLETED | 4     |
+    And check "casesvc.caseevent" records in DB equal 8 for "description = 'Survey Reminder Notification'"
 
 
   # Report (Journey steps: 8.8)
@@ -153,5 +153,5 @@ Feature: Tests the survey reminders are sent
     And checks value for column 6 and row 6 with value "3"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 5 against value "2" and should appear 3 times
+    And  checks values of column number 5 against value "2" and should appear 4 times
     Then the user logs out
