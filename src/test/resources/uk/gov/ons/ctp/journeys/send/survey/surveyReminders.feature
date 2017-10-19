@@ -145,12 +145,12 @@ Feature: Tests the survey reminders are sent
 
 
   # Report (Journey steps: 8.8)
-
+@uitest
   Scenario: Test ui report to confirm the actions count and the case events are viewed (P10.02-3,Journey steps: 8.8)
-    Given the "test" user has logged in using "chrome"
+    Given the "test" user has logged in using "chromehead"
     When the user navigates to the reports page and selects "action" reports
     When the user goes to view the most recent report
-    And checks value for column 6 and row 6 with value "3"
+    And checks value for column 6 and row 6 with value "4"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
     And  checks values of column number 5 against value "2" and should appear 4 times
