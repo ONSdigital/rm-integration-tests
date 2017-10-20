@@ -125,16 +125,16 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
-    Then checks values of print files rows counts matches value 497
-    When the user navigates to the reports page and selects "action" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
-    And  checks values of column number 7 against value "497" and should appear 3 times
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 4 against value "1" and should appear 500 times
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Enrolment Invitation Letter" appears in column 4 
+#    Then checks values of print files rows counts matches value 497
+#    When the user navigates to the reports page and selects "action" reports
+#    When the user goes to view the most recent report
+#    And  checks values of column number 2 against value "BRES Enrolment" and should appear 3 times
+#    And  checks values of column number 7 against value "497" and should appear 3 times
+#    When the user navigates to the reports page and selects "case" reports
+#    When the user goes to view the most recent report
+#    And  checks values of column number 4 against value "1" and should appear 500 times
+#    When the user searches for case ref "49900000001"
+#    Then the user looks at the events table to see the event "Enrolment Invitation Letter" appears in column 4 
     Then the user logs out
 
 
@@ -176,16 +176,16 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
-    Then checks values of print files rows counts matches value 497
-    When the user navigates to the reports page and selects "action" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 7 against value "497" and should appear 3 times
-    And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 5 against value "3" and should appear 497 times
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
+#    Then checks values of print files rows counts matches value 497
+#    When the user navigates to the reports page and selects "action" reports
+#    When the user goes to view the most recent report
+#    And  checks values of column number 7 against value "497" and should appear 3 times
+#    And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
+#    When the user navigates to the reports page and selects "case" reports
+#    When the user goes to view the most recent report
+#    And  checks values of column number 5 against value "3" and should appear 497 times
+#    When the user searches for case ref "49900000001"
+#    Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
     Then the user logs out
 
   # Reset Action Exporter Environment Set Up -----
@@ -226,15 +226,15 @@ Feature: Tests the enrolment letter and reminder letters are sent
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "print" reports
     When retrieves Print Volume reports table
-    Then checks values of print files rows counts matches value 497
-    When the user navigates to the reports page and selects "action" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 7 against value "497" and should appear 3 times
-    And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
-    When the user navigates to the reports page and selects "case" reports
-    When the user goes to view the most recent report
-    And  checks values of column number 5 against value "3" and should appear 497 times
-    When the user searches for case ref "49900000001"
-    Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
+#    Then checks values of print files rows counts matches value 497
+#    When the user navigates to the reports page and selects "action" reports
+#    When the user goes to view the most recent report
+#    And  checks values of column number 7 against value "497" and should appear 3 times
+#    And  checks values of column number 2 contains value "BRES Enrolment" and should appear 3 times
+#    When the user navigates to the reports page and selects "case" reports
+#    When the user goes to view the most recent report
+#    And  checks values of column number 5 against value "3" and should appear 497 times
+#    When the user searches for case ref "49900000001"
+#    Then the user looks at the events table to see the event "Enrolment Reminder Letter" appears in column 4
     Then the user logs out
   

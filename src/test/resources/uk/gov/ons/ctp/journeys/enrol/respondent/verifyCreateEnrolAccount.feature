@@ -195,9 +195,9 @@ Feature: Verify and Create Account
     Given the "test" user has logged in using "chrome"
     And the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    Then checks values of column number 7 against value "1" and should appear 1 times 
-    And checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
-    And  checks values of column number 2 against value "BI" and should appear 4 times
-    When the user searches for case ref from case report
-    Then the user looks at the events table to see the event "Respondent Enroled" appears in column 3 
+#    Then checks values of column number 7 against value "1" and should appear 1 times 
+#    And checks values of column number 8 against value "1" and should appear 1 times and returns sample ref
+#    And  checks values of column number 2 against value "BI" and should appear 4 times
+#    When the user searches for case ref from case report
+#    Then the user looks at the events table to see the event "Respondent Enroled" appears in column 3 
     And the user logs out

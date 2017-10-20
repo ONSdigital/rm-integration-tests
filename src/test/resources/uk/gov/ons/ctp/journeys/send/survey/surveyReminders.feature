@@ -153,5 +153,5 @@ Feature: Tests the survey reminders are sent
     And checks value for column 6 and row 6 with value "4"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 5 against value "2" and should appear 4 times
+#    And  checks values of column number 5 against value "2" and should appear 4 times
     Then the user logs out

@@ -150,5 +150,5 @@ Feature: Tests the response has been uploaded (RM)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 13 against value "1" and should appear 1 times
+#    And  checks values of column number 13 against value "1" and should appear 1 times
     Then the user logs out
