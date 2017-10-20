@@ -30,6 +30,7 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * Created by Stephen Goddard on 04/05/16.
@@ -135,6 +136,22 @@ public class HTTPResponseAware {
     executeRequest(put);
   }
 
+  /**
+   * Invoke a put http request.
+   *
+   * @param endpoint url
+   * @param data payload
+   * @param contentType MimeType
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokeBasicPut(final String endpoint, String data)
+      throws IOException, AuthenticationException {
+    final HttpPut put = new HttpPut(URI.create(endpoint));
+    put.setEntity(new StringEntity("[\""+data+"\"]", ContentType.APPLICATION_JSON ));
+    executeRequest(put);
+  }
+  
   /**
    * Create JSON before invoking a put http request.
    *

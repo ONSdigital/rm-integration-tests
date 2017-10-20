@@ -1,7 +1,13 @@
 package uk.gov.ons.ctp.response.samplesvc.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.compress.utils.IOUtils;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
@@ -69,8 +75,9 @@ public class SampleSvcSFTPResponseAware {
     responseAware.deleteAllFilesInDirectory(surveyLocation);
   }
 
+
   /**
-   * Move files to trigger the sample service for the survey type
+   * post files to trigger the sample service for the survey type
    *
    * @param surveyType survey area to run
    * @param fileType currently either valid or invalid
@@ -83,7 +90,7 @@ public class SampleSvcSFTPResponseAware {
     responseAware.setCredentials(world.getProperty(SFTP_USERNAME), world.getProperty(SFTP_PASSWORD));
     responseAware.copyFileFromLocalToRemote(surveyLocation, world.getProperty(XML_LOCATION_KEY), filename);
   }
-
+  
   /**
    * Confirm file exists
    *

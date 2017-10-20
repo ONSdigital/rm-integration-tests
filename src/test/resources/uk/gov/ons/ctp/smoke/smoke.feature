@@ -28,162 +28,127 @@
 Feature: Smoke Test
 
   # Pre Test Environment Set Up -----
+ @smoke1
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
-
+ @smoke1
   Scenario: Reset collection exercise service database to pre test condition
     Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     When the collectionexercisesvc database has been reset
-
+ @smoke1
   Scenario: Reset collection exercise service database to pre test condition
     When for the "casesvc" run the "casereset.sql" postgres DB script
     Then the casesvc database has been reset
-
+ @smoke1
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
-
+ @smoke1
   Scenario: Reset actionexporter database to pre test condition
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
     Then the actionexporter database has been reset
-
-  Scenario: Set up Queues
-    When set up queue
-    Then resets the queue
-
-    Scenario: Clean old print files from directory
+   @smoke1
+   Scenario: Clean old print files from directory
     Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
     When move print files to "previousTests/" for "BSD"
     Then the sftp exit status should be "-1"
-
+  @smoke1
+  Scenario: Set up Queues
+    When set up queue
+    Then resets the queues
 
   # Sample Service Smoke Tests -----
 
-  Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "BSD" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "BSD" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1"
-    And after a delay of 120 seconds 
-    #Then when a message is received from the queue
-    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
-    And the sftp exit status should be "-1" 
-  
+  Scenario: Test business csv sample load
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 1
+    Then when 500 messages from sample have been received from the queue
+    Then resets the sample queue
+ @smoke1
   Scenario: Test business sample load validation failure 
-    Given clean sftp folders of all previous ingestions for "BSD" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "BSD" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 30 seconds 
-    Then for the "BSD" survey confirm processed file "BSD-survey-invalid*.error" is found 
-    And the sftp exit status should be "-1" 
-    Then for the "BSD" survey get the contents of the file "BSD-survey-invalid*error.txt" 
-    And the sftp exit status should be "-1" 
-    And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
-    And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 
-    And the contents should contain "cvc-enumeration-valid: Value 'Invalid' is not facet-valid with respect to enumeration '[H, HI, C, CI, B, BI]'. It must be a value from the enumeration." 
-    And the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
-  
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "invalid" file to trigger ingestion
+    When the response status should be 400
+    Then the response should contain the field "error"
+
+ @smoke1
   Scenario: Test census sample load
-    Given clean sftp folders of all previous ingestions for "CTP" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "CTP" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
-    And after a delay of 55 seconds 
-    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found 
-    And the sftp exit status should be "-1" 
-  
+    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
+    Then the response should contain the field "state" with value "INIT"
+   @smoke1
   Scenario: Test census sample load validation failure
-    Given clean sftp folders of all previous ingestions for "CTP" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "CTP" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 30 seconds 
-    Then for the "CTP" survey confirm processed file "CTP-survey-invalid*.error" is found 
-    And the sftp exit status should be "-1" 
-    Then for the "CTP" survey get the contents of the file "CTP-survey-invalid*error.txt" 
-    And the sftp exit status should be "-1" 
-    And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
-    And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 
-    And the contents should contain "cvc-enumeration-valid: Value 'Invalid' is not facet-valid with respect to enumeration '[H, HI, C, CI, B, BI]'. It must be a value from the enumeration." 
-    And the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
-
+    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
+    When the response status should be 400
+    Then the response should contain the field "error"
+ @smoke1
   Scenario: Test social sample load
-    Given clean sftp folders of all previous ingestions for "SSD" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "SSD" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
-    And after a delay of 55 seconds 
-    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found 
-    And the sftp exit status should be "-1" 
-
+    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
+    Then the response should contain the field "state" with value "INIT"
+ @smoke1
   Scenario: Test social sample load validation failure
-    Given clean sftp folders of all previous ingestions for "SSD" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "SSD" survey move the "invalid" file to trigger ingestion 
-    And after a delay of 30 seconds 
-    Then for the "SSD" survey confirm processed file "SSD-survey-invalid*.error" is found 
-    And the sftp exit status should be "-1" 
-    Then for the "SSD" survey get the contents of the file "SSD-survey-invalid*error.txt" 
-    And the sftp exit status should be "-1" 
-    And the contents should contain "org.springframework.integration.xml.AggregatedXmlMessageValidationException: Multiple causes:" 
-    And the contents should contain "cvc-complex-type.2.4.a: Invalid content was found starting with element 'sampleUnitType'. One of '{formType}' is expected." 
-    And the contents should contain "cvc-enumeration-valid: Value 'Invalid' is not facet-valid with respect to enumeration '[H, HI, C, CI, B, BI]'. It must be a value from the enumeration." 
-    And the contents should contain "cvc-type.3.1.3: The value 'Invalid' of element 'sampleUnitType' is not valid." 
-
+    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "invalid" file to trigger ingestion
+    When the response status should be 400
+    Then the response should contain the field "error"
 
   # Collection Exercise Smoke Tests -----
-
+  
+  # to be replaced by UI 
+  Scenario: Put repuest to sample service service links the sample summary to a collection exercise
+    Given I retrieve From Sample DB the Sample Summary
+    Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
+    
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
-  Scenario: Put request to collection exercise service for specific census survey by exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
-    When the response status should be 200
+  #Scenario: Put request to collection exercise service for specific census survey by exercise id
+  #  Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
+  #  When the response status should be 200
     # 0 returned as seed data/party svc does not work for Census
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
+  #  Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
-  Scenario: Put request to collection exercise service for specific social survey by exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
-    When the response status should be 200
+  #Scenario: Put request to collection exercise service for specific social survey by exercise id
+  #  Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
+  #  When the response status should be 200
     # 0 returned as seed data/party svc does not work for Social
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
+  #  Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
 
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Then resets the queue
-    Then when 500 messages have been received from the queue
-    #Given after a delay of 280 seconds
+    Then when 500 messages from case have been received from the queue
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
-
-
-  # Action Service Smoke Tests -----
-
-  Scenario: Test actionsvc case DB state for actionplan 1
-    Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
-    When check "action.case" records in DB equal 2 for "actionplanfk = 2"
 
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 498   |
-    When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 498 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
+      | 1             | 1            | 1            | 497   |
+    Then when 497 messages from action have been received from the queue
+    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
+  # Action Service Smoke Tests -----
+
+  Scenario: Test actionsvc case DB state for actionplan 1
+    Then when 500 messages from action case have been received from the queue
+    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    When check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # Action Exporter Service Smoke Tests -----
 
   Scenario: Test print file generation and confirm contents
-    Given after a delay of 90 seconds
+    Then when 1 messages from action exporter have been received from the queue
     When get the contents of the print files where the filename begins "BSNOT" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
-    And the contents should contain 498 lines
+    And the contents should contain 497 lines

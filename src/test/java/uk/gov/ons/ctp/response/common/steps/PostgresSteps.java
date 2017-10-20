@@ -198,7 +198,7 @@ public class PostgresSteps {
     long result = responseAware.rowCount(String.format(COUNT_WHERE, table, whereSearch));
     assertTrue(table + " found " + whereSearch + " in DB equal to: " + result, result == total);
   }
-
+  
   /**
    * Check number of records in DB action service
    *

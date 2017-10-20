@@ -1,9 +1,12 @@
 package uk.gov.ons.ctp.response.actionexporter.steps;
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.actionexporter.util.ActionExporterSFTPResponseAware;
+import uk.gov.ons.ctp.response.springintergration.EventMessageExchange;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -11,6 +14,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ActionExporterSFTPSteps {
   private static final int IAC_SIZE = 12;
+  private static final int MILLI_TO_SECONDS = 1000;
   private final ActionExporterSFTPResponseAware responseAware;
 
   /**
@@ -21,7 +25,7 @@ public class ActionExporterSFTPSteps {
   public ActionExporterSFTPSteps(ActionExporterSFTPResponseAware actionExporterSFTPResponseAware) {
     this.responseAware = actionExporterSFTPResponseAware;
   }
-
+  
   /**
    * Create the directory if it does not exist
    *

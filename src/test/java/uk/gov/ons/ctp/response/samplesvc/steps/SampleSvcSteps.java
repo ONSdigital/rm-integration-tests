@@ -3,6 +3,7 @@ package uk.gov.ons.ctp.response.samplesvc.steps;
 import java.util.Properties;
 
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
 import uk.gov.ons.ctp.response.samplesvc.util.SampleSvcResponseAware;
 
 /**
@@ -43,6 +44,7 @@ public class SampleSvcSteps {
     responseAware.invokePostEndpoint(properties);
   }
 
+  
   /**
    * Test post request for /info
    * @throws Throwable pass the exception
@@ -50,5 +52,18 @@ public class SampleSvcSteps {
   @Given("^I make the call to the sample service endpoint for info")
   public void i_make_the_call_to_the_sample_service_endpoint_for_info() throws Throwable {
     responseAware.invokeInfoEndpoint();
+  }
+  
+  
+  /**
+   * Move file to trigger sample service to process file
+   *
+   * @param surveyType survey area to run
+   * @param fileType currently either valid or invalid
+   * @throws Throwable pass the exception
+   */
+  @When("^I make the POST call to the sample \"(.*?)\" service endpoint for the \"(.*?)\" survey \"(.*?)\" file to trigger ingestion$")
+  public void i_make_the_POST_call_to_the_sample_service_endpoint_for_the_survey_file_to_trigger_ingestion(String surveyName, String surveyType, String fileType) throws Throwable {
+    responseAware.invokeSurveyFileEndpoint(surveyName, surveyType, fileType);
   }
 }

@@ -1,6 +1,9 @@
 package uk.gov.ons.ctp.response.collectionexercisesvc.util;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
 
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.entity.ContentType;
@@ -15,13 +18,14 @@ public class CollectionExerciseSvcResponseAware {
   private static final String PUT_EXERCISE_URL = "/collectionexercises/%s";
   private static final String GET_SURVEY_URL = "/collectionexercises/survey/%s";
   private static final String GET_EXERCISE_URL = "/collectionexercises/%s";
+  private static final String PUT_SAMPLE_URL = "/collectionexercises/link/%s";
   private static final String INFO_URL = "/info";
   private static final String USERNAME = "cuc.collect.username";
   private static final String PASSWORD = "cuc.collect.password";
   private static final String SERVICE = "collectionexercisesvc";
   private World world;
   private HTTPResponseAware responseAware;
-
+  
   /**
    * Constructor - also gets singleton of http request runner.
    *
@@ -30,9 +34,26 @@ public class CollectionExerciseSvcResponseAware {
   public CollectionExerciseSvcResponseAware(final World newWorld) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
+    
     responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
   }
 
+  /**
+   *
+   *
+   * @param samplesummaryId samplesummary Id
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePutCollectionExerciseSampleSummary(List<UUID> sampleSummaryId, String exerciseId) throws AuthenticationException, IOException {
+    final String url = String.format(world.getUrl(PUT_SAMPLE_URL, SERVICE), exerciseId);
+    UUID id = sampleSummaryId.get(0);
+    //Properties properties = new Properties();
+    //properties.setProperty(key, value)
+    responseAware.invokeBasicPut(url, id.toString());
+  }
+  
+  
   /**
    * Collection Exercise Service - /collectionexercises/{exerciseId} put endpoints.
    *

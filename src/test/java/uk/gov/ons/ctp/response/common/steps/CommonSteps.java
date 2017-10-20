@@ -14,7 +14,7 @@ import com.jayway.jsonpath.JsonPath;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.minidev.json.JSONArray;
-import uk.gov.ons.ctp.response.springintergration.SampleSvcMessage;
+import uk.gov.ons.ctp.response.springintergration.EventMessageExchange;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -378,7 +378,7 @@ public class CommonSteps {
    */
   @Then("^set up queue$")
   public void set_up_queue() throws Throwable {
-    SampleSvcMessage messageQueue = new SampleSvcMessage();
+    EventMessageExchange messageQueue = new EventMessageExchange();
     messageQueue.setUpConsumer();
   }
   
@@ -387,9 +387,25 @@ public class CommonSteps {
    *
    * @throws Throwable pass the exception
    */
-  @Then("^resets the queue$")
+  @Then("^resets the queues$")
   public void reset_the_queue() throws Throwable {
-    SampleSvcMessage.resetGotMessage();
+    EventMessageExchange.resetGotMessage();
+    EventMessageExchange.resetNumberCaseMessage();
+    EventMessageExchange.resetNumberActionMessage();
+    EventMessageExchange.resetNumberActionCaseMessages();
+    EventMessageExchange.resetNumberActionExporterMessages();
+    EventMessageExchange.resetNumberSampleMessage();
+    
+  }
+  
+  /**
+   * Utility which resets the queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^resets the sample queue$")
+  public void reset_the_sample_queue() throws Throwable {
+    EventMessageExchange.resetNumberSampleMessage();
   }
   
   /**
@@ -399,12 +415,12 @@ public class CommonSteps {
    */
   @Then("^when a message is received from the queue$")
   public void when_a_message_is_received_from_the_queue() throws Throwable {
-    while (!SampleSvcMessage.getGotMessage()){
-      System.out.println(SampleSvcMessage.getBodyMessage());
+    while (!EventMessageExchange.getGotMessage()){
+      System.out.println(EventMessageExchange.getBodyMessage());
       Thread.sleep(1 * MILLI_TO_SECONDS);
     }
-    System.out.println(SampleSvcMessage.getBodyMessage());
-    assertTrue(SampleSvcMessage.getGotMessage());
+    System.out.println(EventMessageExchange.getBodyMessage());
+    assertTrue(EventMessageExchange.getGotMessage());
     
   }
   
@@ -413,14 +429,84 @@ public class CommonSteps {
    *
    * @throws Throwable pass the exception
    */
-  @Then("^when (\\d+) messages have been received from the queue$")
-  public void when_messages_have_been_received_from_the_queue(int number) throws Throwable {
-    while (number != SampleSvcMessage.getNumberMessage()){
-      System.out.println(SampleSvcMessage.getNumberMessage());
+  @Then("^when (\\d+) messages from sample have been received from the queue$")
+  public void when_messages_from_sample_have_been_received_from_the_queue(int number) throws Throwable {
+
+    while (number != EventMessageExchange.getNumberSampleMessage()){
+      System.out.println("Sample Message: "+ EventMessageExchange.getNumberSampleMessage());
       Thread.sleep(1 * MILLI_TO_SECONDS);
     }
-    System.out.println(SampleSvcMessage.getBodyMessage());
-    assertEquals(number, SampleSvcMessage.getNumberMessage());
-    
+    System.out.println(EventMessageExchange.getBodyMessage());
+    assertEquals(number, EventMessageExchange.getNumberSampleMessage());
+
+  }
+  
+  
+  /**
+   * Utility which waits for an event from a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^when (\\d+) messages from action have been received from the queue$")
+  public void when_messages_from_action_have_been_received_from_the_queue(int number) throws Throwable {
+
+    while (number != EventMessageExchange.getNumberActionMessage()){
+      System.out.println("Action message: "+ EventMessageExchange.getNumberActionMessage());
+      Thread.sleep(1 * MILLI_TO_SECONDS);
+    }
+    System.out.println(EventMessageExchange.getBodyMessage());
+    assertEquals(number, EventMessageExchange.getNumberActionMessage());
+
+  }
+  
+  /**
+   * Utility which waits for an event from a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^when (\\d+) messages from action case have been received from the queue$")
+  public void when_messages_from_action_case_have_been_received_from_the_queue(int number) throws Throwable {
+
+    while (number != EventMessageExchange.getNumberActionCaseMessages()){
+      System.out.println("Action message: "+ EventMessageExchange.getNumberActionCaseMessages());
+      Thread.sleep(1 * MILLI_TO_SECONDS);
+    }
+    System.out.println(EventMessageExchange.getBodyMessage());
+    assertEquals(number, EventMessageExchange.getNumberActionCaseMessages());
+
+  }
+  
+  /**
+   * Utility which waits for an event from a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^when (\\d+) messages from case have been received from the queue$")
+  public void when_messages_from_case_have_been_received_from_the_queue(int number) throws Throwable {
+
+    while (number != EventMessageExchange.getNumberCaseMessage()){
+      System.out.println("Case Message: "+ EventMessageExchange.getNumberCaseMessage());
+      Thread.sleep(1 * MILLI_TO_SECONDS);
+    }
+    System.out.println(EventMessageExchange.getBodyMessage());
+    assertEquals(number, EventMessageExchange.getNumberCaseMessage());
+
+  }
+  
+  
+  /**
+   * Utility which waits for an event from a queue
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^when (\\d+) messages from action exporter have been received from the queue$")
+  public void when_messages_from_action_exporter_have_been_received_from_the_queue(int number) throws Throwable {
+    while (number != EventMessageExchange.getNumberActionExporterMessages()){
+      System.out.println("exporter Message: "+ EventMessageExchange.getNumberActionExporterMessages());
+      Thread.sleep(1 * MILLI_TO_SECONDS);
+    }
+    System.out.println(EventMessageExchange.getBodyMessage());
+    assertEquals(number, EventMessageExchange.getNumberActionExporterMessages());
+
   }
 }
