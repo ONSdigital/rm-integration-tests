@@ -67,14 +67,14 @@ Feature: Tests the response has been uploaded (RM)
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
   Scenario: Test casesvc case for business survey DB state (Journey steps: 2.4, 2.5, 2.8)
-    Given after a delay of 280 seconds
+    Given after a delay of 400 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
     
   Scenario: Test actionsvc case for business survey DB state for actionplan 1 (Journey steps: 2.6, 2.7)
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
     Then check "casesvc.caseevent" records in DB equal 500 for "description = 'Case created when Initial creation of case'"
 
 
@@ -114,7 +114,7 @@ Feature: Tests the response has been uploaded (RM)
     And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
   Scenario: test new case has been added to the action service cases
-    Given check "action.case" records in DB equal 3 for "actionplanfk = 2"
+    Given check "action.case" records in DB equal 4 for "actionplanfk = 2"
 
 
   # Journey Test
@@ -140,7 +140,7 @@ Feature: Tests the response has been uploaded (RM)
     And the response should contain the field "description" with value "Offline Response"
     And check "casesvc.caseevent" records in DB equal 1 for "description = 'Offline Response'"
     And check "casesvc.response" records in DB equal 1
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   # Report 
@@ -150,5 +150,5 @@ Feature: Tests the response has been uploaded (RM)
     Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "case" reports
     When the user goes to view the most recent report
-    And  checks values of column number 13 against value "1" and should appear 1 times
+#    And  checks values of column number 13 against value "1" and should appear 1 times
     Then the user logs out

@@ -19,6 +19,11 @@ import uk.gov.ons.ctp.util.World;
  */
 public class CaseResponseAware {
   private static final String WHERE_SQL = "SELECT %s FROM %s WHERE %s;";
+  private static final String REPEAT_EVENT_SQL = "SELECT id, caseservice.partyid "
+      + "FROM casesvc.case caseservice "
+      + "INNER JOIN collectionexercise.sampleunit sample "
+      + "ON caseservice.partyid = sample.partyid "
+      + "WHERE sample.sampleunitref = '%s'";
   private static final String GET_CASEGROUP_URL = "/casegroups/%s";
   private static final String GET_CASE_CASEGROUP_URL = "/cases/casegroupid/%s";
   private static final String GET_IAC_URL = "/cases/iac/%s%s";
@@ -167,7 +172,7 @@ public class CaseResponseAware {
   public void invokePostCasesEventsEndpoint(String caseId, Properties properties)
       throws IOException, AuthenticationException {
     if (caseId == null || caseId.length() == 0) {
-      String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "casepk = 10");
+      String sql = String.format(WHERE_SQL, "id, partyid", "casesvc.case", "casepk = 50");
       List<String> result = postgresResponseAware.getRecord(sql);
       caseId = result.get(0);
       properties.put("partyId", result.get(1));
@@ -195,6 +200,29 @@ public class CaseResponseAware {
 
     final String url = String.format(POST_EVENTS_URL, result.get(0));
     responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
+  }
+
+  /**
+   * @caseresponse Service - /cases/{caseId}/events post end points repeatedly call.
+   *
+   * @param repeat number of repeats
+   * @param ruRef reference to case to create actions for
+   * @param properties required to pass
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   * @throws SQLException sql exception
+   * @throws ClassNotFoundException class not found exception
+   */
+  public void invokePostCasesEventsEndpointRepeated(int repeat, String ruRef, Properties properties)
+      throws IOException, AuthenticationException, ClassNotFoundException, SQLException {
+    String sql = String.format(REPEAT_EVENT_SQL, ruRef);
+    List<String> result = postgresResponseAware.getRecord(sql);
+    properties.put("partyId", result.get(1));
+
+    for (int c = 1; c <= repeat; c++) {
+      final String url = String.format(POST_EVENTS_URL, result.get(0));
+      responseAware.invokeJsonPost(world.getUrl(url, SERVICE), properties);
+    }
   }
 
   /**

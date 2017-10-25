@@ -47,11 +47,12 @@ public class ReportsPom {
   public ReportsPom(WebDriver webDriver) {
     PageFactory.initElements(webDriver, this);
   }
-/**
- * Selects report of certain type
- *
- * @param reportType type of report
- */
+
+  /**
+   * Selects report of certain type
+   *
+   * @param reportType type of report
+   */
   public void selectReportType(String reportType) {
 
     switch (reportType) {
@@ -77,25 +78,32 @@ public class ReportsPom {
       break;
     }
   }
+
   /**
    * clicks on the report selected
    */
   public void selectReport() {
     viewReport.click();
   }
+
   /**
-   * 
+   * Get the number of reports in the table
+   *
    * @return number of reports
    */
-  public int getNumberOfReports(){
+  public int getNumberOfReports() {
     TableHelper table = new TableHelper();
     return table.extractNumberOfRowsFromTable(reportTable);
   }
-  
+
+  /**
+   * Get table
+   *
+   * @return table as web element
+   */
   public WebElement getTable() {
     return reportTable;
   }
-
 
   /**
    * Checks the value of a column within a report returns the number of times that value appears within that column
@@ -119,7 +127,7 @@ public class ReportsPom {
   }
 
   /**
-   * Checks a value is contained within the column in a report returns the number of times that value appears within that column
+   * Checks a value is contained within the column the number of times expected
    *
    * @param column looking at
    * @param value looking for
@@ -138,7 +146,7 @@ public class ReportsPom {
     }
     return count;
   }
-  
+
   /**
    * returns one value from a report
    *

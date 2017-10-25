@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
+import uk.gov.ons.ctp.ui.rm.ro.pom.HomePOM;
 import uk.gov.ons.ctp.ui.rm.ro.pom.PrintVolumePom;
 import uk.gov.ons.ctp.ui.rm.ro.pom.ReportsPom;
 import uk.gov.ons.ctp.ui.rm.ro.pom.SearchReportUnitPom;
@@ -15,16 +16,14 @@ import uk.gov.ons.ctp.util.World;
  * Edited by Chris Hardman on 17/11/16
  *
  */
-public class UIResponseAware extends SeleniumAware {
-  private static final String REPORTS_URL = "/reports";
-  private static final String SERVICE = "ui";
+public class UIReportResponseAware extends SeleniumAware {
 
   /**
    * Constructor
    *
    * @param newWorld class with application and environment properties
    */
-  public UIResponseAware(final World newWorld) {
+  public UIReportResponseAware(final World newWorld) {
     super(newWorld);
   }
 
@@ -33,7 +32,6 @@ public class UIResponseAware extends SeleniumAware {
    * @param reportRef to look up
    */
   public void searchReportingUnit(String reportRef) {
-
     SearchReportUnitPom search = new SearchReportUnitPom(getWebDriver());
     search.setReportRef(reportRef);
     search.submitReportRef();
@@ -49,16 +47,20 @@ public class UIResponseAware extends SeleniumAware {
     SearchReportUnitPom search = new SearchReportUnitPom(getWebDriver());
     return search.checkCaseEvent(event, column);
   }
+
   /**
+   * Navigate to reports page
    *
    * @param reportType to look at
    */
   public void invokeReportSelection(String reportType) {
-    invokeNavigateToPage(getWorld().getUrl(REPORTS_URL, SERVICE));
+    HomePOM homePage = new HomePOM(getWebDriver());
+    homePage.selectReportTab();
 
     ReportsPom reports = new ReportsPom(getWebDriver());
     reports.selectReportType(reportType);
   }
+
   /**
    * views a report
    */
@@ -66,21 +68,25 @@ public class UIResponseAware extends SeleniumAware {
     ReportsPom reports = new ReportsPom(getWebDriver());
     reports.selectReport();
   }
-  
+
   /**
-   * views a report
+   * views a number of reports
+   *
+   * @return number of report tables
    */
   public int retriveNumberOfReports() {
     ReportsPom reports = new ReportsPom(getWebDriver());
     return reports.getNumberOfReports();
   }
-  
+
   /**
-   * Retrieves a table 
+   * Retrieves a print volume table
+   *
+   * @return table as web element
    */
-  public WebElement getPrintVolumeTable(){
-    PrintVolumePom PrintReport = new PrintVolumePom(getWebDriver());
-    return PrintReport.getTable();
+  public WebElement getPrintVolumeTable() {
+    PrintVolumePom printReport = new PrintVolumePom(getWebDriver());
+    return printReport.getTable();
   }
 
   /**

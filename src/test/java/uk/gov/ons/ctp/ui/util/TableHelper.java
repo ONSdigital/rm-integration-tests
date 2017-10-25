@@ -60,11 +60,10 @@ public class TableHelper {
    * @return String cell value
    */
   public String extractValueFromTable(WebElement table, int rowNumber, int columnNumber) {
-
-
     List<WebElement> rows = table.findElements(By.tagName("tr"));
     WebElement row = rows.get(rowNumber);
     List<WebElement> values = row.findElements(By.tagName("td"));
+
     return values.get(columnNumber).getText();
   }
 

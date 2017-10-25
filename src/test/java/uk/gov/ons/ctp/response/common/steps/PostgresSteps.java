@@ -143,6 +143,18 @@ public class PostgresSteps {
   }
 
   /**
+   * Confirm clean of notify gateway postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the notifygatewaysvc database has been reset$")
+  public void the_notifygatewaysvc_database_has_been_reset() throws Throwable {
+    checkRecordsInDBEqual("notifygatewaysvc.message", 0);
+
+    checkSequenceInDBEqual("notifygatewaysvc.messageseq", 1);
+  }
+
+  /**
    * Run .sql script
    *
    * @param service to run script against

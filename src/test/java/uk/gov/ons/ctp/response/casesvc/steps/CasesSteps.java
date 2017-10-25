@@ -189,17 +189,17 @@ public class CasesSteps {
    * Test post request for /cases/{caseId}/events for BI sample unit type
    *
    * @param unitType sample unit type
-   * @param getValues to be in json
+   * @param postValues to be in json
    * @throws Throwable pass the exception
    */
   @When("^I make the POST call to the caseservice cases events for \"(.*?)\"$")
-  public void i_make_the_POST_call_to_the_caseservice_cases_events_for(String unitType, List<String> getValues)
+  public void i_make_the_POST_call_to_the_caseservice_cases_events_for(String unitType, List<String> postValues)
       throws Throwable {
     Properties properties = new Properties();
-    properties.put("description", getValues.get(0));
-    properties.put("category", getValues.get(1));
-    properties.put("subCategory", getValues.get(2));
-    properties.put("createdBy", getValues.get(3));
+    properties.put("description", postValues.get(0));
+    properties.put("category", postValues.get(1));
+    properties.put("subCategory", postValues.get(2));
+    properties.put("createdBy", postValues.get(3));
 
     responseAware.invokePostCasesEventsEndpointForBI(unitType, properties);
   }
@@ -233,5 +233,24 @@ public class CasesSteps {
   @Given("^I make the GET call to the caseservice cases endpoint for case by party$")
   public void i_make_the_GET_call_to_the_caseservice_cases_endpoint_for_case_by_party() throws Throwable {
     responseAware.invokeCasesEndpointForNewCaseParty();
+  }
+
+  /**
+   * Repeatedly call the post request for /cases/{caseId}/events
+   *
+   * @param repeat number of repeats
+   * @param ruRef reference to case to create actions for
+   * @throws Throwable pass the exception
+   */
+  @Given("^I make the POST call to the caseservice cases events (\\d+) times for sampleunit \"(.*?)\"$")
+  public void i_make_the_POST_call_to_the_caseservice_cases_events_times_for_sampleunit(int repeat, String ruRef)
+      throws Throwable {
+    Properties properties = new Properties();
+    properties.put("description", "Created by cucumber test");
+    properties.put("category", "ACTION_COMPLETED");
+    properties.put("subCategory", "Repeated post events");
+    properties.put("createdBy", "Cucumber Test");
+
+    responseAware.invokePostCasesEventsEndpointRepeated(repeat, ruRef, properties);
   }
 }

@@ -2,35 +2,32 @@ package uk.gov.ons.ctp.ui.rm.ro.steps;
 
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
-import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import uk.gov.ons.ctp.ui.rm.ro.util.UIResponseAware;
+import uk.gov.ons.ctp.ui.rm.ro.util.UIReportResponseAware;
 
 /**
  * Created by Stephen Goddard on 01/08/17.
  */
-public class UiTestSteps {
-  private final UIResponseAware responseAware;
-
+public class UIReportTestSteps {
+  private final UIReportResponseAware responseAware;
 
   private String caseRefRetrieved;
-  
-  private int numberOfReports;
-  
   private WebElement reportTable;
+
   /**
    * Constructor
    *
    * @param uiResponseAware ui runner
    */
-  public UiTestSteps(UIResponseAware uiResponseAware) {
+  public UIReportTestSteps(UIReportResponseAware uiResponseAware) {
     this.responseAware = uiResponseAware;
   }
 
@@ -112,15 +109,6 @@ public class UiTestSteps {
   public void the_user_goes_to_view_the_most_recent_report() throws Throwable {
     responseAware.viewReport();
   }
-  
-  /**
-   * @throws Throwable error
-   */
-  @When("^the user retrives number of reports$")
-  public void the_user_retrives_number_of_report() throws Throwable {
-    numberOfReports = responseAware.retriveNumberOfReports() - 1;
-  }
-
 
   /**
    * @throws Throwable error
@@ -130,31 +118,28 @@ public class UiTestSteps {
     reportTable = responseAware.getPrintVolumeTable();
   }
 
-
   /**
-  *
-  * @param column to look in
-  * @param row to look in
-  * @param value to look up
-  *
+   * Check count from table matches value
+   *
+    * @param value to look up
   * @throws Throwable error
-  */
+   */
   @Then("^checks values of print files rows counts matches value (\\d+)$")
   public void checks_values_of_print_files_rows_counts_matches_value(int value) throws Throwable {
 
     int reportValue = 0;
 
-    List<WebElement>rows = reportTable.findElements(By.linkText("View"));
-    for (int i = 0; i<rows.size(); i++){
+    List<WebElement> rows = reportTable.findElements(By.linkText("View"));
+    for (int i = 0; i < rows.size(); i++) {
       rows = reportTable.findElements(By.linkText("View"));
       rows.get(i).click();
-      String rowcount = responseAware.checksSpeficValueFromReport(1,1);
-      reportValue =+ Integer.parseInt(rowcount);
+      String rowcount = responseAware.checksSpeficValueFromReport(1, 1);
+      reportValue = +Integer.parseInt(rowcount);
       responseAware.invokeReportSelection("print");
     }
     assertEquals(value, reportValue);
   }
-  
+
   /**
    *
    * @param column to look in
@@ -182,7 +167,7 @@ public class UiTestSteps {
     int count = responseAware.checksColumnValues(column, value);
     assertEquals("Value in column does not match count", count, number);
   }
-  
+
   /**
   *
   * @param column to look in

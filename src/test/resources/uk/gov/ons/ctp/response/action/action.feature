@@ -69,7 +69,7 @@ Feature: Validating action requests
 
   # Pre Test Case Service Environment Set Up -----
   Scenario: Test casesvc case DB state
-    Given after a delay of 280 seconds
+    Given after a delay of 400 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -78,17 +78,17 @@ Feature: Validating action requests
 
   Scenario: Test actionsvc case DB state for actionplan 1
     Given after a delay of 60 seconds
-    When check "action.case" records in DB equal 498 for "actionplanfk = 1"
-    And check "action.case" records in DB equal 2 for "actionplanfk = 2"
+    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
+    And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
 
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 498   |
+      | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 498 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 498 for "description = 'Enrolment Invitation Letter'"
+    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
 
   # Endpoint Tests -----
@@ -99,7 +99,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         |  |  |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -119,7 +119,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         | BSNOT |  |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -139,7 +139,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         |  | COMPLETED |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -159,7 +159,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         | BSNOT | COMPLETED |
     When the response status should be 200
-    Then the response should contain a JSON array of size 498
+    Then the response should contain a JSON array of size 497
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -249,52 +249,59 @@ Feature: Validating action requests
     And the response should contain the field "error.timestamp"
 
 
-
-
   # POST /actions
-  # 201 CTPA-1585
-#  @post
+  # 201 - Temp Comment Out As Not Fixed CTPA-1585
 #  Scenario: Post request to actionservice for specified caseId with priority
 #    When I make the POST call to the actionservice actions endpoint
-#      |  | actiontypename | CucumberTest | 1 |
+#      |  | BSSNE | CucumberTest | 1 |
 #    Then the response status should be 201
-    #And the response should contain the field "id"
-    #And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
-    #And the response should contain the field "createdBy" with value "CucumberTest"
-    #And the response should contain the field "state" with value "SUBMITTED"
-    #And the response should contain the field "createdDateTime"
-    #And the response should contain the field "updatedDateTime"
+#    And the response should contain the field "id"
+#    And the response should contain the field "caseId"
+#    And the response should contain the field "actionPlanId" with a null value
+#    And the response should contain the field "actionRuleId" with a null value
+#    And the response should contain the field "actionTypeName" with value "BSSNE"
+#    And the response should contain the field "createdBy" with value "CucumberTest"
+#    And the response should contain the field "state" with value "SUBMITTED"
+#    And the response should contain the field "manuallyCreated" with boolean value "true"
+#    And the response should contain the field "priority" with an integer value of 1
+#    And the response should contain the field "situation" with a null value
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "updatedDateTime" with a null value
 
-  # 201 CTPA-1585
-#  @post
+  # 201 - Temp Comment Out As Not Fixed CTPA-1585
 #  Scenario: Post request to actionservice for specified caseId without priority
 #    When I make the POST call to the actionservice actions endpoint
-#      |  | actiontypename | CucumberTest |  |
+#      |  | BSSNE | CucumberTest |  |
 #    Then the response status should be 201
-    #And the response should contain the field "id"
-    #And the response should contain the field "actionPlanId" with value "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
-    #And the response should contain the field "createdBy" with value "CucumberTest"
-    #And the response should contain the field "state" with value "SUBMITTED"
-    #And the response should contain the field "updatedDateTime"
+#    And the response should contain the field "id"
+#    And the response should contain the field "caseId"
+#    And the response should contain the field "actionPlanId" with a null value
+#    And the response should contain the field "actionRuleId" with a null value
+#    And the response should contain the field "actionTypeName" with value "BSSNE"
+#    And the response should contain the field "createdBy" with value "CucumberTest"
+#    And the response should contain the field "state" with value "SUBMITTED"
+#    And the response should contain the field "manuallyCreated" with boolean value "true"
+#    And the response should contain the field "priority" with a null value
+#    And the response should contain the field "situation" with a null value
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "updatedDateTime" with a null value
 
-  # 400 CTPA-1585
-#  Scenario: Post request to actionservice with invalid input
-#    When I make the POST call to the actionservice actions endpoint with invalid input
-#    Then the response status should be 400
-#    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-#    And the response should contain the field "error.message" with value "Provided json is incorrect."
-#    And the response should contain the field "error.timestamp"
+  # 400
+  Scenario: Post request to actionservice with invalid input
+    When I make the POST call to the actionservice actions endpoint with invalid input
+    Then the response status should be 400
+    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json is incorrect."
+    And the response should contain the field "error.timestamp"
     
-  # 404 CTPA-1585
-#  @post
+  # 404 - Temp Comment Out As Not Fixed CTPA-1585
 #  Scenario: Post request to actionservice for specified caseId not found
 #    When I make the POST call to the actionservice actions endpoint
-#      | e71002ac-3575-47eb-b87f-cd9db92bf101 | actiontypename | CucumberTest | 1 |
+#      | e71002ac-3575-47eb-b87f-cd9db92bf101 | BSSNE | CucumberTest | 1 |
 #    Then the response status should be 404
 #    And the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-#    And the response should contain the field "error.message" with value "ActionPlan not found for id e71002ac-3575-47eb-b87f-cd9db92bf101"
+#    And the response should contain the field "error.message" with value "Case not found for id e71002ac-3575-47eb-b87f-cd9db92bf101"
 #    And the response should contain the field "error.timestamp"
-
 
 
   # PUT /actions/{actionid}

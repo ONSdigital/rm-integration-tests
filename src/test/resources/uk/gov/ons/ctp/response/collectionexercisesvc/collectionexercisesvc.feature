@@ -38,7 +38,7 @@ Feature: Runs the Collection Exercise endpoints
     And the sftp exit status should be "-1"
     When for the "CTP" survey move the "valid" file to trigger ingestion
     And the sftp exit status should be "-1"
-    And after a delay of 40 seconds
+    And after a delay of 70 seconds
     Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found
     And the sftp exit status should be "-1"
 

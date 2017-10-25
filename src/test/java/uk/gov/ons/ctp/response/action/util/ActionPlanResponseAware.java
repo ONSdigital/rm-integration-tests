@@ -12,6 +12,7 @@ import uk.gov.ons.ctp.util.World;
  * Created by Stephen Goddard on 03/05/16.
  */
 public class ActionPlanResponseAware {
+  private static final String POST_ACTIONSPLAN_URL = "/actionplans/%s/jobs";
   private static final String USERNAME = "cuc.collect.username";
   private static final String PASSWORD = "cuc.collect.password";
 
@@ -67,5 +68,19 @@ public class ActionPlanResponseAware {
       throws IOException, AuthenticationException {
     final String url = String.format("/actionplans/%s", properties.remove("id"));
     responseAware.invokeJsonPut(world.getUrl(url, "actionsvc"), properties);
+  }
+
+  /**
+   * @actionplan Service - /actionplans/{actionPlanId}/jobs put endpoints.
+   *
+   * @param actionPlanId action plan id
+   * @param properties values to be posted using JSON
+   * @throws IOException IO exception
+   * @throws AuthenticationException authentication exception
+   */
+  public void invokePostActionPlanIdEndpoint(String actionPlanId, Properties properties)
+      throws IOException, AuthenticationException {
+    final String url = String.format(POST_ACTIONSPLAN_URL, actionPlanId);
+    responseAware.invokeJsonPost(world.getUrl(url, "actionsvc"), properties);
   }
 }
