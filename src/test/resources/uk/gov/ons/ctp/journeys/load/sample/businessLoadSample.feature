@@ -21,10 +21,6 @@ Feature: Tests the load of business sample
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
 
-  Scenario: Set up Queues
-    When set up queue
-    Then resets the queue
-
   # Business Sample Load Tests -----
 
   Scenario: Test load of business sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
@@ -39,7 +35,7 @@ Feature: Tests the load of business sample
     Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
 
   Scenario: Test sample DB state (Journey steps: 1.5)
-    Then when a message is received from the queue
+    And after a delay of 70 seconds 
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
     Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
 
