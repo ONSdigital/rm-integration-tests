@@ -18,6 +18,7 @@ public class PostgresResponseAware {
   private static final String POST_UPDATE_URL = "/sql/update";
   private static final String SERVICE = "dbtool";
   private static final String LIMIT_SQL = "SELECT %s FROM %s LIMIT %s;";
+  private static final String WHERE_SQL = "SELECT %s FROM %s WHERE samplesummarypk = %s;";
   private World world;
   private HTTPResponseAware responseAware;
 
@@ -93,6 +94,21 @@ public class PostgresResponseAware {
    */
   public String getFieldFromRecord(String field, String table) throws IOException, AuthenticationException {
     String sql = String.format(LIMIT_SQL, field, table, "1");
+    List<String> resultList = dbRunSqlReturnList(sql);
+    return resultList.get(0);
+  }
+  
+  /**
+   * Get single field from database
+   *
+   * @param field name to extract value of
+   * @param table name
+   * @return String field value
+   * @throws IOException pass the exception
+   * @throws AuthenticationException pass the exception
+   */
+  public String getSignalFieldFromRecord(String field, String table, String match) throws IOException, AuthenticationException {
+    String sql = String.format(WHERE_SQL, field, table, match);
     List<String> resultList = dbRunSqlReturnList(sql);
     return resultList.get(0);
   }

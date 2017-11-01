@@ -54,55 +54,61 @@ Feature: Smoke Test
     And the sftp exit status should be "-1"
     When move print files to "previousTests/" for "BSD"
     Then the sftp exit status should be "-1"
-  @smoke1
-  Scenario: Set up Queues
-    When set up queue
-    Then resets the queues
 
   # Sample Service Smoke Tests -----
-
+ @smoke1
   Scenario: Test business csv sample load
     When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
     When the response status should be 201
     Then the response should contain the field "sampleSummaryPK" with an integer value of 1
-    Then when 500 messages from sample have been received from the queue
-    Then resets the sample queue
- @smoke1
+    And after a delay of 320 seconds
+    
+
   Scenario: Test business sample load validation failure 
     When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "invalid" file to trigger ingestion
     When the response status should be 400
     Then the response should contain the field "error"
+    And after a delay of 30 seconds
 
- @smoke1
+
   Scenario: Test census sample load
     When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
     When the response status should be 201
     Then the response should contain the field "sampleSummaryPK" with an integer value of 2
     Then the response should contain the field "state" with value "INIT"
-   @smoke1
+    And after a delay of 55 seconds
+    
+
   Scenario: Test census sample load validation failure
     When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
     When the response status should be 400
     Then the response should contain the field "error"
- @smoke1
+    And after a delay of 30 seconds
+    
+
   Scenario: Test social sample load
     When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
     When the response status should be 201
     Then the response should contain the field "sampleSummaryPK" with an integer value of 3
     Then the response should contain the field "state" with value "INIT"
- @smoke1
+    And after a delay of 55 seconds
+    
+
   Scenario: Test social sample load validation failure
     When I make the POST call to the sample "social" service endpoint for the "SSD" survey "invalid" file to trigger ingestion
     When the response status should be 400
     Then the response should contain the field "error"
+    And after a delay of 30 seconds
 
   # Collection Exercise Smoke Tests -----
   
   # to be replaced by UI 
+  @smoke1
   Scenario: Put repuest to sample service service links the sample summary to a collection exercise
     Given I retrieve From Sample DB the Sample Summary
     Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
-    
+    And after a delay of 30 seconds
+ @smoke1
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
@@ -124,7 +130,7 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Then when 500 messages from case have been received from the queue
+    Given after a delay of 280 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -132,21 +138,21 @@ Feature: Smoke Test
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 497   |
-    Then when 497 messages from action have been received from the queue
+    Given after a delay of 60 seconds
     Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
     When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
   # Action Service Smoke Tests -----
 
   Scenario: Test actionsvc case DB state for actionplan 1
-    Then when 500 messages from action case have been received from the queue
+    When after a delay of 90 seconds
     When check "action.case" records in DB equal 497 for "actionplanfk = 1"
     When check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # Action Exporter Service Smoke Tests -----
 
   Scenario: Test print file generation and confirm contents
-    Then when 1 messages from action exporter have been received from the queue
+    Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BSNOT" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac

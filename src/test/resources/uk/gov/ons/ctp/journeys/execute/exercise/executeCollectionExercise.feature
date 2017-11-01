@@ -32,31 +32,25 @@ Feature: Tests the publish collection exercise
     Then the samplesvc database has been reset
 
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "BSD" surveys
-    And the sftp exit status should be "-1"
-    When for the "BSD" survey move the "valid" file to trigger ingestion
-    And the sftp exit status should be "-1"
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 1
     And after a delay of 50 seconds
-    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
-    And the sftp exit status should be "-1"
+    
 
   Scenario: Load Census example survey
-    Given clean sftp folders of all previous ingestions for "CTP" surveys
-    And the sftp exit status should be "-1"
-    When for the "CTP" survey move the "valid" file to trigger ingestion
-    And the sftp exit status should be "-1"
+    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
+    Then the response should contain the field "state" with value "INIT"
     And after a delay of 50 seconds
-    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found
-    And the sftp exit status should be "-1"
 
   Scenario: Load Social example survey
-    Given clean sftp folders of all previous ingestions for "SSD" surveys
-    And the sftp exit status should be "-1"
-    When for the "SSD" survey move the "valid" file to trigger ingestion
-    And the sftp exit status should be "-1"
+    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
+    Then the response should contain the field "state" with value "INIT"
     And after a delay of 50 seconds
-    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found
-    And the sftp exit status should be "-1"
 
 
   # Pre Test Collection Exercise Service Environment Set Up -----
@@ -83,6 +77,10 @@ Feature: Tests the publish collection exercise
   # Journey Test
 
   # Execute Collection Exercise -----
+ Scenario: Test repuest to sample service service links the sample summary to a collection exercise
+    Given I retrieve From Sample DB the Sample Summary
+    Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
+    And after a delay of 50 seconds
 
   Scenario: Test execute from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2, 2.3)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"

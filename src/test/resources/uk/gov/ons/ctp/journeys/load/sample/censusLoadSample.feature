@@ -24,13 +24,10 @@ Feature: Tests the load of census sample
   # Census Sample Load Tests -----
 
   Scenario: Test load of census sample file (Journey steps: 1.1, 1.2, 1.3, 1.4) 
-    Given clean sftp folders of all previous ingestions for "CTP" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "CTP" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
+    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
+    When the response status should be 400
+    Then the response should contain the field "error"
     And after a delay of 50 seconds 
-    Then for the "CTP" survey confirm processed file "CTP-survey-full*.xml.processed" is found 
-    And the sftp exit status should be "-1" 
 
   Scenario: Test sample DB state (Journey steps: 1.5)
     Given after a delay of 20 seconds

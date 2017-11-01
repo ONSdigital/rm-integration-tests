@@ -105,7 +105,11 @@ public class HTTPResponseAware {
   protected StringEntity propertiesToJsonEntity(final Properties properties) throws JsonProcessingException {
     final ObjectMapper om = new ObjectMapper();
     StringEntity entity = new StringEntity(om.writeValueAsString(properties), ContentType.APPLICATION_JSON);
-    System.out.println(om.writeValueAsString(properties));
+    System.out.println("");
+    System.out.println("");
+    System.out.println("Json :" + om.writeValueAsString(properties));
+    System.out.println("");
+    System.out.println("");
     return entity;
   }
 

@@ -24,13 +24,11 @@ Feature: Tests the load of census sample
   # Social Sample Load Tests -----
 
   Scenario: Test load of social sample file (Journey steps: 1.1, 1.2, 1.3, 1.4)
-    Given clean sftp folders of all previous ingestions for "SSD" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "SSD" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
-    And after a delay of 50 seconds 
-    Then for the "SSD" survey confirm processed file "SSD-survey-full*.xml.processed" is found 
-    And the sftp exit status should be "-1" 
+    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
+    Then the response should contain the field "state" with value "INIT"
+    And after a delay of 50 seconds
 
   Scenario: Test sample DB state (Journey steps: 1.5)
     Given after a delay of 20 seconds

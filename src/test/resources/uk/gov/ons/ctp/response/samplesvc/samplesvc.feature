@@ -24,28 +24,28 @@ Feature: Runs the sample service endpoints
     Then the samplesvc database has been reset
 
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "BSD" surveys
-    And the sftp exit status should be "-1"
-    When for the "BSD" survey move the "valid" file to trigger ingestion
-    And the sftp exit status should be "-1"
-    And after a delay of 70 seconds
-    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
-    And the sftp exit status should be "-1"
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 1
+    And after a delay of 50 seconds
+    
 
-  Scenario: Load empty Census example survey
-    Given clean sftp folders of all previous ingestions for "CTP" surveys
-    And the sftp exit status should be "-1"
-    When for the "CTP" survey move the "min" file to trigger ingestion
-    And the sftp exit status should be "-1"
-    And after a delay of 20 seconds
-    Then for the "CTP" survey confirm processed file "CTP-survey-min*.xml.processed" is found
-    And the sftp exit status should be "-1"
-
+  Scenario: Load Census example survey
+    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "min" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
+    Then the response should contain the field "state" with value "INIT"
+    And after a delay of 50 seconds
 
   # Endpoint Tests -----
 
   # POST /samples/sampleunitrequests
   # 201
+  Scenario: Test repuest to sample service service links the sample summary to a collection exercise
+    Given I retrieve From Sample DB the Sample Summary
+    Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
+    And after a delay of 50 seconds
+  
   Scenario: Post request to sample service for specific survey reference and start time stamp
     Given I make the POST call to the sample service endpoint for surveyRef "221" and for "c6467711-21eb-4e78-804c-1db8392f93fb" with a start of "2017-09-11T23:00:00.000+0000"
     When the response status should be 201

@@ -28,13 +28,10 @@ Feature: Tests the collection instrument is downloaded (RM)
     Then the samplesvc database has been reset
 
   Scenario: Load Business example survey
-    Given clean sftp folders of all previous ingestions for "BSD" surveys
-    And the sftp exit status should be "-1"
-    When for the "BSD" survey move the "valid" file to trigger ingestion
-    And the sftp exit status should be "-1"
-    And after a delay of 50 seconds
-    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found
-    And the sftp exit status should be "-1"
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 1
+    And after a delay of 120 seconds
 
 
   # Pre Test Collection Exercise Service Environment Set Up -----
@@ -59,6 +56,11 @@ Feature: Tests the collection instrument is downloaded (RM)
 
 
   # Generate Cases -----
+  # to be replaced by UI 
+  @downloadCollection1
+  Scenario: Test to link the sample summary to a collection exercise
+    Given I retrieve From Sample DB the Sample Summary
+    Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
 
   Scenario: Test execute from collection exercise by put request for specific business survey by exercise id (Journey steps: 2.1, 2.2, 2.3)
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"

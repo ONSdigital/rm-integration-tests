@@ -47,10 +47,10 @@ public class CollectionExerciseSvcResponseAware {
    */
   public void invokePutCollectionExerciseSampleSummary(List<UUID> sampleSummaryId, String exerciseId) throws AuthenticationException, IOException {
     final String url = String.format(world.getUrl(PUT_SAMPLE_URL, SERVICE), exerciseId);
-    UUID id = sampleSummaryId.get(0);
-    //Properties properties = new Properties();
-    //properties.setProperty(key, value)
-    responseAware.invokeBasicPut(url, id.toString());
+    //UUID id = sampleSummaryId.get(0);
+    Properties properties = new Properties();
+    properties.put("sampleSummaryIds", sampleSummaryId);
+    responseAware.invokeJsonPut(url, properties);
   }
   
   

@@ -46,17 +46,19 @@ Feature: action exporter report end points
   # Sample Service Set Up -----
 
   Scenario: Test business sample load
-    Given clean sftp folders of all previous ingestions for "BSD" surveys 
-    And the sftp exit status should be "-1" 
-    When for the "BSD" survey move the "valid" file to trigger ingestion 
-    And the sftp exit status should be "-1" 
-    And after a delay of 120 seconds 
-    Then for the "BSD" survey confirm processed file "BSD-survey-full*.xml.processed" is found 
-    And the sftp exit status should be "-1" 
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
+    When the response status should be 201
+    Then the response should contain the field "sampleSummaryPK" with an integer value of 1
+    And after a delay of 50 seconds
 
 
-  # Collection Exercise Set Up -----
+  # Pre Test Collection Exercise Service Environment Set Up -----
 
+   Scenario: Test repuest to sample service service links the sample summary to a collection exercise
+    Given I retrieve From Sample DB the Sample Summary
+    Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
+    And after a delay of 50 seconds
+    
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
