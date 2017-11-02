@@ -71,40 +71,41 @@ Feature: Smoke Test
     And after a delay of 30 seconds
 
 
-  Scenario: Test census sample load
-    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
-    When the response status should be 201
-    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
-    Then the response should contain the field "state" with value "INIT"
-    And after a delay of 55 seconds
+  #Scenario: Test census sample load
+  #  When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
+  #  When the response status should be 201
+  #  Then the response should contain the field "sampleSummaryPK" with an integer value of 2
+  #  Then the response should contain the field "state" with value "INIT"
+  #  And after a delay of 55 seconds
     
 
-  Scenario: Test census sample load validation failure
-    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
-    When the response status should be 400
-    Then the response should contain the field "error"
-    And after a delay of 30 seconds
+  #Scenario: Test census sample load validation failure
+  #  When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
+  #  When the response status should be 400
+  #  Then the response should contain the field "error"
+  #  And after a delay of 30 seconds
     
 
-  Scenario: Test social sample load
-    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
-    When the response status should be 201
-    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
-    Then the response should contain the field "state" with value "INIT"
-    And after a delay of 55 seconds
+  #Scenario: Test social sample load
+  #  When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
+  #  When the response status should be 201
+  #  Then the response should contain the field "sampleSummaryPK" with an integer value of 3
+  #  Then the response should contain the field "state" with value "INIT"
+  #  And after a delay of 55 seconds
     
 
-  Scenario: Test social sample load validation failure
-    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "invalid" file to trigger ingestion
-    When the response status should be 400
-    Then the response should contain the field "error"
-    And after a delay of 30 seconds
+  #Scenario: Test social sample load validation failure
+    #When I make the POST call to the sample "social" service endpoint for the "SSD" survey "invalid" file to trigger ingestion
+    #When the response status should be 400
+    #Then the response should contain the field "error"
+    #And after a delay of 30 seconds
 
   # Collection Exercise Smoke Tests -----
   
   # to be replaced by UI 
   @smoke1
   Scenario: Put repuest to sample service service links the sample summary to a collection exercise
+    And after a delay of 30 seconds
     Given I retrieve From Sample DB the Sample Summary
     Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
     And after a delay of 30 seconds
