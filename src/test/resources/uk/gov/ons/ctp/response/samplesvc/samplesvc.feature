@@ -41,11 +41,7 @@ Feature: Runs the sample service endpoints
 
   # POST /samples/sampleunitrequests
   # 201
-  Scenario: Test repuest to sample service service links the sample summary to a collection exercise
-    Given I retrieve From Sample DB the Sample Summary
-    Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
-    And after a delay of 50 seconds
-  
+ 
   Scenario: Post request to sample service for specific survey reference and start time stamp
     Given I make the POST call to the sample service endpoint for surveyRef "221" and for "c6467711-21eb-4e78-804c-1db8392f93fb" with a start of "2017-09-11T23:00:00.000+0000"
     When the response status should be 201

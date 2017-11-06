@@ -11,6 +11,7 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"classpath:uk/gov/ons/ctp/journeys/load/sample/censusLoadSample.feature"},
   glue = {"uk.gov.ons.ctp.response.samplesvc.steps",
+      "uk.gov.ons.ctp.response.collectionexercisesvc.steps",
           "uk.gov.ons.ctp.response.common.steps"},
   plugin = {"pretty", "html:build/censusLoadSample-cuc-html-report", "json:build/jenkins/censusLoadSample.json"}
 )
