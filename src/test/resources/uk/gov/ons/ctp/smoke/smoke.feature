@@ -142,7 +142,8 @@ Feature: Smoke Test
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 497   |
     Given after a delay of 60 seconds
-    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    # Note now we are passed the trigger point for action the case auto trigger 500 letters + 497 test created
+    Then check "action.action" records in DB equal 997 for "statefk = 'COMPLETED'"
     When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
   # Action Service Smoke Tests -----
