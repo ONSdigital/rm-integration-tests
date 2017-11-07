@@ -236,7 +236,7 @@ public class SFTPResponseAware {
     connect(workingDir);
 
     try {
-      if (body.split(System.lineSeparator()).length != 500 ){
+      if (body.split(System.lineSeparator()).length != 500) {
         body = "";
         List<LsEntry> files = getListFilesInDirectory(filename);
         for (LsEntry entry : files) {
