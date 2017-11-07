@@ -77,7 +77,7 @@ Feature: Validating cases requests
   # Pre Test Case Service Environment Set Up -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 420 seconds
+    Given after a delay of 440 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
@@ -97,7 +97,6 @@ Feature: Validating cases requests
     And one element of the JSON array must be "partyId":
     And one element of the JSON array must be "caseRef":
     And one element of the JSON array must be "createdBy":"SYSTEM"
-    And one element of the JSON array must be "sampleUnitType":"B"
     And one element of the JSON array must be "createdDateTime":
     And one element of the JSON array must be "responses":[]}
 
