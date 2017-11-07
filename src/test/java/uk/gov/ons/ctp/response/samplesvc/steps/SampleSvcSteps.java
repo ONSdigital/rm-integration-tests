@@ -1,6 +1,6 @@
 package uk.gov.ons.ctp.response.samplesvc.steps;
 
-import java.util.Properties;
+//import java.util.Properties;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -32,16 +32,16 @@ public class SampleSvcSteps {
    *
    * @throws Throwable pass the exception
    */
-  @Given("^I make the POST call to the sample service endpoint for surveyRef \"(.*?)\" and for \"(.*?)\""
-      + " with a start of \"(.*?)\"$")
-  public void i_make_the_POST_call_to_the_sample_service_endpoint_for_surveyRef_and_for_with_a_start_of(
-      String surveyRef, String collectionExerciseId, String timeStamp) throws Throwable {
-    Properties properties = new Properties();
-    properties.put("surveyRef", surveyRef);
-    properties.put("collectionExerciseId", collectionExerciseId);
-    properties.put("exerciseDateTime", timeStamp);
+  @Given("^I make the POST call to the sample service endpoint for surveyRef \"(.*?)\" and for \"(.*?)\" with a start of \"(.*?)\" for ref \"(.*?)\"$")
+  public void i_make_the_POST_call_to_the_sample_service_endpoint_for_surveyRef_and_for_with_a_start_of_for_ref(
+      String surveyRef, String collectionExerciseId, String timeStamp, String summaryKey) throws Throwable {
+    StringBuffer jsonText = new StringBuffer();
+    jsonText.append("{");
+    jsonText.append("\"surveyRef\":\"" + surveyRef + "\",");
+    jsonText.append("\"collectionExerciseId\":\"" + collectionExerciseId + "\",");
+    jsonText.append("\"exerciseDateTime\":\"" + timeStamp + "\",");
 
-    responseAware.invokePostEndpoint(properties);
+    responseAware.invokePostEndpoint(jsonText, summaryKey);
   }
 
   

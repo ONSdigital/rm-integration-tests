@@ -1,15 +1,17 @@
 package uk.gov.ons.ctp.response.samplesvc.util;
 
 import java.io.File;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
+//import java.util.Properties;
 
 import org.apache.http.auth.AuthenticationException;
+import org.apache.http.entity.ContentType;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
 
+import uk.gov.ons.ctp.response.common.util.PostgresResponseAware;
 import uk.gov.ons.ctp.util.HTTPResponseAware;
 import uk.gov.ons.ctp.util.World;
 
@@ -29,16 +31,19 @@ public class SampleSvcResponseAware {
   private static final String FILE_LOCATION_KEY = "cuc.collect.samplesvc.csv.location";
   private World world;
   private HTTPResponseAware responseAware;
+  private final PostgresResponseAware postgresResponseAware;
 
   /**
    * Constructor - also gets singleton of http request runner.
    *
    * @param newWorld class with application and environment properties
+   * @param dbResponseAware DB runner
    */
-  public SampleSvcResponseAware(final World newWorld) {
+  public SampleSvcResponseAware(final World newWorld, final PostgresResponseAware dbResponseAware) {
     this.world = newWorld;
     this.responseAware = HTTPResponseAware.getInstance();
     responseAware.enableBasicAuth(world.getProperty(USERNAME), world.getProperty(PASSWORD));
+    this.postgresResponseAware = dbResponseAware;
   }
 
   /**
@@ -48,8 +53,12 @@ public class SampleSvcResponseAware {
    * @throws IOException pass the exception
    * @throws AuthenticationException pass the exception
    */
-  public void invokePostEndpoint(Properties properties) throws IOException, AuthenticationException {
-    responseAware.invokeJsonPost(world.getUrl(POST_URL, SERVICE), properties);
+  public void invokePostEndpoint(StringBuffer text, String key) throws IOException, AuthenticationException {
+    String summaryId = postgresResponseAware.getSignalFieldFromRecord("id", "sample.samplesummary", key);
+    text.append("\"sampleSummaryUUIDList\":[\"" + summaryId + "\"]");
+    text.append("}");
+
+    responseAware.invokePost(world.getUrl(POST_URL, SERVICE), text.toString(), ContentType.APPLICATION_JSON);
   }
 
   /**
