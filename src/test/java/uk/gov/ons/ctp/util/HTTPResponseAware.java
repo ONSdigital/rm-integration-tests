@@ -147,7 +147,7 @@ public class HTTPResponseAware {
   public void invokeBasicPut(final String endpoint, String data)
       throws IOException, AuthenticationException {
     final HttpPut put = new HttpPut(URI.create(endpoint));
-    put.setEntity(new StringEntity("[\"" + data + "\"]", ContentType.APPLICATION_JSON ));
+    put.setEntity(new StringEntity("[\"" + data + "\"]", ContentType.APPLICATION_JSON));
     executeRequest(put);
   }
 

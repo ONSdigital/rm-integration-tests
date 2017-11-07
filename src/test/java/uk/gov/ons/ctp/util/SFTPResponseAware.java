@@ -236,19 +236,17 @@ public class SFTPResponseAware {
     connect(workingDir);
 
     try {
-      if (body.split(System.lineSeparator()).length != 500) {
-        body = "";
-        List<LsEntry> files = getListFilesInDirectory(filename);
-        for (LsEntry entry : files) {
-            InputStream inStream = sftpChannel.get(entry.getFilename());
-            BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
-            String line;
-            while ((line = br.readLine()) != null) {
-              System.out.println(line);
-              buffer.append(line + System.lineSeparator());
-            }
-            body = buffer.toString();
-          }
+      List<LsEntry> files = getListFilesInDirectory(filename);
+
+      for (LsEntry entry : files) {
+        InputStream inStream = sftpChannel.get(entry.getFilename());
+        BufferedReader br = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        while ((line = br.readLine()) != null) {
+          System.out.println(line);
+          buffer.append(line + System.lineSeparator());
+        }
+        body = buffer.toString();
         System.out.println("Status: " + sftpChannel.getExitStatus());
         status = sftpChannel.getExitStatus();
       }

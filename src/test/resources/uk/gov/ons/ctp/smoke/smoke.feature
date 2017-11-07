@@ -154,7 +154,7 @@ Feature: Smoke Test
     When check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # Action Exporter Service Smoke Tests -----
-
+@print
   Scenario: Test print file generation and confirm contents
     Given after a delay of 90 seconds
     When get the contents of the print files where the filename begins "BSNOT" for "BSD"
