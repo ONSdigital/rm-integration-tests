@@ -28,27 +28,27 @@
 Feature: Smoke Test
 
   # Pre Test Environment Set Up -----
- @smoke1
+
   Scenario: Reset sample service database to pre test condition
     When for the "samplesvc" run the "samplereset.sql" postgres DB script
     Then the samplesvc database has been reset
- @smoke1
+
   Scenario: Reset collection exercise service database to pre test condition
     Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     When the collectionexercisesvc database has been reset
- @smoke1
+
   Scenario: Reset collection exercise service database to pre test condition
     When for the "casesvc" run the "casereset.sql" postgres DB script
     Then the casesvc database has been reset
- @smoke1
+
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
- @smoke1
+
   Scenario: Reset actionexporter database to pre test condition
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
     Then the actionexporter database has been reset
-   @smoke1
+
    Scenario: Clean old print files from directory
     Given create test directory "previousTests" for "BSD"
     And the sftp exit status should be "-1"
@@ -56,7 +56,7 @@ Feature: Smoke Test
     Then the sftp exit status should be "-1"
 
   # Sample Service Smoke Tests -----
- @smoke1
+ 
   Scenario: Test business csv sample load
     When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
     When the response status should be 201
@@ -70,22 +70,22 @@ Feature: Smoke Test
     Then the response should contain the field "error"
     And after a delay of 30 seconds
 
-
-  #Scenario: Test census sample load
-  #  When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
+  # Test fails until defect CTPA-1691 is resolved
+#  Scenario: Test census sample load
+#    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
   #  When the response status should be 201
   #  Then the response should contain the field "sampleSummaryPK" with an integer value of 2
   #  Then the response should contain the field "state" with value "INIT"
   #  And after a delay of 55 seconds
     
-
-  #Scenario: Test census sample load validation failure
-  #  When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
+  # Test fails until defect CTPA-1691 is resolved
+#  Scenario: Test census sample load validation failure
+#    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "invalid" file to trigger ingestion
   #  When the response status should be 400
   #  Then the response should contain the field "error"
   #  And after a delay of 30 seconds
     
-
+  # Test fails until defect CTPA-1691 is resolved
   #Scenario: Test social sample load
   #  When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
   #  When the response status should be 201
@@ -93,7 +93,7 @@ Feature: Smoke Test
   #  Then the response should contain the field "state" with value "INIT"
   #  And after a delay of 55 seconds
     
-
+  # Test fails until defect CTPA-1691 is resolved
   #Scenario: Test social sample load validation failure
     #When I make the POST call to the sample "social" service endpoint for the "SSD" survey "invalid" file to trigger ingestion
     #When the response status should be 400
@@ -103,24 +103,26 @@ Feature: Smoke Test
   # Collection Exercise Smoke Tests -----
   
   # to be replaced by UI 
-  @smoke1
+
   Scenario: Put repuest to sample service service links the sample summary to a collection exercise
     And after a delay of 30 seconds
     Given I retrieve From Sample DB the Sample Summary
     Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
     And after a delay of 30 seconds
- @smoke1
+
   Scenario: Put request to collection exercise service for specific business survey by exercise id
     Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
+# Test fails until defect CTPA-1691 is resolved
   #Scenario: Put request to collection exercise service for specific census survey by exercise id
   #  Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
   #  When the response status should be 200
     # 0 returned as seed data/party svc does not work for Census
   #  Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
+# Test fails until defect CTPA-1691 is resolved
   #Scenario: Put request to collection exercise service for specific social survey by exercise id
   #  Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
   #  When the response status should be 200
@@ -131,7 +133,7 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 280 seconds
+    Given after a delay of 400 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
