@@ -341,10 +341,11 @@ Ultimately, the intent is that anything that is not a Cucumber step definition w
 # Debugging Cucumber tests in IntelliJ
 
 1. Open the feature file of the scenario that you want to debug and locate the scenario
-2. Right click on the scenario and select "Debug: 'Scenario: Test...'"
-3. Wait for it to fail
-4. Go to Run -> Edit Configurations... and select the scenario you used previously
-5. Set VM options: -Dcuc.env=local
-6. Set Working directory: <full path to rm-integration-tests directory>
-7. Add breakpoints to the step file(s) as required
-8. Running/debugging this configuration should now give the same result as running from the command line
+1. Right click on the scenario and select "Create: 'Scenario: Test...'"
+1. Set VM options: -Dcuc.env=local
+1. Set Working directory: <full path to rm-integration-tests directory>
+1. Click OK
+1. Add breakpoints to the step file(s) as required
+1. This test can now be Run/Debugged from the Run menu
+
+Running/debugging this configuration should give the same result as running from the command line
