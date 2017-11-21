@@ -337,3 +337,15 @@ Any valid tag can be run from this command line not just the feature tag name.
 Currently, we have a BaseSteps class which statically loads some properties at startup. The idiomatic Cucumber standard is to have an object called a 'World' which maintains such state. Such a class has been created for this purpose, called, naturally, World. Further, we are leveraging cucumber-picocontainer to inject instances of this World class into steps. Why Picocontainer? Cucumber-JVM supports a number of dependency injection containers (Spring, Guice, Picocontainer, something called 'Weld') but Picocontainer support is the most mature, and the lightest touch in terms of transitive dependencies.
 
 Ultimately, the intent is that anything that is not a Cucumber step definition will not live in any steps classes. This may seem a little unusual to a Java developer but a quirk of Cucumber-JVM is that you cannot extend any class which has @Before or @After hooks, so should we wish to provide such hooks, a BaseSteps class is not the way to achieve that. (Note that those annotations are from the package cucumber.api.java not org.junit).
+
+# Debugging Cucumber tests in IntelliJ
+
+1. Open the feature file of the scenario that you want to debug and locate the scenario
+1. Right click on the scenario and select "Create: 'Scenario: Test...'"
+1. Set VM options: -Dcuc.env=local
+1. Set Working directory: <full path to rm-integration-tests directory>
+1. Click OK
+1. Add breakpoints to the step file(s) as required
+1. This test can now be Run/Debugged from the Run menu
+
+Running/debugging this configuration should give the same result as running from the command line
