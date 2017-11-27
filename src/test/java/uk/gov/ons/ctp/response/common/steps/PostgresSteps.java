@@ -126,6 +126,16 @@ public class PostgresSteps {
   }
 
   /**
+   * Confirm seeding of action service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the actionsvc database has been seeded$")
+  public void the_actionsvc_database_has_been_seeded() throws Throwable {
+    checkRecordsInDBEqual("action.actionrule", 3);
+  }
+  
+  /**
    * Confirm clean of action exporter postgres DB
    *
    * @throws Throwable pass the exception
