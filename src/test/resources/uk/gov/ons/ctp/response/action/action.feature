@@ -372,7 +372,7 @@ Feature: Validating action requests
 #    Given I make the PUT call to the actionservice actions endpoint by actionId with invalid input "e71002ac-3575-47eb-b87f-cd9db92bf101"
 #    When the response status should be 400
 #    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-#    And the response should contain the field "error.message" with value "Provided json is incorrect."
+#    And the response should contain the field "error.message" with value "Provided json fails validation."
 #    And the response should contain the field "error.timestamp"
 
   # 404
@@ -408,12 +408,12 @@ Feature: Validating action requests
 #    And the response should contain the field "updatedDateTime"
 
   # 400
-#  Scenario: Put request to actions with invalid input
-#    When I make the PUT call to the actionservice actions feedback endpoint with invalid input
-#    Then the response status should be 400
-#    Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
-#    And the response should contain the field "error.message" with value "Provided json is incorrect."
-#    And the response should contain the field "error.timestamp"
+  Scenario: Put request to actions with invalid input
+    When I make the PUT call to the actionservice actions feedback endpoint with invalid input
+    Then the response status should be 400
+    Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
+    And the response should contain the field "error.message" with value "Provided json fails validation."
+    And the response should contain the field "error.timestamp"
 
   # 404
 #  Scenario: Put request to actions with action id not found
