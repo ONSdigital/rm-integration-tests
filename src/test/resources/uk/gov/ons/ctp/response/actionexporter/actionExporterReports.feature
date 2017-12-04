@@ -31,6 +31,10 @@ Feature: action exporter report end points
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
+    
+  Scenario: Seed action service database to pre test condition
+    When for the "actionsvc" run the "actionseed.sql" postgres DB script
+    Then the actionsvc database has been seeded
 
   Scenario: Reset actionexporter database to pre test condition
     When for the "actionexporter" run the "actionexporterreset.sql" postgres DB script
