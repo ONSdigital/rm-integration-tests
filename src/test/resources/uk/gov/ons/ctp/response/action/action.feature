@@ -7,6 +7,7 @@
 #                                    Pre test DB clean of collection exercise
 #                                    Pre test DB clean of case exercise
 #                                    Pre test DB clean of action exercise
+#																	 Pre test seed of action service
 #                                    Pre test DB clean of actionexporter
 #                                    Pre test previous print file clean of actionexporter
 #                                    Generate cases
@@ -46,6 +47,10 @@ Feature: Validating action requests
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
+    
+  Scenario: Seed action service database to pre test condition
+    When for the "actionsvc" run the "actionseed.sql" postgres DB script
+    Then the actionsvc database has been seeded
 
 
   # Pre Test Sample Service Environment Set Up -----
@@ -90,7 +95,7 @@ Feature: Validating action requests
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    Then check "action.action" records in DB equal 997 for "statefk = 'COMPLETED'"
     When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
 
@@ -102,7 +107,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         |  |  |
     When the response status should be 200
-    Then the response should contain a JSON array of size 497
+    Then the response should contain a JSON array of size 997
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -142,7 +147,7 @@ Feature: Validating action requests
     Given I make the GET call to the actionservice actions endpoint
         |  | COMPLETED |
     When the response status should be 200
-    Then the response should contain a JSON array of size 497
+    Then the response should contain a JSON array of size 997
     # Not complete record checked due to dynamic values which change for each test
     And one element of the JSON array must be {"id":
     And one element of the JSON array must be ,"caseId":
@@ -294,7 +299,7 @@ Feature: Validating action requests
     When I make the POST call to the actionservice actions endpoint with invalid input
     Then the response status should be 400
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json is incorrect."
+    And the response should contain the field "error.message" with value "Provided json fails validation."
     And the response should contain the field "error.timestamp"
     
   # 404 - Temp Comment Out As Not Fixed CTPA-1585
@@ -363,12 +368,12 @@ Feature: Validating action requests
     And the response should contain the field "updatedDateTime"
 
   # 400
-  Scenario: Put request to actionservice for specified actionId invalid json
-    Given I make the PUT call to the actionservice actions endpoint by actionId with invalid input "e71002ac-3575-47eb-b87f-cd9db92bf101"
-    When the response status should be 400
-    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json is incorrect."
-    And the response should contain the field "error.timestamp"
+#  Scenario: Put request to actionservice for specified actionId invalid json
+#    Given I make the PUT call to the actionservice actions endpoint by actionId with invalid input "e71002ac-3575-47eb-b87f-cd9db92bf101"
+#    When the response status should be 400
+#    And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+#    And the response should contain the field "error.message" with value "Provided json is incorrect."
+#    And the response should contain the field "error.timestamp"
 
   # 404
   Scenario: Put request to actionservice for specified actionId not found
@@ -403,21 +408,21 @@ Feature: Validating action requests
 #    And the response should contain the field "updatedDateTime"
 
   # 400
-  Scenario: Put request to actions with invalid input
-    When I make the PUT call to the actionservice actions feedback endpoint with invalid input
-    Then the response status should be 400
-    Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json is incorrect."
-    And the response should contain the field "error.timestamp"
+#  Scenario: Put request to actions with invalid input
+#    When I make the PUT call to the actionservice actions feedback endpoint with invalid input
+#    Then the response status should be 400
+#    Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
+#    And the response should contain the field "error.message" with value "Provided json is incorrect."
+#    And the response should contain the field "error.timestamp"
 
   # 404
-  Scenario: Put request to actions with action id not found
-    Given I make the PUT call to the actionservice feedback endpoint
-      | e71012ac-3575-47eb-b87f-cd9db92bf9a7  | cucumberTest | REQUEST_COMPLETED |
-    And the response status should be 404
-    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
-    And the response should contain the field "error.message" with value "Action not found for id e71012ac-3575-47eb-b87f-cd9db92bf9a7"
-    And the response should contain the field "error.timestamp"
+#  Scenario: Put request to actions with action id not found
+#    Given I make the PUT call to the actionservice feedback endpoint
+#      | e71012ac-3575-47eb-b87f-cd9db92bf9a7  | cucumberTest | REQUEST_COMPLETED |
+#    And the response status should be 404
+#    Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
+#    And the response should contain the field "error.message" with value "Action not found for id e71012ac-3575-47eb-b87f-cd9db92bf9a7"
+#    And the response should contain the field "error.timestamp"
 
 
   # INFO /info

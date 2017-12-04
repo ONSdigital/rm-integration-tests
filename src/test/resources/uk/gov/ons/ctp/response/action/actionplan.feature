@@ -117,12 +117,12 @@ Feature: Validating actionPlan requests
 		And the response should contain the field "error.timestamp"
 
 	# 400
-	Scenario: Put request to actionplans for actionPlanId with invalid input
-		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "10100000-0932-463b-a2a1-b45cb3ffcb2a" with invalid input
-		Then the response status should be 400
-		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json is incorrect."
-		And the response should contain the field "error.timestamp"
+#	Scenario: Put request to actionplans for actionPlanId with invalid input
+#		When I make the PUT call to the actionservice actionplans endpoint for specified actionPlanId "10100000-0932-463b-a2a1-b45cb3ffcb2a" with invalid input
+#		Then the response status should be 400
+#		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
+#		And the response should contain the field "error.message" with value "Provided json is incorrect."
+#		And the response should contain the field "error.timestamp"
 
 
   # POST /actionplans/{actionPlanId}/jobs
