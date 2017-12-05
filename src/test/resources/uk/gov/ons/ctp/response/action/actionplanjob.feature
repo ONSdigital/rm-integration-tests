@@ -8,6 +8,7 @@
 #                                             Pre test DB clean of collection exercise
 #                                             Pre test DB clean of case exercise
 #                                             Pre test DB clean of action exercise
+#																					  Pre test seed of action service
 #                                             Pre test DB clean of actionexporter
 #                                             Pre test previous print file clean of actionexporter
 #                                             Generate cases
@@ -44,6 +45,10 @@ Feature: Validating actionPlanJob requests
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
+    
+  Scenario: Seed action service database to pre test condition
+    When for the "actionsvc" run the "actionseed.sql" postgres DB script
+    Then the actionsvc database has been seeded
 
 
   # Pre Test Sample Service Environment Set Up -----
@@ -87,7 +92,7 @@ Feature: Validating actionPlanJob requests
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
-    Then check "action.action" records in DB equal 497 for "statefk = 'COMPLETED'"
+    Then check "action.action" records in DB equal 997 for "statefk = 'COMPLETED'"
     When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
 
@@ -158,7 +163,7 @@ Feature: Validating actionPlanJob requests
 		When I make the POST call to the actionservice actionplans endpoint for jobs with specific plan "e71002ac-3575-47eb-b87f-cd9db92bf9a7" with invalid input
 		Then the response status should be 400
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json is incorrect."
+		And the response should contain the field "error.message" with value "Provided json fails validation."
 		And the response should contain the field "error.timestamp"
 		
 	# 404
