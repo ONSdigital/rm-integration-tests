@@ -113,7 +113,8 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    # And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    And one element of the JSON array must be ,"actionTypeName":
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -153,7 +154,8 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    # And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    And one element of the JSON array must be ,"actionTypeName":
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -198,7 +200,8 @@ Feature: Validating action requests
     And one element of the JSON array must be ,"caseId":
     And one element of the JSON array must be ,"actionPlanId":
     And one element of the JSON array must be ,"actionRuleId":
-    And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    # And one element of the JSON array must be ,"actionTypeName":"BSNOT"
+    And one element of the JSON array must be ,"actionTypeName":
     And one element of the JSON array must be ,"createdBy":"SYSTEM"
     And one element of the JSON array must be ,"manuallyCreated":false
     And one element of the JSON array must be ,"situation":
@@ -239,7 +242,8 @@ Feature: Validating action requests
     And the response should contain the field "caseId"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "actionRuleId" with a null value
-    And the response should contain the field "actionTypeName" with value "BSNOT"
+    # And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "actionTypeName"
     And the response should contain the field "createdBy" with value "SYSTEM"
     And the response should contain the field "manuallyCreated" with boolean value "false"
     And the response should contain the field "priority" with an integer value of 3
@@ -322,7 +326,8 @@ Feature: Validating action requests
     And the response should contain the field "caseId"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "actionRuleId" with a null value
-    And the response should contain the field "actionTypeName" with value "BSNOT"
+    # And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "actionTypeName"
     And the response should contain the field "createdBy" with value "SYSTEM"
     And the response should contain the field "manuallyCreated" with boolean value "false"
     And the response should contain the field "priority" with an integer value of 1
@@ -340,7 +345,8 @@ Feature: Validating action requests
     And the response should contain the field "caseId"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "actionRuleId" with a null value
-    And the response should contain the field "actionTypeName" with value "BSNOT"
+    # And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "actionTypeName"
     And the response should contain the field "createdBy" with value "SYSTEM"
     And the response should contain the field "manuallyCreated" with boolean value "false"
     And the response should contain the field "priority"
@@ -358,7 +364,8 @@ Feature: Validating action requests
     And the response should contain the field "caseId"
     And the response should contain the field "actionPlanId"
     And the response should contain the field "actionRuleId" with a null value
-    And the response should contain the field "actionTypeName" with value "BSNOT"
+    # And the response should contain the field "actionTypeName" with value "BSNOT"
+    And the response should contain the field "actionTypeName"
     And the response should contain the field "createdBy" with value "SYSTEM"
     And the response should contain the field "manuallyCreated" with boolean value "false"
     And the response should contain the field "priority" with an integer value of 2
