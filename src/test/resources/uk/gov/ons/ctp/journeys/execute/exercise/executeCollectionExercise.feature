@@ -38,19 +38,19 @@ Feature: Tests the publish collection exercise
     And after a delay of 50 seconds
     
 
-  Scenario: Load Census example survey
-    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
-    When the response status should be 201
-    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
-    Then the response should contain the field "state" with value "INIT"
-    And after a delay of 50 seconds
-
-  Scenario: Load Social example survey
-    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
-    When the response status should be 201
-    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
-    Then the response should contain the field "state" with value "INIT"
-    And after a delay of 50 seconds
+#  Scenario: Load Census example survey
+#    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
+#    When the response status should be 201
+#    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
+#    Then the response should contain the field "state" with value "INIT"
+#    And after a delay of 50 seconds
+#
+#  Scenario: Load Social example survey
+#    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
+#    When the response status should be 201
+#    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
+#    Then the response should contain the field "state" with value "INIT"
+#    And after a delay of 50 seconds
 
 
   # Pre Test Collection Exercise Service Environment Set Up -----
