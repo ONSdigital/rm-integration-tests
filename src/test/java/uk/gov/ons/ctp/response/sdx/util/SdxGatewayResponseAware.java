@@ -72,7 +72,7 @@ public class SdxGatewayResponseAware {
    * @throws AuthenticationException authentication exception
    */
   public List<String> getCaseForType(String caseType) throws IOException, AuthenticationException {
-    String sql = String.format(LIMIT_SQL, "id, caseref", "casesvc.case", "sampleunittype = '" + caseType + "'", "1");
+    String sql = String.format(LIMIT_SQL, "id, caseref", "casesvc.case", "sampleunittype = '" + caseType + "' AND statefk = 'ACTIONABLE'", "1");
     return postgresResponseAware.getRecord(sql);
   }
 }
