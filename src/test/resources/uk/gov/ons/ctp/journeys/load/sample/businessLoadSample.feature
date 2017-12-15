@@ -36,11 +36,11 @@ Feature: Tests the load of business sample
 
   Scenario: Test sample DB state (Journey steps: 1.5)
     And after a delay of 70 seconds 
-    When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE' AND surveyref = '221'"
+    When check "sample.samplesummary" records in DB equal 1 for "statefk = 'ACTIVE'"
     Then check "sample.sampleunit" records in DB equal 500 for "statefk = 'PERSISTED' AND samplesummaryfk = 1"
 
   Scenario: Test ui report viewed correct form type - total 500 (Test scenario PO1.10)
-    Given the "test" user has logged in using "chromehead"
+    Given the "test" user has logged in using "chrome"
     When the user navigates to the reports page and selects "sample" reports
     When the user goes to view the most recent report
     And  checks values of column number 2 against value "0015" and should appear 237 times
