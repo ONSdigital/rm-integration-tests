@@ -13,7 +13,8 @@
 #
 
 # Test fails until defect CTPA-1691 is resolved
-@skip @loadSample @censusLoadFail
+# Skipping all tests by commenting tags
+#@loadSample @censusLoadFail
 Feature: Tests the load validation failure for census sample
 
   # Pre Test Environment Set Up -----

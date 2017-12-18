@@ -13,7 +13,8 @@
 #
 
 # Test fails until defect CTPA-1691 is resolved
-@skip @loadSample @socialLoadFail
+# Skipping all tests by commenting tags
+#@loadSample @socialLoadFail
 Feature: Tests the load validation failure for census sample
 
   # Pre Test Environment Set Up -----
