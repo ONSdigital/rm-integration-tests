@@ -132,7 +132,7 @@ Feature: SDX Gateway tests
   # POST /receipts
   # 201
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
-    Given I make the POST call to the SDX Gateway online receipt for "BI" case with caseref
+    Given I make the POST call to the SDX Gateway online receipt for "BI" actionable case with caseref
     When the response status should be 201
     And the response should contain the field "caseId"
     And the response should contain the field "caseRef"
@@ -142,7 +142,7 @@ Feature: SDX Gateway tests
 
   # 201
   Scenario: Post request for SDX Gateway endpoint for BI case receiptable
-    Given I make the POST call to the SDX Gateway online receipt for "BI" case without caseref
+    Given I make the POST call to the SDX Gateway online receipt for "BI" actionable case without caseref
     When the response status should be 201
     And the response should contain the field "caseId"
     And the response should contain the field "caseRef"
@@ -152,7 +152,7 @@ Feature: SDX Gateway tests
 
   # 201
   Scenario: Post request for SDX Gateway endpoint for B case not receiptable
-    Given I make the POST call to the SDX Gateway online receipt for "B" case with caseref
+    Given I make the POST call to the SDX Gateway online receipt for "B" actionable case with caseref
     When the response status should be 201
     And the response should contain the field "caseId"
     And the response should contain the field "caseRef"

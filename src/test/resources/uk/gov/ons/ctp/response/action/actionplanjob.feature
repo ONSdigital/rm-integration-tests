@@ -163,7 +163,7 @@ Feature: Validating actionPlanJob requests
 		When I make the POST call to the actionservice actionplans endpoint for jobs with specific plan "e71002ac-3575-47eb-b87f-cd9db92bf9a7" with invalid input
 		Then the response status should be 400
 		And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-		And the response should contain the field "error.message" with value "Provided json fails validation."
+		And the response should contain the field "error.message" with value "Provided json is incorrect."
 		And the response should contain the field "error.timestamp"
 		
 	# 404
