@@ -29,5 +29,5 @@ Feature: Tests the load validation failure for business sample
     Then the response should contain the field "error"
 
   Scenario: Test sample DB state - nothing loaded (Journey steps: 1.5)
-    When check "sample.samplesummary" records in DB equal 0 for "statefk = 'ACTIVE' AND surveyref = 'BRES'"
+    When check "sample.samplesummary" records in DB equal 0 for "statefk = 'ACTIVE'"
     Then check "sample.sampleunit" records in DB equal 0 for "statefk = 'INIT' AND samplesummaryfk = 1"
