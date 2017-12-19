@@ -13,6 +13,8 @@
 #
 
 # Test fails until defect CTPA-1691 is resolved
+
+# Skipping all tests by commenting tags
 #@loadSample @censusLoad
 Feature: Tests the load of census sample
 
@@ -36,4 +38,4 @@ Feature: Tests the load of census sample
     # Remains in INIT state as seed data/party svc does not work for Census
     When check "sample.samplesummary" records in DB equal 1 for "statefk = 'INIT' AND surveyref = 'CENSUS'"
     Then check "sample.sampleunit" records in DB equal 1 for "statefk = 'INIT' AND samplesummaryfk = 1"
-    
+
