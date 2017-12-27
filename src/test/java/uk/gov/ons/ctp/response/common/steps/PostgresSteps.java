@@ -360,4 +360,34 @@ public class PostgresSteps {
 
     return time.toString();
   }
+  
+  /**
+   * Confirm seeding of notification event within the action service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the notification event has been seeded$")
+  public void the_notification_event_has_been_seeded() throws Throwable {
+    checkRecordsInDBEqual("action.actionrule", 1);
+  }
+
+  /**
+   * Confirm seeding of first reminder events within the action service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the first reminder events have been seeded$")
+  public void the_first_reminder_events_have_been_seeded() throws Throwable {
+    checkRecordsInDBEqual("action.actionrule", 3);
+  }
+  
+  /**
+   * Confirm seeding of second reminder events within the action service postgres DB
+   *
+   * @throws Throwable pass the exception
+   */
+  @Then("^the second reminder events have been seeded$")
+  public void the_second_reminder_events_have_been_seeded() throws Throwable {
+    checkRecordsInDBEqual("action.actionrule", 5);
+  }
 }
