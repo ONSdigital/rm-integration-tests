@@ -61,6 +61,10 @@ Feature: Tests for response operations UI
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
+    
+  Scenario: Seed action service database for notification event
+    When for the "actionsvc" run the "notificationactionseed.sql" postgres DB script
+    Then the notification event has been seeded
 
 
   # Pre Test Action Exporter Environment Set Up -----
@@ -103,7 +107,7 @@ Feature: Tests for response operations UI
       | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
-      | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
+      | actionplanfk  | actionrulefk | actiontypefk | statefk   | total |
       | 1             | 1            | 1            | COMPLETED | 497   |
     And check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 

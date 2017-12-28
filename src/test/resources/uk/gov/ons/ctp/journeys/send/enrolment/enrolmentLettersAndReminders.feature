@@ -64,6 +64,10 @@ Feature: Tests the enrolment letter and reminder letters are sent
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
+    
+  Scenario: Seed action service database for notification event
+    When for the "actionsvc" run the "notificationactionseed.sql" postgres DB script
+    Then the notification event has been seeded
 
 
   # Pre Test Action Exporter Environment Set Up -----
@@ -109,7 +113,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
       | 1             | 1            | 1            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
-      | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
+      | actionplanfk  | actionrulefk | actiontypefk | statefk   | total |
       | 1             | 1            | 1            | COMPLETED | 497   |
     And check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
 
@@ -154,13 +158,17 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
   # Send Enrolment Reminder Letters (First) -----
 
+  Scenario: Seed action service database for first reminder events
+    When for the "actionsvc" run the "firstreminderactionseed.sql" postgres DB script
+    Then the first reminder events have been seeded
+  
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
       | 1             | 2            | 2            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
-      | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
+      | actionplanfk  | actionrulefk | actiontypefk | statefk   | total |
       | 1             | 2            | 2            | COMPLETED | 497   |
     And check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Reminder Letter'"
 
@@ -203,6 +211,10 @@ Feature: Tests the enrolment letter and reminder letters are sent
 
 
   # Send Enrolment Reminder Letters (Second) -----
+  
+  Scenario: Seed action service database for second reminder events
+    When for the "actionsvc" run the "secondreminderactionseed.sql" postgres DB script
+    Then the second reminder events have been seeded
 
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 4.1, 4.2, 4.3, 4.4, 4.5, 4.7)
     Given the case start date is adjusted to trigger action plan
@@ -210,7 +222,7 @@ Feature: Tests the enrolment letter and reminder letters are sent
       | 1             | 3            | 2            | 497   |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
-      | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
+      | actionplanfk  | actionrulefk | actiontypefk | statefk   | total |
       | 1             | 3            | 2            | COMPLETED | 497   |
     And check "casesvc.caseevent" records in DB equal 994 for "description = 'Enrolment Reminder Letter'"
 
