@@ -112,7 +112,7 @@ Feature: Runs the survey service endpoints
   Scenario: Get request to survey service for classifier by invalid survey id and invalid classifier id
     Given I make the GET call to the survey service endpoint for classifier by id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef88" and "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef89"
     When the response status should be 404
-    Then the response should contain "Survey or classifier type selector not found"
+    Then the response should contain "Classifier Type Selector not found"
 
 
   # GET /info
