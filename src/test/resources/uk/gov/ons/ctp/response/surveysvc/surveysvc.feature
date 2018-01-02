@@ -112,7 +112,7 @@ Feature: Runs the survey service endpoints
   Scenario: Get request to survey service for classifier by invalid survey id and invalid classifier id
     Given I make the GET call to the survey service endpoint for classifier by id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef88" and "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef89"
     When the response status should be 404
-    Then the response should contain "Survey or classifier type selector not found"
+    Then the response should contain "Classifier Type Selector not found"
 
 
   # GET /info
@@ -122,7 +122,7 @@ Feature: Runs the survey service endpoints
     When the response status should be 200
     Then the response should contain the field "name" with value "surveysvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin" with value "https://github.com/ONSdigital/rm-survey-service.git"
+    And the response should contain the field "origin"
     And the response should contain the field "commit"
     And the response should contain the field "branch"
     And the response should contain the field "built"
