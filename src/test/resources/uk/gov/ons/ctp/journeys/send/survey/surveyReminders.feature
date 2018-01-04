@@ -55,6 +55,10 @@ Feature: Tests the survey reminders are sent
   Scenario: Reset action service database to pre test condition
     When for the "actionsvc" run the "actionreset.sql" postgres DB script
     Then the actionsvc database has been reset
+    
+  Scenario: Seed action service database for notification event
+    When for the "actionsvc" run the "notificationactionseed.sql" postgres DB script
+    Then the notification event has been seeded
 
 
   # Generate Cases -----
@@ -78,71 +82,81 @@ Feature: Tests the survey reminders are sent
     Then check "action.case" records in DB equal 497 for "actionplanfk = 1"
     And check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
-
+# Skipping scenarios below as creating a BI case will not enrol respondent. Need to replace these steps using frontStage test scenarios. 
+# For now, updating this feature file to validate sending 'Survey Reminder Emails' for the existing 3 respondents only. 
+    
   # Create respondent case to send survey reminders to
 
-  Scenario: Verify event created for respondent enrolment
-    Given I make the POST call to the caseservice cases events
-      | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
-    When the response status should be 201
-    And the response should contain the field "createdDateTime"
-    And the response should contain the field "caseId"
-    And the response should contain the field "partyId"
-    And the response should contain the field "category" with value "RESPONDENT_ENROLED"
-    And the response should contain the field "subCategory" with value "test"
-    And the response should contain the field "createdBy" with value "Cucumber Test"
-    And the response should contain the field "description" with value "Created by cucumber test"
-    Then Check the case state has changed
-    And the response status should be 200
-    And the response should contain the field "state" with value "INACTIONABLE"
+#  Scenario: Verify event created for respondent enrolment
+#    Given I make the POST call to the caseservice cases events
+#      | Created by cucumber test | RESPONDENT_ENROLED | test | Cucumber Test |  |
+#    When the response status should be 201
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "caseId"
+#    And the response should contain the field "partyId"
+#    And the response should contain the field "category" with value "RESPONDENT_ENROLED"
+#    And the response should contain the field "subCategory" with value "test"
+#    And the response should contain the field "createdBy" with value "Cucumber Test"
+#    And the response should contain the field "description" with value "Created by cucumber test"
+#    Then Check the case state has changed
+#    And the response status should be 200
+#    And the response should contain the field "state" with value "INACTIONABLE"
 
-  Scenario: Verify a new case have been created with the correct properties
-    Given after a delay of 60 seconds
-    When I make the GET call to the caseservice cases endpoint for new case
-    And the response status should be 200
-    Then the response should contain the field "id"
-    And the response should contain the field "state" with value "ACTIONABLE"
-    And the response should contain the field "iac"
-    And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
-    And the response should contain the field "collectionInstrumentId"
-    And the response should contain the field "partyId"
-    And the response should contain the field "sampleUnitType" with value "BI"
-    And the response should contain the field "createdBy" with value "Cucumber Test"
-    And the response should contain the field "createdDateTime"
-    And the response should contain the field "responses" with one element of the JSON array must be []
-    And the response should contain the field "caseGroup"
-    And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
-    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
+#  Scenario: Verify a new case have been created with the correct properties
+#    Given after a delay of 60 seconds
+#    When I make the GET call to the caseservice cases endpoint for new case
+#    And the response status should be 200
+#    Then the response should contain the field "id"
+#    And the response should contain the field "state" with value "ACTIONABLE"
+#    And the response should contain the field "iac"
+#    And the response should contain the field "actionPlanId" with value "0009e978-0932-463b-a2a1-b45cb3ffcb2a"
+#    And the response should contain the field "collectionInstrumentId"
+#    And the response should contain the field "partyId"
+#    And the response should contain the field "sampleUnitType" with value "BI"
+#    And the response should contain the field "createdBy" with value "Cucumber Test"
+#    And the response should contain the field "createdDateTime"
+#    And the response should contain the field "responses" with one element of the JSON array must be []
+#    And the response should contain the field "caseGroup"
+#    And the response should contain the field "caseEvents" with one element of the JSON array must be [{"createdDateTime":
+#    And the response should contain the field "caseEvents" with one element of the JSON array must be ,"category":"CASE_CREATED","subCategory":null,"createdBy":"SYSTEM","description":"Case created when Respondent Enroled"}
 
 
   # Journey Tests
 
   # Send Survey Reminder Email (First) -----
+  
+  Scenario: Seed action service database for first reminder events
+    When for the "actionsvc" run the "firstreminderactionseed.sql" postgres DB script
+    Then the first reminder events have been seeded
 
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 2             | 4            | 3            | 4     |
+      | 2             | 4            | 3            | 3     |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
-      | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 4            | 3            | COMPLETED | 4     |
-    And check "casesvc.caseevent" records in DB equal 4 for "description = 'Survey Reminder Notification'"
+      | actionplanfk  | actionrulefk | actiontypefk | statefk   | total |
+      | 2             | 4            | 3            | COMPLETED | 3     |
+    And check "casesvc.caseevent" records in DB equal 3 for "description = 'Survey Reminder Notification'"
 
   # Report not developed so not tested (Journey steps: 8.8)
 
 
-  # Send Enrolment Reminder Letters (Second) -----
+  # Send Survey Reminder Email (Second) -----
+  
+  Scenario: Seed action service database for second reminder events
+    When for the "actionsvc" run the "secondreminderactionseed.sql" postgres DB script
+    Then the second reminder events have been seeded
 
   Scenario: Test action creation by post request to create actions for specified action plan (Journey steps: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7)
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 2             | 5            | 3            | 4     |
+      | 2             | 5            | 3            | 3     |
     When after a delay of 90 seconds
     Then check "action.action" records in DB
-      | actionplanfk  | actionrulepk | actiontypefk | statefk   | total |
-      | 2             | 5            | 3            | COMPLETED | 4     |
-    And check "casesvc.caseevent" records in DB equal 8 for "description = 'Survey Reminder Notification'"
+      | actionplanfk  | actionrulefk | actiontypefk | statefk   | total |
+      | 2             | 5            | 3            | COMPLETED | 3     |
+    And check "casesvc.caseevent" records in DB equal 6 for "description = 'Survey Reminder Notification'"
 
 
   # Report (Journey steps: 8.8)
