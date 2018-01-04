@@ -64,7 +64,7 @@ public class CollectionExerciseSvcSteps {
    * @param exerciseId exercise id
    * @throws Throwable pass the exception
    */
-  @Given("^I make the POST call to the collection exercise endpoint execution for exercise id \"(.*?)\"$")
+  @Given("^I make the POST call to the collection exercise execution endpoint for exercise id \"(.*?)\"$")
   public void i_make_the_POST_call_to_the_collection_exercise_execution_endpoint_for_exercise_id(String exerciseId)
       throws Throwable {
     responseAware.invokePostCollectionExerciseId(exerciseId);
