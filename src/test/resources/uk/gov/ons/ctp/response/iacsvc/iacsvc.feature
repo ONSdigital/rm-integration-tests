@@ -145,7 +145,7 @@ Feature: Validating iacsvc requests
     When the response status should be 200
     Then the response should contain the field "name" with value "iacsvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin" with value "git@github.com:ONSdigital/iac-service.git"
+    And the response should contain the field "origin"
     And the response should contain the field "commit"
     And the response should contain the field "branch"
     And the response should contain the field "built"
