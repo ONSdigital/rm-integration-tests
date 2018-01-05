@@ -123,7 +123,7 @@ Feature: SDX Gateway tests
     When the response status should be 200
     Then the response should contain the field "name" with value "sdxgatewaysvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-sdx-gateway.git"
+    And the response should contain the field "origin"
     And the response should contain the field "commit"
     And the response should contain the field "branch"
     And the response should contain the field "built"
