@@ -29,7 +29,7 @@ Feature: Runs the survey service endpoints
     Given I make the GET call to the survey service endpoint for surveys
     When the response status should be 200
     Then the response should contain a JSON array of size 16
-    And one element of the JSON array must be {"id":"cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87","shortName":"BRES"}
+    And one element of the JSON array must be {"id":"cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87","shortName":"BRES","longName":"Business Register and Employment Survey","surveyRef":"221"}
 
   # 204 Not tested as surveys pre loaded
 
