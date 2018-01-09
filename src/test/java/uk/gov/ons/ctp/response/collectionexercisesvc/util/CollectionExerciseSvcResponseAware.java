@@ -15,7 +15,7 @@ import uk.gov.ons.ctp.util.World;
  * Created by Stephen Goddard on 12/5/17.
  */
 public class CollectionExerciseSvcResponseAware {
-  private static final String PUT_EXERCISE_URL = "/collectionexercises/%s";
+  private static final String POST_EXERCISE_URL = "/collectionexerciseexecution/%s";
   private static final String GET_SURVEY_URL = "/collectionexercises/survey/%s";
   private static final String GET_EXERCISE_URL = "/collectionexercises/%s";
   private static final String PUT_SAMPLE_URL = "/collectionexercises/link/%s";
@@ -41,7 +41,7 @@ public class CollectionExerciseSvcResponseAware {
   /**
    *
    *
-   * @param samplesummaryId samplesummary Id
+   * @param sampleSummaryId samplesummary Id
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
@@ -55,15 +55,15 @@ public class CollectionExerciseSvcResponseAware {
   
   
   /**
-   * Collection Exercise Service - /collectionexercises/{exerciseId} put endpoints.
+   * Collection Exercise Service - /collectionexerciseexecution/{exerciseId} post endpoints.
    *
    * @param exerciseId exercise id
    * @throws IOException IO exception
    * @throws AuthenticationException authentication exception
    */
-  public void invokePutCollectionExerciseId(String exerciseId) throws AuthenticationException, IOException {
-    final String url = String.format(world.getUrl(PUT_EXERCISE_URL, SERVICE), exerciseId);
-    responseAware.invokePut(url, "", ContentType.APPLICATION_JSON);
+  public void invokePostCollectionExerciseId(String exerciseId) throws AuthenticationException, IOException {
+    final String url = String.format(world.getUrl(POST_EXERCISE_URL, SERVICE), exerciseId);
+    responseAware.invokePost(url, "", ContentType.APPLICATION_JSON);
   }
 
   /**
