@@ -66,7 +66,7 @@ Feature: Smoke Test
     When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
     When the response status should be 201
     Then the response should contain the field "sampleSummaryPK" with an integer value of 1
-    And after a delay of 120 seconds
+    And after a delay of 320 seconds
     
 
   Scenario: Test business sample load validation failure 
@@ -138,7 +138,7 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 180 seconds
+    Given after a delay of 400 seconds
     When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
     Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
 
