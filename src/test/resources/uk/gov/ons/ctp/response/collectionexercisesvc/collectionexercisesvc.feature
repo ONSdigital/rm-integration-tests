@@ -144,7 +144,7 @@ Feature: Runs the Collection Exercise endpoints
     When the response status should be 200
     Then the response should contain the field "name" with value "collectionexercisesvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-collection-exercise-service.git"
+    And the response should contain the field "origin"
     And the response should contain the field "commit"
     And the response should contain the field "branch"
     And the response should contain the field "built"
