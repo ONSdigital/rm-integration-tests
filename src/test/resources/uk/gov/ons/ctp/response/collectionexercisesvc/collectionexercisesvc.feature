@@ -97,7 +97,7 @@ Feature: Runs the Collection Exercise endpoints
     Given I make the GET call to the collection exercise endpoint for survey by survey id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response status should be 200
     And the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2017","scheduledExecutionDateTime":
+    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c"
 
   # 404
   Scenario: Get request to collection exercise by invalid survey id

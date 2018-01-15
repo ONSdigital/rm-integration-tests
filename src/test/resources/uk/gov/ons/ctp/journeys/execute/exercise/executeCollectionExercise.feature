@@ -18,7 +18,7 @@
 #
 # NOTE: Report not developed so not tested (Journey steps: 2.9)
 #
-# Feature Tags: @excuteExercise
+# Feature Tags: @executeExercise
 #
 @executeExercise
 Feature: Tests the publish collection exercise

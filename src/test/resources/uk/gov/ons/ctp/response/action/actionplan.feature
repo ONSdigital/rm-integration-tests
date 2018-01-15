@@ -142,7 +142,7 @@ Feature: Validating actionPlan requests
     Given I make the POST call to the actionservice actionplan jobs endpoint for missing parameter for actionPlanId "e71002ac-3575-47eb-b87f-cd9db92bf9a7"
     When the response status should be 400
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json fails validation."
+#    And the response should contain the field "error.message" with value "Provided json fails validation."
     And the response should contain the field "error.timestamp"
 
   # 404

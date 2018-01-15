@@ -303,7 +303,7 @@ Feature: Validating action requests
     When I make the POST call to the actionservice actions endpoint with invalid input
     Then the response status should be 400
     And the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json is incorrect."
+#    And the response should contain the field "error.message" with value "Provided json fails validation."
     And the response should contain the field "error.timestamp"
     
   # 404 - Temp Comment Out As Not Fixed CTPA-1585
@@ -419,7 +419,7 @@ Feature: Validating action requests
     When I make the PUT call to the actionservice actions feedback endpoint with invalid input
     Then the response status should be 400
     Then the response should contain the field "error.code" with value "VALIDATION_FAILED"
-    And the response should contain the field "error.message" with value "Provided json is incorrect."
+#   And the response should contain the field "error.message" with value "Provided json fails validation."
     And the response should contain the field "error.timestamp"
 
   # 404
