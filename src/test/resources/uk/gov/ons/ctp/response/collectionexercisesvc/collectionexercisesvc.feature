@@ -30,17 +30,18 @@ Feature: Runs the Collection Exercise endpoints
     Then the response should contain the field "sampleSummaryPK" with an integer value of 1
     And after a delay of 50 seconds
     
+# Skipping all Census & Social test scenarios. The Census & Social surveys have been removed from SurveySvc.
   # Test fails until defect CTPA-1691 is resolved
-  Scenario: Load Census example survey
-    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
+#  Scenario: Load Census example survey
+#    When I make the POST call to the sample "census" service endpoint for the "CTP" survey "valid" file to trigger ingestion
 #    When the response status should be 201
 #    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
 #    Then the response should contain the field "state" with value "INIT"
 #    And after a delay of 50 seconds
 
   # Test fails until defect CTPA-1691 is resolved
-  Scenario: Load Social example survey
-    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
+#  Scenario: Load Social example survey
+#    When I make the POST call to the sample "social" service endpoint for the "SSD" survey "valid" file to trigger ingestion
 #    When the response status should be 201
 #    Then the response should contain the field "sampleSummaryPK" with an integer value of 3
 #    Then the response should contain the field "state" with value "INIT"
@@ -63,26 +64,27 @@ Feature: Runs the Collection Exercise endpoints
     Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
     And after a delay of 50 seconds
   
-  Scenario: Put request to collection exercise service for specific business survey by exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
+  Scenario: Post request to collection exercise execution service for specific business survey by exercise id
+    Given I make the POST call to the collection exercise execution endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
-  Scenario: Put request to collection exercise service for specific census survey by exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
-    When the response status should be 200
-    # 0 returned as seed data/party svc does not work for Census
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
+# Skipping all Census & Social test scenarios. The Census & Social surveys have been removed from SurveySvc.
+#  Scenario: Put request to collection exercise service for specific census survey by exercise id
+#    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e87c"
+#    When the response status should be 200
+#    # 0 returned as seed data/party svc does not work for Census
+#    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
-  Scenario: Put request to collection exercise service for specific social survey by exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
-    When the response status should be 200
-    # 0 returned as seed data/party svc does not work for Social
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
+#  Scenario: Put request to collection exercise service for specific social survey by exercise id
+#    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e97c"
+#    When the response status should be 200
+#    # 0 returned as seed data/party svc does not work for Social
+#    Then the response should contain the field "sampleUnitsTotal" with an integer value of 0
 
   # 404 
-  Scenario: Put request to collection exercise service for invalid exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e01c"
+  Scenario: Post request to collection exercise execution service for invalid exercise id
+    Given I make the POST call to the collection exercise execution endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e01c"
     When the response status should be 404
     Then the response should contain the field "error.code" with value "RESOURCE_NOT_FOUND"
     And the response should contain the field "error.message" with value "Sample not found for collection exercise Id 14fb3e68-4dca-46db-bf49-04b84e07e01c"
@@ -95,7 +97,7 @@ Feature: Runs the Collection Exercise endpoints
     Given I make the GET call to the collection exercise endpoint for survey by survey id "cb0711c3-0ac8-41d3-ae0e-567e5ea1ef87"
     And the response status should be 200
     And the response should contain a JSON array of size 1
-    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c","name":"BRES_2017","scheduledExecutionDateTime":
+    And one element of the JSON array must be {"id":"14fb3e68-4dca-46db-bf49-04b84e07e77c"
 
   # 404
   Scenario: Get request to collection exercise by invalid survey id

@@ -74,8 +74,8 @@ Feature: Verify and Create Account
     Given I retrieve From Sample DB the Sample Summary
     Given I make the PUT call to the collection exercise for id "14fb3e68-4dca-46db-bf49-04b84e07e77c" endpoint for sample summary id
 
-  Scenario: Execute collection exercise by put request for specific business survey by exercise id
-    Given I make the PUT call to the collection exercise endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
+  Scenario: Execute collection exercise by post request for specific business survey by exercise id
+    Given I make the POST call to the collection exercise execution endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
     Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
 
