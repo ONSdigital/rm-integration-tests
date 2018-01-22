@@ -87,7 +87,17 @@ public class SampleSvcResponseAware {
     File file = new File(surveyLocation + filename);
     //FileInputStream input = new FileInputStream(file);
     //MultipartFile multipartFile = new MockMultipartFile(file.getName(),"text/plain", IOUtils.toByteArray(input));
-
+    switch (surveyName.toUpperCase()) {
+    case "CENSUS":
+    		surveyName = "CENSUS";
+		break;
+    case "SOCIAL":
+    		surveyName = "SOCIAL";
+		break;
+	default:
+		surveyName = "B";
+		break;
+    }
     final String url = String.format(BRES_UPLOAD_URL, surveyName);
 
     responseAware.invokeFilePost(world.getUrl(url, SERVICE), file);
