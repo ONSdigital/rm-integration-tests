@@ -30,10 +30,10 @@ Feature: Runs the sample service endpoints
     Then the response should contain the field "sampleSummaryPK" with an integer value of 1
     And after a delay of 50 seconds
     
-
+# Skipping all Census & Social test scenarios. The Census & Social surveys have been removed from SurveySvc.
   # Test fails until defect CTPA-1691 is resolved
-  Scenario: Load Census example survey
-    Given I make the POST call to the sample "census" service endpoint for the "CTP" survey "min" file to trigger ingestion
+#  Scenario: Load Census example survey
+#    Given I make the POST call to the sample "census" service endpoint for the "CTP" survey "min" file to trigger ingestion
 #    When the response status should be 201
 #    Then the response should contain the field "sampleSummaryPK" with an integer value of 2
 #    And the response should contain the field "state" with value "INIT"
@@ -72,7 +72,7 @@ Feature: Runs the sample service endpoints
     When the response status should be 200
     Then the response should contain the field "name" with value "samplesvc"
     And the response should contain the field "version"
-    And the response should contain the field "origin" with value "git@github.com:ONSdigital/rm-sample-service.git"
+    And the response should contain the field "origin"
     And the response should contain the field "commit"
     And the response should contain the field "branch"
     And the response should contain the field "built"

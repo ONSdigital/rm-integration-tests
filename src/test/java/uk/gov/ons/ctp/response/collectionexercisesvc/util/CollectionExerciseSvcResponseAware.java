@@ -55,7 +55,7 @@ public class CollectionExerciseSvcResponseAware {
   
   
   /**
-   * Collection Exercise Service - /collectionexercises/{exerciseId} put endpoints.
+   * Collection Exercise Service - /collectionexerciseexecution/{exerciseId} post endpoints.
    *
    * @param exerciseId exercise id
    * @throws IOException IO exception

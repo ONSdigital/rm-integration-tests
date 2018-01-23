@@ -59,7 +59,7 @@ public class CollectionExerciseSvcSteps {
   }
   
   /**
-   * Test put request for /collectionexercises/{exerciseId}.
+   * Test post request for /collectionexerciseexecution/{exerciseId}.
    *
    * @param exerciseId exercise id
    * @throws Throwable pass the exception
