@@ -38,7 +38,7 @@ Feature: Smoke Test
     Given for the "collectionexercisesvc" run the "collectionexercisereset.sql" postgres DB script
     When the collectionexercisesvc database has been reset
 
-  Scenario: Reset collection exercise service database to pre test condition
+  Scenario: Reset case service database to pre test condition
     When for the "casesvc" run the "casereset.sql" postgres DB script
     Then the casesvc database has been reset
 
