@@ -28,6 +28,7 @@ public class SampleSvcResponseAware {
   private static final String SSVC_FILENAME_VALID_KEY = "cuc.collect.samplesvc.valid.filename";
   private static final String SSVC_FILENAME_INVALID_KEY = "cuc.collect.samplesvc.invalid.filename";
   private static final String SSVC_FILENAME_MIN_KEY = "cuc.collect.samplesvc.min.filename";
+  private static final String SSVC_FILENAME_SMOKE_KEY = "cuc.collect.samplesvc.smoke.filename";
   private static final String FILE_LOCATION_KEY = "cuc.collect.samplesvc.csv.location";
   private World world;
   private HTTPResponseAware responseAware;
@@ -125,6 +126,8 @@ public class SampleSvcResponseAware {
       filename = String.format(world.getProperty(SSVC_FILENAME_INVALID_KEY), surveyType);
     } else if (fileType.equalsIgnoreCase("min")) {
       filename = String.format(world.getProperty(SSVC_FILENAME_MIN_KEY), surveyType);
+    } else if (fileType.equalsIgnoreCase("smoke")) {
+    	  filename = String.format(world.getProperty(SSVC_FILENAME_SMOKE_KEY), surveyType);
     }
     return filename;
   }

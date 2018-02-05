@@ -63,17 +63,17 @@ Feature: Smoke Test
   # Sample Service Smoke Tests -----
  
   Scenario: Test business csv sample load
-    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "valid" file to trigger ingestion
+    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "smoke" file to trigger ingestion
     When the response status should be 201
     Then the response should contain the field "sampleSummaryPK" with an integer value of 1
-    And after a delay of 320 seconds
+    And after a delay of 60 seconds
     
-
-  Scenario: Test business sample load validation failure 
-    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "invalid" file to trigger ingestion
-    When the response status should be 400
-    Then the response should contain the field "error"
-    And after a delay of 30 seconds
+# Removing negative test scenarios from smoke test  
+#  Scenario: Test business sample load validation failure 
+#    When I make the POST call to the sample "bres" service endpoint for the "BSD" survey "invalid" file to trigger ingestion
+#    When the response status should be 400
+#    Then the response should contain the field "error"
+#    And after a delay of 30 seconds
 
   # Test fails until defect CTPA-1691 is resolved
 #  Scenario: Test census sample load
@@ -118,7 +118,7 @@ Feature: Smoke Test
   Scenario: Post request to collection exercise execution service for specific business survey by exercise id
     Given I make the POST call to the collection exercise execution endpoint for exercise id "14fb3e68-4dca-46db-bf49-04b84e07e77c"
     When the response status should be 200
-    Then the response should contain the field "sampleUnitsTotal" with an integer value of 500
+    Then the response should contain the field "sampleUnitsTotal" with an integer value of 10
 
 # Test fails until defect CTPA-1691 is resolved
   #Scenario: Put request to collection exercise service for specific census survey by exercise id
@@ -138,32 +138,32 @@ Feature: Smoke Test
   # Case Service Smoke Tests -----
 
   Scenario: Test casesvc case DB state
-    Given after a delay of 400 seconds
-    When check "casesvc.case" records in DB equal 500 for "statefk = 'ACTIONABLE'"
-    Then check "casesvc.case" distinct records in DB equal 500 for "iac" where "statefk = 'ACTIONABLE'"
+    Given after a delay of 330 seconds
+    When check "casesvc.case" records in DB equal 10 for "statefk = 'ACTIONABLE'"
+    Then check "casesvc.case" distinct records in DB equal 10 for "iac" where "statefk = 'ACTIONABLE'"
 
   Scenario: Test action creation by post request to create jobs for specified action plan
     Given the case start date is adjusted to trigger action plan
       | actionplanfk  | actionrulepk | actiontypefk | total |
-      | 1             | 1            | 1            | 497   |
-    Given after a delay of 60 seconds
-    # Note now we are passed the trigger point for action the case auto trigger 500 letters + 497 test created
-    Then check "action.action" records in DB equal 997 for "statefk = 'COMPLETED'"
-    When check "casesvc.caseevent" records in DB equal 497 for "description = 'Enrolment Invitation Letter'"
+      | 1             | 1            | 1            | 7     |
+    Given after a delay of 90 seconds
+    # Note now we are passed the trigger point for action, the case auto trigger 7 notification letters + 7 reminder letters + 3 reminder emails
+    Then check "action.action" records in DB equal 17 for "statefk = 'COMPLETED'"
+    When check "casesvc.caseevent" records in DB equal 7 for "description = 'Enrolment Invitation Letter'"
 
   # Action Service Smoke Tests -----
 
   Scenario: Test actionsvc case DB state for actionplan 1
-    When after a delay of 90 seconds
-    When check "action.case" records in DB equal 497 for "actionplanfk = 1"
+#    When after a delay of 30 seconds
+    When check "action.case" records in DB equal 7 for "actionplanfk = 1"
     When check "action.case" records in DB equal 3 for "actionplanfk = 2"
 
   # Action Exporter Service Smoke Tests -----
 @print
   Scenario: Test print file generation and confirm contents
-    Given after a delay of 90 seconds
+    Given after a delay of 30 seconds
     When get the contents of the print files where the filename begins "BSNOT" for "BSD"
     And the sftp exit status should be "-1"
     Then each line should contain an iac
     And the contents should contain ":null:null"
-    And the contents should contain 497 lines
+    And the contents should contain 7 lines
